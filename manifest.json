@@ -1,0 +1,42 @@
+{
+    "name": "Whatsapp Zen Mode",
+    "version": "1.0.0",
+    "description": "Lets you toggle between hiding and showing the sidebar on whatsapp web.",
+    "manifest_version": 2,
+    "permissions": [
+        "storage",
+        "*://*.whatsapp.com/"
+    ],
+    "background": {
+        "scripts": [
+            "./src/utils.js",
+            "./src/background.js"
+        ]
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://web.whatsapp.com/"
+            ],
+            "run_at": "document_idle",
+            "js": [
+                "./src/utils.js",
+                "./src/content.js"
+            ]
+        }
+    ],
+    "web_accessible_resources": [
+        "images/icons/*.png"
+    ],
+    "browser_action": {
+        "default_icon": {
+            "16": "./images/icons/icon.png",
+            "48": "./images/icons/icon.png"
+        }
+    },
+    "icons": {
+        "16": "./images/icons/icon.png",
+        "48": "./images/icons/icon.png",
+        "128": "./images/icons/icon.png"
+    }
+}
