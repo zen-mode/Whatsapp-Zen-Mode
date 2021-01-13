@@ -1,6 +1,6 @@
 {
     "name": "Whatsapp Zen Mode",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Lets you toggle between hiding and showing the sidebar on whatsapp web.",
     "manifest_version": 2,
     "permissions": [

@@ -1,11 +1,11 @@
-console.log('in content script');
+//console.log('in content script');
 let zenModeOn = null;
 let iconUpdaterInterval = null;
 
 // this will only happen at the beginning, and only if zenMode is off
 iconUpdaterInterval = window.setInterval(() => {
     if (!zenModeOn) {
-        console.log('updating current favicon...');
+        //console.log('updating current favicon...');
         window.postMessage({
             action: 'updateCurrentFavicon'
         }, '*');
@@ -32,6 +32,9 @@ function updateExtensionIcon() {
 function insertExtensionIcon() {
     const header = document.querySelector('#main header');
     if (header && !header.querySelector('.zen-mode-icon')) {
+        const searchIcon = header.querySelector('[title="Search…"]') || header.childNodes[2].firstChild.firstChild.firstChild;
+        const container = searchIcon.parentElement.parentElement;
+        
         const extensionIcon = document.createElement('img');
         extensionIcon.src = chrome.runtime.getURL(`images/icons/${zenModeOn ? 'icon_off.png' : 'icon.png'}`);
         extensionIcon.classList.add('zen-mode-icon');
@@ -40,7 +43,7 @@ function insertExtensionIcon() {
         extensionIcon.style.cursor = 'pointer';
         extensionIcon.title = 'Zen Mode';
         extensionIcon.addEventListener('click', handleExtensionIconClick);
-        header.insertBefore(extensionIcon, header.childNodes[1]);
+        container.prepend(extensionIcon);
     }
 }
 
@@ -71,7 +74,7 @@ function changeZenMode(onOrOff, initial = false) {
         showSidebar();
     }
     else {
-        console.log('wrong parameter');
+        //console.log('wrong parameter');
     }
     if (!initial) {
         window.postMessage({

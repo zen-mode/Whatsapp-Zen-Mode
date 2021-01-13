@@ -1,4 +1,4 @@
-console.log("in background script");
+//console.log("in background script");
 const DEFAULT_CONFIG = {
     shouldHide: false,
 }
@@ -33,7 +33,7 @@ async function toggleExtension() {
 }
 
 chrome.runtime.onInstalled.addListener(async () => {
-    console.log("oninstalled run");
+    //console.log("oninstalled run");
     const retrievedConfig = (await getFromStorage('config')) || {};
     const adjustedConfig = Object.assign({}, DEFAULT_CONFIG, retrievedConfig);
     await saveToStorage('config', adjustedConfig);
