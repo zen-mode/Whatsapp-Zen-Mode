@@ -1,0 +1,22 @@
+{
+  "extnName": {
+    "message": "זן מוד (וואטסאפ)"
+  },
+  "appDescription": {
+    "message": "מפשט את השימוש בוואטסאפ ווב, ועוזר לכם להתמקד"
+  },
+
+  "WA_contactCtxMenuItem_hide": {
+    "message": "החבא"
+  },
+
+  "ZM_ctxMenuItem_unhideAll": {
+    "message": "הראה שיחות מוחבאות"
+  },
+  "ZM_ctxMenuItem_releaseNotes": {
+    "message": "אודות הגרסה"
+  },
+  "ZM_ctxMenuItem_contactUs": {
+    "message": "צור/י קשר"
+  }
+}

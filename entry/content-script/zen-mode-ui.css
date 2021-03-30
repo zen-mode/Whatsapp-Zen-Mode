@@ -1,0 +1,109 @@
+/* Hide contact WA ctx menu item */
+#ZenMode__hideContact:hover,
+.ZenMode__contextMenuItem:hover {
+  background-color: var(--dropdown-background-hover);
+}
+#ZenMode__hideContact > div {
+  border-top: gray 1px dashed;
+  padding: 13px 0;
+  margin: 0 24px;
+  font-size: 14.5px;
+}
+/*@media (prefers-color-scheme: dark) {*/
+/*  #ZenMode__hideContact > div {*/
+/*    border-top: white 1px dashed;*/
+/*  }*/
+/*}*/
+
+/* ZM button */
+#ZenMode__toggle {
+  height: 25px;
+  width: 25px;
+  margin-right: 10px;
+  position: relative;
+  cursor: pointer;
+  background-position: center;
+  background-size: contain;
+}
+html[dir="rtl"] #ZenMode__toggle {
+  margin-right: 0;
+  margin-left: 10px;
+}
+/* ZM button chevron */
+#ZenMode__toggle__chevron {
+  width: fit-content;
+  margin: 0 5px;
+  position: absolute;
+  left: -30px;
+  bottom: -3px;
+}
+html[dir="rtl"] #ZenMode__toggle__chevron {
+  right: -30px;
+}
+/* ZM button version badge */
+#ZenMode__version {
+  height: 10px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: none;
+  color: white;
+  background: gray;
+  padding: 0 2px;
+  text-align: center;
+  font-size: 10px;
+  font-style: italic;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+/* ZM button contextMenu */
+#ZenMode__contextMenu {
+  width: 240px;
+  position: absolute;
+  top: 50px;
+  right: 150px;
+  display: none;
+}
+html[dir="rtl"] #ZenMode__contextMenu {
+  right: initial;
+  left: 150px;
+}
+
+/* Release notes */
+#ZenMode__releaseNotes {
+  position: fixed;
+  height: fit-content;
+  width: fit-content;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 9999999;
+  padding: 1em;
+  /*background: white;*/
+  direction: ltr;
+  text-align: left;
+}
+#ZenMode__releaseNotes > h1 {
+  margin-bottom: 1em;
+  /*color: black;*/
+  font-size: x-large;
+}
+#ZenMode__releaseNotes__version {
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+#ZenMode__releaseNotes ul {
+  list-style: inside;
+}
+#ZenMode__releaseNotes li {
+  margin: 0.5em 0;
+}
+#ZenMode__releaseNotes__closeBtn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
