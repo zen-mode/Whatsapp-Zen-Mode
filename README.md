@@ -6,7 +6,7 @@ Clicking the Icon will enable focus on this conversation
 Who will use this repo or project?
 # Zen Mode goal
 Enabling better focus by eliminating disturbance such as notification, sounds, switching of conversations .
-# bugs labeling
+# Bugs classification
 Severity
 •	Critical - system not operative. No bypass
 •	Major - main feature or component not working as expected.
