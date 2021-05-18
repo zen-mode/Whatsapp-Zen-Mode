@@ -1,7 +1,7 @@
 Version 1.3.0.X
 ---------------
 1. New Feature - Zen Morning. You can choose to wake you up every morning with Zen Mode focused on a pre-selected conversation. (see conversation menu)
-2. Bug fixes
+2. Bug fixes - primarily #47 that affected the browser title of the Whatsapp Tab
 3. To see previous release notes: https://github.com/zen-mode/Whatsapp-Zen-Mode/edit/main/ReleaseNotes.md
 
 Version 1.3.0.5
