@@ -1,9 +1,9 @@
 Version 1.3.0.5
 ---------------
-•	You can now activate Zen Mode with alt+z!
-• Hide/Snooze conversations you don't want to see
-•	A new Zen Mode Menu :unhiding contact,release notes and user feedback
+1. You can now activate Zen Mode with alt+z!
+2. Hide/Snooze conversations you don't want to see
+3. A new Zen Mode Menu :unhiding contact,release notes and user feedback
 
 Version 1.1.0
 -------------
-•	Zen Mode activation per pressing Zen Icon
+1. Zen Mode activation per pressing Zen Icon
