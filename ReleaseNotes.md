@@ -1,6 +1,6 @@
 Version 1.3.0.X
 ---------------
-1. Zen morning feautre added - in conversation menu you can now set "Zen morning" - this will wake you up every morning with Zen Mode focused on this conversation
+1. Zen morning feature added - in conversation menu you can now set "Zen morning" - this will wake you up every morning with Zen Mode focused on this conversation
 2. Bug fixes
 3. To see previous release notes: https://github.com/zen-mode/Whatsapp-Zen-Mode/edit/main/ReleaseNotes.md
 
