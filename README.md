@@ -17,7 +17,7 @@ Enabling better focus by eliminating disturbance such as notification, sounds, s
 *	Cosmetic - typo, improvements.
 
 ## Priority
-*	Urgent- fix now
-*	High- fix as soon as possible
-*	Normal- fix in next release
-*	Low- fix when there is free time
+*	Urgent - fix now
+*	High - fix as soon as possible
+*	Normal - fix in next release
+*	Low - fix when there is free time
