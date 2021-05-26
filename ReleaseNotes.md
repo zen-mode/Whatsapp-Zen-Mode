@@ -1,6 +1,6 @@
 Version 1.4.0.0
 ---------------
-1. Improved hide functionality - Hide button causes conversations to completely disappear visually.Un hide is possible per conversation and per all hidden.
+1. Improved hide functionality - Hide button now causes conversations to completely disappear visually. Unhide is possible per conversation and for all hidden chats.
 2. New Feature - Zen Morning. You can choose to wake you up every morning with Zen Mode focused on a pre-selected conversation. (see conversation menu)
 3. Bug fixes - primarily [#47](https://github.com/zen-mode/Whatsapp-Zen-Mode/issues/47) that affected the browser title of the Whatsapp Tab
 
