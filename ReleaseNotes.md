@@ -1,3 +1,14 @@
+Release notes 1.4.0.11
+----------------------
+1.**Improved hide functionality**- Hide button moves conversion to hidden chats list . Un hide is possible per conversation and for all hidden chats
+2.**New Feature - Zen Morning.** - You can choose to wake you up every morning with Zen Mode focused on a pre-selected conversation.(see conversation menu)
+3.**New Feature - Smart Mute**  - Mute everything except voice messages you play
+4.Bug fixes- improving version stability
+
+
+
+
+
 Version 1.4.0.8
 ---------------
 1. Improved hide functionality - Hide button now causes conversations to completely disappear visually. Unhide is possible per conversation and for all hidden chats.
