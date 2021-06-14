@@ -3,17 +3,19 @@
 import {BridgePortType, WWAProviderCall, WWAProviderRequest} from "./types";
 import {generateBasicWWAResponse} from "./Utils";
 import {
-  archiveChatLocally,
   getChat,
   getChatByTitle,
-  muteChatLocally,
-  unarchiveChatLocally,
-  unmuteChatLocally,
-  openChat, synchronizeWWChats, muteNonMutedChatsExceptId
+  openChat, synchronizeWWChats, getChatsExceptId, muteChatLocally
 } from "./WWAController";
 import {provideModules} from "./WWAProvider";
 import {Chat} from "./model/Chat";
 import {ChatFabric} from "./ChatFabric";
+import {
+  retentionArchiveChatLocally,
+  retentionMuteChatLocally,
+  stopRetentionArchiveChatLocally,
+  stopRetentionMuteChatLocally
+} from "./RetentionArchiveChat";
 // @ts-ignore
 const browser = chrome;
 
@@ -35,26 +37,30 @@ callerFunctions.set(WWAProviderCall.updateChatModels, (chats: Chat[]) => {
 
 
 callerFunctions.set(WWAProviderCall.muteChatLocally, (chat: Chat): any => {
-  muteChatLocally(chat.id);
+  retentionMuteChatLocally(chat.id);
 });
 
 callerFunctions.set(WWAProviderCall.unmuteChatsLocally, (chats: Chat[]): any => {
   for (const chat of chats)
-    unmuteChatLocally(chat.id);
+    stopRetentionMuteChatLocally(chat.id);
 });
 
 callerFunctions.set(WWAProviderCall.muteNonMutedChatsExceptChat, (chat: Chat) => {
-  return muteNonMutedChatsExceptId(chat.id).map(ChatFabric.fromWWAChat);
+  const WWAChatsForMute = getChatsExceptId(chat.id);
+  // Mute non muted chats
+  WWAChatsForMute.forEach(chat => retentionMuteChatLocally(chat.id));
+
+  return WWAChatsForMute.map(ChatFabric.fromWWAChat);
 });
 
 callerFunctions.set(WWAProviderCall.archiveChatLocallyByTitle, (chatTitle: string): void => {
   const chat = getChatByTitle(chatTitle);
-  archiveChatLocally(chat.id);
+  retentionArchiveChatLocally(chat);
 });
 
 callerFunctions.set(WWAProviderCall.unarchiveChatLocallyByTitle, (chatTitle: string): void => {
   const chat = getChatByTitle(chatTitle);
-  unarchiveChatLocally(chat.id);
+  stopRetentionArchiveChatLocally(chat.id);
 });
 
 callerFunctions.set(WWAProviderCall.getChatById, (chatId: string) => {
@@ -64,10 +70,10 @@ callerFunctions.set(WWAProviderCall.getChatById, (chatId: string) => {
 
 callerFunctions.set(WWAProviderCall.muteAndArchiveChatLocally, (chat: Chat, mute: boolean, archive: boolean): void => {
   const chatID = chat.id;
-  if (mute) muteChatLocally(chatID);
-  else unmuteChatLocally(chatID);
-  if (archive) archiveChatLocally(chatID);
-  else unarchiveChatLocally(chatID);
+  if (mute) retentionMuteChatLocally(chatID);
+  else stopRetentionMuteChatLocally(chatID);
+  if (archive) retentionArchiveChatLocally(chatID);
+  else stopRetentionArchiveChatLocally(chatID);
 });
 
 callerFunctions.set(WWAProviderCall.openChat, (chat: Chat): void => {

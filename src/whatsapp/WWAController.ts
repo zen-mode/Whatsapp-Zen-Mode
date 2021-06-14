@@ -1,8 +1,12 @@
 import {ChatModule, CmdModule, MUTE_FOREVER} from "./WWAProvider";
-import {retentionArchiveChatLocally, retentionUnarchiveChatLocally} from "./RetentionArchiveChat";
 
 function getChats(): any[] {
   return ChatModule.Chat.models;
+}
+
+export function getChatsExceptId(chatId: string): any[] {
+  return getChats()
+    .filter(chat => !chat.mute.isMute && chat.id !== chatId);
 }
 
 export function getChat(chatId: string): any {
@@ -15,25 +19,24 @@ export function getChatByTitle(chatTitle: string): any {
   })
 }
 
-export function muteChatLocally(chatId: string) {
-  const chat = ChatModule.Chat.get(chatId);
-  if (chat.mute.isMute != true)
+export function muteChatLocally(chat: any) {
+  if (chat.mute.isMuted != true)
     chat.mute.setMute(MUTE_FOREVER, false);
 }
 
-export function unmuteChatLocally(chatId: string) {
-  const chat = ChatModule.Chat.get(chatId);
-  if (chat.mute.isMute != false)
+export function unmuteChatLocally(chat: any) {
+  if (chat.mute.isMuted != false)
     chat.mute.setMute(0, false);
 }
 
-export function archiveChatLocally(chatId: string) {
-  const chat = ChatModule.Chat.get(chatId);
-  retentionArchiveChatLocally(chat);
+export function archiveChatLocally(chat: any) {
+  if (chat.archive != true)
+    chat.archive = true;
 }
 
-export function unarchiveChatLocally(chatId: string) {
-  retentionUnarchiveChatLocally(chatId);
+export function unarchiveChatLocally(chat: any) {
+  if (chat.archive != false)
+    chat.archive = false;
 }
 
 export function openChat(chatId: string) {
@@ -43,14 +46,4 @@ export function openChat(chatId: string) {
 
 export async function synchronizeWWChats() {
   await ChatModule.Chat.sync();
-}
-
-export function muteNonMutedChatsExceptId(chatId: string): any[] {
-  const chatsForMute = getChats()
-    .filter(chat => !chat.mute.isMute && chat.id !== chatId);
-  // Mute non muted chats
-  chatsForMute.forEach(chat => muteChatLocally(chat.id));
-
-  return chatsForMute;
-
 }

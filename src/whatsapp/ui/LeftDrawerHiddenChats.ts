@@ -5,7 +5,7 @@ import {constructBaseLeftDrawerItemList, LeftDrawerItemList} from "./LeftDrawerI
 import {subscribeForeverHiddenChatChanges, removeHiddenChats} from "../Storage";
 import {browser} from "webextension-polyfill-ts";
 
-const CHAT_ID= 'chatRoot';
+const CHAT_ID = 'chatRoot';
 const EMPTY_HIDDEN_CHATS_LIST_PLUG_ID = 'EMPTY_HIDDEN_CHATS_LIST_PLUG_ID';
 
 const USER_CHAT_SVG_HTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" width="212" height="212">
@@ -74,7 +74,7 @@ function constructEmptyPlug(): HTMLElement {
 }
 
 // TODO: replace to high-level api call original context menu
-function drawRedrawFakeCtxMenu(event: MouseEvent, chat: Chat, drawer: LeftDrawerItemList<Chat>, remove: boolean = false) {
+function drawRedrawFakeCtxMenu(event: MouseEvent, chat: Chat, remove: boolean = false) {
   let fakeContextMenu = DOM.get_el('#fakeCtxMenu');
   if (remove) {
     if (fakeContextMenu)
@@ -84,28 +84,28 @@ function drawRedrawFakeCtxMenu(event: MouseEvent, chat: Chat, drawer: LeftDrawer
   if (!fakeContextMenu) {
     const unhideMessage = browser.i18n.getMessage('WA_contactCtxMenuItem_unhide');
     document.body.insertAdjacentHTML('beforeend', `
-<div style="height: 100%; width: 100%; z-index: 101; position: absolute;">
-<div id="fakeCtxMenu" tabindex="-1" class="_1qAEq" style="transform-origin: left top; left: ${event.pageX}px; top: ${event.pageX}px; transform: scale(1); opacity: 1;">
-  <ul class="_19rjv">
-  <div>
-  <li tabindex="-1" class="_2iavx _2CDB7 _3UHfW" style="opacity: 1;">
-  <div id="unhideChatButton" class="_11srW _2xxet" role="button" aria-label="${unhideMessage}">${unhideMessage}
-  </div><div></div></li>
-  </div>
-  </ul>
-</div>
-</div>
-`);
-    drawRedrawFakeCtxMenu(event, chat, drawer);
+      <div style="height: 100%; width: 100%; z-index: 101; position: absolute;">
+      <div id="fakeCtxMenu" tabindex="-1" class="_1qAEq" style="transform-origin: left top; left: ${event.pageX}px; top: ${event.pageX}px; transform: scale(1); opacity: 1;">
+        <ul class="_19rjv">
+        <div>
+        <li tabindex="-1" class="_2iavx _2CDB7 _3UHfW" style="opacity: 1;">
+        <div id="unhideChatButton" class="_11srW _2xxet" role="button" aria-label="${unhideMessage}">${unhideMessage}
+        </div><div></div></li>
+        </div>
+        </ul>
+      </div>
+      </div>
+      `);
+    drawRedrawFakeCtxMenu(event, chat);
     return;
   }
   fakeContextMenu.parentElement!!.style.display = 'block';
   fakeContextMenu.parentElement!!.oncontextmenu = (e) => {
     e.preventDefault();
-    drawRedrawFakeCtxMenu(null, null, null, true);
+    drawRedrawFakeCtxMenu(null, null, true);
   }
   fakeContextMenu.parentElement!!.onclick = (e) => {
-    drawRedrawFakeCtxMenu(null, null, null, true);
+    drawRedrawFakeCtxMenu(null, null, true);
   }
   fakeContextMenu.style.top = `${event.pageY}px`;
   fakeContextMenu.style.left = `${event.pageX}px`;
@@ -113,7 +113,7 @@ function drawRedrawFakeCtxMenu(event: MouseEvent, chat: Chat, drawer: LeftDrawer
   const unhideChatButton = DOM.get_el('#unhideChatButton', fakeContextMenu)!!;
   unhideChatButton.onclick = () => {
     removeHiddenChats(chat);
-    drawRedrawFakeCtxMenu(null, null, null, true);
+    drawRedrawFakeCtxMenu(null, null, true);
   }
   const firstLi = DOM.get_el('li', fakeContextMenu)!!;
   firstLi.onmouseover = (e) => {
@@ -129,12 +129,12 @@ export function presentHiddenChatsLeftDrawer(hiddenChats: Chat[]): LeftDrawerIte
     hiddenChatsDrawer.close()
   hiddenChatsDrawer = constructBaseLeftDrawerItemList(
     'Hidden chats', hiddenChats,
-    () => {
-      drawRedrawFakeCtxMenu(null, null, null, true);
+    (event) => {
+      drawRedrawFakeCtxMenu(event, null, true);
     },
     constructBasicChatListElement,
     (e, chat) => {
-      drawRedrawFakeCtxMenu(e, chat, hiddenChatsDrawer);
+      drawRedrawFakeCtxMenu(e, chat);
     },
     constructEmptyPlug
   );

@@ -3,7 +3,7 @@
 
 declare module "url:*.png";
 declare module "url:*.svg";
-declare module "./RELEASE-NOTES.yaml";
+declare module "RELEASE-NOTES.yaml";
 
 // File: src/types/font-face.d.ts
 // Spec: https://www.w3.org/TR/css-font-loading/

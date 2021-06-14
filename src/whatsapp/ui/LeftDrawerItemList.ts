@@ -17,8 +17,7 @@ const DRAWER_CONTAINER_HEIGHT_PX = 72;
 const DRAWER_UP_BUTTON_ID = 'backButton';
 
 export function constructBaseLeftDrawerItemList<T>(title: string,
-                                                   items: T[],
-                                                   onBackButtonClick: () => void,
+                                                   items: T[], onBackButtonClick: (event: MouseEvent) => void,
                                                    constructItemEl: (item: T) => HTMLElement,
                                                    onClickOnItemEl: (event: MouseEvent, item: T) => void,
                                                    constructEmptyPlugEl: () => HTMLElement): LeftDrawerItemList<T> {
@@ -87,8 +86,6 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
   let currentEmptyPlugEl: Element | null;
 
   function setEmptyPlugEl(element: HTMLElement | null) {
-    devprint('setEmptyPlugEl', element);
-    devprint('currentEmptyPlugEl', currentEmptyPlugEl);
     if (element) {
       if (currentEmptyPlugEl) {
         currentEmptyPlugEl.remove();
@@ -104,8 +101,10 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
     leftDrawerContainer!!.insertAdjacentElement('beforeend', drawerEl);
   }
 
-  function removeDrawer() {
+  function releaseDrawer() {
+    drawerEl.innerHTML = '';
     drawerEl.remove();
+    itemElToItem.clear();
   }
 
   function bindItem(item: T) {
@@ -130,11 +129,8 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
   }
 
   function clearItems() {
-    for (const e of itemElToItem.entries()) {
-      const itemEl = e[0];
-      itemElToItem.delete(itemEl);
-      itemEl.remove();
-    }
+    itemsContainerEl.innerHTML = '';
+    itemElToItem.clear();
   }
 
   function onItemsChange() {
@@ -153,9 +149,9 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
   }
 
   titleEl.textContent = title;
-  backButtonEl.addEventListener('click', () => {
-    onBackButtonClick();
-    removeDrawer();
+  backButtonEl.addEventListener('click', (event) => {
+    onBackButtonClick(event);
+    releaseDrawer();
   });
   for (const item of items) {
     bindItem(item);
@@ -180,7 +176,7 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
       clearItems();
       onItemsChange();
     },
-    close: removeDrawer,
+    close: releaseDrawer,
     open: addAndShowDrawer
   }
 }

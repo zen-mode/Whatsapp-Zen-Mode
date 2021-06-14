@@ -3,13 +3,13 @@
   "version": "1.4.0",
   "private": true,
   "scripts": {
-    "live-build": "../0468-uznm-zen-mode/node_modules/.bin/parcel src/manifest.json --no-source-maps --no-optimize --no-scope-hoist",
-    "build-beta": "npm run parcel-beta && ../0468-uznm-zen-mode/node_modules/.bin/cross-env BUILD_TYPE=local-beta node scripts/build.js",
-    "build-release": "npm run parcel-release && ../0468-uznm-zen-mode/node_modules/.bin/cross-env BUILD_TYPE=local-release node scripts/build.js",
-    "build-ws-beta": "npm run parcel-beta && ../0468-uznm-zen-mode/node_modules/.bin/cross-env BUILD_TYPE=web-store-beta node scripts/build.js",
-    "build-ws-release": "npm run parcel-release && ../0468-uznm-zen-mode/node_modules/.bin/cross-env BUILD_TYPE=web-store-release node scripts/build.js",
-    "parcel-beta": "../0468-uznm-zen-mode/node_modules/.bin/cross-env NODE_ENV=development parcel build src/manifest.json --no-source-maps --no-optimize",
-    "parcel-release": "rimraf ./dist && ../0468-uznm-zen-mode/node_modules/.bin/cross-env NODE_ENV=production parcel build src/manifest.json --no-source-maps --no-cache",
+    "live-build": "parcel src/manifest.json --no-source-maps --no-optimize --no-scope-hoist",
+    "build-beta": "npm run parcel-beta && cross-env BUILD_TYPE=local-beta node ../Whatsapp-Zen-Mode/scripts/build.js",
+    "build-release": "npm run parcel-release && cross-env BUILD_TYPE=local-release node ../Whatsapp-Zen-Mode/scripts/build.js",
+    "build-ws-beta": "npm run parcel-beta && cross-env BUILD_TYPE=web-store-beta node ../Whatsapp-Zen-Mode/scripts/build.js",
+    "build-ws-release": "npm run parcel-release && cross-env BUILD_TYPE=web-store-release node ../Whatsapp-Zen-Mode/scripts/build.js",
+    "parcel-beta": "cross-env NODE_ENV=development parcel build src/manifest.json --no-source-maps --no-optimize",
+    "parcel-release": "rimraf ./dist && cross-env NODE_ENV=production parcel build src/manifest.json --no-source-maps --no-cache",
     "build-all-packs": "npm run build-beta && npm run build-ws-beta && npm run build-release && npm run build-ws-release"
   },
   "devDependencies": {
