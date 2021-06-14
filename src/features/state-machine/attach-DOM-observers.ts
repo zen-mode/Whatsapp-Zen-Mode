@@ -46,7 +46,7 @@ const observer = new MutationObserver(async (mutations) => {
             // Explain: Wait for all rendering and animations to complete; otherwise - buggy.
             setTimeout(() => {
               hiddenChats.forEach((hiddenChat) => {
-                setChatVisibility(hiddenChat, false);
+                setChatVisibility(hiddenChat, false, smartMuteStatus);
               });
               // Check smart mute
               setSmartMuteStatus(smartMuteStatus);

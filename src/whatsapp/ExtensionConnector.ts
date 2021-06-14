@@ -49,24 +49,16 @@ export function muteNonMutedChatsExceptChats(callback?: (mutedChats: Chat[]) => 
   callProviderFunctionWithCallback(WWAProviderCall.muteNonMutedChatsExceptChat, [chats], callback);
 }
 
-export function archiveChatLocally(contactName: string, callback?: () => void) {
-  callProviderFunctionWithCallback(WWAProviderCall.archiveChatLocallyByTitle, [contactName], callback);
+export function archiveChatLocally(chat: Chat, callback?: () => void) {
+  callProviderFunctionWithCallback(WWAProviderCall.archiveChatLocally, [chat], callback);
 }
 
-export function unarchiveChatLocally(contactName: string, callback?: () => void) {
-  callProviderFunctionWithCallback(WWAProviderCall.unarchiveChatLocallyByTitle, [contactName], callback);
+export function unArchiveChatLocally(chat: Chat, callback?: () => void) {
+  callProviderFunctionWithCallback(WWAProviderCall.unArchiveChatLocally, [chat], callback);
 }
 
 export function getChatById(chatId: string, callback?: (chat: Chat) => void): void {
   callProviderFunctionWithCallback(WWAProviderCall.getChatById, [chatId], callback);
-}
-
-export function muteAndArchiveChatLocally(chat: Chat, callback?: () => void) {
-  callProviderFunctionWithCallback(WWAProviderCall.muteAndArchiveChatLocally, [chat, true, true], callback);
-}
-
-export function unmuteAndUnarchiveChatLocally(chat: Chat, callback?: () => void) {
-  callProviderFunctionWithCallback(WWAProviderCall.muteAndArchiveChatLocally, [chat, false, false], callback);
 }
 
 export function openChat(chat: Chat, callback?: () => void) {

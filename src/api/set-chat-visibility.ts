@@ -1,23 +1,37 @@
-import {muteAndArchiveChatLocally, unmuteAndUnarchiveChatLocally} from "../whatsapp/ExtensionConnector";
+import {
+  archiveChatLocally,
+  muteChatLocally,
+  unArchiveChatLocally,
+  unmuteChatsLocally
+} from "../whatsapp/ExtensionConnector";
 import {Chat} from "../whatsapp/model/Chat";
 import {subscribeForeverHiddenChatChanges} from "../whatsapp/Storage";
+import {getSmartMuteStatus} from "../features/user-can/SmartMute/SmartMute";
 
 export function setChatVisibility(
   chat: Chat,
   isVisible: boolean,
+  smartMuteStatus?: boolean
 ): void {
   if (isVisible) {
-    unmuteAndUnarchiveChatLocally(chat);
+    if (!smartMuteStatus) {
+      unmuteChatsLocally([chat]);
+    }
+    unArchiveChatLocally(chat);
   } else {
-    muteAndArchiveChatLocally(chat);
+    if (!smartMuteStatus) {
+      muteChatLocally(chat);
+    }
+    archiveChatLocally(chat);
   }
 }
 
-subscribeForeverHiddenChatChanges((hiddenChats, oldHiddenChats) => {
-  const hiddenChatIds = hiddenChats.map(c=>c.id);
-  hiddenChats.forEach(hiddenChat => setChatVisibility(hiddenChat, false));
+subscribeForeverHiddenChatChanges(async (hiddenChats, oldHiddenChats) => {
+  const smartMuteStatus = await getSmartMuteStatus();
+  const hiddenChatIds = hiddenChats.map(c => c.id);
+  hiddenChats.forEach(hiddenChat => setChatVisibility(hiddenChat, false, smartMuteStatus));
   oldHiddenChats.forEach(hiddenChat => {
     if (!hiddenChatIds.includes(hiddenChat.id))
-      setChatVisibility(hiddenChat, true);
+      setChatVisibility(hiddenChat, true, smartMuteStatus);
   });
 })

@@ -53,27 +53,17 @@ callerFunctions.set(WWAProviderCall.muteNonMutedChatsExceptChat, (chat: Chat) =>
   return WWAChatsForMute.map(ChatFabric.fromWWAChat);
 });
 
-callerFunctions.set(WWAProviderCall.archiveChatLocallyByTitle, (chatTitle: string): void => {
-  const chat = getChatByTitle(chatTitle);
-  retentionArchiveChatLocally(chat);
+callerFunctions.set(WWAProviderCall.archiveChatLocally, (chat: Chat): void => {
+  retentionArchiveChatLocally(chat.id);
 });
 
-callerFunctions.set(WWAProviderCall.unarchiveChatLocallyByTitle, (chatTitle: string): void => {
-  const chat = getChatByTitle(chatTitle);
+callerFunctions.set(WWAProviderCall.unArchiveChatLocally, (chat: Chat): void => {
   stopRetentionArchiveChatLocally(chat.id);
 });
 
 callerFunctions.set(WWAProviderCall.getChatById, (chatId: string) => {
   const chat = getChat(chatId);
   return ChatFabric.fromWWAChat(chat);
-});
-
-callerFunctions.set(WWAProviderCall.muteAndArchiveChatLocally, (chat: Chat, mute: boolean, archive: boolean): void => {
-  const chatID = chat.id;
-  if (mute) retentionMuteChatLocally(chatID);
-  else stopRetentionMuteChatLocally(chatID);
-  if (archive) retentionArchiveChatLocally(chatID);
-  else stopRetentionArchiveChatLocally(chatID);
 });
 
 callerFunctions.set(WWAProviderCall.openChat, (chat: Chat): void => {

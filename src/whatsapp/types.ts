@@ -8,10 +8,9 @@ export enum WWAProviderCall {
   updateChatModels,
   muteChatLocally,
   unmuteChatsLocally,
-  archiveChatLocallyByTitle,
+  archiveChatLocally,
+  unArchiveChatLocally,
   muteNonMutedChatsExceptChat,
-  unarchiveChatLocallyByTitle,
-  muteAndArchiveChatLocally,
   getChatById,
   openChat,
   refreshWWChats
