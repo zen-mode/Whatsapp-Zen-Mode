@@ -86,7 +86,6 @@ extBridgePort.onMessage.addListener((request: WWAProviderRequest) => {
 });
 
 async function handleRequest(request: WWAProviderRequest) {
-  console.log("handleRequest", request);
   let result;
   let error;
   try {

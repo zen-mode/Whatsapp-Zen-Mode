@@ -15,10 +15,8 @@ function handleWAProviderPort(port: Port) {
     const tabPorts: WWABridge = tabIdToWWABridge[senderTabId] ?? {};
     switch (port.name) {
       case BridgePortType.WWA_EXTENSION_CONNECTOR:
-        console.log('BridgePortType.WWA_EXTENSION_CONNECTOR');
         tabPorts.extensionControllerPort = port;
         port.onMessage.addListener(message => {
-          console.log('WWA_EXTENSION_CONNECTOR message', message);
           const tabPorts: WWABridge = tabIdToWWABridge[senderTabId];
           if (tabPorts && tabPorts.externalPagePort) {
             tabPorts.externalPagePort.postMessage(message);
@@ -26,10 +24,8 @@ function handleWAProviderPort(port: Port) {
         });
         break;
       case BridgePortType.WWA_EXTERNAL_CONNECTOR:
-        console.log('BridgePortType.WWA_EXTERNAL_CONNECTOR');
         tabPorts.externalPagePort = port;
         port.onMessage.addListener(message => {
-          console.log('WWA_EXTERNAL_CONNECTOR message', message);
           const tabPorts: WWABridge = tabIdToWWABridge[senderTabId];
           if (tabPorts && tabPorts.extensionControllerPort) {
             tabPorts.extensionControllerPort.postMessage(message);
@@ -38,7 +34,6 @@ function handleWAProviderPort(port: Port) {
         break;
     }
     tabIdToWWABridge[senderTabId] = tabPorts;
-    console.log('tabIdToWWABridge[senderTabId] = tabPorts', tabIdToWWABridge[senderTabId]);
   }
 }
 
