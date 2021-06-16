@@ -1,6 +1,7 @@
 - changes:
-    - "Improved hide functionality - Hide button now causes conversations to completely disappear visually. Unhide is possible per conversation and for all hidden chats."
-    - "New Feature - Zen Morning. You can choose to wake you up every morning with Zen Mode focused on a pre-selected conversation. (see conversation menu)"
-    - "New Feature - Smart Mute. Mute everything except voice messages you play"
-    - "Bug fixes - primarily <a href=\"https://github.com/zen-mode/Whatsapp-Zen-Mode/issues/47\">#47</a> that affected the browser title of the Whatsapp Tab"
-    - "Version History: <a href=\"https://github.com/zen-mode/Whatsapp-Zen-Mode/blob/main/ReleaseNotes.md\">ReleaseNotes.md</a>"
+    - "(<a href=\"https://en.wikipedia.org/wiki/Rosa_Parks\">Rosa Parks</a> - first public beta release)"
+    - "Zen Mode - click on the Zen icon near the search to focus on the current conversations."
+    - "Hide chats- Hide button moves chats to a \"hidden chats\" list. You can Un-hide from there or unhide all from main zen menu."
+    - "Zen Morning. - You can choose to wake up every morning with Zen Mode focused on a pre-selected conversation. (see conversation menu)"
+    - "Smart Mute - Mute everything except voice/video messages you play."
+    - "<a href=\"https://github.com/zen-mode/Whatsapp-Zen-Mode/blob/main/ReleaseNotes.md\">See previous versions</a>"
