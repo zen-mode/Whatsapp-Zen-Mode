@@ -1,0 +1,60 @@
+{
+  "extnName": {
+    "message": "זן מוד (וואטסאפ)"
+  },
+  "appDescription": {
+    "message": "מפשט את השימוש בוואטסאפ ווב, ועוזר לכם להתמקד"
+  },
+
+  "WA_contactCtxMenuItem_hide": {
+    "message": "החבא"
+  },
+
+  "WA_contactCtxMenuItem_unhide": {
+    "message": "הראה שיחה מוחבאת"
+  },
+
+  "WA_contactCtxMenuItem_zenMorning": {
+    "message": "בוקר זן \uD83C\uDF1E",
+    "description": "WA contact ctx menu item that turn zen morning for contact"
+  },
+
+  "WA_contactCtxMenuItem_cancelZenMorning": {
+    "message": "בטל/י בוקר זן",
+    "description": "WA contact ctx menu item that turn zen morning for contact"
+  },
+
+  "ZM_zenMorning_description": {
+    "message": "הער אותי כל בוקר במצב זן על השיחה הנוכחית. לתשומת ליבך בחירה בכן תבטל כל הגדרה קודמת של בוקר זן"
+  },
+
+  "ZM_yesBtn": {
+    "message": "כן"
+  },
+
+  "ZM_noBtn": {
+    "message": "לא"
+  },
+
+  "ZM_ctxMenuItem_hiddenChats": {
+    "message": "הראה רשימת שיחות מוחבאות"
+  },
+  "ZM_ctxMenuItem_unhideAll": {
+    "message": "הראה שיחות מוחבאות"
+  },
+  "ZM_ctxMenuItem_releaseNotes": {
+    "message": "אודות הגרסה"
+  },
+  "ZM_ctxMenuItem_contactUs": {
+    "message": "צור/י קשר"
+  },
+  "ZM_ctxMenuItem_smartMute_ON": {
+    "message": "הפעל מצב השתקה חכמה"
+  },
+  "ZM_ctxMenuItem_smartMute_OFF": {
+    "message": "בטל מצב השתקה חכמה"
+  },
+  "ZM_ctxMenuItem_smartMute_desc": {
+    "message": "השתק את כל הצלילים מלבד הודעות קוליות ווידאו שאתה מנגן"
+  }
+}
