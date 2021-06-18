@@ -65,7 +65,7 @@ export function bindChatsToTitleUnread(...chats: Chat[]) {
   chats.forEach((chat, i) => {
     const findedChat = bindedChats.find(c => c && c.id === chat.id);
     if (findedChat)
-      delete chats[i];
+      chats.splice(i, 1);
   })
   bindedChats.push(...chats);
   onTitleChanged();
