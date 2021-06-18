@@ -1,7 +1,7 @@
 import moment from "moment";
 import {DOM} from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
 
-import {Selectors, StateItemNames, ZenDomDataAttributes} from "../../../data/dictionary";
+import {Selectors, StateItemNames, ZenModeStatuses} from "../../../data/dictionary";
 import {
   get_extn_storage_item_value,
   remove_extn_storage_item,
@@ -14,6 +14,10 @@ import {Chat} from "../../../whatsapp/model/Chat";
 import {lastHoveredChat} from "../../extension-can/display-zen-mode-ui/construct-zen-mode-ui/attach_hide_contact_item";
 import {isZenMorningTime} from "../../../api/isZenMorningTime";
 import {openChat} from "../../../whatsapp/ExtensionConnector";
+import {
+  apply_Zen_mode_status, get_Zen_mode_status,
+  set_Zen_mode_status,
+} from "../toggle-zen-mode/cs/toggle-zen-mode";
 
 export function setZenMorning(): void {
   let zenMorningAreaEl = DOM.get_el(Selectors.ZM_ZENMORNING_AREA);
@@ -92,11 +96,27 @@ export async function checkZenMorningChatState(zenMorningChat?: Chat): Promise<v
   if (zenMorningChat) {
     renderZenMorningSunIcon(true, zenMorningChat);
     if (await isZenMorningTime()) {
-      set_extn_storage_item({
+      await set_extn_storage_item({
         [StateItemNames.LAST_ACTIVITY_DATE]: moment().toJSON(),
-        [StateItemNames.ZEN_MODE_STATUS]: true
+        [StateItemNames.ZEN_MODE_FORCE_BY_ZEN_MORNING]: true
       });
-      openChat(zenMorningChat)
+      openChat(zenMorningChat, () => {
+        apply_Zen_mode_status(ZenModeStatuses.ON);
+      });
     }
   }
 }
+
+async function resetForcedZenMorning() {
+  const zenModeStatus = await get_Zen_mode_status();
+  const zenForcedByZMorning = await get_extn_storage_item_value(StateItemNames.ZEN_MODE_FORCE_BY_ZEN_MORNING);
+  if (zenModeStatus === ZenModeStatuses.ON
+    && zenForcedByZMorning) {
+    await set_Zen_mode_status(ZenModeStatuses.OFF)
+    await set_extn_storage_item({
+      [StateItemNames.ZEN_MODE_FORCE_BY_ZEN_MORNING]: false,
+    });
+  }
+}
+
+void resetForcedZenMorning();

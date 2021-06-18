@@ -18,29 +18,39 @@ import {bindChatsToTitleUnread, unbindAllChatsToTitle} from "../../../../api/bin
 devprint("STATUS: Waiting for TOGGLE_ZEN_MODE command.");
 
 export async function toggle_Zen_mode(): Promise<void> {
-  // 1. Toggles Zen mode State.
-  const showZenModeUI = await toggle_Zen_mode_State_AND_get_value();
+  const zenModeStatus = await get_Zen_mode_status();
+  const newZenModeStatus = toggle_Zen_mode_status(zenModeStatus);
+  console.log('zen', 'zenNew');
+  console.log(zenModeStatus, newZenModeStatus);
+  await apply_Zen_mode_status(newZenModeStatus);
+}
 
-  // 2. Toggles Zen mode UI on the page.
-  if (showZenModeUI) toggle_Zen_mode_on_page(ZenModeStatuses.ON);
-  else toggle_Zen_mode_on_page(ZenModeStatuses.OFF);
+function toggle_Zen_mode_status(status: ZenModeStatuses): ZenModeStatuses {
+  return status === ZenModeStatuses.ON
+    ? ZenModeStatuses.OFF
+    : ZenModeStatuses.ON;
+}
 
+export async function apply_Zen_mode_status(status: ZenModeStatuses): Promise<void> {
+  await set_Zen_mode_status(status);
+  await toggle_Zen_mode_on_page(status);
+}
+
+export async function set_Zen_mode_status(status: ZenModeStatuses): Promise<void> {
+  await set_extn_storage_item({
+    [StateItemNames.ZEN_MODE_STATUS]: status === ZenModeStatuses.ON
+  });
+  lastZenModeState = status;
   devprint(
-    `STATUS: Zen Mode is ${showZenModeUI ? ZenModeStatuses.ON : ZenModeStatuses.OFF}`,
+    `STATUS: Zen Mode is ${status}`,
   );
 }
 
-async function toggle_Zen_mode_State_AND_get_value(): Promise<boolean> {
-  const oldState = (await get_extn_storage_item_value(
-    StateItemNames.ZEN_MODE_STATUS,
-  )) as boolean;
-  await set_extn_storage_item({[StateItemNames.ZEN_MODE_STATUS]: !oldState});
-
-  devprint(`STATUS: Set ${StateItemNames.ZEN_MODE_STATUS} State to:`, !oldState);
-
-  lastZenModeState = !oldState ? ZenModeStatuses.ON : ZenModeStatuses.OFF;
-
-  return !oldState;
+export async function get_Zen_mode_status(): Promise<ZenModeStatuses> {
+  const isZenModeON = await get_extn_storage_item_value(StateItemNames.ZEN_MODE_STATUS);
+  return isZenModeON
+    ? ZenModeStatuses.ON
+    : ZenModeStatuses.OFF;
 }
 
 let lastTargetedChat: Chat | null;
@@ -77,8 +87,8 @@ export function toggle_Zen_mode_on_page(mode: ZenModeStatuses): void {
       findChatByTitle(targetedChatTitle, (chat: Chat) => {
         if (targetedChatTitle === get_targeted_chat_raw_title()
         && mode === lastZenModeState) {
+          bindChatsToTitleUnread(chat);
           lastTargetedChat = chat;
-          bindChatsToTitleUnread(lastTargetedChat);
         }
       });
     } else {
