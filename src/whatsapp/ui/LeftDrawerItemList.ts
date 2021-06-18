@@ -19,7 +19,6 @@ const DRAWER_UP_BUTTON_ID = 'backButton';
 export function constructBaseLeftDrawerItemList<T>(title: string,
                                                    items: T[], onBackButtonClick: (event: MouseEvent) => void,
                                                    constructItemEl: (item: T) => HTMLElement,
-                                                   onClickOnItemEl: (event: MouseEvent, item: T) => void,
                                                    constructEmptyPlugEl: () => HTMLElement): LeftDrawerItemList<T> {
   const leftDrawerContainer = DOM.get_el('._1Flk2._2DPZK');
   if (!leftDrawerContainer) {
@@ -109,10 +108,6 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
 
   function bindItem(item: T) {
     const itemEl = constructItemEl(item);
-    itemEl.oncontextmenu = event => {
-      event.preventDefault();
-      onClickOnItemEl(event, item);
-    };
     itemsContainerEl.appendChild(itemEl);
     itemElToItem.set(itemEl, item);
   }

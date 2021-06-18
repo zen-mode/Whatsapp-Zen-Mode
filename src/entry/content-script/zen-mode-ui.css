@@ -180,3 +180,36 @@ html[dir=rtl] #ZenMode__zenMorning__sunIcon {
   height: auto;
   width: 18px;
 }
+
+.hiddenChatEl .dNJHX[data-action=fakeCtxMenu] {
+  width: 20px;
+}
+.hiddenChatEl:not(:hover) .dNJHX[data-action=fakeCtxMenu] {
+  display: none;
+}
+
+.fakeCtxMenu {
+  animation-duration: .2s;
+  animation-fill-mode: forwards;
+}
+.fakeCtxMenu ._2iavx {
+  opacity: 1;
+}
+
+@keyframes showFakeCtxMenu {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes hideFakeCtxMenu {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}

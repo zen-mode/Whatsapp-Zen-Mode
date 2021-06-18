@@ -4,8 +4,8 @@ import {devprint} from "../../../utility-belt/helpers/debug/devprint";
 import {constructBaseLeftDrawerItemList, LeftDrawerItemList} from "./LeftDrawerItemList";
 import {subscribeForeverHiddenChatChanges, removeHiddenChats} from "../Storage";
 import {browser} from "webextension-polyfill-ts";
+import {FakeCtxMenu} from "./FakeCtxMenu";
 
-const CHAT_ID = 'chatRoot';
 const EMPTY_HIDDEN_CHATS_LIST_PLUG_ID = 'EMPTY_HIDDEN_CHATS_LIST_PLUG_ID';
 
 const USER_CHAT_SVG_HTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" width="212" height="212">
@@ -16,16 +16,33 @@ const GROUP_CHAT_SVG_HTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 
   <path fill="#DFE5E7" class="background" d="M105.946.25C164.318.25 211.64 47.596 211.64 106s-47.322 105.75-105.695 105.75C47.571 211.75.25 164.404.25 106S47.571.25 105.946.25z"></path>
   <path fill="#FFF" class="primary" d="M61.543 100.988c8.073 0 14.246-6.174 14.246-14.246s-6.173-14.246-14.246-14.246-14.246 6.173-14.246 14.246 6.174 14.246 14.246 14.246zm8.159 17.541a48.192 48.192 0 0 1 8.545-6.062c-4.174-2.217-9.641-3.859-16.704-3.859-21.844 0-28.492 15.67-28.492 15.67v8.073h26.181l.105-.248c.303-.713 3.164-7.151 10.365-13.574zm80.755-9.921c-6.854 0-12.21 1.543-16.336 3.661a48.223 48.223 0 0 1 8.903 6.26c7.201 6.422 10.061 12.861 10.364 13.574l.105.248h25.456v-8.073c-.001 0-6.649-15.67-28.492-15.67zm0-7.62c8.073 0 14.246-6.174 14.246-14.246s-6.173-14.246-14.246-14.246-14.246 6.173-14.246 14.246 6.173 14.246 14.246 14.246zm-44.093 3.21a23.21 23.21 0 0 0 4.464-.428c.717-.14 1.419-.315 2.106-.521 1.03-.309 2.023-.69 2.976-1.138a21.099 21.099 0 0 0 3.574-2.133 20.872 20.872 0 0 0 5.515-6.091 21.283 21.283 0 0 0 2.121-4.823 22.16 22.16 0 0 0 .706-3.193c.16-1.097.242-2.224.242-3.377s-.083-2.281-.242-3.377a22.778 22.778 0 0 0-.706-3.193 21.283 21.283 0 0 0-3.272-6.55 20.848 20.848 0 0 0-4.364-4.364 21.099 21.099 0 0 0-3.574-2.133 21.488 21.488 0 0 0-2.976-1.138 22.33 22.33 0 0 0-2.106-.521 23.202 23.202 0 0 0-4.464-.428c-12.299 0-21.705 9.405-21.705 21.704 0 12.299 9.406 21.704 21.705 21.704zM145.629 131a36.739 36.739 0 0 0-1.2-1.718 39.804 39.804 0 0 0-3.367-3.967 41.481 41.481 0 0 0-3.442-3.179 42.078 42.078 0 0 0-5.931-4.083 43.725 43.725 0 0 0-3.476-1.776c-.036-.016-.069-.034-.104-.05-5.692-2.581-12.849-4.376-21.746-4.376-8.898 0-16.055 1.795-21.746 4.376-.196.089-.379.185-.572.276a43.316 43.316 0 0 0-3.62 1.917 42.32 42.32 0 0 0-5.318 3.716 41.501 41.501 0 0 0-3.443 3.179 40.632 40.632 0 0 0-3.366 3.967c-.452.61-.851 1.186-1.2 1.718-.324.493-.6.943-.841 1.351l-.061.101a27.96 27.96 0 0 0-.622 1.119c-.325.621-.475.975-.475.975v11.692h82.53v-11.692s-.36-.842-1.158-2.195a35.417 35.417 0 0 0-.842-1.351z"></path>
 </svg>`;
+const ARROW_CTX_MENU_HTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 20" width="19" height="20"><path fill="currentColor" d="M3.8 6.7l5.7 5.7 5.7-5.7 1.6 1.6-7.3 7.2-7.3-7.2 1.6-1.6z"></path></svg>`;
 
-let hiddenChatsDrawer: LeftDrawerItemList<Chat>
+let hiddenChatsDrawer: LeftDrawerItemList<Chat>;
+const fakeCtxMenu = new FakeCtxMenu([
+  {
+    action: 'unhide',
+    title: browser.i18n.getMessage('WA_contactCtxMenuItem_unhide'),
+    chatChange: chat => {
+      console.log(chat);
+      removeHiddenChats(chat);
+      fakeCtxMenu.node?.remove();
+    }
+  }
+]);
 
 function constructBasicChatListElement(chat: Chat): HTMLElement {
   devprint('constructBasicChatListElement=', chat);
   const chatSVGBlankPic = chat.isGroup ? GROUP_CHAT_SVG_HTML : USER_CHAT_SVG_HTML;
 
-  document.body.insertAdjacentHTML("afterbegin", `
-<div id="${CHAT_ID}" class="_2aBzC" style="z-index: 0; transition: none 0s ease 0s; height: 72px; transform: translateY(0px);">
-            <div tabindex="-1" aria-selected="false" role="row">
+  const div = document.createElement('DIV');
+  div.className = '_2aBzC hiddenChatEl';
+  // Styles
+  div.style.zIndex = '0';
+  div.style.transition = 'transition: none 0s ease 0s';
+  div.style.height = '72px';
+  div.style.transform = 'translateY(0px)';
+  div.innerHTML = `<div tabindex="-1" aria-selected="false" role="row">
                <div data-testid="cell-frame-container" class="_2Z4DV">
                   <div class="_2GAT7">
                      <div class="-y4n1" style="height: 49px; width: 49px;">
@@ -47,14 +64,41 @@ function constructBasicChatListElement(chat: Chat): HTMLElement {
                               <div class="_1grL7"><span dir="ltr" class="_3-8er"></span></div>
                            </span>
                         </div>
-                        <div role="gridcell" aria-colindex="1" class="_15smv"><span><span class="_2TiQe _2SDbp">Hidden</span></span><span></span><span></span></div>
+                        <div role="gridcell" aria-colindex="1" class="_15smv">
+                          <span><span class="_2TiQe _2SDbp">Hidden</span></span>
+                          <span></span>
+                          <span>
+                            <button class="dNJHX" data-action="fakeCtxMenu">
+                              <span data-testid="down" data-icon="down">${ARROW_CTX_MENU_HTML}</span>
+                            </button>
+                          </span>
+                        </div>
                      </div>
                   </div>
                </div>
-            </div>
-         </div>
-  `);
-  return DOM.get_el('#' + CHAT_ID)!!;
+            </div>`;
+  div.onclick = e1 => {
+    // @ts-ignore
+    const targetButton = e1.target.closest('[data-action]');
+    if (!targetButton) return;
+    switch (targetButton.dataset.action) {
+      case 'fakeCtxMenu': {
+        e1.stopPropagation();
+        fakeCtxMenu.attachToChat(chat, targetButton);
+        function clickListener(e2: MouseEvent) {
+          if (fakeCtxMenu.node?.contains(e2.target as HTMLElement)) {
+            return; // Click inside ctx menu
+          }
+          // Any click outside ctx menu
+          fakeCtxMenu.detachChat(chat);
+          window.removeEventListener('click', clickListener); // Clear memory
+        }
+        window.addEventListener('click', clickListener);
+      }
+    }
+  }
+
+  return div;
 }
 
 function constructEmptyPlug(): HTMLElement {
@@ -73,69 +117,15 @@ function constructEmptyPlug(): HTMLElement {
   return DOM.get_el('#' + EMPTY_HIDDEN_CHATS_LIST_PLUG_ID)!!
 }
 
-// TODO: replace to high-level api call original context menu
-function drawRedrawFakeCtxMenu(event: MouseEvent, chat: Chat, remove: boolean = false) {
-  let fakeContextMenu = DOM.get_el('#fakeCtxMenu');
-  if (remove) {
-    if (fakeContextMenu)
-      fakeContextMenu.parentElement!!.style.display = 'none';
-    return;
-  }
-  if (!fakeContextMenu) {
-    const unhideMessage = browser.i18n.getMessage('WA_contactCtxMenuItem_unhide');
-    document.body.insertAdjacentHTML('beforeend', `
-      <div style="height: 100%; width: 100%; z-index: 101; position: absolute;">
-      <div id="fakeCtxMenu" tabindex="-1" class="_1qAEq" style="transform-origin: left top; left: ${event.pageX}px; top: ${event.pageX}px; transform: scale(1); opacity: 1;">
-        <ul class="_19rjv">
-        <div>
-        <li tabindex="-1" class="_2iavx _2CDB7 _3UHfW" style="opacity: 1;">
-        <div id="unhideChatButton" class="_11srW _2xxet" role="button" aria-label="${unhideMessage}">${unhideMessage}
-        </div><div></div></li>
-        </div>
-        </ul>
-      </div>
-      </div>
-      `);
-    drawRedrawFakeCtxMenu(event, chat);
-    return;
-  }
-  fakeContextMenu.parentElement!!.style.display = 'block';
-  fakeContextMenu.parentElement!!.oncontextmenu = (e) => {
-    e.preventDefault();
-    drawRedrawFakeCtxMenu(null, null, true);
-  }
-  fakeContextMenu.parentElement!!.onclick = (e) => {
-    drawRedrawFakeCtxMenu(null, null, true);
-  }
-  fakeContextMenu.style.top = `${event.pageY}px`;
-  fakeContextMenu.style.left = `${event.pageX}px`;
-
-  const unhideChatButton = DOM.get_el('#unhideChatButton', fakeContextMenu)!!;
-  unhideChatButton.onclick = () => {
-    removeHiddenChats(chat);
-    drawRedrawFakeCtxMenu(null, null, true);
-  }
-  const firstLi = DOM.get_el('li', fakeContextMenu)!!;
-  firstLi.onmouseover = (e) => {
-    firstLi.classList.add('H774S');
-  }
-  firstLi.onmouseout = (e) => {
-    firstLi.classList.remove('H774S');
-  }
-}
-
 export function presentHiddenChatsLeftDrawer(hiddenChats: Chat[]): LeftDrawerItemList<Chat> {
-  if (hiddenChatsDrawer)
-    hiddenChatsDrawer.close()
+  if (hiddenChatsDrawer) {
+    hiddenChatsDrawer.close();
+  }
   hiddenChatsDrawer = constructBaseLeftDrawerItemList(
-    'Hidden chats', hiddenChats,
-    (event) => {
-      drawRedrawFakeCtxMenu(event, null, true);
-    },
+    'Hidden chats',
+    hiddenChats,
+    () => {},
     constructBasicChatListElement,
-    (e, chat) => {
-      drawRedrawFakeCtxMenu(e, chat);
-    },
     constructEmptyPlug
   );
   hiddenChatsDrawer.open();
