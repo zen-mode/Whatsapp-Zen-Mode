@@ -7,13 +7,7 @@ export interface FakeCtxMenuItem {
   chatChange: (chat: Chat) => void
 }
 
-export interface FakeCtxMenuCoords {
-  x: number,
-  y: number
-}
-
 export class FakeCtxMenu {
-  _coords: FakeCtxMenuCoords = {x: 0, y: 0};
   _node: HTMLElement | null = null;
   _isVisible: boolean = false;
   items: FakeCtxMenuItem[];
