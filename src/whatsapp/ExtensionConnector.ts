@@ -16,8 +16,12 @@ pageBridgePort.onMessage.addListener((response: WWAProviderResponse) => {
   const requestId = response.id;
   if (requestId) {
     const callback = requestIdToPromiseProto[requestId];
-    if (callback && response.result) {
-      callback(response.result);
+    if (callback) {
+      if (response.result) {
+        callback(response.result);
+      } else {
+        callback();
+      }
     }
     delete requestIdToPromiseProto[response.id]
   }
