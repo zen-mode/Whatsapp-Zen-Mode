@@ -25,6 +25,7 @@ export class FakeCtxMenu {
     this._node.addEventListener('click', this.handleClick);
     this._node.onmouseover = this.handleMouseOver;
     window.addEventListener('click', this.handleClickToEmptySpace);
+    window.addEventListener('contextmenu', this.handleClickToEmptySpace, true);
   }
 
   get node() {
