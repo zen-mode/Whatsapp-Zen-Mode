@@ -4,7 +4,7 @@ import {devprint} from "../../../utility-belt/helpers/debug/devprint";
 import {constructBaseLeftDrawerItemList, LeftDrawerItemList} from "./LeftDrawerItemList";
 import {subscribeForeverHiddenChatChanges, removeHiddenChats} from "../Storage";
 import {browser} from "webextension-polyfill-ts";
-import {FakeCtxMenu} from "./FakeCtxMenu";
+import {HiddenChatCtxMenu} from "./FakeCtxMenu/HiddenChatCtxMenu";
 
 const EMPTY_HIDDEN_CHATS_LIST_PLUG_ID = 'EMPTY_HIDDEN_CHATS_LIST_PLUG_ID';
 
@@ -19,15 +19,11 @@ const GROUP_CHAT_SVG_HTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 
 const ARROW_CTX_MENU_HTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 20" width="19" height="20"><path fill="currentColor" d="M3.8 6.7l5.7 5.7 5.7-5.7 1.6 1.6-7.3 7.2-7.3-7.2 1.6-1.6z"></path></svg>`;
 
 let hiddenChatsDrawer: LeftDrawerItemList<Chat>;
-const fakeCtxMenu = new FakeCtxMenu([
+const hiddenChatCtxMenu = new HiddenChatCtxMenu([
   {
     action: 'unhide',
     title: browser.i18n.getMessage('WA_contactCtxMenuItem_unhide'),
-    chatChange: chat => {
-      console.log(chat);
-      removeHiddenChats(chat);
-      fakeCtxMenu.node?.remove();
-    }
+    chatChange: removeHiddenChats
   }
 ]);
 
@@ -84,18 +80,25 @@ function constructBasicChatListElement(chat: Chat): HTMLElement {
     switch (targetButton.dataset.action) {
       case 'fakeCtxMenu': {
         e1.stopPropagation();
-        fakeCtxMenu.attachToChat(chat, targetButton);
-        function clickListener(e2: MouseEvent) {
-          if (fakeCtxMenu.node?.contains(e2.target as HTMLElement)) {
-            return; // Click inside ctx menu
-          }
-          // Any click outside ctx menu
-          fakeCtxMenu.detachChat(chat);
-          window.removeEventListener('click', clickListener); // Clear memory
+        if (hiddenChatCtxMenu.chat?.id === chat.id) {
+          hiddenChatCtxMenu.detachChat(chat);
+        } else {
+          hiddenChatCtxMenu.attachToChat(chat, targetButton.getBoundingClientRect());
         }
-        window.addEventListener('click', clickListener);
       }
     }
+  }
+  div.oncontextmenu = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    hiddenChatCtxMenu.attachToChat(chat, {
+      bottom: e.clientY,
+      left: e.clientX,
+      right: e.clientX,
+      top: e.clientY,
+      height: 0,
+      width: 0
+    });
   }
 
   return div;
@@ -124,7 +127,8 @@ export function presentHiddenChatsLeftDrawer(hiddenChats: Chat[]): LeftDrawerIte
   hiddenChatsDrawer = constructBaseLeftDrawerItemList(
     'Hidden chats',
     hiddenChats,
-    () => {},
+    () => {
+    },
     constructBasicChatListElement,
     constructEmptyPlug
   );

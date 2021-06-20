@@ -1,23 +1,30 @@
-import {process_error} from "../../features/extension-can/process-errors/process-error";
-import {Chat} from "../model/Chat";
+import {process_error} from "../../../features/extension-can/process-errors/process-error";
 
+// Structure types
 export interface FakeCtxMenuItem {
   action: string,
-  title: string,
-  chatChange: (chat: Chat) => void
+  title: string
 }
+export type FakeCtxMenuEventType = 'clickToEmptySpace' | 'itemClick';
+
+// Features types
+export type FakeCtxMenuType = 'hiddenChat';
 
 export class FakeCtxMenu {
+  _type: FakeCtxMenuType;
   _node: HTMLElement | null = null;
   _isVisible: boolean = false;
   items: FakeCtxMenuItem[];
-  chat: Chat | null = null;
 
-  constructor(items: FakeCtxMenuItem[]) {
+  constructor(type: FakeCtxMenuType, items: FakeCtxMenuItem[]) {
+    this._type = type;
     this.items = items;
+    // Render node
     this._node = this._render();
-    this._node.addEventListener('click', this.handleItemClick);
+    // Set listeners
+    this._node.addEventListener('click', this.handleClick);
     this._node.onmouseover = this.handleMouseOver;
+    window.addEventListener('click', this.handleClickToEmptySpace);
   }
 
   get node() {
@@ -29,35 +36,24 @@ export class FakeCtxMenu {
   }
 
   set isVisible(value) {
+    if (this._isVisible === value) return;
+    // Set state
     this._isVisible = value;
+    // Render
     if (!this._node) return;
     if (this._isVisible) {
+      this._node.style.animationDuration = '.2s';
       this._node.style.animationName = 'showFakeCtxMenu';
     } else {
+      this._node.style.animationDuration = '.1s';
       this._node.style.animationName = 'hideFakeCtxMenu';
     }
   }
 
-  attachToChat = (chat: Chat, anchor: HTMLElement) => {
-    if (this.chat) {
-      if (this.chat.id === chat.id) return;
-      this.detachChat(chat);
-    }
-    this.chat = chat;
-    this.isVisible = true;
-    this._tieToAnchor(anchor);
-  }
-
-  detachChat = (chat: Chat) => {
-    if (this.chat && this.chat.id !== chat.id) return;
-    this.chat = null;
-    this.isVisible = false;
-  }
-
   /**
-   * Fired by click. Used to change chat depending menu item action.
+   * Fired by click. Used to handle menu item action.
    */
-  handleItemClick = (e: MouseEvent) => {
+  handleClick = (e: MouseEvent) => {
     // @ts-ignore
     const targetItem = e.target.closest('[data-action]');
     if (!targetItem) return;
@@ -66,14 +62,13 @@ export class FakeCtxMenu {
       return process_error(
         new Error('Ctx menu item not found with action:' + targetItem.dataset.action)
       );
-    } else if (!this.chat) {
-      return process_error(
-        new Error('Chat not attached:' + this.chat)
-      );
     }
     // Continue if there are context menu item and chat.
     e.stopPropagation();
-    item.chatChange(this.chat);
+    targetItem.dispatchEvent(new CustomEvent('itemClick' as FakeCtxMenuEventType, {
+      bubbles: true,
+      detail: {item}
+    }));
   };
 
   /**
@@ -90,6 +85,43 @@ export class FakeCtxMenu {
     }
   };
 
+  /**
+   * Used to close by click to empty space (exclude menu node).
+   */
+  handleClickToEmptySpace = (e: MouseEvent) => {
+    if (!this._node || !this.isVisible) return;
+    if (this._node.contains(e.target as HTMLElement)) {
+      return; // Click inside ctx menu
+    }
+    // Any click outside ctx menu
+    this._node.dispatchEvent(new CustomEvent('clickToEmptySpace' as FakeCtxMenuEventType, {
+      bubbles: true
+    }));
+  }
+
+  tieToAnchor(anchorCoords: ClientRect) {
+    if (!this._node) {
+      return process_error(new Error('node is required' + this._node));
+    }
+    if (!document.body.contains(this._node)) {
+      document.body.append(this._node);
+    }
+    // Set state
+    this.isVisible = true;
+    // Set menu coords depending anchor coords
+    this._node.style.left = anchorCoords.left + (anchorCoords.width / 2) + 'px';
+
+    if (window.innerHeight > anchorCoords.bottom + this._node.clientHeight) {
+      this._node.style.transformOrigin = 'left top';
+      this._node.style.top = anchorCoords.bottom + 'px';
+      this._node.style.bottom = ''; // Clear memory
+    } else {
+      this._node.style.transformOrigin = 'left bottom';
+      this._node.style.bottom = window.innerHeight - anchorCoords.top + 'px';
+      this._node.style.top = ''; // Clear memory
+    }
+  }
+
   _render() {
     if (!this._node) {
       const div = document.createElement('DIV');
@@ -104,27 +136,5 @@ export class FakeCtxMenu {
       return div;
     }
     return this._node;
-  }
-
-  _tieToAnchor(anchor: HTMLElement) {
-    if (!this._node) {
-      return process_error(new Error('node is required' + this._node));
-    }
-    if (!document.body.contains(this._node)) {
-      document.body.append(this._node);
-    }
-    // Set menu coords depending anchor coords
-    const anchorCoords = anchor.getBoundingClientRect();
-    this._node.style.left = anchorCoords.x + (anchorCoords.width / 2) + 'px';
-
-    if (window.innerHeight > anchorCoords.bottom + this._node.clientHeight) {
-      this._node.style.transformOrigin = 'left top';
-      this._node.style.top = anchorCoords.bottom + 'px';
-      this._node.style.bottom = ''; // Clear memory
-    } else {
-      this._node.style.transformOrigin = 'left bottom';
-      this._node.style.bottom = window.innerHeight - anchorCoords.top + 'px';
-      this._node.style.top = ''; // Clear memory
-    }
   }
 }

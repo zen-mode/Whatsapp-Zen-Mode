@@ -199,15 +199,23 @@ html[dir=rtl] #ZenMode__zenMorning__sunIcon {
 @keyframes showFakeCtxMenu {
   0% {
     transform: scale(0);
+    opacity: 0;
   }
   100% {
     transform: scale(1);
+    opacity: 1;
   }
 }
 
 @keyframes hideFakeCtxMenu {
   0% {
     transform: scale(1);
+  }
+  20% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
   }
   100% {
     transform: scale(0);
