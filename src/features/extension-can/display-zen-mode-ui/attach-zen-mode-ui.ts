@@ -12,10 +12,12 @@
 
 import {DOM} from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
 import {process_error} from "../process-errors/process-error";
-import {get_extn_storage_item_value} from "../../../../utility-belt/helpers/extn/storage";
 import {devprint} from "../../../../utility-belt/helpers/debug/devprint";
 import {construct_Zen_mode_UI} from "./construct-zen-mode-ui/construct-zen-mode-ui";
-import {toggle_Zen_mode_on_page} from "../../user-can/toggle-zen-mode/cs/toggle-zen-mode";
+import {
+  get_Zen_mode_status,
+  toggle_Zen_mode_on_page
+} from "../../user-can/toggle-zen-mode/cs/toggle-zen-mode";
 
 import {Selectors, StateItemNames, ZenModeStatuses} from "../../../data/dictionary";
 import {TIME} from "../../../../utility-belt/constants/time";
@@ -64,12 +66,8 @@ async function attach_Zen_mode_UI(): Promise<void> {
   devprint("STATUS: UI attached.");
 
   // 2.2. Sets ZM UI in accordance with current ZM state (activated\deactivated).
-  const currentZenModeStatus = ((await get_extn_storage_item_value(
-    StateItemNames.ZEN_MODE_STATUS,
-  )) as boolean)
-    ? ZenModeStatuses.ON
-    : ZenModeStatuses.OFF;
-  toggle_Zen_mode_on_page(currentZenModeStatus);
+  const zenModeStatus = await get_Zen_mode_status();
+  toggle_Zen_mode_on_page(zenModeStatus);
 
   // 2.3. Sets Smart Mute
   const smartMuteStatus = await getSmartMuteStatus();
