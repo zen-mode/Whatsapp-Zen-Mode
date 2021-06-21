@@ -20,8 +20,6 @@ devprint("STATUS: Waiting for TOGGLE_ZEN_MODE command.");
 export async function toggle_Zen_mode(): Promise<void> {
   const zenModeStatus = await get_Zen_mode_status();
   const newZenModeStatus = toggle_Zen_mode_status(zenModeStatus);
-  console.log('zen', 'zenNew');
-  console.log(zenModeStatus, newZenModeStatus);
   await apply_Zen_mode_status(newZenModeStatus);
 }
 
