@@ -127,9 +127,9 @@ export function presentHiddenChatsLeftDrawer(hiddenChats: Chat[]): LeftDrawerIte
   hiddenChatsDrawer = constructBaseLeftDrawerItemList(
     'Hidden chats',
     hiddenChats,
-    () => {
-    },
+    () => {},
     constructBasicChatListElement,
+    () => {},
     constructEmptyPlug
   );
   hiddenChatsDrawer.open();
