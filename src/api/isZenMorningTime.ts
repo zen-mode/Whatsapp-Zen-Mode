@@ -11,7 +11,7 @@ export async function isZenMorningTime():Promise<boolean> {
   }
   const [normalizedTodayDate, normalizedLastDate] = [today, moment(lastActivityDate)].map(date => {
     date.set('hour', ZEN_MORNING_HOUR);
-    date.set('minute', 29);
+    date.set('minute', 0);
     date.set('second', 0);
     date.set('millisecond', 0);
 
