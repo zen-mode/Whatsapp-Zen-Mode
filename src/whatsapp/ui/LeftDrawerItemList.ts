@@ -109,8 +109,7 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
 
   function bindItem(item: T) {
     const itemEl = constructItemEl(item);
-    itemEl.oncontextmenu = event => {
-      event.preventDefault();
+    itemEl.onclick = event => {
       onClickOnItemEl(event, item);
     };
     itemsContainerEl.appendChild(itemEl);
