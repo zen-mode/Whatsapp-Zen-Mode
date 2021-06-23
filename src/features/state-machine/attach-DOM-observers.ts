@@ -56,9 +56,10 @@ const observer = new MutationObserver(async (mutations) => {
             }, TIME.ONE_SECOND);
           }
 
-          const archivedMenuItem = DOM.get_el(Selectors.WA_GENERAL_CTX_MENU_ITEM_ARCHIVED, node as HTMLElement);
-          if (archivedMenuItem) {
-            trackArchivedChatsVisibility(archivedMenuItem);
+          const menuEl = (node as HTMLElement).closest(Selectors.WA_GENERAL_CTX_MENU);
+          if (menuEl) {
+            console.log(menuEl);
+            trackArchivedChatsVisibility(menuEl as HTMLElement);
           }
         });
     });

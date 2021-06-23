@@ -49,7 +49,7 @@ export const enum Selectors {
   WA_BACK_BTN = "._27F2N [data-testid=back]",
   WA_CONTACT_CTX_MENU = "._1qAEq",
   WA_CONTACT_CTX_MENU_LIST = "._19rjv",
-  WA_GENERAL_CTX_MENU_ITEM_ARCHIVED = "._1qAEq._11bi2 [aria-label=Archived]",
+  WA_GENERAL_CTX_MENU = "._1R3Un ._1qAEq._11bi2",
   WA_LEFT_CONTAINER = "._1sMV6",
   // Explain: Looks like it's not needed.
   // WA_CONTACT_CTX_MENU_LIST_ITEM = "_2iavx _2CDB7 _3UHfW",

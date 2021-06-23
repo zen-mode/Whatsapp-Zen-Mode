@@ -3,7 +3,11 @@ import {archiveChatLocally, unArchiveChatLocally} from "../whatsapp/ExtensionCon
 import {Selectors} from "../data/dictionary";
 import {process_error} from "../features/extension-can/process-errors/process-error";
 
-export function trackArchivedChatsVisibility(archivedMenuItem: HTMLElement) {
+export function trackArchivedChatsVisibility(menuEl: HTMLElement) {
+  const archivedMenuItem = menuEl.children[0]?.children[3]?.children[0];
+  if (!archivedMenuItem) {
+    return process_error(new Error('Not archive menu item'));
+  }
   const archivedItemOnClick = async () => {
     archivedMenuItem.removeEventListener('click', archivedItemOnClick); // Clear memory
     const hiddenChats = await getHiddenChats();
