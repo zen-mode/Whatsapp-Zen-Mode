@@ -114,7 +114,7 @@ function constructEmptyPlug(): HTMLElement {
                   </svg>
                </span>
             </div>
-            <div class="_3aOS0">No hidden chats</div>
+            <div class="_3aOS0">${browser.i18n.getMessage('ZM_noHiddenChats')}</div>
          </div>
       `);
   return DOM.get_el('#' + EMPTY_HIDDEN_CHATS_LIST_PLUG_ID)!!
@@ -125,7 +125,7 @@ export function presentHiddenChatsLeftDrawer(hiddenChats: Chat[]): LeftDrawerIte
     hiddenChatsDrawer.close();
   }
   hiddenChatsDrawer = constructBaseLeftDrawerItemList(
-    'Hidden chats',
+    browser.i18n.getMessage('ZM_ctxMenuItem_hiddenChats'),
     hiddenChats,
     () => {},
     constructBasicChatListElement,

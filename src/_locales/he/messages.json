@@ -39,6 +39,9 @@
   "ZM_ctxMenuItem_hiddenChats": {
     "message": "הראה רשימת צ'אטים מוחבאים"
   },
+  "ZM_noHiddenChats": {
+    "message": "אין צ'אטים מוסתרים"
+  },
   "ZM_ctxMenuItem_unhideAll": {
     "message": "הראה צ'אטים מוחבאים"
   },

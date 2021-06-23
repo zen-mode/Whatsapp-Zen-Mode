@@ -48,6 +48,9 @@
     "message": "Hidden chats",
     "description":"ZM ctx menu item that displays hidden chats"
   },
+  "ZM_noHiddenChats": {
+    "message": "No hidden chats"
+  },
   "ZM_ctxMenuItem_unhideAll": {
     "message": "Unhide all",
     "description":"ZM ctx menu item that unhides all hidden contacts"
