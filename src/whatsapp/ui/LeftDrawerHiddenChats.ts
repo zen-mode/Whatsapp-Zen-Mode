@@ -73,7 +73,7 @@ function constructBasicChatListElement(chat: Chat): HTMLElement {
                   </div>
                </div>
             </div>`;
-  div.onclick = e1 => {
+  div.addEventListener('click', e1 => {
     // @ts-ignore
     const targetButton = e1.target.closest('[data-action]');
     if (!targetButton) return;
@@ -87,7 +87,7 @@ function constructBasicChatListElement(chat: Chat): HTMLElement {
         }
       }
     }
-  }
+  });
   div.oncontextmenu = e => {
     e.preventDefault();
     e.stopPropagation();
