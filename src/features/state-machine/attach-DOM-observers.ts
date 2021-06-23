@@ -1,6 +1,6 @@
 import {DOM} from "../../../utility-belt/helpers/dom/DOM-shortcuts";
 import {devprint} from "../../../utility-belt/helpers/debug/devprint";
-import {get_extn_storage_item_value, set_extn_storage_item} from "../../../utility-belt/helpers/extn/storage";
+import {get_extn_storage_item_value} from "../../../utility-belt/helpers/extn/storage";
 
 import {Selectors, StateItemNames} from "../../data/dictionary";
 import {TIME} from "../../../utility-belt/constants/time";
@@ -13,6 +13,7 @@ import {setChatVisibility} from "../../api/set-chat-visibility";
 import {checkZenMorningChatState} from "../user-can/zenmorning/setZenMorning";
 import {Chat} from "../../whatsapp/model/Chat";
 import {getSmartMuteStatus, setSmartMuteStatus} from "../user-can/SmartMute/SmartMute";
+import {trackArchivedChatsVisibility} from "../../api/track-archived-chats-visibility";
 
 // Attaches DOM observer and checks for tf conditions:
 const observer = new MutationObserver(async (mutations) => {
@@ -53,6 +54,12 @@ const observer = new MutationObserver(async (mutations) => {
               // Open zen morning contact
               checkZenMorningChatState(zenMorningChat);
             }, TIME.ONE_SECOND);
+          }
+
+          const menuEl = (node as HTMLElement).closest(Selectors.WA_GENERAL_CTX_MENU);
+          if (menuEl) {
+            console.log(menuEl);
+            trackArchivedChatsVisibility(menuEl as HTMLElement);
           }
         });
     });
