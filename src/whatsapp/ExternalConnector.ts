@@ -93,6 +93,8 @@ extBridgePort.onMessage.addListener((request: WWAProviderRequest) => {
   handleRequest(request);
 });
 
+extBridgePort.onDisconnect.addListener(handlePortDisconnection);
+
 async function handleRequest(request: WWAProviderRequest) {
   let result;
   let error;
@@ -112,4 +114,9 @@ async function handleRequest(request: WWAProviderRequest) {
     error = e;
   }
   extBridgePort.postMessage(generateBasicWWAResponse(request.id, result, error, request));
+}
+
+function handlePortDisconnection(port: any) {
+  console.log(port);
+  setChatsGlobalSoundsState(true);
 }
