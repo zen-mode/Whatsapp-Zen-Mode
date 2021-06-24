@@ -58,7 +58,6 @@ const observer = new MutationObserver(async (mutations) => {
 
           const menuEl = (node as HTMLElement).closest(Selectors.WA_GENERAL_CTX_MENU);
           if (menuEl) {
-            console.log(menuEl);
             trackArchivedChatsVisibility(menuEl as HTMLElement);
           }
         });

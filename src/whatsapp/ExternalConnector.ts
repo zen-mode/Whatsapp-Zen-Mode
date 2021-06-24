@@ -117,6 +117,5 @@ async function handleRequest(request: WWAProviderRequest) {
 }
 
 function handlePortDisconnection(port: any) {
-  console.log(port);
   setChatsGlobalSoundsState(true);
 }
