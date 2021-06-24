@@ -73,3 +73,15 @@ export function refreshWWChats(callback?: () => void) {
   callProviderFunctionWithCallback(WWAProviderCall.refreshWWChats, [], callback);
 }
 
+export function turnOnChatsSounds(callback?: () => void) {
+  callProviderFunctionWithCallback(WWAProviderCall.setChatsSounds, [true], callback);
+}
+
+export function turnOffChatsSounds(callback?: () => void) {
+  callProviderFunctionWithCallback(WWAProviderCall.setChatsSounds, [false], callback);
+}
+
+export function getChatsSoundsState(callback: (state: boolean) => void) {
+  callProviderFunctionWithCallback(WWAProviderCall.getChatsSoundsState, [], callback);
+}
+

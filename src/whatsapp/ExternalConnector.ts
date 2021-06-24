@@ -5,7 +5,7 @@ import {generateBasicWWAResponse} from "./Utils";
 import {
   getChat,
   getChatByTitle,
-  openChat, synchronizeWWChats, getChatsExceptId, muteChatLocally
+  openChat, synchronizeWWChats, getChatsExceptId, setChatsGlobalSoundsState, getChatsGlobalSoundsState
 } from "./WWAController";
 import {provideModules} from "./WWAProvider";
 import {Chat} from "./model/Chat";
@@ -72,6 +72,14 @@ callerFunctions.set(WWAProviderCall.openChat, (chat: Chat): void => {
 
 callerFunctions.set(WWAProviderCall.refreshWWChats, async () => {
   await synchronizeWWChats();
+});
+
+callerFunctions.set(WWAProviderCall.setChatsSounds, (state: boolean) => {
+  setChatsGlobalSoundsState(state);
+});
+
+callerFunctions.set(WWAProviderCall.getChatsSoundsState, () => {
+  return getChatsGlobalSoundsState();
 });
 
 
