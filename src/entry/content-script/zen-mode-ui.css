@@ -55,19 +55,6 @@ html[dir="rtl"] #ZenMode__toggle__chevron {
   box-shadow:0 0 1px #444;
 }
 
-/* ZM button contextMenu */
-#ZenMode__contextMenu {
-  width: 240px;
-  position: absolute;
-  top: 50px;
-  right: 150px;
-  display: none;
-}
-html[dir="rtl"] #ZenMode__contextMenu {
-  right: initial;
-  left: 150px;
-}
-
 /* Release notes */
 #ZenMode__releaseNotes {
   position: fixed;
@@ -169,18 +156,6 @@ html[dir=rtl] #ZenMode__zenMorning__sunIcon {
   right: .5em;
 }
 
-#ZenMode__contextMenuItem__smartMute ._11srW._2xxet {
-  align-items: center;
-  color: inherit;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 24px;
-}
-#ZenMode__smartMute__soundIcon svg {
-  height: auto;
-  width: 18px;
-}
-
 .hiddenChatEl .dNJHX[data-action=fakeCtxMenu] {
   width: 20px;
 }
@@ -194,6 +169,23 @@ html[dir=rtl] #ZenMode__zenMorning__sunIcon {
 }
 .fakeCtxMenu ._2iavx {
   opacity: 1;
+}
+
+.fakeCtxMenu[data-menu-type=ZM] {
+  width: 240px;
+}
+.fakeCtxMenu[data-menu-type=ZM] [data-action=smartMute] ._11srW._2xxet {
+  padding: 12px 24px;
+}
+#ZenMode__contextMenuItem__smartMute {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  justify-content: space-between;
+}
+#ZenMode__smartMute__soundIcon svg {
+  height: auto;
+  width: 18px;
 }
 
 @keyframes showFakeCtxMenu {

@@ -3,12 +3,12 @@ import {process_error} from "../../../features/extension-can/process-errors/proc
 // Structure types
 export interface FakeCtxMenuItem {
   action: string,
-  title: string
+  domNode: string | HTMLElement
 }
 export type FakeCtxMenuEventType = 'clickToEmptySpace' | 'itemClick';
 
 // Features types
-export type FakeCtxMenuType = 'hiddenChat';
+export type FakeCtxMenuType = 'hiddenChat' | 'ZM';
 
 export class FakeCtxMenu {
   _type: FakeCtxMenuType;
@@ -110,14 +110,22 @@ export class FakeCtxMenu {
     // Set state
     this.isVisible = true;
     // Set menu coords depending anchor coords
-    this._node.style.left = anchorCoords.left + (anchorCoords.width / 2) + 'px';
+    const direction = document.documentElement.getAttribute('dir');
+    const left = anchorCoords.left + (anchorCoords.width / 2);
+    let xOrigin = 'left';
+    if (direction === 'RTL' && left + this._node.clientWidth > window.innerWidth) {
+      xOrigin = 'right';
+      this._node.style.left = left - this._node.clientWidth + 'px';
+    } else {
+      this._node.style.left = left + 'px';
+    }
 
     if (window.innerHeight > anchorCoords.bottom + this._node.clientHeight) {
-      this._node.style.transformOrigin = 'left top';
+      this._node.style.transformOrigin = `${xOrigin} top`;
       this._node.style.top = anchorCoords.bottom + 'px';
       this._node.style.bottom = ''; // Clear memory
     } else {
-      this._node.style.transformOrigin = 'left bottom';
+      this._node.style.transformOrigin = `${xOrigin} bottom`;
       this._node.style.bottom = window.innerHeight - anchorCoords.top + 'px';
       this._node.style.top = ''; // Clear memory
     }
@@ -125,14 +133,24 @@ export class FakeCtxMenu {
 
   _render() {
     if (!this._node) {
+      const itemLis = this.items.map(item => {
+        const li = document.createElement('LI');
+        li.className = "_2iavx _2CDB7 _3UHfW";
+        li.setAttribute('data-action', item.action);
+        li.innerHTML = '<div class="_11srW _2xxet"></div>';
+        li.children[0]!.append(item.domNode);
+
+        return li;
+      });
       const div = document.createElement('DIV');
       div.className = '_1qAEq fakeCtxMenu';
+      div.setAttribute('data-menu-type', this._type);
       div.tabIndex = -1;
-      div.innerHTML = `<ul>${
-        this.items.map(item => `<li class="_2iavx _2CDB7 _3UHfW" data-action="${item.action}">
-              <div class="_11srW _2xxet">${item.title}</div>
-            </li>`)
-      }</ul>`;
+      div.style.opacity = '0';
+      div.style.transform = 'scale(0)';
+      div.innerHTML = `<ul></ul>`;
+      // Items appending
+      div.children[0]!.append(...itemLis);
 
       return div;
     }

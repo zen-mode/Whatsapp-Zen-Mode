@@ -51,6 +51,7 @@ export const enum Selectors {
   WA_CONTACT_CTX_MENU_LIST = "._19rjv",
   WA_GENERAL_CTX_MENU = "._1R3Un ._1qAEq._11bi2",
   WA_LEFT_CONTAINER = "._1sMV6",
+  WA_LEFT_HEADER_BUTTONS = "._1R3Un ._1ljzS.pnYZD > span",
   // Explain: Looks like it's not needed.
   // WA_CONTACT_CTX_MENU_LIST_ITEM = "_2iavx _2CDB7 _3UHfW",
   WA_CONTACT_CTX_MENU_ITEM_CONTENTS_DIV = "._11srW, ._2xxet",
