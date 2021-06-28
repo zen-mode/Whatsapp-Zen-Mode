@@ -1,7 +1,5 @@
-Release Notes 1.4.1.0
-----------------------
-
-([Rosa Parks](https://en.wikipedia.org/wiki/Rosa_Parks) - first public beta release)
+# Release Notes 1.4.1.0
+###### ([Rosa Parks](https://en.wikipedia.org/wiki/Rosa_Parks) - first public beta release)
 
 1. **Zen Mode menu** - click on the Zen icon near the search to discover Zen Mode functionality.
 2. **Hide chats**- Hide button moves chats to a "hidden chats" list. You can Un-hide from there or unhide all from main zen menu.
