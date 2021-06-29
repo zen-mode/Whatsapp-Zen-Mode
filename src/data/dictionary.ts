@@ -23,6 +23,7 @@ export const enum StateItemNames {
 	ZEN_MORNING_CHAT = "ZEN_MORNING_CHAT",
   RELEASE_NOTES_VIEWED = "RELEASE_NOTES_VIEWED",
   ZEN_MODE_STATUS = "ZEN_MODE_STATUS",
+  ZEN_MODE_CHAT = "ZEN_MODE_CHAT",
   LAST_ACTIVITY_DATE = "LAST_ACTIVITY_DATE",
   ZEN_MODE_FORCE_BY_ZEN_MORNING = "ZEN_MODE_FORCE_BY_ZEN_MORNING",
   SMART_MUTE_STATUS = "SMART_MUTE_STATUS"
@@ -47,13 +48,12 @@ export const enum Selectors {
   // WA_CONTACT_CTX_MENU_LIST_ITEM = "#app span:nth-of-type(4) > div ul li",
   // WA_CONTACT_CTX_MENU_ITEM_CONTENTS_DIV = "#app span:nth-of-type(4) > div ul [role='button']",
   WA_BACK_BTN = "._27F2N [data-testid=back]",
-  WA_CONTACT_CTX_MENU = "._1qAEq",
+  WA_CONTACT_CTX_MENU = "#app > div > span > ._1qAEq",
   WA_CONTACT_CTX_MENU_LIST = "._19rjv",
   WA_GENERAL_CTX_MENU = "._1R3Un ._1qAEq._11bi2",
   WA_LEFT_CONTAINER = "._1sMV6",
   WA_LEFT_HEADER_BUTTONS = "._1R3Un ._1ljzS.pnYZD > span",
   // Explain: Looks like it's not needed.
-  // WA_CONTACT_CTX_MENU_LIST_ITEM = "_2iavx _2CDB7 _3UHfW",
   WA_CONTACT_CTX_MENU_ITEM_CONTENTS_DIV = "._11srW, ._2xxet",
 
   WA_CONTACT_INFO_PANEL = "#app > div > div > div:nth-of-type(2) > div:nth-of-type(1)",

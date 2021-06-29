@@ -13,14 +13,9 @@
 import {DOM} from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
 import {devprint} from "../../../../utility-belt/helpers/debug/devprint";
 import {construct_Zen_mode_UI} from "./construct-zen-mode-ui/construct-zen-mode-ui";
-import {
-  get_Zen_mode_status,
-  toggle_Zen_mode_on_page
-} from "../../user-can/toggle-zen-mode/cs/toggle-zen-mode";
 
 import {Selectors} from "../../../data/dictionary";
 import {TIME} from "../../../../utility-belt/constants/time";
-import {getSmartMuteStatus, setSmartMuteStatus} from "../../user-can/SmartMute/SmartMute";
 
 // 1. Sets an interval timer to attach Zen mode UI in case of:
 keep_Zen_mode_UI_attached();
@@ -57,12 +52,4 @@ async function attach_Zen_mode_UI(): Promise<void> {
   }
 
   devprint("STATUS: UI attached.");
-
-  // 2.2. Sets ZM UI in accordance with current ZM state (activated\deactivated).
-  const zenModeStatus = await get_Zen_mode_status();
-  toggle_Zen_mode_on_page(zenModeStatus);
-
-  // 2.3. Sets Smart Mute
-  const smartMuteStatus = await getSmartMuteStatus();
-  await setSmartMuteStatus(smartMuteStatus);
 }

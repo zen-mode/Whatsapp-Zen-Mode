@@ -12,6 +12,7 @@ export enum WWAProviderCall {
   unArchiveChatLocally,
   muteNonMutedChatsExceptChat,
   getChatById,
+  getOpenedChat,
   openChat,
   refreshWWChats
 }

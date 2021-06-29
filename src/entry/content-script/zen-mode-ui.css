@@ -1,32 +1,22 @@
-/* Hide contact WA ctx menu item */
-#ZenMode__hideContact:hover,
-#ZenMode__unhideContact:hover,
-.ZenMode__contextMenuItem:hover {
-  background-color: var(--dropdown-background-hover);
-}
-#ZenMode__hideContact > div,
-#ZenMode__unhideContact > div {
-  border-top: gray 1px dashed;
-  padding: 13px 0;
-  margin: 0 24px;
-  font-size: 14.5px;
-}
-@media (prefers-color-scheme: dark) {
-  #ZenMode__hideContact > div,
-  #ZenMode__unhideContact > div {
-    border-top: white 1px dashed;
-  }
-}
-
 /* ZM button */
-#ZenMode__toggle {
-  height: 25px;
-  width: 25px;
-  margin-right: 10px;
+.ZenModeLogo {
+  --size: 1.33em;
+  height: var(--size);
+  width: var(--size);
   position: relative;
-  cursor: pointer;
   background-position: center;
   background-size: contain;
+}
+.ZenModeLogoInlined {
+  display: inline-block;
+  vertical-align: middle;
+  margin: -.2em .5em 0;
+}
+#ZenMode__toggle {
+  --size: 25px;
+  margin-right: 10px;
+  cursor: pointer;
+  position: relative;
 }
 html[dir="rtl"] #ZenMode__toggle {
   margin-right: 0;
@@ -167,10 +157,28 @@ html[dir=rtl] #ZenMode__zenMorning__sunIcon {
   animation-duration: .2s;
   animation-fill-mode: forwards;
 }
-.fakeCtxMenu ._2iavx {
+
+.fakeCtxMenuItem._2iavx {
   opacity: 1;
 }
-
+.fakeCtxMenuItem.first {
+  position: relative;
+}
+.fakeCtxMenuItem.first::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  border-top: dashed 1px gray;
+  left: 20px;
+  right: 20px;
+  top: 0;
+}
+@media (prefers-color-scheme: dark) {
+  .fakeCtxMenuItem.first::after {
+    border-top-color: white;
+  }
+}
+/* Zen mode menu */
 .fakeCtxMenu[data-menu-type=ZM] {
   width: 240px;
 }
@@ -187,7 +195,7 @@ html[dir=rtl] #ZenMode__zenMorning__sunIcon {
   height: auto;
   width: 18px;
 }
-
+/* Fake Context Menu animations */
 @keyframes showFakeCtxMenu {
   0% {
     transform: scale(0);

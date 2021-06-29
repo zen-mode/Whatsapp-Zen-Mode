@@ -3,12 +3,18 @@ import {get_extn_storage_item_value} from "../../../../../utility-belt/helpers/e
 
 import {Selectors, StateItemNames} from "../../../../data/dictionary";
 import {ZMCtxMenu} from "../../../../whatsapp/ui/FakeCtxMenu/ZMCtxMenu";
+import {set_el_style} from "../../../../../utility-belt/helpers/dom/set-el-style";
+import {browser} from "webextension-polyfill-ts";
 
 export function constructZMMenuButton(): HTMLDivElement {
   const ctxMenu = new ZMCtxMenu();
   const ZenModeBtnEl = document.createElement("div");
   set_el_attributes(ZenModeBtnEl, {
-    id: Selectors.ZM_TOGGLE_BUTTON.substring(1)
+    id: Selectors.ZM_TOGGLE_BUTTON.substring(1),
+    class: 'ZenModeLogo'
+  });
+  set_el_style(ZenModeBtnEl, {
+    "background-image": `url('${browser.runtime.getURL('assets/logo/logo.png')}')`
   });
   const toggleZMMenuByClick = (e: MouseEvent) => {
     e.stopPropagation();

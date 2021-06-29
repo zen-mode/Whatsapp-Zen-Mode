@@ -5,7 +5,10 @@ import {generateBasicWWAResponse} from "./Utils";
 import {
   getChat,
   getChatByTitle,
-  openChat, synchronizeWWChats, getChatsExceptId, muteChatLocally
+  openChat,
+  synchronizeWWChats,
+  getChatsExceptId,
+  getOpenedChat
 } from "./WWAController";
 import {provideModules} from "./WWAProvider";
 import {Chat} from "./model/Chat";
@@ -66,8 +69,14 @@ callerFunctions.set(WWAProviderCall.getChatById, (chatId: string) => {
   return ChatFabric.fromWWAChat(chat);
 });
 
-callerFunctions.set(WWAProviderCall.openChat, (chat: Chat): void => {
-  openChat(chat.id);
+callerFunctions.set(WWAProviderCall.openChat, (chat: Chat): Chat => {
+  const WWAChat = openChat(chat.id);
+  return ChatFabric.fromWWAChat(WWAChat);
+});
+
+callerFunctions.set(WWAProviderCall.getOpenedChat, () => {
+  const chat = getOpenedChat();
+  return chat ? ChatFabric.fromWWAChat(chat) : null;
 });
 
 callerFunctions.set(WWAProviderCall.refreshWWChats, async () => {

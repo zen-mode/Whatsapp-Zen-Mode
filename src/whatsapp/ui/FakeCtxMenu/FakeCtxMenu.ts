@@ -1,4 +1,5 @@
 import {process_error} from "../../../features/extension-can/process-errors/process-error";
+import {constructFakeCtxMenuItem} from "../../../features/user-can/use-zen-mode-ctx-menu/construct-zen-mode-ctx-menu-item";
 
 // Structure types
 export interface FakeCtxMenuItem {
@@ -23,7 +24,6 @@ export class FakeCtxMenu {
     this._node = this._render();
     // Set listeners
     this._node.addEventListener('click', this.handleClick);
-    this._node.onmouseover = this.handleMouseOver;
     window.addEventListener('click', this.handleClickToEmptySpace);
     window.addEventListener('contextmenu', this.handleClickToEmptySpace, true);
   }
@@ -73,20 +73,6 @@ export class FakeCtxMenu {
   };
 
   /**
-   * Used to emulate native hover effect
-   */
-  handleMouseOver = (e: MouseEvent) => {
-    // @ts-ignore
-    const targetItem = e.target.closest('._3UHfW');
-    if (!targetItem) return;
-    targetItem.classList.add('H774S');
-    targetItem.onmouseout = () => {
-      targetItem.classList.remove('H774S');
-      targetItem.onmouseout = null; // Clear memory
-    }
-  };
-
-  /**
    * Used to close by click to empty space (exclude menu node).
    */
   handleClickToEmptySpace = (e: MouseEvent) => {
@@ -133,15 +119,7 @@ export class FakeCtxMenu {
 
   _render() {
     if (!this._node) {
-      const itemLis = this.items.map(item => {
-        const li = document.createElement('LI');
-        li.className = "_2iavx _2CDB7 _3UHfW";
-        li.setAttribute('data-action', item.action);
-        li.innerHTML = '<div class="_11srW _2xxet"></div>';
-        li.children[0]!.append(item.domNode);
-
-        return li;
-      });
+      const itemLis = this.items.map(item => constructFakeCtxMenuItem([item.domNode], item.action));
       const div = document.createElement('DIV');
       div.className = '_1qAEq fakeCtxMenu';
       div.setAttribute('data-menu-type', this._type);

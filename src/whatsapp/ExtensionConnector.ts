@@ -65,8 +65,12 @@ export function getChatById(chatId: string, callback?: (chat: Chat) => void): vo
   callProviderFunctionWithCallback(WWAProviderCall.getChatById, [chatId], callback);
 }
 
-export function openChat(chat: Chat, callback?: () => void) {
+export function openChat(chat: Chat, callback?: (openedChat: Chat) => void) {
   callProviderFunctionWithCallback(WWAProviderCall.openChat, [chat], callback);
+}
+
+export function getOpenedChat(callback: (chat: Chat | null) => void) {
+  callProviderFunctionWithCallback(WWAProviderCall.getOpenedChat, [], callback);
 }
 
 export function refreshWWChats(callback?: () => void) {

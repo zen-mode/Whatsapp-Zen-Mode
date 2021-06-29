@@ -75,5 +75,8 @@
   "ZM_ctxMenuItem_smartMute_desc": {
     "message": "Mutes all sounds except audio and video messages you play",
     "description": "To clarify to user we would like hover text upon menu command."
+  },
+  "ZM_ctxMenuItem_zenMode": {
+    "message": "Zen Mode"
   }
 }
