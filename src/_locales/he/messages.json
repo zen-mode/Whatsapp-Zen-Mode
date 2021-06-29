@@ -1,66 +1,58 @@
 {
-  "extnName": {
-    "message": "זן מוד (וואטסאפ)"
-  },
-  "appDescription": {
-    "message": "מפשט את השימוש בוואטסאפ ווב, ועוזר לכם להתמקד"
-  },
-
-  "WA_contactCtxMenuItem_hide": {
-    "message": "החבא"
-  },
-
-  "WA_contactCtxMenuItem_unhide": {
-    "message": "הראה צ'אט מוחבא"
-  },
-
-  "WA_contactCtxMenuItem_zenMorning": {
-    "message": "בוקר זן \uD83C\uDF1E",
-    "description": "WA contact ctx menu item that turn zen morning for contact"
-  },
-
   "WA_contactCtxMenuItem_cancelZenMorning": {
     "message": "בטל/י בוקר זן",
     "description": "WA contact ctx menu item that turn zen morning for contact"
   },
-
-  "ZM_zenMorning_description": {
-    "message": "הער אותי כל בוקר במצב זן על השיחה הנוכחית. לתשומת ליבך בחירה בכן תבטל כל הגדרה קודמת של בוקר זן"
+  "WA_contactCtxMenuItem_hide": {
+    "message": "החבא"
   },
-
-  "ZM_yesBtn": {
-    "message": "כן"
+  "WA_contactCtxMenuItem_unhide": {
+    "message": "הראה צ'אט מוחבא"
   },
-
-  "ZM_noBtn": {
-    "message": "לא"
-  },
-
-  "ZM_ctxMenuItem_hiddenChats": {
-    "message": "הראה רשימת צ'אטים מוחבאים"
-  },
-  "ZM_noHiddenChats": {
-    "message": "אין צ'אטים מוסתרים"
-  },
-  "ZM_ctxMenuItem_unhideAll": {
-    "message": "הראה צ'אטים מוחבאים"
-  },
-  "ZM_ctxMenuItem_releaseNotes": {
-    "message": "אודות הגרסה"
+  "WA_contactCtxMenuItem_zenMorning": {
+    "message": "בוקר זן \uD83C\uDF1E",
+    "description": "WA contact ctx menu item that turn zen morning for contact"
   },
   "ZM_ctxMenuItem_contactUs": {
     "message": "צור/י קשר"
   },
-  "ZM_ctxMenuItem_smartMute_ON": {
-    "message": "הפעל מצב השתקה חכמה"
+  "ZM_ctxMenuItem_hiddenChats": {
+    "message": "הראה רשימת צ'אטים מוחבאים"
+  },
+  "ZM_ctxMenuItem_releaseNotes": {
+    "message": "אודות הגרסה"
   },
   "ZM_ctxMenuItem_smartMute_OFF": {
     "message": "בטל מצב השתקה חכמה"
   },
+  "ZM_ctxMenuItem_smartMute_ON": {
+    "message": "הפעל מצב השתקה חכמה"
+  },
   "ZM_ctxMenuItem_smartMute_desc": {
     "message": "השתק את כל הצלילים מלבד הודעות קוליות ווידאו שאתה מנגן"
   },
+  "ZM_ctxMenuItem_unhideAll": {
+    "message": "הראה צ'אטים מוחבאים"
+  },
   "ZM_ctxMenuItem_zenMode": {
     "message": "זן מוד"
+  },
+  "ZM_noBtn": {
+    "message": "לא"
+  },
+  "ZM_noHiddenChats": {
+    "message": "אין צ'אטים מוסתרים"
+  },
+  "ZM_yesBtn": {
+    "message": "כן"
+  },
+  "ZM_zenMorning_description": {
+    "message": "הער אותי כל בוקר במצב זן על השיחה הנוכחית. לתשומת ליבך בחירה בכן תבטל כל הגדרה קודמת של בוקר זן"
+  },
+  "appDescription": {
+    "message": "מפשט את השימוש בוואטסאפ ווב, ועוזר לכם להתמקד"
+  },
+  "extnName": {
+    "message": "זן מוד (וואטסאפ)"
   }
 }

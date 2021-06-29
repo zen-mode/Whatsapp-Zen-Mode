@@ -1,82 +1,72 @@
 {
-  "extnName": {
-    "message": "Zen Mode (Whatsapp)",
-    "description": "The title of the application, displayed in the web store."
-  },
-  "appDescription": {
-    "message": "Simplifies Whatsapp Web and helps you focus",
-    "description":"The description of the application, displayed in the web store."
-  },
-
   "CONTACT_particles_hiddenElementTitle": {
     "message": "This chat was hidden by Zen Mode"
   },
-
-  "WA_contactCtxMenuItem_hide": {
-    "message": "Hide",
-    "description":"WA contact ctx menu item that hides the contact"
-  },
-
-  "WA_contactCtxMenuItem_unhide": {
-    "message": "Unhide",
-    "description":"WA contact ctx menu item that unhides the contact"
-  },
-
-  "WA_contactCtxMenuItem_zenMorning": {
-    "message": "Zen Morning \uD83C\uDF1E",
-    "description": "WA contact ctx menu item that turn zen morning for contact"
-  },
-
   "WA_contactCtxMenuItem_cancelZenMorning": {
     "message": "Cancel Zen Morning",
     "description": "WA contact ctx menu item that turn zen morning for contact"
   },
-
-  "ZM_zenMorning_description": {
-    "message": "Wake up every morning with Zen mode dedicated to this conversation. Please note, this will disable all previously selected Zen Morning conversations."
+  "WA_contactCtxMenuItem_hide": {
+    "message": "Hide",
+    "description": "WA contact ctx menu item that hides the contact"
   },
-
-  "ZM_yesBtn": {
-    "message": "yes"
+  "WA_contactCtxMenuItem_unhide": {
+    "message": "Unhide",
+    "description": "WA contact ctx menu item that unhides the contact"
   },
-
-  "ZM_noBtn": {
-    "message": "no"
-  },
-
-  "ZM_ctxMenuItem_hiddenChats": {
-    "message": "Hidden chats",
-    "description":"ZM ctx menu item that displays hidden chats"
-  },
-  "ZM_noHiddenChats": {
-    "message": "No hidden chats"
-  },
-  "ZM_ctxMenuItem_unhideAll": {
-    "message": "Unhide all",
-    "description":"ZM ctx menu item that unhides all hidden contacts"
-  },
-  "ZM_ctxMenuItem_releaseNotes": {
-    "message": "Release Notes",
-    "description":"ZM ctx menu item that displays release notes widget"
+  "WA_contactCtxMenuItem_zenMorning": {
+    "message": "Zen Morning \uD83C\uDF1E",
+    "description": "WA contact ctx menu item that turn zen morning for contact"
   },
   "ZM_ctxMenuItem_contactUs": {
     "message": "Contact us",
-    "description":"ZM ctx menu item that opens 'mailto:' link"
+    "description": "ZM ctx menu item that opens 'mailto:' link"
   },
-
-  "ZM_ctxMenuItem_smartMute_ON": {
-    "message": "Smart Mute Mode ON",
-    "description": "ZM ctx menu item that toggle Smart Mute mode."
+  "ZM_ctxMenuItem_hiddenChats": {
+    "message": "Hidden chats",
+    "description": "ZM ctx menu item that displays hidden chats"
+  },
+  "ZM_ctxMenuItem_releaseNotes": {
+    "message": "Release Notes",
+    "description": "ZM ctx menu item that displays release notes widget"
   },
   "ZM_ctxMenuItem_smartMute_OFF": {
     "message": "Smart Mute Mode OFF",
+    "description": "ZM ctx menu item that toggle Smart Mute mode."
+  },
+  "ZM_ctxMenuItem_smartMute_ON": {
+    "message": "Smart Mute Mode ON",
     "description": "ZM ctx menu item that toggle Smart Mute mode."
   },
   "ZM_ctxMenuItem_smartMute_desc": {
     "message": "Mutes all sounds except audio and video messages you play",
     "description": "To clarify to user we would like hover text upon menu command."
   },
+  "ZM_ctxMenuItem_unhideAll": {
+    "message": "Unhide all",
+    "description": "ZM ctx menu item that unhides all hidden contacts"
+  },
   "ZM_ctxMenuItem_zenMode": {
     "message": "Zen Mode"
+  },
+  "ZM_noBtn": {
+    "message": "no"
+  },
+  "ZM_noHiddenChats": {
+    "message": "No hidden chats"
+  },
+  "ZM_yesBtn": {
+    "message": "yes"
+  },
+  "ZM_zenMorning_description": {
+    "message": "Wake up every morning with Zen mode dedicated to this conversation. Please note, this will disable all previously selected Zen Morning conversations."
+  },
+  "appDescription": {
+    "message": "Simplifies Whatsapp Web and helps you focus",
+    "description": "The description of the application, displayed in the web store."
+  },
+  "extnName": {
+    "message": "Zen Mode (Whatsapp)",
+    "description": "The title of the application, displayed in the web store."
   }
 }
