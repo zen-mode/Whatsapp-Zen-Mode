@@ -125,7 +125,7 @@ export function presentHiddenChatsLeftDrawer(hiddenChats: Chat[]): LeftDrawerIte
     hiddenChatsDrawer.close();
   }
   hiddenChatsDrawer = constructBaseLeftDrawerItemList(
-    browser.i18n.getMessage('ZM_ctxMenuItem_hiddenChats'),
+    browser.i18n.getMessage('ZM_hiddenChats'),
     hiddenChats,
     () => {},
     constructBasicChatListElement,

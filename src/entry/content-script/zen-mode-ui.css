@@ -77,6 +77,10 @@ html[dir="rtl"] #ZenMode__toggle__chevron {
   top: 10px;
   cursor: pointer;
 }
+#ZenMode__releaseNotes h1,
+#ZenMode__releaseNotes b {
+  font-weight: 500;
+}
 
 #ZenMode__zenMorningArea {
   position: fixed;

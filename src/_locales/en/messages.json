@@ -31,11 +31,11 @@
     "description": "ZM ctx menu item that displays release notes widget"
   },
   "ZM_ctxMenuItem_smartMute_OFF": {
-    "message": "Smart Mute Mode OFF",
+    "message": "Unmute notification sounds",
     "description": "ZM ctx menu item that toggle Smart Mute mode."
   },
   "ZM_ctxMenuItem_smartMute_ON": {
-    "message": "Smart Mute Mode ON",
+    "message": "Mute notification sounds",
     "description": "ZM ctx menu item that toggle Smart Mute mode."
   },
   "ZM_ctxMenuItem_smartMute_desc": {
@@ -49,11 +49,18 @@
   "ZM_ctxMenuItem_zenMode": {
     "message": "Zen Mode"
   },
+  "ZM_hiddenChats": {
+    "message": "Hidden Chats"
+  },
   "ZM_noBtn": {
     "message": "no"
   },
   "ZM_noHiddenChats": {
     "message": "No hidden chats"
+  },
+  "ZM_releaseNotes": {
+    "message": "Release Notes",
+    "description": "Same for all languages"
   },
   "ZM_yesBtn": {
     "message": "yes"

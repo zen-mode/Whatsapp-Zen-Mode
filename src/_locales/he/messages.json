@@ -23,10 +23,10 @@
     "message": "אודות הגרסה"
   },
   "ZM_ctxMenuItem_smartMute_OFF": {
-    "message": "בטל מצב השתקה חכמה"
+    "message": "בטל השתקת צלילי התראות"
   },
   "ZM_ctxMenuItem_smartMute_ON": {
-    "message": "הפעל מצב השתקה חכמה"
+    "message": "השתקת צלילי התראות"
   },
   "ZM_ctxMenuItem_smartMute_desc": {
     "message": "השתק את כל הצלילים מלבד הודעות קוליות ווידאו שאתה מנגן"
@@ -36,6 +36,9 @@
   },
   "ZM_ctxMenuItem_zenMode": {
     "message": "זן מוד"
+  },
+  "ZM_hiddenChats": {
+    "message": "רשימת צ'אטים מוחבאים"
   },
   "ZM_noBtn": {
     "message": "לא"
