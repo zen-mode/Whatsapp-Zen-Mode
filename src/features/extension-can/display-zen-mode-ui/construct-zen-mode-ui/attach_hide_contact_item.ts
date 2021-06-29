@@ -49,6 +49,7 @@ export function attach_hide_contact_item(node: Element): void {
     const menuItemEl = isHidden
       ? construct_Unhide_contact_ctx_menu_item()
       : construct_Hide_contact_ctx_menu_item();
+    menuItemEl.classList.add('first');
     const zenMorningItemEl = construct_zenMorning_contact_ctx_menu_item(
       await isZenMorningChat(hoveredChat)
     );

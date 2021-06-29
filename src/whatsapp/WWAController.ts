@@ -19,6 +19,10 @@ export function getChatByTitle(chatTitle: string): any {
   })
 }
 
+export function getOpenedChat(): any {
+  return ChatModule.Chat.active();
+}
+
 export function muteChatLocally(chat: any) {
   if (chat.mute.isMuted != true)
     chat.mute.setMute(MUTE_FOREVER, false);
@@ -39,9 +43,10 @@ export function unarchiveChatLocally(chat: any) {
     chat.archive = false;
 }
 
-export function openChat(chatId: string) {
+export function openChat(chatId: string): any {
   const chat = ChatModule.Chat.get(chatId);
   CmdModule.openChatAt(chat);
+  return chat;
 }
 
 export async function synchronizeWWChats() {

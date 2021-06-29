@@ -59,5 +59,8 @@
   },
   "ZM_ctxMenuItem_smartMute_desc": {
     "message": "השתק את כל הצלילים מלבד הודעות קוליות ווידאו שאתה מנגן"
+  },
+  "ZM_ctxMenuItem_zenMode": {
+    "message": "זן מוד"
   }
 }

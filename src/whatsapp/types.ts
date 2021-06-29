@@ -14,6 +14,7 @@ export enum WWAProviderCall {
   setChatsSounds,
   getChatsSoundsState,
   getChatById,
+  getOpenedChat,
   openChat,
   refreshWWChats
 }

@@ -22,7 +22,7 @@ let hiddenChatsDrawer: LeftDrawerItemList<Chat>;
 const hiddenChatCtxMenu = new HiddenChatCtxMenu([
   {
     action: 'unhide',
-    title: browser.i18n.getMessage('WA_contactCtxMenuItem_unhide'),
+    domNode: browser.i18n.getMessage('WA_contactCtxMenuItem_unhide'),
     chatChange: removeHiddenChats
   }
 ]);
