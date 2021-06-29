@@ -52,3 +52,11 @@ export function openChat(chatId: string): any {
 export async function synchronizeWWChats() {
   await ChatModule.Chat.sync();
 }
+
+export function getChatsGlobalSoundsState(): boolean {
+  return Boolean(ChatModule.Mute.getGlobalSounds());
+}
+
+export function setChatsGlobalSoundsState(state: boolean) {
+  ChatModule.Mute.setGlobalSounds(state);
+}
