@@ -184,7 +184,7 @@ html[dir=rtl] #ZenMode__zenMorning__sunIcon {
 }
 /* Zen mode menu */
 .fakeCtxMenu[data-menu-type=ZM] {
-  width: 240px;
+  width: 250px;
 }
 .fakeCtxMenu[data-menu-type=ZM] [data-action=smartMute] ._11srW._2xxet {
   padding: 12px 24px;
