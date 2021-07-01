@@ -1,34 +1,24 @@
-import {browser} from "webextension-polyfill-ts";
+import { browser } from 'webextension-polyfill-ts';
 
+// Render
 const titleEl = document.getElementById('titleOnboarding');
 const descEl = document.getElementById('descriptionOnboarding');
 const agreeEl = document.getElementById('agreeOnboarding');
 const disagreeEl = document.getElementById('disagreeOnboarding');
 
-function constructPopupDescription() {
-    const text = browser.i18n.getMessage("ZM_onboarding_page_desc");
-    return text;
+function constructLocales() {
+  titleEl.textContent = browser.i18n.getMessage('ZM_onboarding_page_title');
+  descEl.textContent = browser.i18n.getMessage('ZM_onboarding_page_desc');
+  agreeEl.textContent = browser.i18n.getMessage('ZM_onboarding_page_agree');
+  disagreeEl.textContent = browser.i18n.getMessage('ZM_onboarding_page_disagree');
 }
+constructLocales();
 
-function constructPopupBtns() {
-    const text_agree = browser.i18n.getMessage("ZM_onboarding_page_agree");
-    const text_disagree = browser.i18n.getMessage("ZM_onboarding_page_disagree");
-    return {
-        text_agree,
-        text_disagree
-    };
-}
-
-titleEl.textContent = constructPopupDescription();
-descEl.textContent = constructPopupDescription();
-agreeEl.textContent = constructPopupBtns().text_agree;
-disagreeEl.textContent = constructPopupBtns().text_disagree;
-
-
+// Set listeners
 agreeEl.addEventListener('click', function() {
-    browser.runtime.sendMessage({action: 'reload-whatsapp'})
-})
+  browser.runtime.sendMessage({ action: 'reload-whatsapp' })
+});
 
 disagreeEl.addEventListener('click', function() {
-    browser.runtime.sendMessage({action: 'close-onboarding-page'})
-})
+  browser.runtime.sendMessage({ action: 'close-onboarding-page' })
+});
