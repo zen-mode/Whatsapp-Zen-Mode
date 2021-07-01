@@ -59,5 +59,15 @@
   },
   "ZM_ctxMenuItem_smartMute_desc": {
     "message": "השתק את כל הצלילים מלבד הודעות קוליות ווידאו שאתה מנגן"
+  },
+  "ZM_onboarding_page_desc": {
+    "message": "יש צורך ברענון ווטסאפ וב כדי שזן מוד יתחיל לעבוד",
+    "description": "האם תרצה לעשות זאת כרגע?"
+  },
+  "ZM_onboarding_page_agree": {
+    "message": "כן בבקשה"
+  },
+  "ZM_onboarding_page_disagree": {
+    "message": "לא כרגע"
   }
 }

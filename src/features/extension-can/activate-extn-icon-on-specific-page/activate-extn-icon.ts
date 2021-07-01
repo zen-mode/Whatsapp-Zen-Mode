@@ -6,15 +6,13 @@
 import {browser} from "webextension-polyfill-ts";
 
 // 1. Makes extn icon active on https://web.whatsapp.com/; disabled otherwise.
-browser.runtime.onInstalled.addListener(function () {
+browser.runtime.onInstalled.addListener(function (reason) {
   // Reload WhatsApp tab
-  browser.tabs.query({}).then((tabs: any) => {
-    if (tabs && tabs.length) {
-      tabs.map((tab: any) => {
-        if (tab.url.includes("web.whatsapp.com"))  browser.tabs.reload(tab.id);
-      })
-    }
-  });
+  if (reason.reason === "install") {
+    browser.tabs.create({
+      url: 'onboarding.html'
+    });
+  }
   browser.declarativeContent.onPageChanged.removeRules(undefined, function () {
     browser.declarativeContent.onPageChanged.addRules([
       {

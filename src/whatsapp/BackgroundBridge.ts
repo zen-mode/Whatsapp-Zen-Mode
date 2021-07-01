@@ -47,3 +47,21 @@ browser.runtime.onConnectExternal.addListener(function(externalPort) {
 
 browser.runtime.onMessageExternal.addListener(function(message, sender) {
 });
+
+browser.runtime.onMessage.addListener(function(message) {
+  if (message.action === 'reload-whatsapp') {
+    browser.tabs.query({ url: '*://web.whatsapp.com/*' }).then((tabs) => {
+      tabs.forEach(tab => browser.tabs.reload(tab.id));
+      closeCurrentTab();
+    });
+  } else if (message.action === 'close-onboarding-page') {
+    closeCurrentTab();
+  }
+})
+
+const closeCurrentTab = () => {
+  browser.tabs.query({active: true, currentWindow: true}).then((tabs: any) => {
+    const curTabId = tabs[0].id;
+    browser.tabs.remove(curTabId);
+  });
+}
