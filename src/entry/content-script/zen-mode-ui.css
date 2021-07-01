@@ -1,32 +1,22 @@
-/* Hide contact WA ctx menu item */
-#ZenMode__hideContact:hover,
-#ZenMode__unhideContact:hover,
-.ZenMode__contextMenuItem:hover {
-  background-color: var(--dropdown-background-hover);
-}
-#ZenMode__hideContact > div,
-#ZenMode__unhideContact > div {
-  border-top: gray 1px dashed;
-  padding: 13px 0;
-  margin: 0 24px;
-  font-size: 14.5px;
-}
-@media (prefers-color-scheme: dark) {
-  #ZenMode__hideContact > div,
-  #ZenMode__unhideContact > div {
-    border-top: white 1px dashed;
-  }
-}
-
 /* ZM button */
-#ZenMode__toggle {
-  height: 25px;
-  width: 25px;
-  margin-right: 10px;
+.ZenModeLogo {
+  --size: 1.33em;
+  height: var(--size);
+  width: var(--size);
   position: relative;
-  cursor: pointer;
   background-position: center;
   background-size: contain;
+}
+.ZenModeLogoInlined {
+  display: inline-block;
+  vertical-align: middle;
+  margin: -.2em .5em 0;
+}
+#ZenMode__toggle {
+  --size: 25px;
+  margin-right: 10px;
+  cursor: pointer;
+  position: relative;
 }
 html[dir="rtl"] #ZenMode__toggle {
   margin-right: 0;
@@ -53,19 +43,6 @@ html[dir="rtl"] #ZenMode__toggle__chevron {
   background-color: #77dd77;
   border-radius: 50%;
   box-shadow:0 0 1px #444;
-}
-
-/* ZM button contextMenu */
-#ZenMode__contextMenu {
-  width: 240px;
-  position: absolute;
-  top: 50px;
-  right: 150px;
-  display: none;
-}
-html[dir="rtl"] #ZenMode__contextMenu {
-  right: initial;
-  left: 150px;
 }
 
 /* Release notes */
@@ -99,6 +76,10 @@ html[dir="rtl"] #ZenMode__contextMenu {
   right: 10px;
   top: 10px;
   cursor: pointer;
+}
+#ZenMode__releaseNotes h1,
+#ZenMode__releaseNotes b {
+  font-weight: 500;
 }
 
 #ZenMode__zenMorningArea {
@@ -169,18 +150,6 @@ html[dir=rtl] #ZenMode__zenMorning__sunIcon {
   right: .5em;
 }
 
-#ZenMode__contextMenuItem__smartMute ._11srW._2xxet {
-  align-items: center;
-  color: inherit;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 24px;
-}
-#ZenMode__smartMute__soundIcon svg {
-  height: auto;
-  width: 18px;
-}
-
 .hiddenChatEl .dNJHX[data-action=fakeCtxMenu] {
   width: 20px;
 }
@@ -192,10 +161,45 @@ html[dir=rtl] #ZenMode__zenMorning__sunIcon {
   animation-duration: .2s;
   animation-fill-mode: forwards;
 }
-.fakeCtxMenu ._2iavx {
+
+.fakeCtxMenuItem._2iavx {
   opacity: 1;
 }
-
+.fakeCtxMenuItem.first {
+  position: relative;
+}
+.fakeCtxMenuItem.first::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  border-top: dashed 1px gray;
+  left: 20px;
+  right: 20px;
+  top: 0;
+}
+@media (prefers-color-scheme: dark) {
+  .fakeCtxMenuItem.first::after {
+    border-top-color: white;
+  }
+}
+/* Zen mode menu */
+.fakeCtxMenu[data-menu-type=ZM] {
+  width: 250px;
+}
+.fakeCtxMenu[data-menu-type=ZM] [data-action=smartMute] ._11srW._2xxet {
+  padding: 12px 24px;
+}
+#ZenMode__contextMenuItem__smartMute {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  justify-content: space-between;
+}
+#ZenMode__smartMute__soundIcon svg {
+  height: auto;
+  width: 18px;
+}
+/* Fake Context Menu animations */
 @keyframes showFakeCtxMenu {
   0% {
     transform: scale(0);

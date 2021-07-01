@@ -1,19 +1,15 @@
 import {browser} from "webextension-polyfill-ts";
-import {construct_zen_mode_ctx_menu_item} from "../use-zen-mode-ctx-menu/construct-zen-mode-ctx-menu-item";
 import {get_extn_storage_item_value, set_extn_storage_item} from "../../../../utility-belt/helpers/extn/storage";
 import {Selectors, SOUND_OFF_HTML, SOUND_ON_HTML, StateItemNames} from "../../../data/dictionary";
 import {
-  muteNonMutedChatsExceptChats,
-  unmuteChatsLocally
+  turnOffChatsSounds, turnOnChatsSounds
 } from "../../../whatsapp/ExtensionConnector";
-import {Chat} from "../../../whatsapp/model/Chat";
-import {getHiddenChats} from "../../../whatsapp/Storage";
 import {DOM} from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
 import {set_el_attributes} from "../../../../utility-belt/helpers/dom/set-el-attributes";
 
-export function construct_smartMute_menu_item(): HTMLLIElement {
+export function construct_smartMute_menu_item(): HTMLElement {
   const text = browser.i18n.getMessage("ZM_ctxMenuItem_smartMute_ON");
-  const menuItem = construct_zen_mode_ctx_menu_item('', toggleSmartMute);
+  const menuItem = document.createElement('DIV');
   set_el_attributes(menuItem, {
     id: Selectors.ZM_CTX_MENU_ITEM_SMARTMUTE.substring(1),
     title: browser.i18n.getMessage("ZM_ctxMenuItem_smartMute_desc")
@@ -32,7 +28,7 @@ export function construct_smartMute_menu_item(): HTMLLIElement {
     },
     html: SOUND_ON_HTML
   });
-  menuItem.children[0]?.append(textEl, soundIconEl);
+  menuItem.append(textEl, soundIconEl);
 
   return menuItem;
 }
@@ -43,7 +39,6 @@ export async function toggleSmartMute(): Promise<void> {
   await setSmartMuteStatus(!smartMuteStatus);
 }
 
-let mutedChatsBySmartMute: Chat[] = [];
 export async function setSmartMuteStatus(smartMuteStatus: boolean): Promise<void> {
   // Save to storage
   await set_extn_storage_item({
@@ -51,15 +46,9 @@ export async function setSmartMuteStatus(smartMuteStatus: boolean): Promise<void
   });
   // Render changes
   if (smartMuteStatus) {
-    muteNonMutedChatsExceptChats((mutedChats) => {
-      const nonSavedMutedChats = mutedChats.filter(mutedChat => mutedChatsBySmartMute.every(c => c.id !== mutedChat.id));
-      mutedChatsBySmartMute = mutedChatsBySmartMute.concat(nonSavedMutedChats);
-    });
+    turnOffChatsSounds();
   } else {
-    getHiddenChats()
-      .then(hiddenChats => unmuteChatsLocally(
-        mutedChatsBySmartMute.filter(chat => hiddenChats.every(hiddenChat => chat.id !== hiddenChat.id))
-      ));
+    turnOnChatsSounds();
   }
   const smartMuteItem = DOM.get_el(Selectors.ZM_CTX_MENU_ITEM_SMARTMUTE);
   if (smartMuteItem) {

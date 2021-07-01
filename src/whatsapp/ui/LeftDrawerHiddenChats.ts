@@ -22,7 +22,7 @@ let hiddenChatsDrawer: LeftDrawerItemList<Chat>;
 const hiddenChatCtxMenu = new HiddenChatCtxMenu([
   {
     action: 'unhide',
-    title: browser.i18n.getMessage('WA_contactCtxMenuItem_unhide'),
+    domNode: browser.i18n.getMessage('WA_contactCtxMenuItem_unhide'),
     chatChange: removeHiddenChats
   }
 ]);
@@ -125,7 +125,7 @@ export function presentHiddenChatsLeftDrawer(hiddenChats: Chat[]): LeftDrawerIte
     hiddenChatsDrawer.close();
   }
   hiddenChatsDrawer = constructBaseLeftDrawerItemList(
-    browser.i18n.getMessage('ZM_ctxMenuItem_hiddenChats'),
+    browser.i18n.getMessage('ZM_hiddenChats'),
     hiddenChats,
     () => {},
     constructBasicChatListElement,

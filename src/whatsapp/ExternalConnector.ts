@@ -5,7 +5,12 @@ import {generateBasicWWAResponse} from "./Utils";
 import {
   getChat,
   getChatByTitle,
-  openChat, synchronizeWWChats, getChatsExceptId, muteChatLocally
+  openChat,
+  synchronizeWWChats,
+  getChatsExceptId,
+  getOpenedChat,
+  setChatsGlobalSoundsState, 
+  getChatsGlobalSoundsState
 } from "./WWAController";
 import {provideModules} from "./WWAProvider";
 import {Chat} from "./model/Chat";
@@ -66,12 +71,26 @@ callerFunctions.set(WWAProviderCall.getChatById, (chatId: string) => {
   return ChatFabric.fromWWAChat(chat);
 });
 
-callerFunctions.set(WWAProviderCall.openChat, (chat: Chat): void => {
-  openChat(chat.id);
+callerFunctions.set(WWAProviderCall.openChat, (chat: Chat): Chat => {
+  const WWAChat = openChat(chat.id);
+  return ChatFabric.fromWWAChat(WWAChat);
+});
+
+callerFunctions.set(WWAProviderCall.getOpenedChat, () => {
+  const chat = getOpenedChat();
+  return chat ? ChatFabric.fromWWAChat(chat) : null;
 });
 
 callerFunctions.set(WWAProviderCall.refreshWWChats, async () => {
   await synchronizeWWChats();
+});
+
+callerFunctions.set(WWAProviderCall.setChatsSounds, (state: boolean) => {
+  setChatsGlobalSoundsState(state);
+});
+
+callerFunctions.set(WWAProviderCall.getChatsSoundsState, () => {
+  return getChatsGlobalSoundsState();
 });
 
 
@@ -84,6 +103,8 @@ const extBridgePort = browser.runtime.connect('%%EXTENSION_GLOBAL_ID%%', { name:
 extBridgePort.onMessage.addListener((request: WWAProviderRequest) => {
   handleRequest(request);
 });
+
+extBridgePort.onDisconnect.addListener(handlePortDisconnection);
 
 async function handleRequest(request: WWAProviderRequest) {
   let result;
@@ -104,4 +125,8 @@ async function handleRequest(request: WWAProviderRequest) {
     error = e;
   }
   extBridgePort.postMessage(generateBasicWWAResponse(request.id, result, error, request));
+}
+
+function handlePortDisconnection(port: any) {
+  setChatsGlobalSoundsState(true);
 }

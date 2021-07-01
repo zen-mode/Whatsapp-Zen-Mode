@@ -15,13 +15,13 @@ export function construct_release_notes_area(): HTMLDivElement {
     tag: "div",
     attributes: {
       id: Selectors.ZM_RELEASE_NOTES_AREA.substring(1),
-      class: Selectors.WA_CONTACT_CTX_MENU.substring(1),
+      class: '_1qAEq',
     },
   });
 
   const headerEl = DOM.create_el({
     tag: "h1",
-    text: browser.i18n.getMessage("ZM_ctxMenuItem_releaseNotes")
+    text: `${browser.i18n.getMessage("ZM_releaseNotes")} ${manifest.version}`
   });
   releaseNotesAreaEl.appendChild(headerEl);
 
@@ -29,12 +29,6 @@ export function construct_release_notes_area(): HTMLDivElement {
   // But in current ver we only use one RN.
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const notesForLatestRelease = (releaseNotes as ReleaseNotes)[0]!;
-  const versionEl = DOM.create_el({
-    tag: "div",
-    text: `Version ${manifest.version}`,
-    attributes: {id: Selectors.ZM_RELEASE_NOTES_AREA_VERSION.substring(1)},
-  });
-  releaseNotesAreaEl.appendChild(versionEl);
 
   const releaseNotesListEl = DOM.create_el({tag: "ul"});
   releaseNotesAreaEl.appendChild(releaseNotesListEl);

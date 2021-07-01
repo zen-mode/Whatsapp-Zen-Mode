@@ -10,9 +10,7 @@ export function construct_zenmorning_area(): HTMLDivElement {
     tag: "div",
     attributes: {
       id: Selectors.ZM_ZENMORNING_AREA.substring(1),
-      class: [Selectors.WA_CONTACT_CTX_MENU]
-        .map(classSelector => classSelector.substring(1))
-        .join(' '),
+      class: '_1qAEq',
     },
   });
 

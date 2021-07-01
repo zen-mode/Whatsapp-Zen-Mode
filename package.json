@@ -1,9 +1,8 @@
 {
   "name": "whatsapp-zen-mode",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "private": true,
   "scripts": {
-    "live-build": "parcel src/manifest.json --no-source-maps --no-optimize --no-scope-hoist",
     "build-beta": "npm run parcel-beta && cross-env BUILD_TYPE=local-beta node ./scripts/build.js",
     "build-release": "npm run parcel-release && cross-env BUILD_TYPE=local-release node ./scripts/build.js",
     "build-ws-beta": "npm run parcel-beta && cross-env BUILD_TYPE=web-store-beta node ./scripts/build.js",
