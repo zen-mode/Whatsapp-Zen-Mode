@@ -1,3 +1,11 @@
+
+# Release Notes 1.4.1.1
+###### ([Rosa Parks](https://en.wikipedia.org/wiki/Rosa_Parks) - first public beta release)
+1.**Automatic refresh** -after extension installation.
+2.**Hide contact visibility on search**- [cosmetic bug fix](https://github.com/zen-mode/Whatsapp-Zen-Mode/issues/81)
+
+
+
 # Release Notes 1.4.1.0
 ###### ([Rosa Parks](https://en.wikipedia.org/wiki/Rosa_Parks) - first public beta release)
 
