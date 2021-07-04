@@ -15,6 +15,7 @@ import {trackArchivedChatsVisibility} from "../../api/track-archived-chats-visib
 import {attachUIToMainContactCtxMenu} from "../extension-can/display-zen-mode-ui/construct-zen-mode-ui/attachUIToMainContactCtxMenu";
 import {get_Zen_mode_status, toggle_Zen_mode_on_page} from "../user-can/toggle-zen-mode/cs/toggle-zen-mode";
 
+export let providerInjected = false;
 // Attaches DOM observer and checks for tf conditions:
 const observer = new MutationObserver(async (mutations) => {
   mutations.filter(m => m.type === 'attributes').forEach(mutation => {
@@ -36,7 +37,10 @@ const observer = new MutationObserver(async (mutations) => {
 
           // On page load - hides the contacts that were hidden by user previously.
           if (DOM.get_el(Selectors.WA_CONTACT_LIST, node as HTMLElement)) {
-            injectWAPageProvider();
+            if (!providerInjected) {
+              injectWAPageProvider();
+              providerInjected = true;
+            }
 
             const zenModeStatus = await get_Zen_mode_status();
 
