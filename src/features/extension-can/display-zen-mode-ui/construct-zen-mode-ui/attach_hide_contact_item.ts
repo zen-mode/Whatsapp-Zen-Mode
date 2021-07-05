@@ -15,7 +15,7 @@ import {construct_zenMorning_contact_ctx_menu_item} from "./construct-zenmorning
 
 export let lastHoveredChat: Chat | null;
 
-export function attach_hide_contact_item(node: Element): void {
+export function attach_hide_contact_item(node: HTMLElement): void {
   // prettier-ignore
   // Explain: It shouldn't be a ZM element using WA styling; eg ZM_CTX_MENU or RN area .
   if ([
@@ -43,7 +43,8 @@ export function attach_hide_contact_item(node: Element): void {
 
   const hoveredContactTitle = get_hovered_contact_raw_title();
 
-  findChatByTitle(hoveredContactTitle, async (hoveredChat: Chat) => {
+  findChatByTitle(hoveredContactTitle, async (hoveredChat) => {
+    if (!hoveredChat) return;
     lastHoveredChat = hoveredChat;
     const isHidden = await isHiddenChat(hoveredChat);
     const menuItemEl = isHidden

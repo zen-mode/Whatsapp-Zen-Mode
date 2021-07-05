@@ -9,7 +9,7 @@ import {
   synchronizeWWChats,
   getChatsExceptId,
   getOpenedChat,
-  setChatsGlobalSoundsState, 
+  setChatsGlobalSoundsState,
   getChatsGlobalSoundsState
 } from "./WWAController";
 import {provideModules} from "./WWAProvider";
@@ -28,9 +28,11 @@ const browser = chrome;
 
 const callerFunctions = new Map<WWAProviderCall, any>();
 
-callerFunctions.set(WWAProviderCall.findChatByTitle, (chatTitle: string) => {
+callerFunctions.set(WWAProviderCall.findChatByTitle, (chatTitle: string): Chat | null => {
   const chat = getChatByTitle(chatTitle);
-  return ChatFabric.fromWWAChat(chat);
+  return chat
+    ? ChatFabric.fromWWAChat(chat)
+    : null; // e.g.: Phone contact without WhatsApp chat
 });
 
 callerFunctions.set(WWAProviderCall.updateChatModels, (chats: Chat[]) => {
