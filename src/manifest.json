@@ -5,7 +5,7 @@
   "default_locale": "en",
   "minimum_chrome_version": "78",
 
-  "permissions": ["*://web.whatsapp.com/*", "activeTab", "declarativeContent", "storage", "idle"],
+  "permissions": ["*://web.whatsapp.com/*", "activeTab", "declarativeContent", "storage", "idle", "tabs"],
 
   "background": {
     "scripts": ["entry/background/bgs.js"]
@@ -19,7 +19,7 @@
     }
   ],
 
-  "web_accessible_resources": ["assets/**/*", "whatsapp/ExternalConnector.ts"],
+  "web_accessible_resources": ["assets/**/*", "whatsapp/ExternalConnector.ts", "entry/content-script/onboarding.css", "entry/content-script/onboarding.js", "onboarding.html"],
 
   "page_action": {
     "default_title": "Toggle Zen mode",

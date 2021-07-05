@@ -58,6 +58,20 @@
   "ZM_noHiddenChats": {
     "message": "No hidden chats"
   },
+  "ZM_onboarding_page_title": {
+    "message": "You need to refresh Whatsapp Web for Zen Mode to work.",
+    "description": "Popup title after install"
+  },
+  "ZM_onboarding_page_desc": {
+    "message": "Do you want to do it now?",
+    "description": "Popup description after install"
+  },
+  "ZM_onboarding_page_agree": {
+    "message": "Yes please"
+  },
+  "ZM_onboarding_page_disagree": {
+    "message": "Not now"
+  },
   "ZM_releaseNotes": {
     "message": "Release Notes",
     "description": "Same for all languages"
