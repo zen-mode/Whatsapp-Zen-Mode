@@ -31,7 +31,7 @@ export const enum StateItemNames {
 
 export const enum Selectors {
   // Note: there are 2 regions; we need the 1st.
-  WA_CONTACT_LIST = "[role='grid']",
+  WA_CONTACT_LIST = "#pane-side [role=grid]",
   // Attention: Non-exclusive! Other unrelated els have this too.
   WA_CONTACT_NAME = "[title]",
   WA_CONTACT_SECOND_DIV = "[role='gridcell']",
@@ -48,6 +48,8 @@ export const enum Selectors {
   // WA_CONTACT_CTX_MENU_LIST_ITEM = "#app span:nth-of-type(4) > div ul li",
   // WA_CONTACT_CTX_MENU_ITEM_CONTENTS_DIV = "#app span:nth-of-type(4) > div ul [role='button']",
   WA_BACK_BTN = "._27F2N [data-testid=back]",
+  WA_CONTACT_CONTAINER = "._2aBzC",
+  WA_CONTACT_INFO_CONTAINER = ".TbtXF",
   WA_CONTACT_CTX_MENU = "#app > div > span > ._1qAEq",
   WA_CONTACT_CTX_MENU_LIST = "._19rjv",
   WA_GENERAL_CTX_MENU = "._1R3Un ._1qAEq._11bi2",
@@ -55,6 +57,7 @@ export const enum Selectors {
   WA_LEFT_HEADER_BUTTONS = "._1R3Un ._1ljzS.pnYZD > span",
   // Explain: Looks like it's not needed.
   WA_CONTACT_CTX_MENU_ITEM_CONTENTS_DIV = "._11srW, ._2xxet",
+  WA_HIDDEN_LABEL_CONTAINER = "._1SjZ2 ._2TiQe._2SDbp",
 
   WA_CONTACT_INFO_PANEL = "#app > div > div > div:nth-of-type(2) > div:nth-of-type(1)",
   WA_SIDEBAR = "#side",

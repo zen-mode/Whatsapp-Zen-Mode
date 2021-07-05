@@ -33,7 +33,7 @@ function callProviderFunctionWithCallback(call: WWAProviderCall, args: any[], ca
   pageBridgePort.postMessage(request);
 }
 
-export function findChatByTitle(chatTitle: string, callback?: (chat: Chat) => void): void {
+export function findChatByTitle(chatTitle: string, callback?: (chat: Chat | null) => void): void {
   callProviderFunctionWithCallback(WWAProviderCall.findChatByTitle, [chatTitle], callback);
 }
 

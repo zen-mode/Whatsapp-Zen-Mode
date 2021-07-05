@@ -61,7 +61,7 @@ function constructBasicChatListElement(chat: Chat): HTMLElement {
                            </span>
                         </div>
                         <div role="gridcell" aria-colindex="1" class="_15smv">
-                          <span><span class="_2TiQe _2SDbp">Hidden</span></span>
+                          <span><span class="_2TiQe _2SDbp">${browser.i18n.getMessage('ZM_hidden')}</span></span>
                           <span></span>
                           <span>
                             <button class="dNJHX" data-action="fakeCtxMenu">
