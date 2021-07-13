@@ -1,6 +1,6 @@
 {
   "name": "__MSG_extnName__",
-  "version": "1.4.1.1",
+  "version": "1.4.1.5",
   "description": "__MSG_appDescription__",
   "default_locale": "en",
   "minimum_chrome_version": "78",

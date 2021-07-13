@@ -1,6 +1,6 @@
 {
   "name": "whatsapp-zen-mode",
-  "version": "1.4.1",
+  "version": "1.4.5",
   "private": true,
   "scripts": {
     "build-beta": "npm run parcel-beta && cross-env BUILD_TYPE=local-beta node ./scripts/build.js",

@@ -48,13 +48,13 @@ export const enum Selectors {
   // WA_CONTACT_CTX_MENU_LIST_ITEM = "#app span:nth-of-type(4) > div ul li",
   // WA_CONTACT_CTX_MENU_ITEM_CONTENTS_DIV = "#app span:nth-of-type(4) > div ul [role='button']",
   WA_BACK_BTN = "._27F2N [data-testid=back]",
-  WA_CONTACT_CONTAINER = "._2aBzC",
-  WA_CONTACT_INFO_CONTAINER = ".TbtXF",
-  WA_CONTACT_CTX_MENU = "#app > div > span > ._1qAEq",
+  WA_CONTACT_CONTAINER = "._ccCW", // .FqYAR.i0jNr
+  WA_CONTACT_INFO_CONTAINER = "._2nY6U",
+  WA_CONTACT_CTX_MENU = "#app > div > span > .o--vV",
   WA_CONTACT_CTX_MENU_LIST = "._19rjv",
   WA_GENERAL_CTX_MENU = "._1R3Un ._1qAEq._11bi2",
   WA_LEFT_CONTAINER = "._1sMV6",
-  WA_LEFT_HEADER_BUTTONS = "._1R3Un ._1ljzS.pnYZD > span",
+  WA_LEFT_HEADER_BUTTONS = "._3UaCz > span",
   // Explain: Looks like it's not needed.
   WA_CONTACT_CTX_MENU_ITEM_CONTENTS_DIV = "._11srW, ._2xxet",
   WA_HIDDEN_LABEL_CONTAINER = "._1SjZ2 ._2TiQe._2SDbp",
