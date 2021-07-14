@@ -17,16 +17,12 @@ devprint("STATUS: Waiting for TOGGLE_ZEN_MODE command.");
 browser.runtime.onMessage.addListener(async (command: {action: string}) => {
   // 2. Take action.
   switch (command.action) {
-    case Commands.TOGGLE_ZEN_MODE:
-      {
-        toggle_Zen_mode();
-      }
-      break;
+    case Commands.TOGGLE_ZEN_MODE: {
+      toggle_Zen_mode();
+    } break;
 
-    case Commands.CHECK_ZENMORNING:
-      {
-        checkZenMorningChatState();
-      }
-      break;
+    case Commands.CHECK_ZENMORNING: {
+      checkZenMorningChatState();
+    } break;
   }
 });
