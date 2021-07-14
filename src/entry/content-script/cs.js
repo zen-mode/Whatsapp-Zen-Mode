@@ -38,7 +38,6 @@ function runEmbedded() {
     if (zenModeOn && el.id === "favicon") {
       if (!faviconBypass) {
         currentFaviconURL = el.href;
-        debugger;
         if (el.href !== regularIconURL) {
           return;
         }

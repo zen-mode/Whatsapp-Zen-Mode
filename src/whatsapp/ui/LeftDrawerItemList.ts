@@ -21,7 +21,7 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
                                                    constructItemEl: (item: T) => HTMLElement,
                                                    onClickOnItemEl: (event: MouseEvent, item: T) => void,
                                                    constructEmptyPlugEl: () => HTMLElement): LeftDrawerItemList<T> {
-  const leftDrawerContainer = DOM.get_el('._1Flk2._2DPZK');
+  const leftDrawerContainer = DOM.get_el('.ldL67._2i3T7');
   if (!leftDrawerContainer) {
     throw Error('WWALeftDrawerContainer not presented');
   }
@@ -34,14 +34,14 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
     emptyPlugContainerEl: HTMLElement
   } {
     leftDrawerContainer!!.insertAdjacentHTML("beforeend", `
-<span id="${DRAWER_ID}" class="_2zn9Y">
-   <div class="_1sMV6" tabindex="-1" style="height: 100%; transform: translateX(0%);">
-      <span class="_1t1U-">
-         <div class="OMoBQ _2uJIN _3wXwX copyable-area">
-            <header class="_2heqZ">
-               <div class="_2fGIm" data-animate-drawer-title="true">
-                  <div class="_215wZ">
-                     <button id='${DRAWER_UP_BUTTON_ID}' class="_27F2N">
+<span id="${DRAWER_ID}" class="vXLk5">
+   <div class="_3bvta" tabindex="-1" style="height: 100%; transform: translateX(0%);">
+      <span class="_2J8hu">
+         <div class="nBIOd _3kIRz tm2tP copyable-area">
+            <header class="_1PGhQ">
+               <div class="_1Yy4I" data-animate-drawer-title="true">
+                  <div class="_2-1k7">
+                     <button id='${DRAWER_UP_BUTTON_ID}' class="_18eKe">
                         <span data-testid="back" data-icon="back" class="">
                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                               <path fill="currentColor" d="M12 4l1.4 1.4L7.8 11H20v2H7.8l5.6 5.6L12 20l-8-8 8-8z"></path>
@@ -49,10 +49,10 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
                         </span>
                      </button>
                   </div>
-                  <div id="${DRAWER_TITLE_ID}" class="_1XrsE"></div>
+                  <div id="${DRAWER_TITLE_ID}" class="_1FrBz"></div>
                </div>
             </header>
-            <div id="${DRAWER_ITEMS_CONTAINER_ID}" class="_1C2Q3 _36Jt6">
+            <div id="${DRAWER_ITEMS_CONTAINER_ID}" class="_3Bc7H KPJpj">
             </div>
          </div>
          <div hidden="" style="display: none;"></div>

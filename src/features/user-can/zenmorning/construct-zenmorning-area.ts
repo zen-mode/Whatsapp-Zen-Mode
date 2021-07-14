@@ -10,7 +10,7 @@ export function construct_zenmorning_area(): HTMLDivElement {
     tag: "div",
     attributes: {
       id: Selectors.ZM_ZENMORNING_AREA.substring(1),
-      class: '_1qAEq',
+      class: '_3J6wB',
     },
   });
 

@@ -15,7 +15,7 @@ export function construct_release_notes_area(): HTMLDivElement {
     tag: "div",
     attributes: {
       id: Selectors.ZM_RELEASE_NOTES_AREA.substring(1),
-      class: '_1qAEq',
+      class: '_3J6wB',
     },
   });
 
