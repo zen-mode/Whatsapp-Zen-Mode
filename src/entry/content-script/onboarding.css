@@ -33,7 +33,8 @@ body {
 
 .popup--btns {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    margin-top: 30px;
 }
 
 .popup--btns button {
