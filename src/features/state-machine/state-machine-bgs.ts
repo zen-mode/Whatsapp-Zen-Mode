@@ -9,11 +9,9 @@
 
 import {browser} from "webextension-polyfill-ts";
 import {devprint} from "../../../utility-belt/helpers/debug/devprint";
-import {get_active_tab_id} from "../../../utility-belt/helpers/extn/get-active-tab";
 import {set_default_state} from "./default-state";
 
 import {Commands} from "../../data/dictionary";
-import {process_error} from "../extension-can/process-errors/process-error";
 
 devprint("STATUS: State machine running.");
 

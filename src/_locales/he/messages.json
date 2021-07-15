@@ -50,15 +50,8 @@
     "message": "יש צורך לטעון את האתר מחדש כדי שזן מוד יעבוד",
     "description": "Popup title after install"
   },
-  "ZM_onboarding_page_desc": {
-    "message": "האם תרצה לעשות זאת כעת?",
-    "description": "Popup description after install"
-  },
-  "ZM_onboarding_page_agree": {
+    "ZM_onboarding_page_agree": {
     "message": "כן"
-  },
-  "ZM_onboarding_page_disagree": {
-    "message": "לא כרגע"
   },
   "ZM_yesBtn": {
     "message": "כן"
