@@ -29,7 +29,7 @@ export function attach_hide_contact_item(node: HTMLElement): void {
   const hoveredDivEl = get_hovered_contact_el();
   if (!hoveredDivEl) return;
 
-  const waContactCtxMenuEl = DOM.get_el(Selectors.WA_CONTACT_CTX_MENU);
+  const waContactCtxMenuEl = DOM.get_el(Selectors.WA_CONTACTS_LIST_CTX_MENU);
 
   if (!waContactCtxMenuEl) {
     throw_DOM_error(Selectors.WA_CONTACT_CTX_MENU, "WA_CONTACT_CTX_MENU");

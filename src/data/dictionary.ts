@@ -51,6 +51,7 @@ export const enum Selectors {
   WA_CONTACT_CONTAINER = "._ccCW", // .FqYAR.i0jNr
   WA_CONTACT_INFO_CONTAINER = "._2nY6U",
   WA_CONTACT_CTX_MENU = "#app > div > span > .o--vV.wGJyi",
+  WA_CONTACTS_LIST_CTX_MENU = "#app > div > span > .o--vV",
   WA_CONTACT_CTX_MENU_LIST = "._19rjv",
   WA_GENERAL_CTX_MENU = "._1R3Un ._1qAEq._11bi2",
   WA_LEFT_CONTAINER = "._1sMV6",
