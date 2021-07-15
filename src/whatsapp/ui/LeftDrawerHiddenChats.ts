@@ -56,14 +56,14 @@ function constructBasicChatListElement(chat: Chat): HTMLElement {
                         <div class="zoWT4"><span dir="auto" title="${chat.title}" class="_ccCW FqYAR i0jNr">${chat.title}</span></div>
                         <div class="_3dulN"></div>
                      </div>
-                     <div class="_1SjZ2">
-                        <div class="_2vfYK">
-                           <span class="_1DB2K" title="‬">
-                              <div class="_1grL7"><span dir="ltr" class="_3-8er"></span></div>
+                     <div class="_37FrU">
+                        <div class="_1qB8f">
+                           <span class="Hy9nV" title="‬">
+                              <div class="_2qo4q _3NIfV"><span dir="ltr" class="_3-8er"></span></div>
                            </span>
                         </div>
-                        <div role="gridcell" aria-colindex="1" class="_15smv">
-                          <span><span class="_2TiQe _2SDbp">${browser.i18n.getMessage('ZM_hidden')}</span></span>
+                        <div role="gridcell" aria-colindex="1" class="_1i_wG">
+                          <span><span class="_1pJ9J  _3f7yK">${browser.i18n.getMessage('ZM_hidden')}</span></span>
                           <span></span>
                           <span>
                             <button class="dNJHX" data-action="fakeCtxMenu">
