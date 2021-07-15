@@ -1,3 +1,8 @@
+# Release Notes 1.4.1.8
+###### ([Rosa Parks](https://en.wikipedia.org/wiki/Rosa_Parks) - first public beta release)
+1.**Alignments due to whatsapp web changes**
+2.**Automatic refresh upon installtion removal**
+
 # Release Notes 1.4.1.7
 ###### ([Rosa Parks](https://en.wikipedia.org/wiki/Rosa_Parks) - first public beta release)
 1.**Alignments due to whatsapp web changes**
