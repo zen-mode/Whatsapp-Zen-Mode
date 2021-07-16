@@ -16,7 +16,8 @@ export enum WWAProviderCall {
   getChatById,
   getOpenedChat,
   openChat,
-  refreshWWChats
+  refreshWWChats,
+  markChatAsRead
 }
 
 export type WWAProviderRequest = {

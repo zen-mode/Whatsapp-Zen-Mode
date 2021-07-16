@@ -60,3 +60,7 @@ export function getChatsGlobalSoundsState(): boolean {
 export function setChatsGlobalSoundsState(state: boolean) {
   ChatModule.Mute.setGlobalSounds(state);
 }
+
+export function markChatAsRead(chat: any): any {
+  CmdModule.markChatUnread(chat, 0);
+}

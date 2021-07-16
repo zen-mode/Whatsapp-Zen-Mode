@@ -10,7 +10,8 @@ import {
   getChatsExceptId,
   getOpenedChat,
   setChatsGlobalSoundsState,
-  getChatsGlobalSoundsState
+  getChatsGlobalSoundsState,
+  markChatAsRead
 } from "./WWAController";
 import {provideModules} from "./WWAProvider";
 import {Chat} from "./model/Chat";
@@ -93,6 +94,10 @@ callerFunctions.set(WWAProviderCall.setChatsSounds, (state: boolean) => {
 
 callerFunctions.set(WWAProviderCall.getChatsSoundsState, () => {
   return getChatsGlobalSoundsState();
+});
+
+callerFunctions.set(WWAProviderCall.markChatAsRead, (chat: Chat) => {
+  markChatAsRead(chat)
 });
 
 

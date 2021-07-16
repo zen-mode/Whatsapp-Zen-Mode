@@ -1,5 +1,6 @@
 import {
   archiveChatLocally,
+  markChatAsRead,
   muteChatLocally,
   unArchiveChatLocally,
   unmuteChatsLocally
@@ -18,6 +19,7 @@ export function setChatVisibility(
       unmuteChatsLocally([chat]);
     }
     unArchiveChatLocally(chat);
+    markChatAsRead(chat)
   } else {
     if (!smartMuteStatus) {
       muteChatLocally(chat);
