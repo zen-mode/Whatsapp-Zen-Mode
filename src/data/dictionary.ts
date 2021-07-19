@@ -94,6 +94,12 @@ export const enum ZenModeStatuses {
   ON = "ON",
   OFF = "OFF",
 }
+
+export const enum AutoReadHiddeConversationStatuses {
+  ENABLED = "ENABLED",
+  DISABLED = "DISABLED",
+}
+
 //
 // export const ERROR = "ERROR";
 //
