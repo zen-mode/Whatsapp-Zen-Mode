@@ -18,6 +18,7 @@ import {renderHiddenLabel} from "../user-can/hide-contacts/hide-contact";
 import {get_chat_el_raw_title} from "../../api/get-contact-el-name";
 import {findChatByTitle} from "../../whatsapp/ExtensionConnector";
 import {get_contact_el_by_chat_name} from "../../api/get-contact-el-by-contact-name";
+import { getAutoReadHiddenConversationsStatus, setAutoReadHiddenConversationsStatus } from "../user-can/auto-read-hidden-conversations/AutoReadHiddenConversations";
 
 export let providerInjected = false;
 // Attaches DOM observer and checks for tf conditions:
@@ -55,6 +56,8 @@ const observer = new MutationObserver(async (mutations) => {
 
             const smartMuteStatus = await getSmartMuteStatus();
 
+            const autoReadHiddenConversationsStatus = await getAutoReadHiddenConversationsStatus()
+
             // Explain: Wait for all rendering and animations to complete; otherwise - buggy.
             setTimeout(() => {
               // Zen mode activation
@@ -68,6 +71,8 @@ const observer = new MutationObserver(async (mutations) => {
               });
               // Check smart mute
               setSmartMuteStatus(smartMuteStatus);
+              // Check auto read hidden conversations status
+              setAutoReadHiddenConversationsStatus(autoReadHiddenConversationsStatus)
               // Open zen morning contact
               checkZenMorningChatState(zenMorningChat);
             }, TIME.ONE_SECOND);
