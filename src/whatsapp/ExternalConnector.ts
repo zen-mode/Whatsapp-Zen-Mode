@@ -96,8 +96,8 @@ callerFunctions.set(WWAProviderCall.getChatsSoundsState, () => {
   return getChatsGlobalSoundsState();
 });
 
-callerFunctions.set(WWAProviderCall.markChatAsRead, (chat: Chat) => {
-  markChatAsRead(chat)
+callerFunctions.set(WWAProviderCall.markChatAsRead, (chatId: string) => {
+  markChatAsRead(chatId)
 });
 
 

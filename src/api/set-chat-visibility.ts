@@ -19,7 +19,7 @@ export function setChatVisibility(
       unmuteChatsLocally([chat]);
     }
     unArchiveChatLocally(chat);
-    markChatAsRead(chat)
+    markChatAsRead(chat.id);
   } else {
     if (!smartMuteStatus) {
       muteChatLocally(chat);

@@ -89,6 +89,6 @@ export function getChatsSoundsState(callback: (state: boolean) => void) {
   callProviderFunctionWithCallback(WWAProviderCall.getChatsSoundsState, [], callback);
 }
 
-export function markChatAsRead(chat: Chat) {
-  callProviderFunctionWithCallback(WWAProviderCall.openChat, [chat]);
+export function markChatAsRead(chatId: string) {
+  callProviderFunctionWithCallback(WWAProviderCall.markChatAsRead, [chatId]);
 }

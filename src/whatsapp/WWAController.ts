@@ -61,6 +61,15 @@ export function setChatsGlobalSoundsState(state: boolean) {
   ChatModule.Mute.setGlobalSounds(state);
 }
 
-export function markChatAsRead(chat: any): any {
+export function markChatAsRead(chatId: string): any {
+  const chat = ChatModule.Chat.get(chatId);
+  const styleEl = document.createElement('style');
+  document.head.appendChild(styleEl);
+  const styleSheet = styleEl.sheet;
+  if (!styleSheet) {
+    throw new Error("No stylesheet")
+  }
+  styleSheet?.insertRule("._21opK { display: none }", 0);
   CmdModule.markChatUnread(chat, 0);
+  window.setTimeout(() => styleEl.remove(), 10000);
 }

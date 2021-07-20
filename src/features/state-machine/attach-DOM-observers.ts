@@ -1,7 +1,7 @@
 import {DOM} from "../../../utility-belt/helpers/dom/DOM-shortcuts";
 import {devprint} from "../../../utility-belt/helpers/debug/devprint";
 
-import {Selectors} from "../../data/dictionary";
+import {AutoReadHiddeConversationStatuses, Selectors} from "../../data/dictionary";
 import {TIME} from "../../../utility-belt/constants/time";
 
 import {injectWAPageProvider} from "../../whatsapp/ExternalInjector";
