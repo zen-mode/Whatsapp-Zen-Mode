@@ -83,8 +83,12 @@
     "message": "Simplifies Whatsapp Web and helps you focus",
     "description": "The description of the application, displayed in the web store."
   },
-  "extnName": {
-    "message": "Zen Mode (Whatsapp)",
+  "extnNameForTesters": {
+    "message": "Zen Mode (for whatsapp - Alpha)",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "extnNameForPublic": {
+    "message": "Zen Mode (for whatsapp - Beta)",
     "description": "The title of the application, displayed in the web store."
   }
 }

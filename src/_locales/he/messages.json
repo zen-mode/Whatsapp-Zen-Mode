@@ -62,7 +62,10 @@
   "appDescription": {
     "message": "מפשט את השימוש בוואטסאפ ווב, ועוזר לכם להתמקד"
   },
-  "extnName": {
+  "extnNameForTesters": {
+    "message": "זן מוד (וואטסאפ)"
+  },
+  "extnNameForPublic": {
     "message": "זן מוד (וואטסאפ)"
   }
 }
