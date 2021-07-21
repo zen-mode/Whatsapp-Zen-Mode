@@ -186,6 +186,11 @@ html[dir=rtl] #ZenMode__zenMorning__sunIcon {
 .fakeCtxMenu[data-menu-type=ZM] {
   width: 280px;
 }
+
+html[dir=rtl] .fakeCtxMenu[data-menu-type=ZM] {
+  width: 310px;
+}
+
 .fakeCtxMenu[data-menu-type=ZM] [data-action=smartMute] ._2oldI.dJxPU {
   padding: 12px 24px;
 }

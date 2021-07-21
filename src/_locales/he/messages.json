@@ -35,7 +35,7 @@
     "message": "הראה צ'אטים מוחבאים"
   },
   "ZM_ctxMenuItem_autoRead_hidden_conversations": {
-    "message": "Auto-read Hidden Conversations",
+    "message": "סימון אוטומטי של צ'אט מוסתר כנקרא",
     "description": "ZM ctx menu item that toggle Auto-read Hidden Conversations."
   },
   "ZM_ctxMenuItem_zenMode": {
