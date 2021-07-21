@@ -36,7 +36,7 @@ const observer = new MutationObserver(async (mutations) => {
         .forEach(async node => {
           const htmlEl = node as HTMLElement;
           // If WA contact context menu is present - Attach 'Hide contact' item.
-          if (DOM.get_el(Selectors.WA_CONTACTS_LIST_CTX_MENU) === htmlEl) {
+          if (DOM.get_el(Selectors.WA_CONTACT_CTX_MENU) === htmlEl) {
             attach_hide_contact_item(htmlEl);
             attachUIToMainContactCtxMenu(htmlEl);
           }
