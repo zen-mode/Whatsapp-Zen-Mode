@@ -1,7 +1,7 @@
 import {DOM} from "../../../utility-belt/helpers/dom/DOM-shortcuts";
 import {devprint} from "../../../utility-belt/helpers/debug/devprint";
 
-import {AutoReadHiddeConversationStatuses, Selectors} from "../../data/dictionary";
+import {Selectors} from "../../data/dictionary";
 import {TIME} from "../../../utility-belt/constants/time";
 
 import {injectWAPageProvider} from "../../whatsapp/ExternalInjector";
@@ -64,7 +64,7 @@ const observer = new MutationObserver(async (mutations) => {
               toggle_Zen_mode_on_page(zenModeStatus);
               // Hidden chats
               hiddenChats.forEach(hiddenChat => {
-                setChatVisibility(hiddenChat, false, smartMuteStatus);
+                setChatVisibility(hiddenChat, false, smartMuteStatus, autoReadHiddenConversationsStatus);
                 const chatEl = get_contact_el_by_chat_name(hiddenChat.title);
                 if (!chatEl) return;
                 renderHiddenLabel(chatEl);
