@@ -19,29 +19,32 @@ const RELEASE_KEY = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqdmPtJBkV3trN7s
 const BETA_ID = 'edpkmlkdnhgboaagheijhfnphkndpekd';
 const BETA_KEY = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1MJAS9KZkAvZtXJQtrWx5YiG30bxwoebot+I3hACIYffkVrBuOU8uh0hsLkZbprFcU/AJHKWUFUM43bl/zYBh0HEmIJvSG6dtkd6qenoDQNXuKh34tr4SIcxfih/BiEnL+abItsjJF5L5bRVOMn6zXGgmGlB+SAR98NXcgCsUkmIeEgYZ6NJQGyxPsHTF1Uv3QniEwTBT4kMiN8z79j/nVvYEhfNfjC5Eid+RAMzCN5Lfn9v9/DJ/d1o0cxBkrJgcvJiJkKO9NOFubBEQPIbfheXGdvnNsh8+wsvhph/9ssLhZMFucY9EWkdjTfOrM2I2AkoaSc+FJJeGv+DMDss7QIDAQAB';
 
+const RELEASE_NAME='__MSG_extnNameForPublic__'
+const BETA_NAME='__MSG_extnNameForTesters__'
+
 const BUILD_TYPES = Object.freeze({
   LOCAL_RELEASE: {
     id: 'local-release',
     placeholder: {EXTENSION_GLOBAL_ID: RELEASE_ID},
-    manifest: {key: RELEASE_KEY},
+    manifest: {key: RELEASE_KEY, name: RELEASE_NAME},
     pack: true
   },
   LOCAL_BETA: {
     id: 'local-beta',
     placeholder: {EXTENSION_GLOBAL_ID: BETA_ID},
-    manifest: {key: BETA_KEY},
+    manifest: {key: BETA_KEY, name: BETA_NAME},
     pack: true
   },
   WEB_STORE_RELEASE: {
     id: 'web-store-release',
     placeholder: {EXTENSION_GLOBAL_ID: RELEASE_ID},
-    manifest: {key: null},
+    manifest: {key: null, name: RELEASE_NAME},
     pack: true
   },
   WEB_STORE_BETA: {
     id: 'web-store-beta',
     placeholder: {EXTENSION_GLOBAL_ID: BETA_ID},
-    manifest: {key: null},
+    manifest: {key: null, name: BETA_NAME},
     pack: true
   },
 })
