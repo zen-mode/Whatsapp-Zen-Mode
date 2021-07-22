@@ -26,7 +26,8 @@ export const enum StateItemNames {
   ZEN_MODE_CHAT = "ZEN_MODE_CHAT",
   LAST_ACTIVITY_DATE = "LAST_ACTIVITY_DATE",
   ZEN_MODE_FORCE_BY_ZEN_MORNING = "ZEN_MODE_FORCE_BY_ZEN_MORNING",
-  SMART_MUTE_STATUS = "SMART_MUTE_STATUS"
+  SMART_MUTE_STATUS = "SMART_MUTE_STATUS",
+  AUTO_READ_HIDDEN_CONVERSATIONS_STATUS = "AUTO_READ_HIDDEN_CONVERSATIONS_STATUS"
 }
 
 export const enum Selectors {
@@ -50,8 +51,7 @@ export const enum Selectors {
   WA_BACK_BTN = "._27F2N [data-testid=back]",
   WA_CONTACT_CONTAINER = "._ccCW", // .FqYAR.i0jNr
   WA_CONTACT_INFO_CONTAINER = "._2nY6U",
-  WA_CONTACT_CTX_MENU = "#app > div > span > .o--vV.wGJyi",
-  WA_CONTACTS_LIST_CTX_MENU = "#app > div > span > .o--vV",
+  WA_CONTACT_CTX_MENU = "#app > div > span > .o--vV",
   WA_CONTACT_CTX_MENU_LIST = "._19rjv",
   WA_GENERAL_CTX_MENU = "._1R3Un ._1qAEq._11bi2",
   WA_LEFT_CONTAINER = "._1sMV6",
@@ -77,6 +77,9 @@ export const enum Selectors {
   ZM_CTX_MENU_ITEM_SMARTMUTE = "#ZenMode__contextMenuItem__smartMute",
   ZM_SMARTMUTE_SOUNDICON = "#ZenMode__smartMute__soundIcon",
   ZM_SMARTMUTE_TEXT = "#ZenMode__smartMute__text",
+  ZM_CTX_MENU_ITEM_AUTO_READ_HIDDEN_CONVERSATION = "#ZenMode__contextMenuItem__autoReadHiddenConversations",
+  ZM_AUTO_READ_HIDDEN_CONVERSATION_TEXT = "#ZenMode__autoReadHiddenConversations__text",
+  ZM_AUTO_READ_HIDDEN_CONVERSATION_CHECK_MARK = "#ZenMode__autoReadHiddenConversations__checkMark",
   ZM_TOGGLE_BUTTON = "#ZenMode__toggle",
   ZM_TOGGLE_BUTTON_CHEVRON = "#ZenMode__toggle__chevron",
   ZM_BADGE = "#ZenMode__badge",
@@ -90,6 +93,12 @@ export const enum ZenModeStatuses {
   ON = "ON",
   OFF = "OFF",
 }
+
+export const enum AutoReadHiddeConversationStatuses {
+  ENABLED = "ENABLED",
+  DISABLED = "DISABLED",
+}
+
 //
 // export const ERROR = "ERROR";
 //
@@ -121,3 +130,5 @@ export const SOUND_ON_HTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0
 	</g>
 </g>
 </svg>`;
+
+export const CHECK_MARK_HTML = `&#x2713;`;

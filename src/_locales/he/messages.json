@@ -34,6 +34,10 @@
   "ZM_ctxMenuItem_unhideAll": {
     "message": "הצג צ'אטים מוסתרים"
   },
+  "ZM_ctxMenuItem_autoRead_hidden_conversations": {
+    "message": "סימון אוטומטי של צ'אט מוסתר כנקרא",
+    "description": "ZM ctx menu item that toggle Auto-read Hidden Conversations."
+  },
   "ZM_ctxMenuItem_zenMode": {
     "message": "זן מוד"
   },
@@ -51,7 +55,7 @@
     "description": "Popup title after install"
   },
     "ZM_onboarding_page_agree": {
-    "message": "כן"
+    "message": "הבנתי"
   },
   "ZM_yesBtn": {
     "message": "כן"
