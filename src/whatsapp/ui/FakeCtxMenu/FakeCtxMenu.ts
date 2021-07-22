@@ -121,7 +121,7 @@ export class FakeCtxMenu {
     if (!this._node) {
       const itemLis = this.items.map(item => constructFakeCtxMenuItem([item.domNode], item.action));
       const div = document.createElement('DIV');
-      div.className = '_1qAEq fakeCtxMenu';
+      div.className = 'o--vV _1qAEq fakeCtxMenu';
       div.setAttribute('data-menu-type', this._type);
       div.tabIndex = -1;
       div.style.opacity = '0';

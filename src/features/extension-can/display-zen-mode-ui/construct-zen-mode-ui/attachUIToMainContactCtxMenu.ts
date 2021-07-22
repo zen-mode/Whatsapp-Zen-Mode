@@ -10,7 +10,7 @@ import {constructFakeCtxMenuItem} from "../../../user-can/use-zen-mode-ctx-menu/
 import {constructZenModeLogoIcon} from "../../../../api/getZenModeIcon";
 import {hide_WA_context_menu} from "../../../../api/hide-wa-context-menu";
 
-export function attachUIToMainContactCtxMenu(node: Element): void {
+export function attachUIToMainContactCtxMenu(node: HTMLElement): void {
   const hoveredDivEl = get_hovered_contact_el();
   if (hoveredDivEl) return;
   const waContactCtxMenuEl = DOM.get_el(Selectors.WA_CONTACT_CTX_MENU);

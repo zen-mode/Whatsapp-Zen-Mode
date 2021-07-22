@@ -4,10 +4,10 @@
     "description": "WA contact ctx menu item that turn zen morning for contact"
   },
   "WA_contactCtxMenuItem_hide": {
-    "message": "החבא"
+    "message": "הסתר צ'אט"
   },
   "WA_contactCtxMenuItem_unhide": {
-    "message": "הראה צ'אט מוחבא"
+    "message": "הצג צ'אט מוסתר"
   },
   "WA_contactCtxMenuItem_zenMorning": {
     "message": "בוקר זן \uD83C\uDF1E",
@@ -17,7 +17,7 @@
     "message": "צור/י קשר"
   },
   "ZM_ctxMenuItem_hiddenChats": {
-    "message": "הראה רשימת צ'אטים מוחבאים"
+    "message": "לרשימת צ'אטים מוסתרים"
   },
   "ZM_ctxMenuItem_releaseNotes": {
     "message": "אודות הגרסה"
@@ -32,19 +32,26 @@
     "message": "השתק את כל הצלילים מלבד הודעות קוליות ווידאו שאתה מנגן"
   },
   "ZM_ctxMenuItem_unhideAll": {
-    "message": "הראה צ'אטים מוחבאים"
+    "message": "הצג צ'אטים מוסתרים"
   },
   "ZM_ctxMenuItem_zenMode": {
     "message": "זן מוד"
   },
   "ZM_hiddenChats": {
-    "message": "רשימת צ'אטים מוחבאים"
+    "message": "צ'אטים מוסתרים"
   },
   "ZM_noBtn": {
     "message": "לא"
   },
   "ZM_noHiddenChats": {
     "message": "אין צ'אטים מוסתרים"
+  },
+  "ZM_onboarding_page_title": {
+    "message": "יש צורך לטעון את האתר מחדש כדי שזן מוד יעבוד",
+    "description": "Popup title after install"
+  },
+    "ZM_onboarding_page_agree": {
+    "message": "כן"
   },
   "ZM_yesBtn": {
     "message": "כן"
@@ -55,7 +62,10 @@
   "appDescription": {
     "message": "מפשט את השימוש בוואטסאפ ווב, ועוזר לכם להתמקד"
   },
-  "extnName": {
+  "extnNameForTesters": {
+    "message": "זן מוד (וואטסאפ)"
+  },
+  "extnNameForPublic": {
     "message": "זן מוד (וואטסאפ)"
   }
 }

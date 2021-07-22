@@ -7,14 +7,19 @@ import {TIME} from "../../../utility-belt/constants/time";
 import {injectWAPageProvider} from "../../whatsapp/ExternalInjector";
 import {toggle_contact_visibility_on_scroll} from "../../api/toggle-contact-visibility-on-scroll";
 import {attach_hide_contact_item} from "../extension-can/display-zen-mode-ui/construct-zen-mode-ui/attach_hide_contact_item";
-import {getHiddenChats} from "../../whatsapp/Storage";
+import {getHiddenChats, isHiddenChat} from "../../whatsapp/Storage";
 import {setChatVisibility} from "../../api/set-chat-visibility";
 import {checkZenMorningChatState, getZenMorningChat} from "../user-can/zenmorning/setZenMorning";
 import {getSmartMuteStatus, setSmartMuteStatus} from "../user-can/SmartMute/SmartMute";
 import {trackArchivedChatsVisibility} from "../../api/track-archived-chats-visibility";
 import {attachUIToMainContactCtxMenu} from "../extension-can/display-zen-mode-ui/construct-zen-mode-ui/attachUIToMainContactCtxMenu";
 import {get_Zen_mode_status, toggle_Zen_mode_on_page} from "../user-can/toggle-zen-mode/cs/toggle-zen-mode";
+import {renderHiddenLabel} from "../user-can/hide-contacts/hide-contact";
+import {get_chat_el_raw_title} from "../../api/get-contact-el-name";
+import {findChatByTitle} from "../../whatsapp/ExtensionConnector";
+import {get_contact_el_by_chat_name} from "../../api/get-contact-el-by-contact-name";
 
+export let providerInjected = false;
 // Attaches DOM observer and checks for tf conditions:
 const observer = new MutationObserver(async (mutations) => {
   mutations.filter(m => m.type === 'attributes').forEach(mutation => {
@@ -28,15 +33,19 @@ const observer = new MutationObserver(async (mutations) => {
       [...mutation.addedNodes]
         .filter(node => node && node_is_Element(node))
         .forEach(async node => {
+          const htmlEl = node as HTMLElement;
           // If WA contact context menu is present - Attach 'Hide contact' item.
-          if (DOM.get_el(Selectors.WA_CONTACT_CTX_MENU) === node) {
-            attach_hide_contact_item(node as Element);
-            attachUIToMainContactCtxMenu(node as Element);
+          if (DOM.get_el(Selectors.WA_CONTACTS_LIST_CTX_MENU) === htmlEl) {
+            attach_hide_contact_item(htmlEl);
+            attachUIToMainContactCtxMenu(htmlEl);
           }
 
           // On page load - hides the contacts that were hidden by user previously.
-          if (DOM.get_el(Selectors.WA_CONTACT_LIST, node as HTMLElement)) {
-            injectWAPageProvider();
+          if (DOM.get_el(Selectors.WA_CONTACT_LIST, htmlEl)) {
+            if (!providerInjected) {
+              injectWAPageProvider();
+              providerInjected = true;
+            }
 
             const zenModeStatus = await get_Zen_mode_status();
 
@@ -51,8 +60,11 @@ const observer = new MutationObserver(async (mutations) => {
               // Zen mode activation
               toggle_Zen_mode_on_page(zenModeStatus);
               // Hidden chats
-              hiddenChats.forEach((hiddenChat) => {
+              hiddenChats.forEach(hiddenChat => {
                 setChatVisibility(hiddenChat, false, smartMuteStatus);
+                const chatEl = get_contact_el_by_chat_name(hiddenChat.title);
+                if (!chatEl) return;
+                renderHiddenLabel(chatEl);
               });
               // Check smart mute
               setSmartMuteStatus(smartMuteStatus);
@@ -61,9 +73,20 @@ const observer = new MutationObserver(async (mutations) => {
             }, TIME.ONE_SECOND);
           }
 
-          const menuEl = (node as HTMLElement).closest(Selectors.WA_GENERAL_CTX_MENU);
+          const menuEl = htmlEl.closest(Selectors.WA_GENERAL_CTX_MENU);
           if (menuEl) {
             trackArchivedChatsVisibility(menuEl as HTMLElement);
+          }
+
+          if (htmlEl.classList.contains(Selectors.WA_CONTACT_CONTAINER.substring(1))) {
+            const chatElInfo = htmlEl.querySelector(Selectors.WA_CONTACT_INFO_CONTAINER);
+            if (chatElInfo) {
+              const rawChatTitle = get_chat_el_raw_title(chatElInfo);
+              findChatByTitle(rawChatTitle, async chat => {
+                if (!chat || !(await isHiddenChat(chat))) return;
+                renderHiddenLabel(chatElInfo as HTMLElement);
+              });
+            }
           }
         });
     });

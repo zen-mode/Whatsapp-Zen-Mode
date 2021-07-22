@@ -9,8 +9,9 @@ import {Selectors} from "../data/dictionary";
 import {get_chat_el_raw_title} from "./get-contact-el-name";
 import {renderZenMorningSunIcon} from "./renderZenMorningSunIcon";
 import {findChatByTitle} from "../whatsapp/ExtensionConnector";
-import {Chat} from "../whatsapp/model/Chat";
 import {isZenMorningChat} from "../features/user-can/zenmorning/setZenMorning";
+import {isHiddenChat} from "../whatsapp/Storage";
+import {renderHiddenLabel} from "../features/user-can/hide-contacts/hide-contact";
 
 export function toggle_contact_visibility_on_scroll(
   mutation: MutationRecord,
@@ -22,25 +23,23 @@ export function toggle_contact_visibility_on_scroll(
   if (contactElDidntChangeCSS_translateParam)
     return;
 
-  const mutatedElIsNotInContactList = !DOM.get_el(Selectors.WA_CONTACT_LIST)?.contains(
-    mutation.target,
-  );
-  if (mutatedElIsNotInContactList)
-    return;
+  const chatEl = mutation.target as HTMLElement;
+  if (!chatEl.classList.contains(Selectors.WA_CONTACT_CONTAINER.substring(1)) || !chatEl.closest(Selectors.WA_CONTACT_LIST)) return;
 
   // 2. Sets it's visibility css according to whether it is hidden by User or not.
-  const chatEl = (mutation.target as Element).querySelector('.TbtXF');
-  if (!chatEl)
-    return
-  const mutatedElChatTitle = get_chat_el_raw_title(chatEl);
+  const chatElInfo = chatEl.querySelector(Selectors.WA_CONTACT_INFO_CONTAINER);
+  if (!chatElInfo) return;
+  const rawChatTitle = get_chat_el_raw_title(chatElInfo);
 
-  findChatByTitle(mutatedElChatTitle, async (chat: Chat) => {
-    if (mutatedElChatTitle === get_chat_el_raw_title(chatEl)) {
-      renderZenMorningSunIcon(
-        await isZenMorningChat(chat),
-        chat,
-        chatEl
-      );
+  findChatByTitle(rawChatTitle, async (chat) => {
+    if (!chat) return;
+    renderZenMorningSunIcon(
+      await isZenMorningChat(chat),
+      chat,
+      chatElInfo
+    );
+    if (await isHiddenChat(chat)) {
+      renderHiddenLabel(chatElInfo as HTMLElement);
     }
   });
 }

@@ -1,7 +1,4 @@
 - changes:
-    - "(<a href=\"https://en.wikipedia.org/wiki/Rosa_Parks\">Rosa Parks</a> - first public beta release)"
-    - "<b>Zen Mode</b> - Click on the Zen icon near the search to focus on the current conversations."
-    - "<b>Hide chats</b> - Hide button moves chats to a \"hidden chats\" list. You can Un-hide from there or unhide all from main zen menu."
-    - "<b>Zen Morning</b> - You can choose to wake up every morning with Zen Mode focused on a pre-selected conversation. (see conversation menu)"
-    - "<b>Smart Mute</b> - Mute everything except voice/video messages you play."
+    - Alignments due to whatsapp web changes
+    - Automatic refresh upon installtion removal
     - "<a href=\"https://github.com/zen-mode/Whatsapp-Zen-Mode/blob/main/ReleaseNotes.md\">See previous versions</a>"

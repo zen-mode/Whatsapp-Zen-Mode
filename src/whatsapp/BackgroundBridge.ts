@@ -47,3 +47,13 @@ browser.runtime.onConnectExternal.addListener(function(externalPort) {
 
 browser.runtime.onMessageExternal.addListener(function(message, sender) {
 });
+
+browser.runtime.onMessage.addListener(function(message) {
+})
+
+function closeCurrentTab() {
+  browser.tabs.query({active: true, currentWindow: true}).then((tabs: any) => {
+    const curTabId = tabs[0].id;
+    browser.tabs.remove(curTabId);
+  });
+}

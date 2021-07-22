@@ -32,36 +32,38 @@ function constructBasicChatListElement(chat: Chat): HTMLElement {
   const chatSVGBlankPic = chat.isGroup ? GROUP_CHAT_SVG_HTML : USER_CHAT_SVG_HTML;
 
   const div = document.createElement('DIV');
-  div.className = '_2aBzC hiddenChatEl';
+  div.className = '_3m_Xw hiddenChatEl';
   // Styles
   div.style.zIndex = '0';
   div.style.transition = 'transition: none 0s ease 0s';
   div.style.height = '72px';
   div.style.transform = 'translateY(0px)';
   div.innerHTML = `<div tabindex="-1" aria-selected="false" role="row">
-               <div data-testid="cell-frame-container" class="_2Z4DV">
-                  <div class="_2GAT7">
-                     <div class="-y4n1" style="height: 49px; width: 49px;">
-                        <div class="_27MZN">
-                           <span data-testid="default-group" data-icon="default-group" class="">
-                              ${chatSVGBlankPic}
-                           </span>
+               <div data-testid="cell-frame-container" class="_2nY6U">
+                  <div class="_2EU3r">
+                    <div class="HONz8">
+                        <div class="_3GlyB" style="height: 49px; width: 49px;">
+                          <div class="_1lPgH">
+                             <span data-testid="default-group" data-icon="default-group" class="">
+                                ${chatSVGBlankPic}
+                            </span>
+                          </div>
                         </div>
-                     </div>
+                    </div>    
                   </div>
-                  <div class="TbtXF">
-                     <div role="gridcell" aria-colindex="2" class="_2pkLM">
-                        <div class="_3Dr46"><span dir="auto" title="${chat.title}" class="_35k-1 _1adfa _3-8er">${chat.title}</span></div>
-                        <div class="_15smv"></div>
+                  <div class="_3OvU8">
+                     <div role="gridcell" aria-colindex="2" class="_3vPI2">
+                        <div class="zoWT4"><span dir="auto" title="${chat.title}" class="_ccCW FqYAR i0jNr">${chat.title}</span></div>
+                        <div class="_3dulN"></div>
                      </div>
-                     <div class="_1SjZ2">
-                        <div class="_2vfYK">
-                           <span class="_1DB2K" title="‬">
-                              <div class="_1grL7"><span dir="ltr" class="_3-8er"></span></div>
+                     <div class="_37FrU">
+                        <div class="_1qB8f">
+                           <span class="Hy9nV" title="‬">
+                              <div class="_2qo4q _3NIfV"><span dir="ltr" class="_3-8er"></span></div>
                            </span>
                         </div>
-                        <div role="gridcell" aria-colindex="1" class="_15smv">
-                          <span><span class="_2TiQe _2SDbp">Hidden</span></span>
+                        <div role="gridcell" aria-colindex="1" class="_1i_wG">
+                          <span><span class="_1pJ9J  _3f7yK">${browser.i18n.getMessage('ZM_hidden')}</span></span>
                           <span></span>
                           <span>
                             <button class="dNJHX" data-action="fakeCtxMenu">
@@ -106,15 +108,15 @@ function constructBasicChatListElement(chat: Chat): HTMLElement {
 
 function constructEmptyPlug(): HTMLElement {
   document.body.insertAdjacentHTML('afterbegin', `
-        <div id="${EMPTY_HIDDEN_CHATS_LIST_PLUG_ID}" class="_2jXbt">
-            <div class="XcGMi">
+        <div id="${EMPTY_HIDDEN_CHATS_LIST_PLUG_ID}" class="_3Iwj9">
+            <div class="_2t_t3">
                <span data-testid="empty-archived" data-icon="empty-archived" class="">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90" width="90" height="90">
                      <path fill="currentColor" d="M71.109 24.113l-4.288-5.222c-.594-.934-1.825-1.528-3.396-1.528h-36.85a5.083 5.083 0 0 0-3.693 1.528l-3.991 5.222c-.934 1.231-1.528 2.462-1.528 3.991v38.377a6.16 6.16 0 0 0 6.156 6.156h42.962a6.16 6.16 0 0 0 6.156-6.156V28.104c0-1.529-.595-2.76-1.528-3.991zM45.042 61.896L28.146 45h10.741v-6.156h12.269V45h10.741L45.042 61.896zM23.859 23.519l2.462-3.057H63.17l2.759 3.057h-42.07z"></path>
                   </svg>
                </span>
             </div>
-            <div class="_3aOS0">${browser.i18n.getMessage('ZM_noHiddenChats')}</div>
+            <div class="_2Vemb">${browser.i18n.getMessage('ZM_noHiddenChats')}</div>
          </div>
       `);
   return DOM.get_el('#' + EMPTY_HIDDEN_CHATS_LIST_PLUG_ID)!!

@@ -19,7 +19,7 @@ export function constructFakeCtxMenuItem(
   action: GenericFn | string,
 ): HTMLLIElement {
   const li = document.createElement('LI') as HTMLLIElement;
-  li.className = "_2iavx _2CDB7 _3UHfW fakeCtxMenuItem";
+  li.className = "_1wMaz _18oo2 fakeCtxMenuItem";
   if (typeof action === 'string') {
     li.setAttribute('data-action', action);
   } else {
@@ -28,7 +28,7 @@ export function constructFakeCtxMenuItem(
       action();
     });
   }
-  li.innerHTML = '<div class="_11srW _2xxet"></div>';
+  li.innerHTML = '<div class="_2oldI dJxPU"></div>';
   li.children[0]!.append(...domNodes);
   li.addEventListener('mouseover', handleMouseOver);
 
