@@ -33,7 +33,13 @@ export function construct_release_notes_area(): HTMLDivElement {
   const releaseNotesListEl = DOM.create_el({tag: "ul"});
   releaseNotesAreaEl.appendChild(releaseNotesListEl);
 
-  notesForLatestRelease.changes.forEach((descr) => {
+  notesForLatestRelease.changes.forEach((descr, i) => {
+    if (notesForLatestRelease.changes.length - 1 === i ) {
+      const noteEl = DOM.create_el({tag: "div", html: descr});
+      releaseNotesListEl.appendChild(noteEl);
+      return
+    }
+
     const noteEl = DOM.create_el({tag: "li", html: descr});
     releaseNotesListEl.appendChild(noteEl);
   });
