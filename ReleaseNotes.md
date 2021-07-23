@@ -1,3 +1,8 @@
+# Release Notes 1.4.1.9
+### Improvements to first public beta version ([Rosa Parks](https://en.wikipedia.org/wiki/Rosa_Parks)
+1.**Add configurable setting of marking hidden chats as read** - Can be changed via Zen Mode Menu
+2.**Syntax changes** 
+
 # Release Notes 1.4.1.8
 ###### ([Rosa Parks](https://en.wikipedia.org/wiki/Rosa_Parks) - first public beta release)
 1.**Alignments due to whatsapp web changes**

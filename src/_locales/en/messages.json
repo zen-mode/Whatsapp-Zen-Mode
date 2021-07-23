@@ -7,11 +7,11 @@
     "description": "WA contact ctx menu item that turn zen morning for contact"
   },
   "WA_contactCtxMenuItem_hide": {
-    "message": "Hide",
+    "message": "Hide chat",
     "description": "WA contact ctx menu item that hides the contact"
   },
   "WA_contactCtxMenuItem_unhide": {
-    "message": "Unhide",
+    "message": "Unhide chat",
     "description": "WA contact ctx menu item that unhides the contact"
   },
   "WA_contactCtxMenuItem_zenMorning": {
@@ -35,12 +35,16 @@
     "description": "ZM ctx menu item that toggle Smart Mute mode."
   },
   "ZM_ctxMenuItem_smartMute_ON": {
-    "message": "Mute notification sounds",
+    "message": "Mute notifications' sounds",
     "description": "ZM ctx menu item that toggle Smart Mute mode."
   },
   "ZM_ctxMenuItem_smartMute_desc": {
     "message": "Mutes all sounds except audio and video messages you play",
     "description": "To clarify to user we would like hover text upon menu command."
+  },
+  "ZM_ctxMenuItem_autoRead_hidden_conversations": {
+    "message": "Auto-read Hidden Conversations",
+    "description": "ZM ctx menu item that toggle Auto-read Hidden Conversations."
   },
   "ZM_ctxMenuItem_unhideAll": {
     "message": "Unhide all",
@@ -83,8 +87,12 @@
     "message": "Simplifies Whatsapp Web and helps you focus",
     "description": "The description of the application, displayed in the web store."
   },
-  "extnName": {
-    "message": "Zen Mode (Whatsapp)",
+  "extnNameForTesters": {
+    "message": "Zen Mode (for whatsapp - Alpha)",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "extnNameForPublic": {
+    "message": "Zen Mode (for whatsapp - Beta)",
     "description": "The title of the application, displayed in the web store."
   }
 }

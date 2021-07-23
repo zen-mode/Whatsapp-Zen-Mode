@@ -12,7 +12,8 @@ export function construct_smartMute_menu_item(): HTMLElement {
   const menuItem = document.createElement('DIV');
   set_el_attributes(menuItem, {
     id: Selectors.ZM_CTX_MENU_ITEM_SMARTMUTE.substring(1),
-    title: browser.i18n.getMessage("ZM_ctxMenuItem_smartMute_desc")
+    title: browser.i18n.getMessage("ZM_ctxMenuItem_smartMute_desc"),
+    class: 'ZenMode__contextMenuItem__withIcon'
   });
   const textEl = DOM.create_el({
     tag: 'span',
