@@ -94,5 +94,9 @@
   "extnNameForPublic": {
     "message": "Zen Mode (for whatsapp - Beta)",
     "description": "The title of the application, displayed in the web store."
+  },
+  "ZM_ctxMenuItem_settings": {
+    "message": "Settings",
+    "description": "ZM ctx menu item that opens settings menu"
   }
 }

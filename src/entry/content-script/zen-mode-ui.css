@@ -233,3 +233,16 @@ html[dir=rtl] .fakeCtxMenu[data-menu-type=ZM] {
     transform: scale(0);
   }
 }
+
+.fakeCtxMenuSettings {
+  display: none;
+}
+
+.fakeCtxMenuItemOpts.show .fakeCtxMenuSettings {
+  display: block;
+  top: 0;
+  right: -200px;
+  width: 200px;
+  height: 200px;
+  background: #fff;
+}
