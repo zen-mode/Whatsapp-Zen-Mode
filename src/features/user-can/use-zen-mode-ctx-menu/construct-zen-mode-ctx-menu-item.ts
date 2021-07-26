@@ -1,4 +1,5 @@
 import {GenericFn} from "../../../../utility-belt/types/generic-types";
+import { ZMCtxMenuItem } from "../../../whatsapp/ui/FakeCtxMenu/ZMCtxMenu";
 
 /**
  * Used to emulate native hover effect
@@ -24,6 +25,7 @@ const handleMouseOver = (e: MouseEvent) => {
 export function constructFakeCtxMenuItem(
   domNodes: (HTMLElement | string)[],
   action: GenericFn | string,
+  children: ZMCtxMenuItem[] = []
 ): HTMLLIElement {
   const li = document.createElement('LI') as HTMLLIElement;
   li.className = "_1wMaz _18oo2 fakeCtxMenuItem";
@@ -36,10 +38,15 @@ export function constructFakeCtxMenuItem(
     });
   }
   li.innerHTML = '<div class="_2oldI dJxPU"></div>';
-  if (typeof action === 'string' && action === 'openSettings') {
+  
+  if (typeof action === 'string') {
     li.className = "_1wMaz _18oo2 fakeCtxMenuItem fakeCtxMenuItemOpts";
-    li.innerHTML += '<div class="o--vV _1qAEq fakeCtxMenuSettings"></div>'
+    const itemLis = children.map(item => constructFakeCtxMenuItem([item.domNode], item.action));
+    
+    li.innerHTML += '<ul class="o--vV _1qAEq fakeCtxMenuSettings"></ul>'
+    li.children[1]!.append(...itemLis)
   }
+
   li.children[0]!.append(...domNodes);
   li.addEventListener('mouseover', handleMouseOver);
   return li;
