@@ -4,7 +4,8 @@ import {constructFakeCtxMenuItem} from "../../../features/user-can/use-zen-mode-
 // Structure types
 export interface FakeCtxMenuItem {
   action: string,
-  domNode: string | HTMLElement
+  domNode: string | HTMLElement,
+  children?: FakeCtxMenuItem[]
 }
 export type FakeCtxMenuEventType = 'clickToEmptySpace' | 'itemClick';
 
@@ -58,7 +59,13 @@ export class FakeCtxMenu {
     // @ts-ignore
     const targetItem = e.target.closest('[data-action]');
     if (!targetItem) return;
-    const item = this.items.find(item => item.action === targetItem.dataset.action);
+    let item = this.items.find(item => item.action === targetItem.dataset.action || item.children && item.children.find(item => item.action === targetItem.dataset.action));
+
+    // TODO: implement
+    if (item?.children) {
+      item = item.children.find(item => item.action === targetItem.dataset.action)
+    }
+
     if (!item) {
       return process_error(
         new Error('Ctx menu item not found with action:' + targetItem.dataset.action)
@@ -119,7 +126,7 @@ export class FakeCtxMenu {
 
   _render() {
     if (!this._node) {
-      const itemLis = this.items.map(item => constructFakeCtxMenuItem([item.domNode], item.action));
+      const itemLis = this.items.map(item => constructFakeCtxMenuItem([item.domNode], item.action, item.children));
       const div = document.createElement('DIV');
       div.className = 'o--vV _1qAEq fakeCtxMenu';
       div.setAttribute('data-menu-type', this._type);

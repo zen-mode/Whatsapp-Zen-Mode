@@ -11,7 +11,8 @@ import {set_extn_storage_item} from "../../../../utility-belt/helpers/extn/stora
 import { construct_autoRead_hidden_conversations_menu_item, toggleAutoReadHiddenConversations } from "../../../features/user-can/auto-read-hidden-conversations/AutoReadHiddenConversations";
 
 export interface ZMCtxMenuItem extends FakeCtxMenuItem {
-  makeAction: () => void
+  makeAction?: () => void,
+  children?: ZMCtxMenuItem[]
 }
 
 const ZMMenuItems: ZMCtxMenuItem[] = [
@@ -19,11 +20,6 @@ const ZMMenuItems: ZMCtxMenuItem[] = [
     action: 'smartMute',
     domNode: construct_smartMute_menu_item(),
     makeAction: toggleSmartMute
-  },
-  {
-    action: 'autoReadHiddenConversations',
-    domNode: construct_autoRead_hidden_conversations_menu_item(),
-    makeAction: toggleAutoReadHiddenConversations
   },
   {
     action: 'hiddenChats',
@@ -59,9 +55,16 @@ const ZMMenuItems: ZMCtxMenuItem[] = [
   {
     action: 'openSettings',
     domNode: browser.i18n.getMessage("ZM_ctxMenuItem_settings"),
-    makeAction: () => {
-      set_extn_storage_item({[StateItemNames.SETTINGS_MENU]: true});
-    },
+    // makeAction: () => {
+    //   set_extn_storage_item({[StateItemNames.SETTINGS_MENU]: true});
+    // },
+    children: [
+      {
+        action: 'autoReadHiddenConversations',
+        domNode: construct_autoRead_hidden_conversations_menu_item(),
+        makeAction: toggleAutoReadHiddenConversations
+      },
+    ]
   }
 ];
 
@@ -81,7 +84,9 @@ export class ZMCtxMenu extends FakeCtxMenu {
    */
   handleItemClick = (e: CustomEvent) => {
     const {item} = e.detail as { item: ZMCtxMenuItem };
-    item.makeAction();
+    if (item.makeAction) {
+      item.makeAction();
+    }
     this.isVisible = false;
   }
 }
