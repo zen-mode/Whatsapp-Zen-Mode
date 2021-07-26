@@ -7,7 +7,8 @@ export function set_default_state(): void {
     {key: StateItemNames.HIDDEN_CONTACTS, defaultValue: []},
     {key: StateItemNames.RELEASE_NOTES_VIEWED, defaultValue: false},
     {key: StateItemNames.ZEN_MODE_STATUS, defaultValue: false},
-    {key: StateItemNames.SMART_MUTE_STATUS, defaultValue: false}
+    {key: StateItemNames.SMART_MUTE_STATUS, defaultValue: false},
+    {key: StateItemNames.SETTINGS_MENU, defaultValue: false},
   ] as const;
 
   // https://github.com/typescript-eslint/typescript-eslint/issues/3116 .

@@ -55,6 +55,13 @@ const ZMMenuItems: ZMCtxMenuItem[] = [
 
       window.open(`${URLS.FEEDBACK_EMAIL}?subject=${subject}`);
     },
+  },
+  {
+    action: 'openSettings',
+    domNode: browser.i18n.getMessage("ZM_ctxMenuItem_settings"),
+    makeAction: () => {
+      set_extn_storage_item({[StateItemNames.SETTINGS_MENU]: true});
+    },
   }
 ];
 

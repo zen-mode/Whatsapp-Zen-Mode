@@ -71,5 +71,8 @@
   },
   "extnNameForPublic": {
     "message": "זן מוד (וואטסאפ)"
+  },
+  "ZM_ctxMenuItem_settings": {
+    "message": "הגדרות"
   }
 }
