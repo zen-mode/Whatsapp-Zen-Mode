@@ -39,7 +39,7 @@ export function constructFakeCtxMenuItem(
   }
   li.innerHTML = '<div class="_2oldI dJxPU"></div>';
   
-  if (typeof action === 'string') {
+  if (typeof action === 'string' && children.length > 0) {
     li.className = "_1wMaz _18oo2 fakeCtxMenuItem fakeCtxMenuItemOpts";
     const itemLis = children.map(item => constructFakeCtxMenuItem([item.domNode], item.action));
     
