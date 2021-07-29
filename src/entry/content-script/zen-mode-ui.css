@@ -241,8 +241,16 @@ html[dir=rtl] .fakeCtxMenu[data-menu-type=ZM] {
 .fakeCtxMenuItemOpts.show .fakeCtxMenuSettings {
   display: block;
   top: 0;
-  width: 290px;
-  right: -290px;
   height: fit-content;
   background: #fff;
+}
+
+html[dir=rtl] .fakeCtxMenuSettings {
+  width: 320px;
+  left: -320px;
+}
+
+html[dir=ltr] .fakeCtxMenuSettings {
+  width: 290px;
+  right: -290px;
 }
