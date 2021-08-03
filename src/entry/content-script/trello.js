@@ -6,11 +6,21 @@ import {
 
 let trelloStatus = null;
 let trelloIcon = null;
+let trelloContextImg = null;
+let trelloContextIcon = null;
+let isAddedContextOptions = false;
+let isOpenContext = false;
+let isHideColumn = 'ON';
+let selectedColumn = -1;
+
 
 function updateIcon(status) {
     trelloIcon.src = chrome.runtime.getURL(
         `assets/logo/${status === 'ON' ? "logo.png" : "logo-off.png"}`,
     );
+    trelloContextImg.src = chrome.runtime.getURL(
+        `assets/logo/${status === 'ON' ? "logo.png" : "logo-off.png"}`,
+      );
 }
 
 function updateBackground() {
@@ -55,10 +65,142 @@ function addIcon(status) {
 }
 
 
-async function init() {
-    trelloStatus = await get_extn_storage_item_value('TRELLO_STATUS') || 'ON';
-    addIcon(trelloStatus);
+function addElementInContext(element) {
+    let parent = document.querySelector('div.pop-over-content');
+    if (parent) {
+        let pop_over_list = document.getElementsByClassName('pop-over-list');
+        let parent_div = pop_over_list.item(pop_over_list.length - 1).parentElement;
+        if (parent_div) {
+            parent_div.append(element);
+        }
+    }
 }
 
+function addContextMenu() {
+    if (!isAddedContextOptions && isOpenContext) {
+        let stripCutter = document.createElement('hr');
+        addElementInContext(stripCutter);
+        trelloContextImg = new window.Image();
+        trelloContextImg.classList.add('zen-mode-trello-context-icon');
+        trelloContextImg.style.marginLeft = '3px';
+        trelloContextImg.style.width = '22px';
+
+        trelloContextImg.src = chrome.runtime.getURL(`assets/logo/${trelloStatus === 'ON' ? "logo.png" : "logo-off.png"}`);
+        trelloContextIcon = document.createElement('ul');
+        let li_item = document.createElement('li');
+        li_item.style.display = 'flex';
+        li_item.style.alignItems = 'center';
+        li_item.style.cursor = 'pointer';
+        li_item.style.margin = '10px 0';
+        li_item.textContent = 'Zen Mode';
+        li_item.addEventListener('click', handleIconClick);
+        li_item.appendChild(trelloContextImg);
+        trelloContextIcon.appendChild(li_item);
+        let hideOption = document.createElement('li');
+        hideOption.style.cursor = 'pointer';
+        hideOption.addEventListener('click', hideOrShowColumnOption);
+        if (isHideColumn === 'ON') {
+            hideOption.innerText = 'Hide other columns';
+        } else {
+            hideOption.innerText = 'Show other columns';
+        }
+        trelloContextIcon.appendChild(hideOption);
+        addElementInContext(trelloContextIcon);
+
+        isAddedContextOptions = true;
+    }
+
+}
+
+function hideOrShowColumnOption() {
+    let list_wrappers = document.getElementsByClassName('list-wrapper');
+    if (isHideColumn === 'ON') {
+        for (let item of list_wrappers) {
+            if (!item.classList.contains('selected-column')) {
+                item.style.display = 'none';
+            }
+        }
+    } else {
+        for (let item of list_wrappers) {
+            if (!item.classList.contains('selected-column')) {
+                item.style.display = 'inline-block';
+            }
+        }
+    }
+    isHideColumn = isHideColumn === 'ON' ? 'OFF' : 'ON';
+    set_extn_storage_item({ HIDE_COLUMNS: isHideColumn });
+    hidePopOver();
+}
+
+function checkPopOver() {
+    let parent = document.querySelector('div.pop-over-content');
+    if (parent) {
+        isOpenContext = true;
+    } else {
+        isOpenContext = false;
+        isAddedContextOptions = false;
+    }
+}
+
+function hidePopOver() {
+    let pop_over = document.querySelector('div.pop-over');
+
+    if (pop_over.classList.contains('is-shown')) {
+        pop_over.classList.remove('is-shown');
+    } else {
+        pop_over.classList.add('is-shown');
+    }
+}
+
+function addEventListenerForListButton() {
+    let button_list = document.getElementsByClassName('list-header-extras');
+    for (let item of button_list) {
+        item.addEventListener('click', function() {
+            removeSelectedColumns();
+            let parent = this.parentElement.parentElement.parentElement;
+            parent.classList.add('selected-column');
+            checkSelectedIndex();
+        });
+    }
+}
+
+function removeSelectedColumns() {
+    let list_wrappers = document.getElementsByClassName('list-wrapper');
+    for (let item of list_wrappers) {
+        if (item.classList.contains('selected-column')) {
+            item.classList.remove('selected-column');
+        }
+    }
+}
+
+function checkSelectedIndex() {
+    let list_wrappers = document.getElementsByClassName('list-wrapper');
+    for (let i = 0; i < list_wrappers.length; i++) {
+        if (list_wrappers[i].classList.contains('selected-column')) {
+            set_extn_storage_item({ SELECTED_ITEM: i });
+        }
+    }
+}
+
+async function init() {
+    trelloStatus = await get_extn_storage_item_value('TRELLO_STATUS') || 'ON';
+    isHideColumn = await get_extn_storage_item_value('HIDE_COLUMNS') || 'ON';
+    selectedColumn = await get_extn_storage_item_value('SELECTED_ITEM') || -1;
+    addIcon(trelloStatus);
+    addEventListenerForListButton(trelloStatus);
+
+    if (selectedColumn !== -1 && isHideColumn === 'OFF') {
+        let list_wrappers = document.getElementsByClassName('list-wrapper');
+        list_wrappers[selectedColumn].classList.add('selected-column');
+        for (let item of list_wrappers) {
+            if (!item.classList.contains('selected-column')) {
+                item.style.display = 'none';
+            }
+        }
+    }
+}
+
+window.setInterval(addContextMenu, 250);
+window.setInterval(checkPopOver, 250);
 window.setInterval(updateBackground, 500);
 window.setTimeout(init, 2000);
