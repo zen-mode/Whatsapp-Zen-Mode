@@ -63,6 +63,16 @@ function addIcon(status) {
     }
 }
 
+function addElementInContext(element) {
+    let parent = document.querySelector('div.pop-over-content');
+    if (parent) {
+        let pop_over_list = document.getElementsByClassName('pop-over-list');
+        let parent_div = pop_over_list.item(pop_over_list.length - 1).parentElement;
+        if (parent_div) {
+            parent_div.append(element);
+        }
+    }
+}
 
 function addContextMenu() {
     if (!isAddedContextOptions) {
@@ -131,13 +141,9 @@ function checkPopOver() {
 }
 
 function hidePopOver() {
-    let pop_over = document.querySelector('div.pop-over');
-
-    if (pop_over.classList.contains('is-shown')) {
-        pop_over.classList.remove('is-shown');
-    } else {
-        pop_over.classList.add('is-shown');
-    }
+    let pop_over_close_btn = document.querySelector('a.pop-over-header-close-btn');
+    let event = new Event("click", {bubbles: true});
+    pop_over_close_btn.dispatchEvent(event);
 }
 
 function addEventListenerForListButton() {
