@@ -98,5 +98,17 @@
   "ZM_ctxMenuItem_settings": {
     "message": "Settings",
     "description": "ZM ctx menu item that opens settings menu"
+  },
+  "ZM_hide_popup_title": {
+    "message": "Hide chat for"
+  },
+  "ZM_hide_popup_hours": {
+    "message": "8 hours"
+  },
+  "ZM_hide_popup_week": {
+    "message": "1 week"
+  },
+  "ZM_hide_popup_forever": {
+    "message": "Forever"
   }
 }

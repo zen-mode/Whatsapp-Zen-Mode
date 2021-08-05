@@ -1,4 +1,7 @@
 import {browser, Runtime} from "webextension-polyfill-ts";
+import { get_extn_storage_item_value } from "../../utility-belt/helpers/extn/storage";
+import { StateItemNames } from "../data/dictionary";
+import { Chat } from "./model/Chat";
 import {BridgePortType} from "./types";
 import Port = Runtime.Port;
 
@@ -49,6 +52,31 @@ browser.runtime.onMessageExternal.addListener(function(message, sender) {
 });
 
 browser.runtime.onMessage.addListener(function(message) {
+  const { type, payload } = message;
+  if (type === 'setAlarm') {
+    browser.alarms.create(payload.chat.id, {delayInMinutes: payload.delay});
+  }
+})
+
+async function alarmsWorker(alarmInfo: any) {
+  const hiddenContacts = (await get_extn_storage_item_value(
+    StateItemNames.HIDDEN_CONTACTS,
+  )) as Chat[];
+  const currentChat = hiddenContacts.find(item => item.id === alarmInfo.name);
+  hiddenContacts.splice(hiddenContacts.findIndex(item => item.id === alarmInfo.name), 1);
+  browser.tabs.query({}).then((tabs: any) => {
+    if (tabs && tabs.length) {
+      tabs.forEach((tab: any) => {
+        browser.tabs.sendMessage(tab.id, {type: 'unhideChat', payload: {
+          chat: currentChat
+        }})
+      });
+    }
+  });
+}
+
+browser.alarms.onAlarm.addListener(function(alarmInfo) {
+  alarmsWorker(alarmInfo)
 })
 
 function closeCurrentTab() {
