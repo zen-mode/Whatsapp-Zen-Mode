@@ -29,6 +29,7 @@ function updateBackground() {
     else {
         document.querySelector('.window-overlay').style.backgroundColor = 'rgba(0,0,0,.64)';
     }
+
 }
 
 function handleIconClick() {
@@ -91,10 +92,14 @@ function addContextMenu() {
         li_item.style.cursor = 'pointer';
         li_item.style.margin = '10px 0';
         li_item.textContent = 'Zen Mode';
-        li_item.addEventListener('click', handleIconClick);
+        li_item.addEventListener('click', function() {
+            handleIconClick();
+            hidePopOver();
+        });
         li_item.appendChild(trelloContextImg);
         trelloContextIcon.appendChild(li_item);
         let hideOption = document.createElement('li');
+        hideOption.classList.add('hide-or-show-option');
         hideOption.style.cursor = 'pointer';
         hideOption.addEventListener('click', hideOrShowColumnOption);
         if (isHideColumn === 'ON') {
@@ -111,7 +116,7 @@ function addContextMenu() {
 }
 
 function hideOrShowColumnOption() {
-    let list_wrappers = document.getElementsByClassName('list-wrapper');
+    let list_wrappers = document.getElementsByClassName('js-list-content');
     if (isHideColumn === 'ON') {
         for (let item of list_wrappers) {
             if (!item.classList.contains('selected-column')) {
@@ -121,7 +126,7 @@ function hideOrShowColumnOption() {
     } else {
         for (let item of list_wrappers) {
             if (!item.classList.contains('selected-column')) {
-                item.style.display = 'inline-block';
+                item.style.display = 'flex';
             }
         }
     }
@@ -151,7 +156,7 @@ function addEventListenerForListButton() {
     for (let item of button_list) {
         item.addEventListener('click', function() {
             removeSelectedColumns();
-            let parent = this.parentElement.parentElement.parentElement;
+            let parent = this.parentElement.parentElement;
             parent.classList.add('selected-column');
             checkSelectedIndex();
             isAddedContextOptions = false;
@@ -161,7 +166,7 @@ function addEventListenerForListButton() {
 }
 
 function removeSelectedColumns() {
-    let list_wrappers = document.getElementsByClassName('list-wrapper');
+    let list_wrappers = document.getElementsByClassName('js-list-content');
     for (let item of list_wrappers) {
         if (item.classList.contains('selected-column')) {
             item.classList.remove('selected-column');
@@ -170,7 +175,7 @@ function removeSelectedColumns() {
 }
 
 function checkSelectedIndex() {
-    let list_wrappers = document.getElementsByClassName('list-wrapper');
+    let list_wrappers = document.getElementsByClassName('js-list-content');
     for (let i = 0; i < list_wrappers.length; i++) {
         if (list_wrappers[i].classList.contains('selected-column')) {
             set_extn_storage_item({ SELECTED_ITEM: i });
@@ -189,7 +194,7 @@ async function init() {
     addEventListenerForListButton(trelloStatus);
 
     if (selectedColumn > -1 && isHideColumn === 'OFF') {
-        let list_wrappers = document.getElementsByClassName('list-wrapper');
+        let list_wrappers = document.getElementsByClassName('js-list-content');
         list_wrappers[selectedColumn].classList.add('selected-column');
         for (let item of list_wrappers) {
             if (!item.classList.contains('selected-column')) {
