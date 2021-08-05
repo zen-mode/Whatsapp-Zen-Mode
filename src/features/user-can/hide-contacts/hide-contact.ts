@@ -25,7 +25,7 @@ function set_hide_contact(hide: boolean, chosenDelay?: number): void {
     if (chosenDelay) {
       browser.runtime.sendMessage({type: 'setAlarm', payload: {
         chat: lastHoveredChat, 
-        delay: chosenDelay
+        delay: 1
       }})
     }
     addHiddenChats(lastHoveredChat);
