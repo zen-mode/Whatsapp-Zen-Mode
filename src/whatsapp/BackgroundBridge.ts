@@ -1,4 +1,5 @@
 import {browser, Runtime} from "webextension-polyfill-ts";
+import { Chat } from "./model/Chat";
 import {BridgePortType} from "./types";
 import Port = Runtime.Port;
 
@@ -8,6 +9,8 @@ type WWABridge = {
 };
 
 const tabIdToWWABridge = {};
+
+let chatsToUnhide: Chat[] = []
 
 function handleWAProviderPort(port: Port) {
   if (port.sender && port.sender.tab && port.sender.tab.id) {
@@ -49,6 +52,25 @@ browser.runtime.onMessageExternal.addListener(function(message, sender) {
 });
 
 browser.runtime.onMessage.addListener(function(message) {
+  const { type, payload } = message;
+  if (type === 'setAlarm') {
+    chatsToUnhide.push(payload.chat)
+    browser.alarms.create(payload.chat.id, {delayInMinutes: payload.delay});
+  }
+})
+
+browser.alarms.onAlarm.addListener(function(alarmInfo) {
+  const currentChat = chatsToUnhide.find(item => item.id === alarmInfo.name);
+  chatsToUnhide.splice(chatsToUnhide.findIndex(item => item.id === alarmInfo.name), 1);
+  browser.tabs.query({}).then((tabs: any) => {
+    if (tabs && tabs.length) {
+      tabs.forEach((tab: any) => {
+        browser.tabs.sendMessage(tab.id, {type: 'unhideChat', payload: {
+          chat: currentChat
+        }})
+      });
+    }
+  });
 })
 
 function closeCurrentTab() {

@@ -84,6 +84,7 @@ export const enum Selectors {
   ZM_TOGGLE_BUTTON = "#ZenMode__toggle",
   ZM_TOGGLE_BUTTON_CHEVRON = "#ZenMode__toggle__chevron",
   ZM_BADGE = "#ZenMode__badge",
+  ZM_HIDE_POPUP = "#ZenMode_hide_popup"
 }
 
 export const enum ZenDomDataAttributes {

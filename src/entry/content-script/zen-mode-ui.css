@@ -254,3 +254,42 @@ html[dir=ltr] .fakeCtxMenuSettings {
   width: 290px;
   right: -290px;
 }
+
+
+#ZenMode_hide_popup {
+  position: fixed;
+  height: fit-content;
+  width: fit-content;
+  left: 50%;
+  top: 50%;
+  min-width: 400px;
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 9999999;
+  padding: 1em;
+  direction: ltr;
+  text-align: left;
+}
+
+.hide-popup-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 10px;
+}
+
+.hide-popup-group:first-child {
+  margin-top: 16px;
+}
+
+.hide-popup-button {
+  padding: 10px 16px;
+  color: #fff;
+  background: #4ced69;
+  outline: none;
+  border: none;
+  width: fit-content;
+  margin-left: auto;
+}
