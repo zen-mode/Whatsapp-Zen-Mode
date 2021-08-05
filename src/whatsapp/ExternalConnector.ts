@@ -13,7 +13,7 @@ import {
   getChatsGlobalSoundsState,
   markChatAsRead
 } from "./WWAController";
-import {provideModules} from "./WWAProvider";
+import {ChatModule, provideModules} from "./WWAProvider";
 import {Chat} from "./model/Chat";
 import {ChatFabric} from "./ChatFabric";
 import {
@@ -110,6 +110,12 @@ const extBridgePort = browser.runtime.connect('%%EXTENSION_GLOBAL_ID%%', { name:
 extBridgePort.onMessage.addListener((request: WWAProviderRequest) => {
   handleRequest(request);
 });
+
+ChatModule.Msg.on('add', (msg:any) => {
+  if (!msg.isNewMsg) return;
+  if (msg.id.fromMe) return;
+  extBridgePort.postMessage({action: "NEW_MESSAGE", payload: msg})
+})
 
 extBridgePort.onDisconnect.addListener(handlePortDisconnection);
 

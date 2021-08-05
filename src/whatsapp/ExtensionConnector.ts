@@ -2,6 +2,9 @@ import {browser} from "webextension-polyfill-ts";
 import {BridgePortType, WWAProviderCall, WWAProviderResponse} from "./types";
 import {generateBasicWWARequest} from "./Utils";
 import {Chat} from "./model/Chat";
+import { isHiddenChatById } from "./Storage";
+import { getAutoReadHiddenConversationsStatus } from "../features/user-can/auto-read-hidden-conversations/AutoReadHiddenConversations";
+import { AutoReadHiddeConversationStatuses } from "../data/dictionary";
 
 // TODO from callback hell to Promise hell :)
 type PromiseProto = {
@@ -12,7 +15,12 @@ type PromiseProto = {
 const requestIdToPromiseProto = {};
 const pageBridgePort = browser.runtime.connect('%%EXTENSION_GLOBAL_ID%%', { name: BridgePortType.WWA_EXTENSION_CONNECTOR });
 
-pageBridgePort.onMessage.addListener((response: WWAProviderResponse) => {
+pageBridgePort.onMessage.addListener(async (response: any) => { // TODO: fix typing
+  
+  if (response.action === "NEW_MESSAGE") {
+    return await processChatMessage(response);
+  }
+
   const requestId = response.id;
   if (requestId) {
     const callback = requestIdToPromiseProto[requestId];
@@ -26,6 +34,17 @@ pageBridgePort.onMessage.addListener((response: WWAProviderResponse) => {
     delete requestIdToPromiseProto[response.id]
   }
 });
+
+async function processChatMessage(response: any) {
+  const msg = response.payload;
+  const chatId = msg.fromMe ? msg.to : msg.from;
+  const isHidden = await isHiddenChatById(chatId);
+  const autoReadHiddenConversationsStatus = await getAutoReadHiddenConversationsStatus();
+  if (isHidden && autoReadHiddenConversationsStatus === AutoReadHiddeConversationStatuses.ENABLED) {
+    markChatAsRead(chatId);
+  }
+  return;
+}
 
 function callProviderFunctionWithCallback(call: WWAProviderCall, args: any[], callback?: (result: any) => void) {
   const request = generateBasicWWARequest(call, args);
