@@ -1,6 +1,9 @@
 
 # Release Notes 1.4.1.12
 ### Improvements to first public beta version ([Rosa Parks])(https://en.wikipedia.org/wiki/Rosa_Parks)
+1.**menu item name fix**
+# Release Notes 1.4.1.11
+### Improvements to first public beta version ([Rosa Parks])(https://en.wikipedia.org/wiki/Rosa_Parks)
 1.**Add configurable setting of marking hidden chats as read** - Can be changed via Zen Mode Menu
 2.**Syntax changes** 
 3.**Enable snooze option for hide chat** - Can be set to 8h/1w/forever

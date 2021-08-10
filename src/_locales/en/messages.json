@@ -7,7 +7,7 @@
     "description": "WA contact ctx menu item that turn zen morning for contact"
   },
   "WA_contactCtxMenuItem_hide": {
-    "message": "Hide chat",
+    "message": "Hide/Snooze chat",
     "description": "WA contact ctx menu item that hides the contact"
   },
   "WA_contactCtxMenuItem_unhide": {
