@@ -4,7 +4,7 @@
     "description": "WA contact ctx menu item that turn zen morning for contact"
   },
   "WA_contactCtxMenuItem_hide": {
-    "message": "הסתר צ'אט"
+    "message": "הסתר צ'אט זמנית"
   },
   "WA_contactCtxMenuItem_unhide": {
     "message": "הצג צ'אט מוסתר"
