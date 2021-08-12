@@ -1,4 +1,4 @@
-import {ChatModule, CmdModule, MUTE_FOREVER} from "./WWAProvider";
+import {WapModule, ChatModule, CmdModule, MUTE_FOREVER} from "./WWAProvider";
 
 function getChats(): any[] {
   return ChatModule.Chat.models;
@@ -72,4 +72,13 @@ export function markChatAsRead(chatId: string): any {
   styleSheet?.insertRule("._21opK { display: none }", 0);
   CmdModule.markChatUnread(chat, 0);
   window.setTimeout(() => styleEl.remove(), 10000);
+}
+
+export async function getProfilePicUrl(chatId: string): Promise<string | undefined> {
+  const result = await WapModule.profilePicFind(chatId);
+  return result.eurl || null;
+}
+
+export function getUnreadChats(): any[] {
+  return ChatModule.Chat.models.filter((c: any) => c.hasUnread);
 }

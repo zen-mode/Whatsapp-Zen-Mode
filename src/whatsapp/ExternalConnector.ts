@@ -11,7 +11,9 @@ import {
   getOpenedChat,
   setChatsGlobalSoundsState,
   getChatsGlobalSoundsState,
-  markChatAsRead
+  markChatAsRead,
+  getProfilePicUrl,
+  getUnreadChats
 } from "./WWAController";
 import {ChatModule, provideModules} from "./WWAProvider";
 import {Chat} from "./model/Chat";
@@ -98,6 +100,14 @@ callerFunctions.set(WWAProviderCall.getChatsSoundsState, () => {
 
 callerFunctions.set(WWAProviderCall.markChatAsRead, (chatId: string) => {
   markChatAsRead(chatId)
+});
+
+callerFunctions.set(WWAProviderCall.getProfilePicUrl, async (chat: Chat): Promise<string | undefined> => {
+  return await getProfilePicUrl(chat.id);
+});
+
+callerFunctions.set(WWAProviderCall.getUnreadChats, (): Chat[] => {
+  return getUnreadChats().map(ChatFabric.fromWWAChat);
 });
 
 
