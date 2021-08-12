@@ -9,9 +9,38 @@ let trelloIcon = null;
 let trelloContextImg = null;
 let trelloContextIcon = null;
 let isAddedContextOptions = false;
-let isOpenContext = false;
 let isHideColumn = 'ON';
 let selectedColumn = -1;
+
+const config = {
+  attributes: true,
+  childList: true,
+  subtree: true
+};
+
+const callback = function(mutationsList, observer) {
+  for (let mutation of mutationsList) {
+    if (mutation.type === 'childList') {
+      addContextMenu();
+    }
+  }
+};
+
+const board_callback = function(mutationsList, observer) {
+  for (let mutation of mutationsList) {
+    if (mutation.type === 'childList') {
+      addEventListenerForListButton();
+    }
+  }
+};
+
+const window_callback = function(mutationsList, observer) {
+  for (let mutation of mutationsList) {
+    if (mutation.type === 'childList') {
+      updateBackground();
+    }
+  }
+};
 
 function updateIcon(status) {
     trelloIcon.src = chrome.runtime.getURL(
@@ -29,7 +58,6 @@ function updateBackground() {
     else {
         document.querySelector('.window-overlay').style.backgroundColor = 'rgba(0,0,0,.64)';
     }
-
 }
 
 function handleIconClick() {
@@ -68,9 +96,8 @@ function addElementInContext(element) {
     let parent = document.querySelector('div.pop-over-content');
     if (parent) {
         let pop_over_list = document.getElementsByClassName('pop-over-list');
-        let parent_div = pop_over_list.item(pop_over_list.length - 1).parentElement;
-        if (parent_div) {
-            parent_div.append(element);
+        if (pop_over_list && pop_over_list.item(pop_over_list.length - 1).parentElement) {
+          pop_over_list.item(pop_over_list.length - 1).parentElement.append(element);
         }
     }
 }
@@ -135,15 +162,6 @@ function hideOrShowColumnOption() {
     hidePopOver();
 }
 
-function checkPopOver() {
-    let parent = document.querySelector('div.pop-over-content');
-    if (parent) {
-        isOpenContext = true;
-    } else {
-        isOpenContext = false;
-        isAddedContextOptions = false;
-    }
-}
 
 function hidePopOver() {
     let pop_over_close_btn = document.querySelector('a.pop-over-header-close-btn');
@@ -160,7 +178,6 @@ function addEventListenerForListButton() {
             parent.classList.add('selected-column');
             checkSelectedIndex();
             isAddedContextOptions = false;
-            setTimeout(addContextMenu, 500);
         });
     }
 }
@@ -183,6 +200,24 @@ function checkSelectedIndex() {
     }
 }
 
+function addObservers() {
+  let pop_over = document.querySelector('div.pop-over');
+  if (pop_over) {
+    const observer = new MutationObserver(callback);
+    observer.observe(pop_over, config);
+  }
+  let board = document.getElementById('board');
+  if (board) {
+    const board_observer = new MutationObserver(board_callback);
+    board_observer.observe(board, config);
+  }
+  let window_overlay = document.querySelector('div.window-overlay');
+  if (window_overlay) {
+    const window_overlay_observer = new MutationObserver(window_callback);
+    window_overlay_observer.observe(window_overlay, config);
+  }
+}
+
 async function init() {
     trelloStatus = await get_extn_storage_item_value('TRELLO_STATUS') || 'ON';
     isHideColumn = await get_extn_storage_item_value('HIDE_COLUMNS') || 'ON';
@@ -191,7 +226,6 @@ async function init() {
         selectedColumn = -1;
     }
     addIcon(trelloStatus);
-    addEventListenerForListButton(trelloStatus);
 
     if (selectedColumn > -1 && isHideColumn === 'OFF') {
         let list_wrappers = document.getElementsByClassName('js-list-content');
@@ -202,9 +236,8 @@ async function init() {
             }
         }
     }
+
+    addObservers();
 }
 
-//window.setInterval(addContextMenu, 250);
-window.setInterval(checkPopOver, 250);
-window.setInterval(updateBackground, 500);
 window.setTimeout(init, 2000);
