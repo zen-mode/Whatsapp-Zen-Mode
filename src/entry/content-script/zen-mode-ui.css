@@ -293,3 +293,15 @@ html[dir=ltr] .fakeCtxMenuSettings {
   width: fit-content;
   margin-left: auto;
 }
+
+/* Navigation Drawer */
+
+button._2fQtj {
+  fill: #DFE5E7;
+}
+._2nY6U button._2fQtj {
+  display: none;
+}
+._2nY6U:hover button._2fQtj {
+  display: initial;
+}

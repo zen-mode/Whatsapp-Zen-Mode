@@ -9,6 +9,8 @@ import {set_el_style} from "../../../../utility-belt/helpers/dom/set-el-style";
 import {remove_badge_el} from "../../../features/user-can/read-release-notes/remove-ver-num-badge";
 import {set_extn_storage_item} from "../../../../utility-belt/helpers/extn/storage";
 import { construct_autoRead_hidden_conversations_menu_item, toggleAutoReadHiddenConversations } from "../../../features/user-can/auto-read-hidden-conversations/AutoReadHiddenConversations";
+import {presentUnreadChats} from "../NavigationDrawer/UnreadChats";
+import {getUnreadChats} from "../../ExtensionConnector";
 
 export interface ZMCtxMenuItem extends FakeCtxMenuItem {
   makeAction?: () => void,
@@ -25,6 +27,10 @@ const ZMMenuItems: ZMCtxMenuItem[] = [
     action: 'hiddenChats',
     domNode: browser.i18n.getMessage('ZM_ctxMenuItem_hiddenChats'),
     makeAction: async () => presentHiddenChatsLeftDrawer(await getHiddenChats())
+  },{
+    action: 'unreadChats',
+    domNode: browser.i18n.getMessage('ZM_ctxMenuItem_unreadChats'),
+    makeAction: async () => getUnreadChats(presentUnreadChats)
   },
   {
     action: 'unhideAll',
