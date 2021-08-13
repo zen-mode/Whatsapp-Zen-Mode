@@ -2,7 +2,7 @@ import {browser} from "webextension-polyfill-ts";
 import {BridgePortType, WWAProviderCall, WWAProviderResponse} from "./types";
 import {generateBasicWWARequest} from "./Utils";
 import {Chat} from "./model/Chat";
-import { isHiddenChatById } from "./Storage";
+import { getHiddenChatById, removeHiddenChats } from "./Storage";
 import { getAutoReadHiddenConversationsStatus } from "../features/user-can/auto-read-hidden-conversations/AutoReadHiddenConversations";
 import { AutoReadHiddeConversationStatuses } from "../data/dictionary";
 
@@ -36,9 +36,21 @@ pageBridgePort.onMessage.addListener(async (response: any) => { // TODO: fix typ
 });
 
 async function processChatMessage(response: any) {
-  const msg = response.payload;
+  const { msg, user } = response.payload;
+  const userId = user.toString();
   const chatId = msg.fromMe ? msg.to : msg.from;
-  const isHidden = await isHiddenChatById(chatId);
+  const chat = await getHiddenChatById(chatId)
+  const isHidden = !!chat;
+  
+  if (chat?.isGroup) {
+    const isMentioned = msg.mentionedJidList.find((mentionedJid: string) => mentionedJid === userId);
+    const isQuoted = msg.quotedParticipant === userId;
+    if (isMentioned || isQuoted) {
+      removeHiddenChats(chat);
+      return;
+    }
+  }
+
   const autoReadHiddenConversationsStatus = await getAutoReadHiddenConversationsStatus();
   if (isHidden && autoReadHiddenConversationsStatus === AutoReadHiddeConversationStatuses.ENABLED) {
     markChatAsRead(chatId);
