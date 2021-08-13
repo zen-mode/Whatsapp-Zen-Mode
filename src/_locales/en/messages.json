@@ -110,5 +110,11 @@
   },
   "ZM_hide_popup_forever": {
     "message": "Forever"
+  },
+  "ZM_ctxMenuItem_unreadChats": {
+    "message": "Show all unread chats"
+  },
+  "ZM_navigation_unreadChats": {
+    "message": "Unread chats"
   }
 }

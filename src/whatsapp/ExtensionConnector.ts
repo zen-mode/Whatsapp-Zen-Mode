@@ -123,3 +123,11 @@ export function getChatsSoundsState(callback: (state: boolean) => void) {
 export function markChatAsRead(chatId: string) {
   callProviderFunctionWithCallback(WWAProviderCall.markChatAsRead, [chatId]);
 }
+
+export function getProfilePicUrl(chat: Chat, callback: (picUrl: string | null) => void) {
+  callProviderFunctionWithCallback(WWAProviderCall.getProfilePicUrl, [chat], callback);
+}
+
+export function getUnreadChats(callback: (chats: Chat[]) => void) {
+  callProviderFunctionWithCallback(WWAProviderCall.getUnreadChats, [], callback);
+}

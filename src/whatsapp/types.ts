@@ -17,7 +17,9 @@ export enum WWAProviderCall {
   getOpenedChat,
   openChat,
   refreshWWChats,
-  markChatAsRead
+  markChatAsRead,
+  getProfilePicUrl,
+  getUnreadChats,
 }
 
 export type WWAProviderRequest = {

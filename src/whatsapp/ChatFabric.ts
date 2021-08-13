@@ -9,6 +9,7 @@ export class ChatFabric {
       title: wwaChat.title(),
       hasUnread: wwaChat.hasUnread,
       unreadCount: wwaChat.unreadCount,
+      previewMessage: wwaChat.previewMessage && wwaChat.previewMessage.text ? wwaChat.previewMessage.text : null
     }
   }
 }
