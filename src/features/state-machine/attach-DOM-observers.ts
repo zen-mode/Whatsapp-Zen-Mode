@@ -64,7 +64,7 @@ const observer = new MutationObserver(async (mutations) => {
               toggle_Zen_mode_on_page(zenModeStatus);
               // Hidden chats
               hiddenChats.forEach(hiddenChat => {
-                setChatVisibility(hiddenChat, false, smartMuteStatus);
+                setChatVisibility(hiddenChat, false, smartMuteStatus, autoReadHiddenConversationsStatus);
                 const chatEl = get_contact_el_by_chat_name(hiddenChat.title);
                 if (!chatEl) return;
                 renderHiddenLabel(chatEl);
