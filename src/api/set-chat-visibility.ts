@@ -30,7 +30,6 @@ export function setChatVisibility(
       muteChatLocally(chat);
     }
     archiveChatLocally(chat);
-    markChatAsRead(chat.id);
   }
 }
 
