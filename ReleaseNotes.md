@@ -2,8 +2,11 @@
 # Release Notes 1.4.2.0
 ### Second beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
 1.**Unread chat list** - via Zen menu
+
 2.**Automatic unhide chat upon tagging**
+
 3.**Enable snooze option for hide chat** - Can be set to 8h/1w/forever
+
 4.**Add suuport in Zen Mode in Trello** - access trello to check
 
 # Release Notes 1.4.1.13
