@@ -1,5 +1,7 @@
 - changes:
-    - Add configurable setting of marking hidden chats as read - Can be changed via Zen Mode Menu
-    - Syntax changes
+    - Unread chat list - via Zen menu
+    - Automatic unhide chat upon tagging
     - Enable snooze option for hide chat - Can be set to 8h/1w/forever
+    - Enable writing in a hidden chat via hidden chat list
+    - Add suuport in Zen Mode in Trello - access trello to check
     - "<a href=\"https://github.com/zen-mode/Whatsapp-Zen-Mode/blob/main/ReleaseNotes.md\">See previous versions</a>"
