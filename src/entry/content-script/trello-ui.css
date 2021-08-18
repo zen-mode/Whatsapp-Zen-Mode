@@ -1,0 +1,20 @@
+.zen-mode__context-menu {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.zen-mode-trello-context-icon {
+  margin-left: 3px;
+  width: 22px;
+}
+
+.hide-or-show-option {
+  cursor: pointer;
+}
+
+.zen-mode-trello-icon {
+  margin-right: 3px;
+  cursor: pointer;
+}

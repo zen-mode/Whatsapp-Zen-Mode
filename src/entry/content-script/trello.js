@@ -3,11 +3,12 @@ import {
     remove_extn_storage_item,
     set_extn_storage_item
 } from "../../../utility-belt/helpers/extn/storage";
+import {browser} from "webextension-polyfill-ts";
 
 let trelloStatus = null;
 let trelloIcon = null;
 let trelloContextImg = null;
-let trelloContextIcon = null;
+let trelloContextList = null;
 let isAddedContextOptions = false;
 let isHideColumn = 'ON';
 let selectedColumn = -1;
@@ -81,8 +82,6 @@ function addIcon(status) {
     if (parent) {
         trelloIcon = new window.Image();
         trelloIcon.classList.add('zen-mode-trello-icon');
-        trelloIcon.style.cursor = 'pointer';
-        trelloIcon.style.marginRight = '3px';
         trelloIcon.src = chrome.runtime.getURL(`assets/logo/${status === 'ON' ? "logo.png" : "logo-off.png"}`);
         trelloIcon.addEventListener('click', handleIconClick);
         parent.prepend(trelloIcon);
@@ -108,34 +107,28 @@ function addContextMenu() {
         addElementInContext(stripCutter);
         trelloContextImg = new window.Image();
         trelloContextImg.classList.add('zen-mode-trello-context-icon');
-        trelloContextImg.style.marginLeft = '3px';
-        trelloContextImg.style.width = '22px';
 
         trelloContextImg.src = chrome.runtime.getURL(`assets/logo/${trelloStatus === 'ON' ? "logo.png" : "logo-off.png"}`);
-        trelloContextIcon = document.createElement('ul');
+        trelloContextList = document.createElement('ul');
         let li_item = document.createElement('li');
-        li_item.style.display = 'flex';
-        li_item.style.alignItems = 'center';
-        li_item.style.cursor = 'pointer';
-        li_item.style.margin = '10px 0';
-        li_item.textContent = 'Zen Mode';
+        li_item.classList.add('zen-mode__context-menu');
+        li_item.textContent = browser.i18n.getMessage('ZM_Trello_Context_ZenMode');
         li_item.addEventListener('click', function() {
             handleIconClick();
             hidePopOver();
         });
         li_item.appendChild(trelloContextImg);
-        trelloContextIcon.appendChild(li_item);
+        trelloContextList.appendChild(li_item);
         let hideOption = document.createElement('li');
         hideOption.classList.add('hide-or-show-option');
-        hideOption.style.cursor = 'pointer';
         hideOption.addEventListener('click', hideOrShowColumnOption);
         if (isHideColumn === 'ON') {
-            hideOption.innerText = 'Hide other columns';
+            hideOption.innerText = browser.i18n.getMessage('ZM_Trello_Hide_Options');
         } else {
-            hideOption.innerText = 'Show other columns';
+            hideOption.innerText = browser.i18n.getMessage('ZM_Trello_Show_Options');
         }
-        trelloContextIcon.appendChild(hideOption);
-        addElementInContext(trelloContextIcon);
+        trelloContextList.appendChild(hideOption);
+        addElementInContext(trelloContextList);
 
         isAddedContextOptions = true;
     }

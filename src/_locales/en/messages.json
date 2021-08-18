@@ -98,5 +98,14 @@
   "ZM_ctxMenuItem_settings": {
     "message": "Settings",
     "description": "ZM ctx menu item that opens settings menu"
+  },
+  "ZM_Trello_Hide_Options": {
+    "message": "Hide other columns"
+  },
+  "ZM_Trello_Show_Options": {
+    "message": "Show other columns"
+  },
+  "ZM_Trello_Context_ZenMode": {
+    "message": "Zen Mode"
   }
 }
