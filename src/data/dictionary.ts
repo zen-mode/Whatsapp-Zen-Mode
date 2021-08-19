@@ -84,6 +84,13 @@ export const enum Selectors {
   ZM_TOGGLE_BUTTON = "#ZenMode__toggle",
   ZM_TOGGLE_BUTTON_CHEVRON = "#ZenMode__toggle__chevron",
   ZM_BADGE = "#ZenMode__badge",
+  ZM_TRELLO_LIST_CONTENT = "js-list-content",
+  ZM_TRELLO_POP_OVER = "div.pop-over",
+  ZM_TRELLO_POP_OVER_CONTENT = "div.pop-over-content",
+  ZM_TRELLO_POP_OVER_LIST = "pop-over-list",
+  ZM_TRELLO_WINDOW_OVERLAY = "div.window-overlay",
+  ZM_TRELLO_LIST_HEADER = "list-header-extras",
+  ZM_TRELLO_CLOSE_POP_OVER_BTN = "a.pop-over-header-close-btn",
 }
 
 export const enum ZenDomDataAttributes {

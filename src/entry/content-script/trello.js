@@ -3,6 +3,8 @@ import {
     remove_extn_storage_item,
     set_extn_storage_item
 } from "../../../utility-belt/helpers/extn/storage";
+import {DOM} from "../../../utility-belt/helpers/dom/DOM-shortcuts";
+import {Selectors} from "../../data/dictionary";
 import {browser} from "webextension-polyfill-ts";
 
 let trelloStatus = null;
@@ -12,6 +14,8 @@ let trelloContextList = null;
 let isAddedContextOptions = false;
 let isHideColumn = 'ON';
 let selectedColumn = -1;
+let enabledObservers = false;
+let isAddedIcon = false;
 
 const config = {
   attributes: true,
@@ -54,10 +58,10 @@ function updateIcon(status) {
 
 function updateBackground() {
     if (trelloStatus === 'ON' && document.querySelector('.card-detail-window')) {
-        document.querySelector('.window-overlay').style.backgroundColor = '#f4f5f7';
+        document.querySelector(Selectors.ZM_TRELLO_WINDOW_OVERLAY).style.backgroundColor = '#f4f5f7';
     }
     else {
-        document.querySelector('.window-overlay').style.backgroundColor = 'rgba(0,0,0,.64)';
+        document.querySelector(Selectors.ZM_TRELLO_WINDOW_OVERLAY).style.backgroundColor = 'rgba(0,0,0,.64)';
     }
 }
 
@@ -92,9 +96,9 @@ function addIcon(status) {
 }
 
 function addElementInContext(element) {
-    let parent = document.querySelector('div.pop-over-content');
+    let parent = document.querySelector(Selectors.ZM_TRELLO_POP_OVER_CONTENT);
     if (parent) {
-        let pop_over_list = document.getElementsByClassName('pop-over-list');
+        let pop_over_list = document.getElementsByClassName(Selectors.ZM_TRELLO_POP_OVER_LIST);
         if (pop_over_list && pop_over_list.item(pop_over_list.length - 1).parentElement) {
           pop_over_list.item(pop_over_list.length - 1).parentElement.append(element);
         }
@@ -136,7 +140,7 @@ function addContextMenu() {
 }
 
 function hideOrShowColumnOption() {
-    let list_wrappers = document.getElementsByClassName('js-list-content');
+    let list_wrappers = document.getElementsByClassName(Selectors.ZM_TRELLO_LIST_CONTENT);
     if (isHideColumn === 'ON') {
         for (let item of list_wrappers) {
             if (!item.classList.contains('selected-column')) {
@@ -157,13 +161,13 @@ function hideOrShowColumnOption() {
 
 
 function hidePopOver() {
-    let pop_over_close_btn = document.querySelector('a.pop-over-header-close-btn');
+    let pop_over_close_btn = document.querySelector(Selectors.ZM_TRELLO_CLOSE_POP_OVER_BTN);
     let event = new Event("click", {bubbles: true});
     pop_over_close_btn.dispatchEvent(event);
 }
 
 function addEventListenerForListButton() {
-    let button_list = document.getElementsByClassName('list-header-extras');
+    let button_list = document.getElementsByClassName(Selectors.ZM_TRELLO_LIST_HEADER);
     for (let item of button_list) {
         item.addEventListener('click', function() {
             removeSelectedColumns();
@@ -176,7 +180,7 @@ function addEventListenerForListButton() {
 }
 
 function removeSelectedColumns() {
-    let list_wrappers = document.getElementsByClassName('js-list-content');
+    let list_wrappers = document.getElementsByClassName(Selectors.ZM_TRELLO_LIST_CONTENT);
     for (let item of list_wrappers) {
         if (item.classList.contains('selected-column')) {
             item.classList.remove('selected-column');
@@ -185,7 +189,7 @@ function removeSelectedColumns() {
 }
 
 function checkSelectedIndex() {
-    let list_wrappers = document.getElementsByClassName('js-list-content');
+    let list_wrappers = document.getElementsByClassName(Selectors.ZM_TRELLO_LIST_CONTENT);
     for (let i = 0; i < list_wrappers.length; i++) {
         if (list_wrappers[i].classList.contains('selected-column')) {
             set_extn_storage_item({ SELECTED_ITEM: i });
@@ -194,7 +198,7 @@ function checkSelectedIndex() {
 }
 
 function addObservers() {
-  let pop_over = document.querySelector('div.pop-over');
+  let pop_over = document.querySelector(Selectors.ZM_TRELLO_POP_OVER);
   if (pop_over) {
     const observer = new MutationObserver(callback);
     observer.observe(pop_over, config);
@@ -204,33 +208,44 @@ function addObservers() {
     const board_observer = new MutationObserver(board_callback);
     board_observer.observe(board, config);
   }
-  let window_overlay = document.querySelector('div.window-overlay');
+  let window_overlay = document.querySelector(Selectors.ZM_TRELLO_WINDOW_OVERLAY);
   if (window_overlay) {
     const window_overlay_observer = new MutationObserver(window_callback);
     window_overlay_observer.observe(window_overlay, config);
   }
 }
 
-async function init() {
-    trelloStatus = await get_extn_storage_item_value('TRELLO_STATUS') || 'ON';
-    isHideColumn = await get_extn_storage_item_value('HIDE_COLUMNS') || 'ON';
-    selectedColumn = await get_extn_storage_item_value('SELECTED_ITEM');
-    if (typeof selectedColumn === 'undefined') {
-        selectedColumn = -1;
-    }
-    addIcon(trelloStatus);
-
-    if (selectedColumn > -1 && isHideColumn === 'OFF') {
-        let list_wrappers = document.getElementsByClassName('js-list-content');
-        list_wrappers[selectedColumn].classList.add('selected-column');
-        for (let item of list_wrappers) {
-            if (!item.classList.contains('selected-column')) {
-                item.style.display = 'none';
-            }
+const observer = new MutationObserver(async (mutations) => {
+  trelloStatus = await get_extn_storage_item_value('TRELLO_STATUS') || 'ON';
+  isHideColumn = await get_extn_storage_item_value('HIDE_COLUMNS') || 'ON';
+  selectedColumn = await get_extn_storage_item_value('SELECTED_ITEM');
+  if (typeof selectedColumn === 'undefined') {
+    selectedColumn = -1;
+  }
+  mutations
+    .filter(mutation => mutation.type === 'childList')
+    .forEach(mutation => {
+        if (DOM.get_el('#header') && !isAddedIcon) {
+          addIcon(trelloStatus);
+          isAddedIcon = true;
         }
-    }
+        if (DOM.get_el('#board') && !enabledObservers) {
+          addObservers();
+          if (selectedColumn > -1 && isHideColumn === 'OFF') {
+              let list_wrappers = document.getElementsByClassName(Selectors.ZM_TRELLO_LIST_CONTENT);
+              list_wrappers[selectedColumn].classList.add('selected-column');
+              for (let item of list_wrappers) {
+                  if (!item.classList.contains('selected-column')) {
+                      item.style.display = 'none';
+                  }
+              }
+          }
+          enabledObservers = true;
+        }
+        if (isAddedIcon && enabledObservers) {
+            observer.disconnect();
+        }
+    });
+});
 
-    addObservers();
-}
-
-window.setTimeout(init, 2000);
+observer.observe(document.body, config);
