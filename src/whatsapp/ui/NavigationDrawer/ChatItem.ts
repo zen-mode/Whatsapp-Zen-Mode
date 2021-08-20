@@ -60,7 +60,7 @@ export function constructChatItem(chat: Chat, onClick?: () => void, onArrow?: ()
           <div class="_37FrU">
             <div class="_1qB8f">
               <span class="Hy9nV">
-                <div class="_2qo4q">${previewHTML}</div>
+                <div class="_ccCW FqYAR i0jNr">${previewHTML}</div>
               </span>
           </div>
           <div role="gridcell" aria-colindex="1" class="_1i_wG">
