@@ -13,16 +13,16 @@ const GROUP_PIC = browser.runtime.getURL("assets/whatsapp/group.svg");
 
 export function constructChatItem(chat: Chat, onClick?: () => void, onArrow?: () => void, tags: string[] = []): ChatItem {
   const pic = chat.isGroup ? GROUP_PIC : PROFILE_PIC;
-
+  
   const arrowHTML = onArrow ? `<button class="_2fQtj" aria-label="Open the chat context menu" aria-hidden="true" style="width: 20px; opacity: 1;">
-                <span data-icon="down">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 20" width="19" height="20"><path fill="currentColor" d="M3.8 6.7l5.7 5.7 5.7-5.7 1.6 1.6-7.3 7.2-7.3-7.2 1.6-1.6z"></path></svg>
-                </span>
-              </button>` : '';
+  <span data-icon="down">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 20" width="19" height="20"><path fill="currentColor" d="M3.8 6.7l5.7 5.7 5.7-5.7 1.6 1.6-7.3 7.2-7.3-7.2 1.6-1.6z"></path></svg>
+  </span>
+  </button>` : '';
   const tagsHTML = tags.map(value => `<span class="_1pJ9J  _3f7yK">${value}</span>`)
-    .join('');
+  .join('');
   const unreaderHTML = chat.hasUnread ? `<div class="_1pJ9J" style="transform: scaleX(1) scaleY(1); opacity: 1;">
-                                            <span class="_23LrM">${chat.unreadCount}</span>
+                                            <span class="_23LrM">${chat.unreadCount > 0 ? chat.unreadCount:''}</span>
                                         </div>` : '';
   const previewHTML = chat.previewMessage ? `<span class="Hy9nV" title="${chat.previewMessage}">
                                               <span dir="ltr" class="_ccCW FqYAR i0jNr">${chat.previewMessage}</span>
