@@ -59,6 +59,7 @@ function updateIcon(status) {
 function updateBackground() {
     if (trelloStatus === 'ON' && document.querySelector('.card-detail-window')) {
         document.querySelector(Selectors.ZM_TRELLO_WINDOW_OVERLAY).style.backgroundColor = '#f4f5f7';
+        document.querySelector('.card-detail-window').classList.add('card-detail-border');
     }
     else {
         document.querySelector(Selectors.ZM_TRELLO_WINDOW_OVERLAY).style.backgroundColor = 'rgba(0,0,0,.64)';

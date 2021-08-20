@@ -18,3 +18,8 @@
   margin-right: 3px;
   cursor: pointer;
 }
+
+.card-detail-border {
+  border: 1px dashed;
+  border-radius: 10px;
+}
