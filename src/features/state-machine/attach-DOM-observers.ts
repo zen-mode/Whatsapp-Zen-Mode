@@ -66,7 +66,7 @@ const observer = new MutationObserver(async (mutations) => {
 
             const smartMuteStatus = await getSmartMuteStatus();
 
-            const autoReadHiddenConversationsStatus = await getAutoReadHiddenConversationsStatus()
+            const autoReadHiddenConversationsStatus = await getAutoReadHiddenConversationsStatus();
 
             // Explain: Wait for all rendering and animations to complete; otherwise - buggy.
             setTimeout(() => {

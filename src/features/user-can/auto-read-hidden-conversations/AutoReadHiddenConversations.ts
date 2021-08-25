@@ -54,7 +54,7 @@ export async function getAutoReadHiddenConversationsStatus(): Promise<AutoReadHi
     StateItemNames.AUTO_READ_HIDDEN_CONVERSATIONS_STATUS,
   )) as AutoReadHiddeConversationStatuses | undefined;
   if (autoReadHiddenConversationsStatus === undefined) {
-    return AutoReadHiddeConversationStatuses.ENABLED;
+    return AutoReadHiddeConversationStatuses.DISABLED;
   }
   return autoReadHiddenConversationsStatus;
 }
