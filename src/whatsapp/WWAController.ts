@@ -1,5 +1,10 @@
 import {WapModule, ChatModule, CmdModule, MUTE_FOREVER} from "./WWAProvider";
 
+export function getWWVersion() {
+  // @ts-ignore
+  return window.Debug.VERSION
+}
+
 function getChats(): any[] {
   return ChatModule.Chat.models;
 }

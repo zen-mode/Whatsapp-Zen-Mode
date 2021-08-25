@@ -1,4 +1,7 @@
 // @ts-ignore
+import {devprint} from "../../utility-belt/helpers/debug/devprint";
+import {getWWVersion} from "./WWAController";
+
 const moduleRaidV5 = require('@pedroslopez/moduleraid');
 
 export const MUTE_FOREVER = -1;
@@ -16,3 +19,4 @@ export function provideModules(): void {
   ConnModule = moduleRaid.findModule('Conn')[0].default;
 }
 
+devprint('WhatsApp Web version:', getWWVersion())
