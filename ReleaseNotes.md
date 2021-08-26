@@ -8,9 +8,9 @@
 
 4.**Enable writing in a hidden chat via hidden chat list **
 
-5. **Add suuport in Zen Mode in Trello** - access trello to check
+5.**Add suuport in Zen Mode in Trello** - access trello to check
 
-6. **Visibility Improvments**
+6 **Visibility Improvments**
 
 
 # Release Notes 1.4.1.14
