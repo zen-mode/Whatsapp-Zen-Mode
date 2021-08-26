@@ -6,7 +6,7 @@
 
 3.**Enable snooze option for hide chat** - Can be set to 8h/1w/forever
 
-4.**Enable writing in a hidden chat via hidden chat list **
+4.**Enable writing in a hidden chat via hidden chat list**
 
 5.**Add suuport in Zen Mode in Trello** - access trello to check
 
