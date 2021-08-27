@@ -19,9 +19,9 @@ import {get_chat_el_raw_title} from "../../api/get-contact-el-name";
 import {findChatByTitle} from "../../whatsapp/ExtensionConnector";
 import {get_contact_el_by_chat_name} from "../../api/get-contact-el-by-contact-name";
 import { getAutoReadHiddenConversationsStatus, setAutoReadHiddenConversationsStatus } from "../user-can/auto-read-hidden-conversations/AutoReadHiddenConversations";
+import { fixContextMenuPosition } from "../../whatsapp/ui/FakeCtxMenu/utils";
 
 const CONTEXT_MENU_HEIGHT = 298;
-const CONTEXT_MENU_BOTTOM_MARGIN = 32
 
 export let providerInjected = false;
 // Attaches DOM observer and checks for tf conditions:
@@ -40,15 +40,9 @@ const observer = new MutationObserver(async (mutations) => {
           const htmlEl = node as HTMLElement;
           // If WA contact context menu is present - Attach 'Hide contact' item.
           if (DOM.get_el(Selectors.WA_CONTACT_CTX_MENU) === htmlEl) {
-
               attach_hide_contact_item(htmlEl);
               attachUIToMainContactCtxMenu(htmlEl);
-              // Explain: fix context menu appearence on when not fit viewport
-              const rect = htmlEl.getBoundingClientRect();
-              const viewportHeight = window.innerHeight;
-              if (rect.top + CONTEXT_MENU_HEIGHT > viewportHeight && !htmlEl.style.bottom) {
-                htmlEl.style.top = `${viewportHeight - CONTEXT_MENU_HEIGHT - CONTEXT_MENU_BOTTOM_MARGIN}px`  
-              }
+              fixContextMenuPosition(htmlEl, CONTEXT_MENU_HEIGHT)
           }
 
           // On page load - hides the contacts that were hidden by user previously.
