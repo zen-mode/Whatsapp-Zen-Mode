@@ -8,6 +8,7 @@ import Port = Runtime.Port;
 type WWABridge = {
   extensionControllerPort?: Port;
   externalPagePort?: Port;
+  eventsPagePort?: Port;
 };
 
 const tabIdToWWABridge = {};
@@ -32,6 +33,16 @@ function handleWAProviderPort(port: Port) {
           const tabPorts: WWABridge = tabIdToWWABridge[senderTabId];
           if (tabPorts && tabPorts.extensionControllerPort) {
             tabPorts.extensionControllerPort.postMessage(message);
+          }
+        });
+        break;
+      case BridgePortType.WWA_EVENTS_CONNECTOR:
+        if (port.sender.id)
+          tabPorts.eventsPagePort = port;
+        port.onMessage.addListener(message => {
+          const tabPorts: WWABridge = tabIdToWWABridge[senderTabId];
+          if (tabPorts && tabPorts.eventsPagePort) {
+            tabPorts.eventsPagePort.postMessage(message);
           }
         });
         break;

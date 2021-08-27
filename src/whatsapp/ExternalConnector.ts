@@ -1,6 +1,6 @@
 // import {browser} from "webextension-polyfill-ts";
 // see https://github.com/mozilla/webextension-polyfill/issues/316
-import {BridgePortType, WWAProviderCall, WWAProviderRequest} from "./types";
+import {BridgePortType, InternalBusEvent, InternalEvent, WWAProviderCall, WWAProviderRequest} from "./types";
 import {generateBasicWWAResponse} from "./Utils";
 import {
   getChat,
@@ -154,3 +154,26 @@ async function handleRequest(request: WWAProviderRequest) {
 function handlePortDisconnection(port: any) {
   setChatsGlobalSoundsState(true);
 }
+
+// *
+// * EventBus.ts
+// *
+
+const eventPort = browser.runtime.connect('%%EXTENSION_GLOBAL_ID%%', {
+  name: BridgePortType.WWA_EVENTS_CONNECTOR
+});
+
+function publishEvent(event: InternalEvent, args: any[]) {
+  eventPort.postMessage({
+    name: event,
+    data: args
+  } as InternalBusEvent)
+}
+
+ChatModule.Chat.on('change:unreadCount', (chat: any) => {
+  publishEvent(InternalEvent.CHAT_CHANGED_UNREAD_COUNT, [ChatFabric.fromWWAChat(chat)]);
+});
+
+ChatModule.Msg.on('add', (message: any) => {
+  publishEvent(InternalEvent.CHAT_NEW_MESSAGE, [message]);
+})

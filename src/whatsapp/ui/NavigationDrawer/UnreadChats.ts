@@ -3,6 +3,8 @@ import {Chat} from "../../model/Chat";
 import {constructChatItem} from "./ChatItem";
 import {openChat} from "../../ExtensionConnector";
 import {browser} from "webextension-polyfill-ts";
+import {WWEvents} from "../../extension/EventBus";
+import {InternalEvent} from "../../types";
 
 function constructEmptyPlug(): HTMLElement {
   const div = document.createElement('div');
@@ -26,6 +28,20 @@ export function presentUnreadChats(chats: Chat[]): LeftDrawerItemList<Chat> {
     () => {},
     constructEmptyPlug
   );
+  WWEvents.on(InternalEvent.CHAT_CHANGED_UNREAD_COUNT, (chat: Chat) => {
+    const chatFromDrawer = chats.find((c) => c.id === chat.id);
+    if (chatFromDrawer) {
+      chats = chats.filter((c) => c.id !== chat.id)
+      drawer.remove(chatFromDrawer);
+      if (chat.hasUnread) {
+        chats.push(chat);
+        drawer.add(chat);
+      }
+    } else {
+      chats.push(chat);
+      drawer.add(chat);
+    }
+  });
   drawer.open();
   return drawer;
 }
