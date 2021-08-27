@@ -1,6 +1,12 @@
 export enum BridgePortType {
   WWA_EXTENSION_CONNECTOR = '0LLQsNGC0YbQsNC/',
-  WWA_EXTERNAL_CONNECTOR = '0YHQvtGB0Lg='
+  WWA_EXTERNAL_CONNECTOR = '0YHQvtGB0Lg=',
+  WWA_EVENTS_CONNECTOR = '0KXRg9CZ'
+}
+
+export enum InternalEvent {
+  CHAT_CHANGED_UNREAD_COUNT = 'CHAT_CHANGED_UNREAD_COUNT',
+  CHAT_NEW_MESSAGE = 'CHAT_NEW_MESSAGE'
 }
 
 export enum WWAProviderCall {
@@ -34,3 +40,9 @@ export type WWAProviderResponse = {
   error?: any;
   original?: WWAProviderRequest;
 };
+
+
+export type InternalBusEvent = {
+  name: InternalEvent,
+  data?: any[]
+}
