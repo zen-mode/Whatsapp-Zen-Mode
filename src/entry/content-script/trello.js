@@ -1,9 +1,3 @@
-import {
-    get_extn_storage_item_value,
-    remove_extn_storage_item,
-    set_extn_storage_item
-} from "../../../utility-belt/helpers/extn/storage";
-import {DOM} from "../../../utility-belt/helpers/dom/DOM-shortcuts";
 import {Selectors} from "../../data/dictionary";
 import {browser} from "webextension-polyfill-ts";
 
@@ -12,7 +6,7 @@ let trelloIcon = null;
 let trelloContextImg = null;
 let trelloContextList = null;
 let isAddedContextOptions = false;
-let isHideColumn = 'ON';
+let isHideColumn = null;
 let selectedColumn = -1;
 let enabledObservers = false;
 let isAddedIcon = false;
@@ -23,53 +17,31 @@ const config = {
   subtree: true
 };
 
-const callback = function(mutationsList, observer) {
-  for (let mutation of mutationsList) {
-    if (mutation.type === 'childList') {
-      addContextMenu();
-    }
-  }
-};
-
-const board_callback = function(mutationsList, observer) {
-  for (let mutation of mutationsList) {
-    if (mutation.type === 'childList') {
-      addEventListenerForListButton();
-    }
-  }
-};
-
-const window_callback = function(mutationsList, observer) {
-  for (let mutation of mutationsList) {
-    if (mutation.type === 'childList') {
-      updateBackground();
-    }
-  }
-};
-
 function updateIcon(status) {
-    trelloIcon.src = chrome.runtime.getURL(
-        `assets/logo/${status === 'ON' ? "logo.png" : "logo-off.png"}`,
-    );
-    trelloContextImg.src = chrome.runtime.getURL(
-      `assets/logo/${status === 'ON' ? "logo.png" : "logo-off.png"}`,
-    );
+    if (trelloIcon) {
+        trelloIcon.classList.toggle('zen-mode_On');
+    }
+    if (trelloContextImg) {
+        trelloContextImg.classList.toggle('zen-mode_On');
+    }
 }
 
 function updateBackground() {
-    if (trelloStatus === 'ON' && document.querySelector('.card-detail-window')) {
-        document.querySelector(Selectors.ZM_TRELLO_WINDOW_OVERLAY).style.backgroundColor = '#f4f5f7';
+    if (trelloStatus && document.querySelector('.card-detail-window')) {
+        document.querySelector(Selectors.ZM_TRELLO_WINDOW_OVERLAY).classList.add('Zen-mode-active-overlay');
         document.querySelector('.card-detail-window').classList.add('card-detail-border');
     }
     else {
-        document.querySelector(Selectors.ZM_TRELLO_WINDOW_OVERLAY).style.backgroundColor = 'rgba(0,0,0,.64)';
+        if (document.querySelector(Selectors.ZM_TRELLO_WINDOW_OVERLAY).classList.contains('Zen-mode-active-overlay')) {
+            document.querySelector(Selectors.ZM_TRELLO_WINDOW_OVERLAY).classList.remove('Zen-mode-active-overlay');
+        }
     }
 }
 
 function handleIconClick() {
-    trelloStatus = trelloStatus === 'ON' ? 'OFF' : 'ON';
+    trelloStatus = !trelloStatus;
     updateIcon(trelloStatus);
-    set_extn_storage_item({ TRELLO_STATUS: trelloStatus });
+    chrome.storage.local.set({TRELLO_STATUS: trelloStatus}, function() {});
     updateBackground();
 }
 
@@ -85,9 +57,11 @@ function addIcon(status) {
         document.querySelector('[aria-label="Open member menu"]');
     const parent = siblingButton && siblingButton.parentElement;
     if (parent) {
-        trelloIcon = new window.Image();
+        trelloIcon = document.createElement('div');
         trelloIcon.classList.add('zen-mode-trello-icon');
-        trelloIcon.src = chrome.runtime.getURL(`assets/logo/${status === 'ON' ? "logo.png" : "logo-off.png"}`);
+        if (status) {
+            trelloIcon.classList.toggle('zen-mode_On');
+        }
         trelloIcon.addEventListener('click', handleIconClick);
         parent.prepend(trelloIcon);
     }
@@ -110,10 +84,11 @@ function addContextMenu() {
     if (!isAddedContextOptions) {
         let stripCutter = document.createElement('hr');
         addElementInContext(stripCutter);
-        trelloContextImg = new window.Image();
+        trelloContextImg = document.createElement('div');
         trelloContextImg.classList.add('zen-mode-trello-context-icon');
-
-        trelloContextImg.src = chrome.runtime.getURL(`assets/logo/${trelloStatus === 'ON' ? "logo.png" : "logo-off.png"}`);
+        if (trelloStatus) {
+            trelloContextImg.classList.toggle('zen-mode_On');
+        }
         trelloContextList = document.createElement('ul');
         let li_item = document.createElement('li');
         li_item.classList.add('zen-mode__context-menu');
@@ -127,7 +102,7 @@ function addContextMenu() {
         let hideOption = document.createElement('li');
         hideOption.classList.add('hide-or-show-option');
         hideOption.addEventListener('click', hideOrShowColumnOption);
-        if (isHideColumn === 'ON') {
+        if (isHideColumn) {
             hideOption.innerText = browser.i18n.getMessage('ZM_Trello_Hide_Options');
         } else {
             hideOption.innerText = browser.i18n.getMessage('ZM_Trello_Show_Options');
@@ -142,21 +117,21 @@ function addContextMenu() {
 
 function hideOrShowColumnOption() {
     let list_wrappers = document.getElementsByClassName(Selectors.ZM_TRELLO_LIST_CONTENT);
-    if (isHideColumn === 'ON') {
+    if (isHideColumn) {
         for (let item of list_wrappers) {
             if (!item.classList.contains('selected-column')) {
-                item.style.display = 'none';
+                item.classList.add('hidding_column');
             }
         }
     } else {
         for (let item of list_wrappers) {
             if (!item.classList.contains('selected-column')) {
-                item.style.display = 'flex';
+                item.classList.remove('hidding_column');
             }
         }
     }
-    isHideColumn = isHideColumn === 'ON' ? 'OFF' : 'ON';
-    set_extn_storage_item({ HIDE_COLUMNS: isHideColumn });
+    isHideColumn = !isHideColumn;
+    chrome.storage.local.set({HIDE_COLUMNS: isHideColumn}, function() {});
     hidePopOver();
 }
 
@@ -193,7 +168,7 @@ function checkSelectedIndex() {
     let list_wrappers = document.getElementsByClassName(Selectors.ZM_TRELLO_LIST_CONTENT);
     for (let i = 0; i < list_wrappers.length; i++) {
         if (list_wrappers[i].classList.contains('selected-column')) {
-            set_extn_storage_item({ SELECTED_ITEM: i });
+            chrome.storage.local.set({ SELECTED_ITEM: i }, function () {});
         }
     }
 }
@@ -201,43 +176,61 @@ function checkSelectedIndex() {
 function addObservers() {
   let pop_over = document.querySelector(Selectors.ZM_TRELLO_POP_OVER);
   if (pop_over) {
-    const observer = new MutationObserver(callback);
+    const observer = new MutationObserver(function(mutationsList, observer) {
+      for (let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          addContextMenu();
+        }
+      }
+    });
     observer.observe(pop_over, config);
   }
   let board = document.getElementById('board');
   if (board) {
-    const board_observer = new MutationObserver(board_callback);
+    const board_observer = new MutationObserver(function(mutationsList, observer) {
+      for (let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          addEventListenerForListButton();
+        }
+      }
+    });
     board_observer.observe(board, config);
   }
   let window_overlay = document.querySelector(Selectors.ZM_TRELLO_WINDOW_OVERLAY);
   if (window_overlay) {
-    const window_overlay_observer = new MutationObserver(window_callback);
+    const window_overlay_observer = new MutationObserver(function(mutationsList, observer) {
+      for (let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          updateBackground();
+        }
+      }
+    });
     window_overlay_observer.observe(window_overlay, config);
   }
 }
 
+chrome.storage.local.get({TRELLO_STATUS: true, HIDE_COLUMNS: true, SELECTED_ITEM: -1}, function (result) {
+  trelloStatus = result.TRELLO_STATUS;
+  isHideColumn = result.HIDE_COLUMNS;
+  selectedColumn = result.SELECTED_ITEM;
+});
+
 const observer = new MutationObserver(async (mutations) => {
-  trelloStatus = await get_extn_storage_item_value('TRELLO_STATUS') || 'ON';
-  isHideColumn = await get_extn_storage_item_value('HIDE_COLUMNS') || 'ON';
-  selectedColumn = await get_extn_storage_item_value('SELECTED_ITEM');
-  if (typeof selectedColumn === 'undefined') {
-    selectedColumn = -1;
-  }
   mutations
     .filter(mutation => mutation.type === 'childList')
     .forEach(mutation => {
-        if (DOM.get_el('#header') && !isAddedIcon) {
+        if (document.getElementById('header') && !isAddedIcon) {
           addIcon(trelloStatus);
           isAddedIcon = true;
         }
-        if (DOM.get_el('#board') && !enabledObservers) {
+        if (document.getElementById('board') && !enabledObservers) {
           addObservers();
-          if (selectedColumn > -1 && isHideColumn === 'OFF') {
+          if (selectedColumn > -1 && !isHideColumn) {
               let list_wrappers = document.getElementsByClassName(Selectors.ZM_TRELLO_LIST_CONTENT);
               list_wrappers[selectedColumn].classList.add('selected-column');
               for (let item of list_wrappers) {
                   if (!item.classList.contains('selected-column')) {
-                      item.style.display = 'none';
+                      item.classList.add('hidding_column');
                   }
               }
           }
