@@ -1,9 +1,9 @@
 release:
     description: <b>Second  public beta version <a href="https://en.wikipedia.org/wiki/Golda_Meir">Golda Meir</a></b>
     changes:
-      - Unread chat list - via Zen menu
-      - Enable snooze option for hide chat - Can be set to 8h/1w/forever
-      - Enable writing in a hidden chat via hidden chat list
-      - Add suuport in Zen Mode in Trello - access trello to check
-      - Visibility Improvements
+      - <b>Unread chat list</b> - via Zen menu
+      - <b>Enable snooze option for hide chat</b> - Can be set to 8h/1w/forever
+      - <b>Enable writing in a hidden chat via hidden chat list</b>
+      - <b>Add suuport in Zen Mode in Trello</b> - access trello to check
+      - <b>Visibility Improvements</b>
     link: <a href=\"https://github.com/zen-mode/Whatsapp-Zen-Mode/blob/main/ReleaseNotes.md\">See previous versions</a>
