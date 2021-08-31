@@ -42,10 +42,6 @@
     "message": "Mutes all sounds except audio and video messages you play",
     "description": "To clarify to user we would like hover text upon menu command."
   },
-  "ZM_ctxMenuItem_autoRead_hidden_conversations": {
-    "message": "Auto-read Hidden Conversations",
-    "description": "ZM ctx menu item that toggle Auto-read Hidden Conversations."
-  },
   "ZM_ctxMenuItem_unhideAll": {
     "message": "Unhide all",
     "description": "ZM ctx menu item that unhides all hidden contacts"
@@ -112,7 +108,7 @@
     "message": "Forever"
   },
   "ZM_ctxMenuItem_unreadChats": {
-    "message": "Show all unread chats"
+    "message": "Unread chats"
   },
   "ZM_navigation_unreadChats": {
     "message": "Unread chats"

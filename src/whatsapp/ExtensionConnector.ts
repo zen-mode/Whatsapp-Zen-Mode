@@ -3,8 +3,6 @@ import {BridgePortType, WWAProviderCall, WWAProviderResponse} from "./types";
 import {generateBasicWWARequest} from "./Utils";
 import {Chat} from "./model/Chat";
 import { getHiddenChatById, removeHiddenChats } from "./Storage";
-import { getAutoReadHiddenConversationsStatus } from "../features/user-can/auto-read-hidden-conversations/AutoReadHiddenConversations";
-import { AutoReadHiddeConversationStatuses } from "../data/dictionary";
 
 // TODO from callback hell to Promise hell :)
 type PromiseProto = {
@@ -51,10 +49,6 @@ async function processChatMessage(response: any) {
     }
   }
 
-  const autoReadHiddenConversationsStatus = await getAutoReadHiddenConversationsStatus();
-  if (isHidden && autoReadHiddenConversationsStatus === AutoReadHiddeConversationStatuses.ENABLED) {
-    markChatAsRead(chatId);
-  }
   return;
 }
 

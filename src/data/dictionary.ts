@@ -78,9 +78,6 @@ export const enum Selectors {
   ZM_CTX_MENU_ITEM_SMARTMUTE = "#ZenMode__contextMenuItem__smartMute",
   ZM_SMARTMUTE_SOUNDICON = "#ZenMode__smartMute__soundIcon",
   ZM_SMARTMUTE_TEXT = "#ZenMode__smartMute__text",
-  ZM_CTX_MENU_ITEM_AUTO_READ_HIDDEN_CONVERSATION = "#ZenMode__contextMenuItem__autoReadHiddenConversations",
-  ZM_AUTO_READ_HIDDEN_CONVERSATION_TEXT = "#ZenMode__autoReadHiddenConversations__text",
-  ZM_AUTO_READ_HIDDEN_CONVERSATION_CHECK_MARK = "#ZenMode__autoReadHiddenConversations__checkMark",
   ZM_TOGGLE_BUTTON = "#ZenMode__toggle",
   ZM_TOGGLE_BUTTON_CHEVRON = "#ZenMode__toggle__chevron",
   ZM_BADGE = "#ZenMode__badge",
@@ -94,11 +91,6 @@ export const enum ZenDomDataAttributes {
 export const enum ZenModeStatuses {
   ON = "ON",
   OFF = "OFF",
-}
-
-export const enum AutoReadHiddeConversationStatuses {
-  ENABLED = "ENABLED",
-  DISABLED = "DISABLED",
 }
 
 //

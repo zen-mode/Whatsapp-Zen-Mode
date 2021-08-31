@@ -8,7 +8,6 @@ import {Selectors, StateItemNames, URLS} from "../../../data/dictionary";
 import {set_el_style} from "../../../../utility-belt/helpers/dom/set-el-style";
 import {remove_badge_el} from "../../../features/user-can/read-release-notes/remove-ver-num-badge";
 import {set_extn_storage_item} from "../../../../utility-belt/helpers/extn/storage";
-import { construct_autoRead_hidden_conversations_menu_item, toggleAutoReadHiddenConversations } from "../../../features/user-can/auto-read-hidden-conversations/AutoReadHiddenConversations";
 import {presentUnreadChats} from "../NavigationDrawer/UnreadChats";
 import {getUnreadChats} from "../../ExtensionConnector";
 
@@ -58,17 +57,6 @@ const ZMMenuItems: ZMCtxMenuItem[] = [
       window.open(`${URLS.FEEDBACK_EMAIL}?subject=${subject}`);
     },
   },
-  {
-    action: 'openSettings',
-    domNode: browser.i18n.getMessage("ZM_ctxMenuItem_settings"),
-    children: [
-      {
-        action: 'autoReadHiddenConversations',
-        domNode: construct_autoRead_hidden_conversations_menu_item(),
-        makeAction: toggleAutoReadHiddenConversations
-      },
-    ]
-  }
 ];
 
 export class ZMCtxMenu extends FakeCtxMenu {

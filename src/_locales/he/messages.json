@@ -34,10 +34,6 @@
   "ZM_ctxMenuItem_unhideAll": {
     "message": "הצג צ'אטים מוסתרים"
   },
-  "ZM_ctxMenuItem_autoRead_hidden_conversations": {
-    "message": "סימון אוטומטי של צ'אט מוסתר כנקרא",
-    "description": "ZM ctx menu item that toggle Auto-read Hidden Conversations."
-  },
   "ZM_ctxMenuItem_zenMode": {
     "message": "זן מוד"
   },
@@ -88,7 +84,7 @@
     "message": "תמיד"
   },
   "ZM_ctxMenuItem_unreadChats": {
-    "message": "הצג את כל השיחות שלא נקראו"
+    "message": "לרשימת צ'אטים שלא נקראו"
   },
   "ZM_navigation_unreadChats": {
     "message": "צ'אטים שלא נקראו"
