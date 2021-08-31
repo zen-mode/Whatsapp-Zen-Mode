@@ -8,6 +8,9 @@ export type ExtnStorage = {
 };
 
 export type ReleaseNotes = {
-  version: string;
-  changes: string[];
-}[];
+  release: {
+    description: string;
+    changes: string[];
+    link: "<a href=\"https://github.com/zen-mode/Whatsapp-Zen-Mode/blob/main/ReleaseNotes.md\">See previous versions</a>"
+  }
+};
