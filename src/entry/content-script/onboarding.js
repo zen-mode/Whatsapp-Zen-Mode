@@ -1,4 +1,4 @@
-import { browser } from 'webextension-polyfill-ts';
+import browser from 'webextension-polyfill';
 
 // Render
 const titleEl = document.getElementById('titleOnboarding');

@@ -1,5 +1,5 @@
 import {set_el_attributes} from "../../../../../utility-belt/helpers/dom/set-el-attributes";
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 
 import {Selectors} from "../../../../data/dictionary";
 import {setZenMorning, unsetZenMorning} from "../../../user-can/zenmorning/setZenMorning";

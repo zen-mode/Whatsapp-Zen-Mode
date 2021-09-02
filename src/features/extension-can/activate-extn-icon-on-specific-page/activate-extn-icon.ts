@@ -3,7 +3,7 @@
 // Description:
 // 1. Makes extn icon active on https://web.whatsapp.com/; disabled otherwise.
 
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 
 // 1. Makes extn icon active on https://web.whatsapp.com/; disabled otherwise.
 

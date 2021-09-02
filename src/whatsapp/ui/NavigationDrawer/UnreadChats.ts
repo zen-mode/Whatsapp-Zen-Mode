@@ -2,7 +2,7 @@ import {constructBaseLeftDrawerItemList, LeftDrawerItemList} from "../LeftDrawer
 import {Chat} from "../../model/Chat";
 import {constructChatItem} from "./ChatItem";
 import {openChat} from "../../ExtensionConnector";
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import {WWEvents} from "../../extension/EventBus";
 import {InternalEvent} from "../../types";
 

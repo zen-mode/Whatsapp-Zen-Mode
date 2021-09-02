@@ -1,7 +1,7 @@
 import {get_extn_storage_item_value, set_extn_storage_item} from "../../utility-belt/helpers/extn/storage";
 import {StateItemNames} from "../data/dictionary";
 import {Chat} from "./model/Chat";
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 
 export function subscribeForeverHiddenChatChanges(onChanged: (hiddenChats: Chat[], oldHiddenChats: Chat[]) => void) {
   browser.storage.onChanged.addListener((changes, areaName) => {
