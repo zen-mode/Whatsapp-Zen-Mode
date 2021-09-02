@@ -219,13 +219,13 @@ const observer = new MutationObserver(async (mutations) => {
   mutations
     .filter(mutation => mutation.type === 'childList')
     .forEach(mutation => {
-        if (document.getElementById('header') && !isAddedIcon) {
+        if (!isAddedIcon && document.getElementById('header')) {
           addIcon(trelloStatus);
           isAddedIcon = true;
         }
-        if (document.getElementById('board') && !enabledObservers) {
+        if (!enabledObservers && document.getElementById('board')) {
           addObservers();
-          if (selectedColumn > -1 && !isHideColumn) {
+          if (!isHideColumn && selectedColumn > -1) {
               let list_wrappers = document.getElementsByClassName(Selectors.ZM_TRELLO_LIST_CONTENT);
               list_wrappers[selectedColumn].classList.add('selected-column');
               for (let item of list_wrappers) {
