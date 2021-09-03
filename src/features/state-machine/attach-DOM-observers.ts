@@ -23,6 +23,7 @@ import { fixContextMenuPosition } from "../../whatsapp/ui/FakeCtxMenu/utils";
 const CONTEXT_MENU_HEIGHT = 298;
 
 export let providerInjected = false;
+
 // Attaches DOM observer and checks for tf conditions:
 const observer = new MutationObserver(async (mutations) => {
   mutations.filter(m => m.type === 'attributes').forEach(mutation => {
