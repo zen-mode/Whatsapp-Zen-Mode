@@ -19,7 +19,8 @@
     },
     {
       "matches": ["https://trello.com/*"],
-      "js": ["entry/content-script/trello.js"]
+      "js": ["entry/content-script/trello.js"],
+      "css": ["entry/content-script/trello-ui.css"]
     }
   ],
 

@@ -1,0 +1,42 @@
+.zen-mode__context-menu {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.zen-mode-trello-context-icon {
+  margin-left: 3px;
+  width: 22px;
+  height: 22px;
+  background-size: cover;
+  background-image: url('chrome-extension://__MSG_@@extension_id__/assets/logo/logo-off.png');
+}
+
+.hide-or-show-option {
+  cursor: pointer;
+}
+
+.zen-mode-trello-icon {
+  width: 32px;
+  background-size: cover;
+  margin-right: 3px;
+  cursor: pointer;
+  background-image: url('chrome-extension://__MSG_@@extension_id__/assets/logo/logo-off.png');
+}
+
+.zen-mode_On {
+  background-image: url('chrome-extension://__MSG_@@extension_id__/assets/logo/logo.png');
+}
+
+.card-detail-border {
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='3' stroke-dasharray='25%2c 25' stroke-dashoffset='12' stroke-linecap='square'/%3e%3c/svg%3e");
+}
+
+.Zen-mode-active-overlay {
+  background-color: #f4f5f7 !important;
+}
+
+.hidding_column {
+  display: none !important;
+}
