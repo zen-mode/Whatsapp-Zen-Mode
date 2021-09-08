@@ -10,7 +10,6 @@ export interface LeftDrawerItemList<T> {
   clear(): void
 }
 
-const DRAWER_ID = 'fakeElLikeWAArchivedChats';
 const DRAWER_TITLE_ID = 'fakeElLikeWAArchiveTITLE';
 const DRAWER_ITEMS_CONTAINER_ID = 'CHATS_CONTAINER_ID';
 const DRAWER_CONTAINER_HEIGHT_PX = 72;
@@ -20,11 +19,14 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
                                                    items: T[], onBackButtonClick: (event: MouseEvent) => void,
                                                    constructItemEl: (item: T) => HTMLElement,
                                                    onClickOnItemEl: (event: MouseEvent, item: T) => void,
-                                                   constructEmptyPlugEl: () => HTMLElement): LeftDrawerItemList<T> {
-  const leftDrawerContainer = DOM.get_el('.ldL67._2i3T7');
-  if (!leftDrawerContainer) {
-    throw Error('WWALeftDrawerContainer not presented');
-  }
+                                                   constructEmptyPlugEl?: () => HTMLElement): LeftDrawerItemList<T> {
+  const leftDrawerContainer = (() => {
+    const element = DOM.get_el('.ldL67._2i3T7');
+    if (!element) {
+      throw Error('WWALeftDrawerContainer not presented');
+    }
+    return element;
+  })();
 
   function constructRootDrawer(): {
     drawerEl: HTMLElement,
@@ -33,9 +35,10 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
     itemsContainerEl: HTMLElement,
     emptyPlugContainerEl: HTMLElement
   } {
-    leftDrawerContainer!!.insertAdjacentHTML("beforeend", `
-<span id="${DRAWER_ID}" class="vXLk5">
-   <div class="_3bvta" tabindex="-1" style="height: 100%; transform: translateX(0%);">
+    const drawerEl = document.createElement('span');
+    drawerEl.className = 'vXLk5';
+    drawerEl.innerHTML = `
+    <div class="_3bvta" tabindex="-1" style="height: 100%; transform: translateX(0%);">
       <span class="_2J8hu">
          <div class="nBIOd _3kIRz tm2tP copyable-area">
             <header class="_1PGhQ">
@@ -57,11 +60,8 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
          </div>
          <div hidden="" style="display: none;"></div>
       </span>
-   </div>
-   <div hidden="" style="display: none;"></div>
-</span>
-`);
-    const drawerEl = DOM.get_el('#' + DRAWER_ID, leftDrawerContainer!!)!!;
+   </div>`;
+    leftDrawerContainer.insertAdjacentElement('beforeend', drawerEl);
     drawerEl.remove();
     const itemsContainerEl = DOM.get_el('#' + DRAWER_ITEMS_CONTAINER_ID, drawerEl)!!;
     return {
@@ -98,7 +98,7 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
   }
 
   function addAndShowDrawer() {
-    leftDrawerContainer!!.insertAdjacentElement('beforeend', drawerEl);
+    leftDrawerContainer.insertAdjacentElement('beforeend', drawerEl);
   }
 
   function releaseDrawer() {
@@ -142,7 +142,7 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
         currentIndex++;
         itemEl.style.transform = `translateY(${currentIndex * DRAWER_CONTAINER_HEIGHT_PX}px)`;
       }
-    } else {
+    } else if (constructEmptyPlugEl) {
       setEmptyPlugEl(constructEmptyPlugEl());
     }
   }

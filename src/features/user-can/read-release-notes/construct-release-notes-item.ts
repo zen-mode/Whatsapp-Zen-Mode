@@ -7,7 +7,7 @@ import {Selectors} from "../../../data/dictionary";
 // @ts-expect-error smth wrong with globals.d.ts.
 import releaseNotes from "../../../../RELEASE-NOTES.yaml";
 import {ReleaseNotes} from "../../../data/types";
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 
 export function construct_release_notes_area(): HTMLDivElement {
   const manifest = browser.runtime.getManifest();
@@ -28,21 +28,26 @@ export function construct_release_notes_area(): HTMLDivElement {
   // Explain: We'll keep support for multiple RNs in release-notes.yaml.
   // But in current ver we only use one RN.
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const notesForLatestRelease = (releaseNotes as ReleaseNotes)[0]!;
+  const release = (releaseNotes as ReleaseNotes).release;
+  const description = release.description;
+  const changes = release.changes;
+  const link = release.link;
+
+  const releaseNotesDescriptionEl = DOM.create_el({tag: "div"});
+  releaseNotesDescriptionEl.innerHTML = description;
+  releaseNotesAreaEl.appendChild(releaseNotesDescriptionEl);
 
   const releaseNotesListEl = DOM.create_el({tag: "ul"});
   releaseNotesAreaEl.appendChild(releaseNotesListEl);
 
-  notesForLatestRelease.changes.forEach((descr, i) => {
-    if (notesForLatestRelease.changes.length - 1 === i ) {
-      const noteEl = DOM.create_el({tag: "div", html: descr});
-      releaseNotesListEl.appendChild(noteEl);
-      return
-    }
-
+  changes.forEach((descr, i) => {
     const noteEl = DOM.create_el({tag: "li", html: descr});
     releaseNotesListEl.appendChild(noteEl);
   });
+
+  const linkEl = DOM.create_el({tag: "div"});
+  linkEl.innerHTML = link
+  releaseNotesListEl.appendChild(linkEl);
 
   const closeBtnEl = DOM.create_el({
     tag: "div",

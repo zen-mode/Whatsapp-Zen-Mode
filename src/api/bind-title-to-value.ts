@@ -8,11 +8,15 @@ const EMPTY_FAVICON_SRC = "/img/favicon_c5088e888c97ad440a61d247596f88e5.png";
 
 let originalTitleValue: string | null;
 let originalFavIconSrc: string | null;
+let bindedChats: Chat[] = [];
 
 const titleObserver = new MutationObserver(mutations => {
+  const mutation = mutations[0];
+  devprint('mutation', mutation);
+  if (originalTitleValue && mutation && mutation.addedNodes[0] && mutation.addedNodes[0].textContent !== "WhatsApp") {
+    originalTitleValue = mutation.addedNodes[0].textContent;
+  }
   if (bindedChats && bindedChats.length > 0) {
-    const mutation = mutations[0];
-    devprint('mutation', mutation);
     if (mutation) {
       if (!originalTitleValue) {
         const oldTitleNode = mutation.removedNodes[0];
@@ -30,23 +34,23 @@ const titleObserver = new MutationObserver(mutations => {
   }
 });
 
-function getTitleByUnreadSum(unreadSum: number): string {
-  if (unreadSum > 0) {
+function getTitleByUnreadSum(unreadSum: number, isZenModeON?: boolean): string {
+  if (unreadSum > 0 && !isZenModeON) {
     return `(${unreadSum}) WhatsApp`;
   } else {
     return 'WhatsApp';
   }
 }
 
-let bindedChats: Chat[] = [];
+export function onTitleChanged(isZenModeON?: boolean) {
 
-function onTitleChanged() {
   updateChatModels(bindedChats, (updatedChats: Chat[]) => {
     let unreadSum = 0;
     updatedChats.forEach(c => {
       unreadSum += c.unreadCount;
     });
-    const newTitle = getTitleByUnreadSum(unreadSum);
+    debugger;
+    const newTitle = getTitleByUnreadSum(unreadSum, isZenModeON);
     if (document.title != newTitle)
       document.title = newTitle;
       setFavicon(EMPTY_FAVICON_SRC);

@@ -4,7 +4,7 @@
     "description": "WA contact ctx menu item that turn zen morning for contact"
   },
   "WA_contactCtxMenuItem_hide": {
-    "message": "הסתר צ'אט"
+    "message": "הסתר צ'אט זמנית"
   },
   "WA_contactCtxMenuItem_unhide": {
     "message": "הצג צ'אט מוסתר"
@@ -34,10 +34,6 @@
   "ZM_ctxMenuItem_unhideAll": {
     "message": "הצג צ'אטים מוסתרים"
   },
-  "ZM_ctxMenuItem_autoRead_hidden_conversations": {
-    "message": "סימון אוטומטי של צ'אט מוסתר כנקרא",
-    "description": "ZM ctx menu item that toggle Auto-read Hidden Conversations."
-  },
   "ZM_ctxMenuItem_zenMode": {
     "message": "זן מוד"
   },
@@ -54,7 +50,7 @@
     "message": "יש צורך לטעון את האתר מחדש כדי שזן מוד יעבוד",
     "description": "Popup title after install"
   },
-    "ZM_onboarding_page_agree": {
+  "ZM_onboarding_page_agree": {
     "message": "הבנתי"
   },
   "ZM_yesBtn": {
@@ -74,5 +70,30 @@
   },
   "ZM_ctxMenuItem_settings": {
     "message": "הגדרות"
+  },
+  "ZM_hide_popup_title": {
+    "message": "למשך הסתר את"
+  },
+  "ZM_hide_popup_hours": {
+    "message": "8 שעות"
+  },
+  "ZM_hide_popup_week": {
+    "message": "שבוע"
+  },
+  "ZM_hide_popup_forever": {
+    "message": "תמיד"
+  },
+  "ZM_ctxMenuItem_unreadChats": {
+    "message": "לרשימת צ'אטים שלא נקראו"
+  },
+  "ZM_navigation_unreadChats": {
+    "message": "צ'אטים שלא נקראו"
+  },
+  "ZM_update_notification_message": {
+    "message":"קיימת גרסה חדשה לזן מוד\n נדרש ריענון כדי שהגרסה תהיה אקטיבית"
+
+  },
+  "ZM_update_notification_ok_button_label": {
+    "message": "הבנתי"
   }
 }

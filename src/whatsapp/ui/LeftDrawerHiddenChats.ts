@@ -3,8 +3,9 @@ import {DOM} from "../../../utility-belt/helpers/dom/DOM-shortcuts";
 import {devprint} from "../../../utility-belt/helpers/debug/devprint";
 import {constructBaseLeftDrawerItemList, LeftDrawerItemList} from "./LeftDrawerItemList";
 import {subscribeForeverHiddenChatChanges, removeHiddenChats} from "../Storage";
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import {HiddenChatCtxMenu} from "./FakeCtxMenu/HiddenChatCtxMenu";
+import { openChat } from "../ExtensionConnector";
 
 const EMPTY_HIDDEN_CHATS_LIST_PLUG_ID = 'EMPTY_HIDDEN_CHATS_LIST_PLUG_ID';
 
@@ -78,7 +79,10 @@ function constructBasicChatListElement(chat: Chat): HTMLElement {
   div.addEventListener('click', e1 => {
     // @ts-ignore
     const targetButton = e1.target.closest('[data-action]');
-    if (!targetButton) return;
+    if (!targetButton) {
+      openChat(chat);
+      return
+    };
     switch (targetButton.dataset.action) {
       case 'fakeCtxMenu': {
         e1.stopPropagation();

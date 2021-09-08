@@ -1,7 +1,8 @@
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import {BridgePortType, WWAProviderCall, WWAProviderResponse} from "./types";
 import {generateBasicWWARequest} from "./Utils";
 import {Chat} from "./model/Chat";
+import { getHiddenChatById, removeHiddenChats } from "./Storage";
 
 // TODO from callback hell to Promise hell :)
 type PromiseProto = {
@@ -12,7 +13,12 @@ type PromiseProto = {
 const requestIdToPromiseProto = {};
 const pageBridgePort = browser.runtime.connect('%%EXTENSION_GLOBAL_ID%%', { name: BridgePortType.WWA_EXTENSION_CONNECTOR });
 
-pageBridgePort.onMessage.addListener((response: WWAProviderResponse) => {
+pageBridgePort.onMessage.addListener(async (response: any) => { // TODO: fix typing
+  
+  if (response.action === "NEW_MESSAGE") {
+    return await processChatMessage(response);
+  }
+
   const requestId = response.id;
   if (requestId) {
     const callback = requestIdToPromiseProto[requestId];
@@ -26,6 +32,25 @@ pageBridgePort.onMessage.addListener((response: WWAProviderResponse) => {
     delete requestIdToPromiseProto[response.id]
   }
 });
+
+async function processChatMessage(response: any) {
+  const { msg, user } = response.payload;
+  const userId = user.toString();
+  const chatId = msg.fromMe ? msg.to : msg.from;
+  const chat = await getHiddenChatById(chatId)
+  const isHidden = !!chat;
+  
+  if (chat?.isGroup) {
+    const isMentioned = msg.mentionedJidList.find((mentionedJid: string) => mentionedJid === userId);
+    const isQuoted = msg.quotedParticipant === userId;
+    if (isMentioned || isQuoted) {
+      removeHiddenChats(chat);
+      return;
+    }
+  }
+
+  return;
+}
 
 function callProviderFunctionWithCallback(call: WWAProviderCall, args: any[], callback?: (result: any) => void) {
   const request = generateBasicWWARequest(call, args);
@@ -49,8 +74,8 @@ export function unmuteChatsLocally(chats: Chat[], callback?: () => void) {
   callProviderFunctionWithCallback(WWAProviderCall.unmuteChatsLocally, [chats], callback);
 }
 
-export function muteNonMutedChatsExceptChats(callback?: (mutedChats: Chat[]) => void, ...chats: Chat[]) {
-  callProviderFunctionWithCallback(WWAProviderCall.muteNonMutedChatsExceptChat, [chats], callback);
+export function muteNonMutedChatsExceptChat(chat: Chat, callback?: (mutedChats: Chat[]) => void) {
+  callProviderFunctionWithCallback(WWAProviderCall.muteNonMutedChatsExceptChat, [chat], callback);
 }
 
 export function archiveChatLocally(chat: Chat, callback?: () => void) {
@@ -91,4 +116,12 @@ export function getChatsSoundsState(callback: (state: boolean) => void) {
 
 export function markChatAsRead(chatId: string) {
   callProviderFunctionWithCallback(WWAProviderCall.markChatAsRead, [chatId]);
+}
+
+export function getProfilePicUrl(chat: Chat, callback: (picUrl: string | null) => void) {
+  callProviderFunctionWithCallback(WWAProviderCall.getProfilePicUrl, [chat], callback);
+}
+
+export function getUnreadChats(callback: (chats: Chat[]) => void) {
+  callProviderFunctionWithCallback(WWAProviderCall.getUnreadChats, [], callback);
 }

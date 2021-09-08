@@ -41,6 +41,7 @@ async function attach_Zen_mode_UI(): Promise<void> {
   const [
     ZenModeBtnEl,
     releaseNotesAreaEl,
+    hideChatAreaEl,
   ] = construct_Zen_mode_UI();
 
   leftHeaderButtonsEl.prepend(ZenModeBtnEl);
@@ -49,6 +50,12 @@ async function attach_Zen_mode_UI(): Promise<void> {
     DOM.get_el(Selectors.ZM_RELEASE_NOTES_AREA) === null;
   if (permanentZM_elsAreNotYetAttached) {
     document.body.appendChild(releaseNotesAreaEl);
+  }
+
+  const permanentZM_elsAreaNotYetAttached =
+    DOM.get_el(Selectors.ZM_HIDE_POPUP) === null;
+  if (permanentZM_elsAreaNotYetAttached) {
+    document.body.appendChild(hideChatAreaEl);
   }
 
   devprint("STATUS: UI attached.");

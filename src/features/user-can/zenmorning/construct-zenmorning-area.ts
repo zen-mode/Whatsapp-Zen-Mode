@@ -3,7 +3,7 @@
 import {DOM} from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
 
 import {Selectors} from "../../../data/dictionary";
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 
 export function construct_zenmorning_area(): HTMLDivElement {
   const areaEl = DOM.create_el({
