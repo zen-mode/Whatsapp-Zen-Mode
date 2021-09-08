@@ -49,7 +49,6 @@ export function onTitleChanged(isZenModeON?: boolean) {
     updatedChats.forEach(c => {
       unreadSum += c.unreadCount;
     });
-    debugger;
     const newTitle = getTitleByUnreadSum(unreadSum, isZenModeON);
     if (document.title != newTitle)
       document.title = newTitle;
