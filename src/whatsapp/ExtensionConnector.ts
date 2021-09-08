@@ -74,8 +74,8 @@ export function unmuteChatsLocally(chats: Chat[], callback?: () => void) {
   callProviderFunctionWithCallback(WWAProviderCall.unmuteChatsLocally, [chats], callback);
 }
 
-export function muteNonMutedChatsExceptChats(callback?: (mutedChats: Chat[]) => void, ...chats: Chat[]) {
-  callProviderFunctionWithCallback(WWAProviderCall.muteNonMutedChatsExceptChat, [chats], callback);
+export function muteNonMutedChatsExceptChat(chat: Chat, callback?: (mutedChats: Chat[]) => void) {
+  callProviderFunctionWithCallback(WWAProviderCall.muteNonMutedChatsExceptChat, [chat], callback);
 }
 
 export function archiveChatLocally(chat: Chat, callback?: () => void) {
