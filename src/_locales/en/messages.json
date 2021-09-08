@@ -112,5 +112,11 @@
   },
   "ZM_navigation_unreadChats": {
     "message": "Unread chats"
+  },
+  "ZM_update_notification_message": {
+    "message": "There is a version update for Zen Mode.\nA refresh is needed to activate the new version."
+  },
+  "ZM_update_notification_ok_button_label": {
+    "message": "Ok"
   }
 }
