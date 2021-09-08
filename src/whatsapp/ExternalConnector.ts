@@ -13,7 +13,8 @@ import {
   getChatsGlobalSoundsState,
   markChatAsRead,
   getProfilePicUrl,
-  getUnreadChats
+  getUnreadChats,
+  getChats
 } from "./WWAController";
 import {ChatModule, ConnModule, provideModules} from "./WWAProvider";
 import {Chat} from "./model/Chat";
@@ -56,7 +57,7 @@ callerFunctions.set(WWAProviderCall.unmuteChatsLocally, (chats: Chat[]): any => 
 });
 
 callerFunctions.set(WWAProviderCall.muteNonMutedChatsExceptChat, (chat: Chat) => {
-  const WWAChatsForMute = getChatsExceptId(chat.id);
+  const WWAChatsForMute = getChatsExceptId(chat.id.toString());
   // Mute non muted chats
   WWAChatsForMute.forEach(chat => retentionMuteChatLocally(chat.id));
 

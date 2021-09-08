@@ -5,13 +5,13 @@ export function getWWVersion() {
   return window.Debug.VERSION
 }
 
-function getChats(): any[] {
+export function getChats(): any[] {
   return ChatModule.Chat.models;
 }
 
 export function getChatsExceptId(chatId: string): any[] {
   return getChats()
-    .filter(chat => !chat.mute.isMute && chat.id !== chatId);
+    .filter(chat => !chat.mute.isMute && chat.id.toString() !== chatId);
 }
 
 export function getChat(chatId: string): any {

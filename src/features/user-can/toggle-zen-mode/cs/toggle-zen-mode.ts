@@ -13,7 +13,7 @@ import {set_el_style} from "../../../../../utility-belt/helpers/dom/set-el-style
 import {process_error, throw_DOM_error} from "../../../extension-can/process-errors/process-error";
 
 import {Selectors, StateItemNames, ZenModeStatuses} from "../../../../data/dictionary";
-import {getOpenedChat, openChat} from "../../../../whatsapp/ExtensionConnector";
+import {getOpenedChat, muteNonMutedChatsExceptChat, openChat, unmuteChatsLocally} from "../../../../whatsapp/ExtensionConnector";
 import {Chat} from "../../../../whatsapp/model/Chat";
 import {bindChatsToTitleUnread, unbindAllChatsToTitle} from "../../../../api/bind-title-to-value";
 import {getZenModeLogoUrlByState} from "../../../../api/getZenModeIcon";
@@ -71,6 +71,7 @@ export async function get_Zen_mode_status(): Promise<ZenModeStatuses> {
 
 let lastTargetedChat: Chat | null;
 let lastZenModeState: ZenModeStatuses | null;
+let zenMutedChats: Chat[] = [];
 
 export async function toggle_Zen_mode_on_page(mode: ZenModeStatuses): Promise<void> {
   const logoUrl = await getZenModeLogoUrlByState(mode);
@@ -98,6 +99,9 @@ export async function toggle_Zen_mode_on_page(mode: ZenModeStatuses): Promise<vo
 
   if (mode === ZenModeStatuses.ON) {
     const chat = (await get_extn_storage_item_value(StateItemNames.ZEN_MODE_CHAT)) as Chat;
+    muteNonMutedChatsExceptChat(chat, (mutedChats: Chat[]) => {
+      zenMutedChats = mutedChats
+    });
     getOpenedChat(async openedChat => {
       if (!openedChat || openedChat.id !== chat.id) {
         openedChat = await new Promise(resolve => openChat(chat, resolve));
@@ -113,6 +117,9 @@ export async function toggle_Zen_mode_on_page(mode: ZenModeStatuses): Promise<vo
   } else if (mode === ZenModeStatuses.OFF) {
     if (lastTargetedChat) {
       unbindAllChatsToTitle();
+    }
+    if (zenMutedChats) {
+      unmuteChatsLocally(zenMutedChats)
     }
   }
 }
