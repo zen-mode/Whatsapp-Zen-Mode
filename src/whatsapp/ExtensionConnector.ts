@@ -1,4 +1,4 @@
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import {BridgePortType, WWAProviderCall, WWAProviderResponse} from "./types";
 import {generateBasicWWARequest} from "./Utils";
 import {Chat} from "./model/Chat";

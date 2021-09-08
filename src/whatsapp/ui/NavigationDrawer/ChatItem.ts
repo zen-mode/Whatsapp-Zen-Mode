@@ -1,5 +1,5 @@
 import {Chat} from "../../model/Chat";
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import {getProfilePicUrl} from "../../ExtensionConnector";
 
 export interface ChatItem {

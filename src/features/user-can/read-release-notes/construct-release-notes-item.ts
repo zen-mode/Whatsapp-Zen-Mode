@@ -7,7 +7,7 @@ import {Selectors} from "../../../data/dictionary";
 // @ts-expect-error smth wrong with globals.d.ts.
 import releaseNotes from "../../../../RELEASE-NOTES.yaml";
 import {ReleaseNotes} from "../../../data/types";
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 
 export function construct_release_notes_area(): HTMLDivElement {
   const manifest = browser.runtime.getManifest();

@@ -7,7 +7,7 @@
 // 1.2. Extn icon click.
 // 2. Sends the command to CS toggle Zen mode.
 
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import {devprint} from "../../../utility-belt/helpers/debug/devprint";
 import {set_default_state} from "./default-state";
 

@@ -1,7 +1,7 @@
 // Explain: This api is relatively small; will keep all in here.
 /* eslint-disable max-lines */
 
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 
 import {GenericObject} from "../../types/generic-types";
 
