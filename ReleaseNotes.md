@@ -10,7 +10,7 @@
 
 5 **Bug fixing** - mute notifications in zen, message counter 
 
-6 **Refresh request modification**
+6 **Refresh update notification**
 # Release Notes 1.4.2.1
 ### Second  public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
 1.**Unread chat list** - via Zen menu
