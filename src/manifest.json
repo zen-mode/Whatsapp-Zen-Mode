@@ -5,7 +5,7 @@
   "default_locale": "en",
   "minimum_chrome_version": "78",
 
-  "permissions": ["*://web.whatsapp.com/*", "activeTab", "declarativeContent", "storage", "idle", "alarms"],
+  "permissions": ["*://web.whatsapp.com/*", "activeTab", "declarativeContent", "storage", "idle", "alarms", "notifications"],
 
   "background": {
     "scripts": ["entry/background/bgs.js"]

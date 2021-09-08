@@ -50,7 +50,7 @@
     "message": "יש צורך לטעון את האתר מחדש כדי שזן מוד יעבוד",
     "description": "Popup title after install"
   },
-    "ZM_onboarding_page_agree": {
+  "ZM_onboarding_page_agree": {
     "message": "הבנתי"
   },
   "ZM_yesBtn": {
@@ -88,5 +88,12 @@
   },
   "ZM_navigation_unreadChats": {
     "message": "צ'אטים שלא נקראו"
+  },
+  "ZM_update_notification_message": {
+    "message":"קיימת גרסה חדשה לזן מוד\n נדרש ריענון כדי שהגרסה תהיה אקטיבית"
+
+  },
+  "ZM_update_notification_ok_button_label": {
+    "message": "הבנתי"
   }
 }
