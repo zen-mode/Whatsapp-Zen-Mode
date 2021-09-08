@@ -4,6 +4,8 @@ release:
       - <b>Unread chat list</b> - via Zen menu
       - <b>Enable snooze option for hide chat</b> - Can be set to 8h/1w/forever
       - <b>Enable writing in a hidden chat via hidden chat list</b>
-      - <b>Add suuport in Zen Mode in Trello</b> - access trello to check
+      - <b>Add support in Zen Mode in Trello</b> - access trello to check
       - <b>Visibility Improvements</b>
+      - <b>Bug fixing</b> - mute notifications in zen, message counter
+      - <b>Refresh update notification</b>
     link: <a href=\"https://github.com/zen-mode/Whatsapp-Zen-Mode/blob/main/ReleaseNotes.md\">See previous versions</a>
