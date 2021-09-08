@@ -1,4 +1,4 @@
-import {browser, Runtime} from "webextension-polyfill-ts";
+import browser, {Runtime} from "webextension-polyfill";
 import {BridgePortType, InternalBusEvent, InternalEvent} from "../types";
 import Port = Runtime.Port;
 

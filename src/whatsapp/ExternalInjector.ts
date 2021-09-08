@@ -1,4 +1,4 @@
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import {set_el_attributes} from "../../utility-belt/helpers/dom/set-el-attributes";
 
 function createScript(localScript: string): HTMLElement {

@@ -1,4 +1,4 @@
-import {browser, Runtime} from "webextension-polyfill-ts";
+import browser, {Runtime} from "webextension-polyfill";
 import { get_extn_storage_item_value } from "../../utility-belt/helpers/extn/storage";
 import { StateItemNames } from "../data/dictionary";
 import { Chat } from "./model/Chat";

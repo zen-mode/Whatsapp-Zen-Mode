@@ -4,7 +4,7 @@ import {DOM} from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
 import {set_el_style} from "../../../../utility-belt/helpers/dom/set-el-style";
 
 import {Selectors} from "../../../data/dictionary";
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import { hide_contact } from "../hide-contacts/hide-contact";
 
 export function construct_hide_popup_area(): HTMLDivElement {

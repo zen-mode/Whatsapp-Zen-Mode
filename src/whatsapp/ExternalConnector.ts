@@ -1,4 +1,4 @@
-// import {browser} from "webextension-polyfill-ts";
+// import browser from "webextension-polyfill";
 // see https://github.com/mozilla/webextension-polyfill/issues/316
 import {BridgePortType, InternalBusEvent, InternalEvent, WWAProviderCall, WWAProviderRequest} from "./types";
 import {generateBasicWWAResponse} from "./Utils";

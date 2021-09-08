@@ -1,4 +1,4 @@
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 
 /**
  * @description: Gets active tab id. Requires either 'tabs' or 'activeTab' permission.

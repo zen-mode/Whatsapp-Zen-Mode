@@ -1,4 +1,4 @@
-import {browser, Tabs} from "webextension-polyfill-ts";
+import browser, {Tabs} from "webextension-polyfill";
 
 /**
  * @description: Opens new tab with a given URL.
