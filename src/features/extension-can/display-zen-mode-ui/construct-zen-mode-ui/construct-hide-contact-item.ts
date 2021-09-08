@@ -1,4 +1,4 @@
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import {Selectors} from "../../../../data/dictionary";
 import {constructFakeCtxMenuItem} from "../../../user-can/use-zen-mode-ctx-menu/construct-zen-mode-ctx-menu-item";
 import { DOM } from "../../../../../utility-belt/helpers/dom/DOM-shortcuts";

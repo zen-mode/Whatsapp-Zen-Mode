@@ -5,7 +5,7 @@ import {throw_DOM_error} from "../../process-errors/process-error";
 import {Selectors} from "../../../../data/dictionary";
 import {getOpenedChat} from "../../../../whatsapp/ExtensionConnector";
 import {toggle_Zen_mode} from "../../../user-can/toggle-zen-mode/cs/toggle-zen-mode";
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import {constructFakeCtxMenuItem} from "../../../user-can/use-zen-mode-ctx-menu/construct-zen-mode-ctx-menu-item";
 import {constructZenModeLogoIcon} from "../../../../api/getZenModeIcon";
 import {hide_WA_context_menu} from "../../../../api/hide-wa-context-menu";

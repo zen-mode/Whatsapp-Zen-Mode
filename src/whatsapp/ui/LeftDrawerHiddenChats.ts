@@ -3,7 +3,7 @@ import {DOM} from "../../../utility-belt/helpers/dom/DOM-shortcuts";
 import {devprint} from "../../../utility-belt/helpers/debug/devprint";
 import {constructBaseLeftDrawerItemList, LeftDrawerItemList} from "./LeftDrawerItemList";
 import {subscribeForeverHiddenChatChanges, removeHiddenChats} from "../Storage";
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import {HiddenChatCtxMenu} from "./FakeCtxMenu/HiddenChatCtxMenu";
 import { openChat } from "../ExtensionConnector";
 

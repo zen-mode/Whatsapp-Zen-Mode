@@ -1,4 +1,4 @@
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import {get_extn_storage_item_value, set_extn_storage_item} from "../../../../utility-belt/helpers/extn/storage";
 import {Selectors, SOUND_OFF_HTML, SOUND_ON_HTML, StateItemNames} from "../../../data/dictionary";
 import {

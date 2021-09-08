@@ -2,7 +2,7 @@ import {hide_WA_context_menu} from "../../../api/hide-wa-context-menu";
 import {addHiddenChats, removeHiddenChats} from "../../../whatsapp/Storage";
 import {process_error} from "../../extension-can/process-errors/process-error";
 import {lastHoveredChat} from "../../extension-can/display-zen-mode-ui/construct-zen-mode-ui/attach_hide_contact_item";
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import {Selectors} from "../../../data/dictionary";
 
 export function hide_contact(chosenDelay?: number): void {

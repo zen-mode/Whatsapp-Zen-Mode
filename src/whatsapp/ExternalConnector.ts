@@ -1,4 +1,4 @@
-// import {browser} from "webextension-polyfill-ts";
+// import browser from "webextension-polyfill";
 // see https://github.com/mozilla/webextension-polyfill/issues/316
 import {BridgePortType, InternalBusEvent, InternalEvent, WWAProviderCall, WWAProviderRequest} from "./types";
 import {generateBasicWWAResponse} from "./Utils";
@@ -13,7 +13,8 @@ import {
   getChatsGlobalSoundsState,
   markChatAsRead,
   getProfilePicUrl,
-  getUnreadChats
+  getUnreadChats,
+  getChats
 } from "./WWAController";
 import {ChatModule, ConnModule, provideModules} from "./WWAProvider";
 import {Chat} from "./model/Chat";
@@ -56,7 +57,7 @@ callerFunctions.set(WWAProviderCall.unmuteChatsLocally, (chats: Chat[]): any => 
 });
 
 callerFunctions.set(WWAProviderCall.muteNonMutedChatsExceptChat, (chat: Chat) => {
-  const WWAChatsForMute = getChatsExceptId(chat.id);
+  const WWAChatsForMute = getChatsExceptId(chat.id.toString());
   // Mute non muted chats
   WWAChatsForMute.forEach(chat => retentionMuteChatLocally(chat.id));
 

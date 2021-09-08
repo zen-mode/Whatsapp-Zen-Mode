@@ -1,3 +1,16 @@
+# Release Notes 1.4.2.2
+### Second  public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
+1.**Unread chat list** - via Zen menu improvements
+
+2.**Enable snooze option for hide chat** - Can be set to 8h/1w/forever
+
+3.**Enable writing in a hidden chat via hidden chat list**
+
+4.**Add suuport in Zen Mode in Trello** - access trello to check
+
+5 **Bug fixing** - mute notifications in zen, message counter 
+
+6 **Refresh update notification**
 # Release Notes 1.4.2.1
 ### Second  public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
 1.**Unread chat list** - via Zen menu
