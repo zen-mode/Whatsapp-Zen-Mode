@@ -1,4 +1,4 @@
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import {unhide_contact} from "../../../user-can/hide-contacts/hide-contact";
 
 import {Selectors} from "../../../../data/dictionary";

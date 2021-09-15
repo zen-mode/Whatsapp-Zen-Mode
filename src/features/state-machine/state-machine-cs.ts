@@ -4,7 +4,7 @@
 // 1. Waits for a command to toggle Zen mode to arrive from SM.
 // 2. Toggles Zen mode.
 
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import {devprint} from "../../../utility-belt/helpers/debug/devprint";
 import {toggle_Zen_mode} from "../user-can/toggle-zen-mode/cs/toggle-zen-mode";
 

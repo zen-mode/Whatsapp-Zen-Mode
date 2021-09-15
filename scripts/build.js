@@ -82,19 +82,23 @@ function safeFormatPlaceholder(name) {
     return name;
 }
 
+function String_replaceAll(string, find, replace) {
+  return string.replace(new RegExp(find, 'g'), replace);
+}
+
 function replacePlaceholders(keyToValueMap, dirname = TEMP_BUILD_DIR,) {
   let placeholders = {};
   Object.keys(keyToValueMap).forEach(
     k => placeholders[safeFormatPlaceholder(k)] = keyToValueMap[k]
   );
   const files = fs.readdirSync(dirname)
-      .filter(f => PLACEHOLDER_ALLOWED_FILE_TYPES.includes(path.extname(f)));
+    .filter(f => PLACEHOLDER_ALLOWED_FILE_TYPES.includes(path.extname(f)));
   files.forEach(file => {
     const filePath = path.join(dirname, file);
     if (fs.lstatSync(filePath).isFile()) {
       const fileContent = fs.readFileSync(filePath, 'utf-8');
       let mFileContent = fileContent;
-      Object.entries(placeholders).forEach(e => mFileContent = mFileContent.replace(...e));
+      Object.entries(placeholders).forEach(e => mFileContent = String_replaceAll(mFileContent, ...e));
       if (fileContent != mFileContent) {
         fs.writeFileSync(filePath, mFileContent);
       }

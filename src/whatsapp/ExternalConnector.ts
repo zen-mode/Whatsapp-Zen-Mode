@@ -1,6 +1,6 @@
-// import {browser} from "webextension-polyfill-ts";
+// import browser from "webextension-polyfill";
 // see https://github.com/mozilla/webextension-polyfill/issues/316
-import {BridgePortType, WWAProviderCall, WWAProviderRequest} from "./types";
+import {BridgePortType, InternalBusEvent, InternalEvent, WWAProviderCall, WWAProviderRequest} from "./types";
 import {generateBasicWWAResponse} from "./Utils";
 import {
   getChat,
@@ -11,9 +11,12 @@ import {
   getOpenedChat,
   setChatsGlobalSoundsState,
   getChatsGlobalSoundsState,
-  markChatAsRead
+  markChatAsRead,
+  getProfilePicUrl,
+  getUnreadChats,
+  getChats
 } from "./WWAController";
-import {provideModules} from "./WWAProvider";
+import {ChatModule, ConnModule, provideModules} from "./WWAProvider";
 import {Chat} from "./model/Chat";
 import {ChatFabric} from "./ChatFabric";
 import {
@@ -54,7 +57,7 @@ callerFunctions.set(WWAProviderCall.unmuteChatsLocally, (chats: Chat[]): any => 
 });
 
 callerFunctions.set(WWAProviderCall.muteNonMutedChatsExceptChat, (chat: Chat) => {
-  const WWAChatsForMute = getChatsExceptId(chat.id);
+  const WWAChatsForMute = getChatsExceptId(chat.id.toString());
   // Mute non muted chats
   WWAChatsForMute.forEach(chat => retentionMuteChatLocally(chat.id));
 
@@ -100,6 +103,14 @@ callerFunctions.set(WWAProviderCall.markChatAsRead, (chatId: string) => {
   markChatAsRead(chatId)
 });
 
+callerFunctions.set(WWAProviderCall.getProfilePicUrl, async (chat: Chat): Promise<string | undefined> => {
+  return await getProfilePicUrl(chat.id);
+});
+
+callerFunctions.set(WWAProviderCall.getUnreadChats, (): Chat[] => {
+  return getUnreadChats().map(ChatFabric.fromWWAChat);
+});
+
 
 provideModules();
 
@@ -110,6 +121,13 @@ const extBridgePort = browser.runtime.connect('%%EXTENSION_GLOBAL_ID%%', { name:
 extBridgePort.onMessage.addListener((request: WWAProviderRequest) => {
   handleRequest(request);
 });
+
+ChatModule.Msg.on('add', (msg:any) => {
+  if (!msg.isNewMsg) return;
+  if (msg.id.fromMe) return;
+  const user = ConnModule.wid;
+  extBridgePort.postMessage({action: "NEW_MESSAGE", payload: {msg, user}})
+})
 
 extBridgePort.onDisconnect.addListener(handlePortDisconnection);
 
@@ -137,3 +155,26 @@ async function handleRequest(request: WWAProviderRequest) {
 function handlePortDisconnection(port: any) {
   setChatsGlobalSoundsState(true);
 }
+
+// *
+// * EventBus.ts
+// *
+
+const eventPort = browser.runtime.connect('%%EXTENSION_GLOBAL_ID%%', {
+  name: BridgePortType.WWA_EVENTS_CONNECTOR
+});
+
+function publishEvent(event: InternalEvent, args: any[]) {
+  eventPort.postMessage({
+    name: event,
+    data: args
+  } as InternalBusEvent)
+}
+
+ChatModule.Chat.on('change:unreadCount', (chat: any) => {
+  publishEvent(InternalEvent.CHAT_CHANGED_UNREAD_COUNT, [ChatFabric.fromWWAChat(chat)]);
+});
+
+ChatModule.Msg.on('add', (message: any) => {
+  publishEvent(InternalEvent.CHAT_NEW_MESSAGE, [message]);
+})

@@ -18,7 +18,9 @@ import {renderHiddenLabel} from "../user-can/hide-contacts/hide-contact";
 import {get_chat_el_raw_title} from "../../api/get-contact-el-name";
 import {findChatByTitle} from "../../whatsapp/ExtensionConnector";
 import {get_contact_el_by_chat_name} from "../../api/get-contact-el-by-contact-name";
-import { getAutoReadHiddenConversationsStatus, setAutoReadHiddenConversationsStatus } from "../user-can/auto-read-hidden-conversations/AutoReadHiddenConversations";
+import { fixContextMenuPosition } from "../../whatsapp/ui/FakeCtxMenu/utils";
+
+const CONTEXT_MENU_HEIGHT = 298;
 
 export let providerInjected = false;
 // Attaches DOM observer and checks for tf conditions:
@@ -37,8 +39,9 @@ const observer = new MutationObserver(async (mutations) => {
           const htmlEl = node as HTMLElement;
           // If WA contact context menu is present - Attach 'Hide contact' item.
           if (DOM.get_el(Selectors.WA_CONTACT_CTX_MENU) === htmlEl) {
-            attach_hide_contact_item(htmlEl);
-            attachUIToMainContactCtxMenu(htmlEl);
+              attach_hide_contact_item(htmlEl);
+              attachUIToMainContactCtxMenu(htmlEl);
+              fixContextMenuPosition(htmlEl, CONTEXT_MENU_HEIGHT)
           }
 
           // On page load - hides the contacts that were hidden by user previously.
@@ -56,7 +59,6 @@ const observer = new MutationObserver(async (mutations) => {
 
             const smartMuteStatus = await getSmartMuteStatus();
 
-            const autoReadHiddenConversationsStatus = await getAutoReadHiddenConversationsStatus()
 
             // Explain: Wait for all rendering and animations to complete; otherwise - buggy.
             setTimeout(() => {
@@ -64,15 +66,13 @@ const observer = new MutationObserver(async (mutations) => {
               toggle_Zen_mode_on_page(zenModeStatus);
               // Hidden chats
               hiddenChats.forEach(hiddenChat => {
-                setChatVisibility(hiddenChat, false, smartMuteStatus, autoReadHiddenConversationsStatus);
+                setChatVisibility(hiddenChat, false, smartMuteStatus);
                 const chatEl = get_contact_el_by_chat_name(hiddenChat.title);
                 if (!chatEl) return;
                 renderHiddenLabel(chatEl);
               });
               // Check smart mute
               setSmartMuteStatus(smartMuteStatus);
-              // Check auto read hidden conversations status
-              setAutoReadHiddenConversationsStatus(autoReadHiddenConversationsStatus)
               // Open zen morning contact
               checkZenMorningChatState(zenMorningChat);
             }, TIME.ONE_SECOND);

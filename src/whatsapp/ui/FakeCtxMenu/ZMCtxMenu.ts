@@ -1,5 +1,5 @@
 import {FakeCtxMenu, FakeCtxMenuEventType, FakeCtxMenuItem} from "./FakeCtxMenu";
-import {browser} from "webextension-polyfill-ts";
+import browser from "webextension-polyfill";
 import {presentHiddenChatsLeftDrawer} from "../LeftDrawerHiddenChats";
 import {clearHiddenChats, getHiddenChats} from "../../Storage";
 import {construct_smartMute_menu_item, toggleSmartMute} from "../../../features/user-can/SmartMute/SmartMute";
@@ -8,7 +8,8 @@ import {Selectors, StateItemNames, URLS} from "../../../data/dictionary";
 import {set_el_style} from "../../../../utility-belt/helpers/dom/set-el-style";
 import {remove_badge_el} from "../../../features/user-can/read-release-notes/remove-ver-num-badge";
 import {set_extn_storage_item} from "../../../../utility-belt/helpers/extn/storage";
-import { construct_autoRead_hidden_conversations_menu_item, toggleAutoReadHiddenConversations } from "../../../features/user-can/auto-read-hidden-conversations/AutoReadHiddenConversations";
+import {presentUnreadChats} from "../NavigationDrawer/UnreadChats";
+import {getUnreadChats} from "../../ExtensionConnector";
 
 export interface ZMCtxMenuItem extends FakeCtxMenuItem {
   makeAction?: () => void,
@@ -25,6 +26,10 @@ const ZMMenuItems: ZMCtxMenuItem[] = [
     action: 'hiddenChats',
     domNode: browser.i18n.getMessage('ZM_ctxMenuItem_hiddenChats'),
     makeAction: async () => presentHiddenChatsLeftDrawer(await getHiddenChats())
+  },{
+    action: 'unreadChats',
+    domNode: browser.i18n.getMessage('ZM_ctxMenuItem_unreadChats'),
+    makeAction: async () => getUnreadChats(presentUnreadChats)
   },
   {
     action: 'unhideAll',
@@ -52,20 +57,6 @@ const ZMMenuItems: ZMCtxMenuItem[] = [
       window.open(`${URLS.FEEDBACK_EMAIL}?subject=${subject}`);
     },
   },
-  {
-    action: 'openSettings',
-    domNode: browser.i18n.getMessage("ZM_ctxMenuItem_settings"),
-    // makeAction: () => {
-    //   set_extn_storage_item({[StateItemNames.SETTINGS_MENU]: true});
-    // },
-    children: [
-      {
-        action: 'autoReadHiddenConversations',
-        domNode: construct_autoRead_hidden_conversations_menu_item(),
-        makeAction: toggleAutoReadHiddenConversations
-      },
-    ]
-  }
 ];
 
 export class ZMCtxMenu extends FakeCtxMenu {

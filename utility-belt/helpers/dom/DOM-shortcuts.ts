@@ -66,6 +66,21 @@ export const DOM = {
     return onlyVisible ? elArray.filter(is_el_visible) : elArray;
   },
   /**
+   * @description: Similar to document.body.querySelectorAll; unless onlyVisible flag is set; accepts parentEl arg.
+   * @exampleInput:  "input"                                  | "input", <someDiv/> | "input", <someDiv/>, true .
+   * @exampleOutput: [<input>, <input style="display: none">] | [<input>]           | [] .
+   * @sideEffects: DOM traversal.
+   * @hasTests: no.
+   */
+   get_input_els(
+    selector: string,
+    parentEl: Element = document.body,
+    onlyVisible = false,
+  ): HTMLInputElement[] {
+    const elArray = [...parentEl.querySelectorAll(selector)] as HTMLInputElement[];
+    return onlyVisible ? elArray.filter(is_el_visible) : elArray;
+  },
+  /**
    * @description: Checks if page has a given text string.
    * @exampleInput:  "foo"
    * @exampleOutput: true
