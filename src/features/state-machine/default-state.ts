@@ -14,8 +14,11 @@ export function set_default_state(): void {
   // https://github.com/typescript-eslint/typescript-eslint/issues/3116 .
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   defaultState.forEach(async (descr) => {
+    // const currentValue = await get_extn_storage_item_value(
+    //   StateItemNames.HIDDEN_CONTACTS,
+    // );
     const currentValue = await get_extn_storage_item_value(
-      StateItemNames.HIDDEN_CONTACTS,
+      descr.key,
     );
     if (currentValue === undefined)
       void set_extn_storage_item({[descr.key]: descr.defaultValue});
