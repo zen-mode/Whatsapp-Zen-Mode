@@ -279,6 +279,10 @@ html[dir=ltr] .fakeCtxMenuSettings {
   cursor: pointer;
 }
 
+.hide-popup-radio {
+  cursor: pointer;
+}
+
 .hide-popup-group:first-child {
   margin-top: 8px;
 }
