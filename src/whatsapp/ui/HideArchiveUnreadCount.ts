@@ -19,7 +19,7 @@ import {
 } from "../../../utility-belt/helpers/extn/storage";
 
 export function construct_hide_unread_count_menu_item(): HTMLElement {
-  const text = browser.i18n.getMessage("ZM_ctxMenuItem_Hide_Archived_Count");
+  const text = browser.i18n.getMessage("ZM_ctxMenuItem_hide_archived_count_menu_label");
   const menuItem = document.createElement("DIV");
 
   set_el_attributes(menuItem, {
