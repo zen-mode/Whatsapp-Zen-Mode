@@ -79,6 +79,11 @@ export function markChatAsRead(chatId: string): any {
   window.setTimeout(() => styleEl.remove(), 10000);
 }
 
+export function markChatUnread(chatId: string): any {
+  const chat = ChatModule.Chat.get(chatId);
+  CmdModule.markChatUnread(chat, 1);
+}
+
 export async function getProfilePicUrl(chatId: string): Promise<string | undefined> {
   const result = await WapModule.profilePicFind(chatId);
   return result.eurl || null;

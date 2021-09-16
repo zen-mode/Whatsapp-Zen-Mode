@@ -1,14 +1,15 @@
 import {constructBaseLeftDrawerItemList, LeftDrawerItemList} from "../LeftDrawerItemList";
 import {Chat} from "../../model/Chat";
 import {constructChatItem} from "./ChatItem";
-import {openChat} from "../../ExtensionConnector";
+import {openChat, markChatUnread} from "../../ExtensionConnector";
 import browser from "webextension-polyfill";
 import {WWEvents} from "../../extension/EventBus";
 import {InternalEvent} from "../../types";
+import {DrawerChatCtxMenu} from "../FakeCtxMenu/DrawerChatCtxMenu";
 
 function constructEmptyPlug(): HTMLElement {
-  const div = document.createElement('div');
-  div.className = '_3Iwj9';
+  const div = document.createElement("div");
+  div.className = "_3Iwj9";
   div.innerHTML = `<div class="_2t_t3">
      <span data-testid="empty-archived" data-icon="empty-archived" class="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90" width="90" height="90">
@@ -19,24 +20,46 @@ function constructEmptyPlug(): HTMLElement {
   return div;
 }
 
+const unreadChatCtxMenu = new DrawerChatCtxMenu([
+  {
+    action: "unread",
+    domNode: browser.i18n.getMessage("WA_contactCtxMenuItem_mark_unread"),
+    chatChange: (chat) => {
+      markChatUnread(chat.id)
+    },
+  },
+]);
+
 export function presentUnreadChats(chats: Chat[]): LeftDrawerItemList<Chat> {
   const drawer = constructBaseLeftDrawerItemList<Chat>(
-    browser.i18n.getMessage('ZM_navigation_unreadChats'),
+    browser.i18n.getMessage("ZM_navigation_unreadChats"),
     chats,
     () => {},
-    (c) => constructChatItem(c, () => { openChat(c) }).htmlElement,
+    (c) =>
+      constructChatItem(
+        c,
+        () => {
+          openChat(c);
+        },
+        (e: any) => {
+          e.stopPropagation();
+          e.preventDefault();
+          if (unreadChatCtxMenu.chat?.id === c.id) {
+            unreadChatCtxMenu.detachChat(c);
+          } else {
+            unreadChatCtxMenu.attachToChat(c, e.target.getBoundingClientRect());
+          }
+        },
+      ).htmlElement,
     () => {},
-    constructEmptyPlug
+    constructEmptyPlug,
   );
   WWEvents.on(InternalEvent.CHAT_CHANGED_UNREAD_COUNT, (chat: Chat) => {
-    const chatFromDrawer = chats.find((c) => c.id === chat.id);
-    if (chatFromDrawer) {
-      chats = chats.filter((c) => c.id !== chat.id)
-      drawer.remove(chatFromDrawer);
-      if (chat.hasUnread) {
-        chats.push(chat);
-        drawer.add(chat);
-      }
+    const chatFromDrawerIndex = chats.findIndex((c) => c.id === chat.id);
+    if (chatFromDrawerIndex!==-1) {
+      chats.splice(chatFromDrawerIndex, 1, chat)
+      drawer.clear();
+      drawer.set(chats)
     } else {
       chats.push(chat);
       drawer.add(chat);
