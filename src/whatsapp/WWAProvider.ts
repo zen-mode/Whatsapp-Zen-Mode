@@ -17,7 +17,6 @@ export function provideModules(): void {
   ChatModule = moduleRaid.findModule('Chat')[0].default;
   CmdModule = moduleRaid.findModule('Cmd')[0].default;
   ConnModule = moduleRaid.findModule('Conn')[0].default;
-  (window as any).ChatModule = ChatModule
 }
 
 
