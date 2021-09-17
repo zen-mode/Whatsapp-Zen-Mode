@@ -55,7 +55,7 @@ export function constructUnreadArchiveCountPopup(refElement: HTMLElement) {
   const popperContent = document.createElement("div");
   popperContent.innerHTML = `${browser.i18n.getMessage(
     "ZM_unread_archive_count_popup_text1",
-  )}.<br />${browser.i18n.getMessage("ZM_unread_archive_count_popup_text2")}`;
+  )}<br />${browser.i18n.getMessage("ZM_unread_archive_count_popup_text2")}`;
   popper.appendChild(popperContent);
 
   const popperButton = document.createElement("button");
