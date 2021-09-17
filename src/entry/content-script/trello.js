@@ -1,5 +1,5 @@
 import {Selectors} from "../../data/dictionary";
-import {browser} from "webextension-polyfill";
+import browser from "webextension-polyfill";
 
 let trelloStatus = null;
 let trelloIcon = null;
