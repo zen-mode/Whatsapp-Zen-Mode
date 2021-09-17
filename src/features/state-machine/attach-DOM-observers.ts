@@ -1,7 +1,7 @@
 import {DOM} from "../../../utility-belt/helpers/dom/DOM-shortcuts";
 import {devprint} from "../../../utility-belt/helpers/debug/devprint";
 
-import {HideUnreadCountStatuses, Selectors} from "../../data/dictionary";
+import {Selectors} from "../../data/dictionary";
 import {TIME} from "../../../utility-belt/constants/time";
 
 import {injectWAPageProvider} from "../../whatsapp/ExternalInjector";
@@ -18,8 +18,9 @@ import {renderHiddenLabel} from "../user-can/hide-contacts/hide-contact";
 import {get_chat_el_raw_title} from "../../api/get-contact-el-name";
 import {findChatByTitle} from "../../whatsapp/ExtensionConnector";
 import {get_contact_el_by_chat_name} from "../../api/get-contact-el-by-contact-name";
-import { fixContextMenuPosition } from "../../whatsapp/ui/FakeCtxMenu/utils";
-import { constructUnreadArchiveCountPopup, getHideUnreadCountStatus, getUnreadPopupWasShown, setHideUnreadCountStatus } from "../../whatsapp/ui/HideArchiveUnreadCount";
+import {fixContextMenuPosition} from "../../whatsapp/ui/FakeCtxMenu/utils";
+import {getHideUnreadCountStatus, setHideUnreadCountStatus} from "../../whatsapp/ui/HideArchiveUnreadCount";
+import {checkUnreadCounter} from "./mutationsProcessing/checkUnreadCounter";
 
 const CONTEXT_MENU_HEIGHT = 298;
 
@@ -97,17 +98,7 @@ const observer = new MutationObserver(async (mutations) => {
             }
           }
 
-          if (htmlEl.classList.contains(Selectors.WA_ARCHIVE_UNREAD_COUNT.substring(1))) {
-            devprint("unread count presented")
-            const  hiddeUnreadHiddenStatus = await getHideUnreadCountStatus();
-            const unreadPopupWasShown = await getUnreadPopupWasShown()
-            if (hiddeUnreadHiddenStatus === HideUnreadCountStatuses.DISABLED && !unreadPopupWasShown) {
-              constructUnreadArchiveCountPopup(htmlEl);
-            }
-            if (hiddeUnreadHiddenStatus === HideUnreadCountStatuses.ENABLED) {
-              htmlEl.style.visibility="hidden"
-            }
-          }
+          await checkUnreadCounter(htmlEl);
         });
     });
 });
