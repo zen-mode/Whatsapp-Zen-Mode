@@ -47,10 +47,11 @@ function handleIconClick() {
 
 function addIcon(status) {
     const siblingButton =
-        document.querySelector('[data-test-id="header-create-menu-button"]') ||
-        document.querySelector('[aria-label="Create board or Workspace"]') ||
-        document.querySelector('[data-test-id="header-info-button"]') ||
-        document.querySelector('[aria-label="Open information menu"]') ||
+        //COMMENT: change parent element for create menu button.
+        //document.querySelector('[data-test-id="header-create-menu-button"]') ||
+        //document.querySelector('[aria-label="Create board or Workspace"]') ||
+        //document.querySelector('[data-test-id="header-info-button"]') ||
+        //document.querySelector('[aria-label="Open information menu"]') ||
         document.querySelector('[data-test-id="header-notifications-button"]') ||
         document.querySelector('[aria-label="Notifications"]') ||
         document.querySelector('[data-test-id="header-member-menu-button"]') ||
