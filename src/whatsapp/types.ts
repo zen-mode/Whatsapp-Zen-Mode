@@ -24,6 +24,7 @@ export enum WWAProviderCall {
   openChat,
   refreshWWChats,
   markChatAsRead,
+  markChatUnread,
   getProfilePicUrl,
   getUnreadChats,
 }

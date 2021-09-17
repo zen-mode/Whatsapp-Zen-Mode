@@ -14,7 +14,8 @@ import {
   markChatAsRead,
   getProfilePicUrl,
   getUnreadChats,
-  getChats
+  getChats,
+  markChatUnread
 } from "./WWAController";
 import {ChatModule, ConnModule, provideModules} from "./WWAProvider";
 import {Chat} from "./model/Chat";
@@ -101,6 +102,10 @@ callerFunctions.set(WWAProviderCall.getChatsSoundsState, () => {
 
 callerFunctions.set(WWAProviderCall.markChatAsRead, (chatId: string) => {
   markChatAsRead(chatId)
+});
+
+callerFunctions.set(WWAProviderCall.markChatUnread, (chatId: string) => {
+  markChatUnread(chatId);
 });
 
 callerFunctions.set(WWAProviderCall.getProfilePicUrl, async (chat: Chat): Promise<string | undefined> => {

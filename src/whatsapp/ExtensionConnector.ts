@@ -118,6 +118,10 @@ export function markChatAsRead(chatId: string) {
   callProviderFunctionWithCallback(WWAProviderCall.markChatAsRead, [chatId]);
 }
 
+export function markChatUnread(chatId: string) {
+  callProviderFunctionWithCallback(WWAProviderCall.markChatUnread, [chatId]);
+}
+
 export function getProfilePicUrl(chat: Chat, callback: (picUrl: string | null) => void) {
   callProviderFunctionWithCallback(WWAProviderCall.getProfilePicUrl, [chat], callback);
 }

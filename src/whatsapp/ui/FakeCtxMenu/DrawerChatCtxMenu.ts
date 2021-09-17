@@ -2,15 +2,15 @@ import {FakeCtxMenu, FakeCtxMenuEventType, FakeCtxMenuItem} from "./FakeCtxMenu"
 import {Chat} from "../../model/Chat";
 import {process_error} from "../../../features/extension-can/process-errors/process-error";
 
-export interface HiddenChatCtxMenuItem extends FakeCtxMenuItem {
+export interface DrawerChatCtxMenuItem extends FakeCtxMenuItem {
   chatChange: (chat: Chat) => void
 }
 
-export class HiddenChatCtxMenu extends FakeCtxMenu {
+export class DrawerChatCtxMenu extends FakeCtxMenu {
   chat: Chat | null = null;
 
-  constructor(items: HiddenChatCtxMenuItem[]) {
-    super('hiddenChat', items);
+  constructor(items: DrawerChatCtxMenuItem[]) {
+    super('drawerChat', items);
     // @ts-ignore
     this._node.addEventListener('itemClick' as FakeCtxMenuEventType, this.handleItemClick);
     // @ts-ignore
@@ -39,7 +39,7 @@ export class HiddenChatCtxMenu extends FakeCtxMenu {
    * Used to change chat by item click.
    */
   handleItemClick = (e: CustomEvent) => {
-    const { item } = e.detail as { item: HiddenChatCtxMenuItem };
+    const { item } = e.detail as { item: DrawerChatCtxMenuItem };
     if (!this.chat) {
       return process_error(
         new Error('Chat not attached:' + JSON.stringify(this.chat))

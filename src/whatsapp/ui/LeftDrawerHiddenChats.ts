@@ -4,7 +4,7 @@ import {devprint} from "../../../utility-belt/helpers/debug/devprint";
 import {constructBaseLeftDrawerItemList, LeftDrawerItemList} from "./LeftDrawerItemList";
 import {subscribeForeverHiddenChatChanges, removeHiddenChats} from "../Storage";
 import browser from "webextension-polyfill";
-import {HiddenChatCtxMenu} from "./FakeCtxMenu/HiddenChatCtxMenu";
+import {DrawerChatCtxMenu} from "./FakeCtxMenu/DrawerChatCtxMenu";
 import { openChat } from "../ExtensionConnector";
 
 const EMPTY_HIDDEN_CHATS_LIST_PLUG_ID = 'EMPTY_HIDDEN_CHATS_LIST_PLUG_ID';
@@ -20,7 +20,7 @@ const GROUP_CHAT_SVG_HTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 
 const ARROW_CTX_MENU_HTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 20" width="19" height="20"><path fill="currentColor" d="M3.8 6.7l5.7 5.7 5.7-5.7 1.6 1.6-7.3 7.2-7.3-7.2 1.6-1.6z"></path></svg>`;
 
 let hiddenChatsDrawer: LeftDrawerItemList<Chat>;
-const hiddenChatCtxMenu = new HiddenChatCtxMenu([
+const hiddenChatCtxMenu = new DrawerChatCtxMenu([
   {
     action: 'unhide',
     domNode: browser.i18n.getMessage('WA_contactCtxMenuItem_unhide'),

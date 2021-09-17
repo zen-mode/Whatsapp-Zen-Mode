@@ -10,7 +10,7 @@ export interface FakeCtxMenuItem {
 export type FakeCtxMenuEventType = 'clickToEmptySpace' | 'itemClick';
 
 // Features types
-export type FakeCtxMenuType = 'hiddenChat' | 'ZM';
+export type FakeCtxMenuType = 'drawerChat' | 'ZM';
 
 export class FakeCtxMenu {
   _type: FakeCtxMenuType;
