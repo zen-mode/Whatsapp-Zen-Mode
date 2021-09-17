@@ -19,4 +19,5 @@ export function provideModules(): void {
   ConnModule = moduleRaid.findModule('Conn')[0].default;
 }
 
+
 devprint('WhatsApp Web version:', getWWVersion())

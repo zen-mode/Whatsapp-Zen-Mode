@@ -25,25 +25,25 @@ export function construct_hide_popup_area(): HTMLDivElement {
   const hidePopupFormEl = DOM.create_el({tag: "form"});
   hidePopupArea.appendChild(hidePopupFormEl);
 
-  const hidePopupGroupHours = DOM.create_el({tag: "div", attributes: {
-    class: 'hide-popup-group'
+  const hidePopupGroupHours = DOM.create_el({tag: "label", attributes: {
+    class: 'hide-popup-group',
   }});
   hidePopupGroupHours.appendChild(DOM.create_el({ attributes: {type: 'radio', value: "hours", name: "hideRadio", class: "hide-popup-radio"}, tag: "input"}))
-  hidePopupGroupHours.appendChild(DOM.create_el({text: browser.i18n.getMessage("ZM_hide_popup_hours"), tag: 'label'}))
+  hidePopupGroupHours.appendChild(DOM.create_el({text: browser.i18n.getMessage("ZM_hide_popup_hours"), tag: "span"}))
   hidePopupFormEl.appendChild(hidePopupGroupHours)
 
-  const hidePopupGroupWeek = DOM.create_el({tag: "div", attributes: {
+  const hidePopupGroupWeek = DOM.create_el({tag: "label", attributes: {
     class: 'hide-popup-group'
   }});
   hidePopupGroupWeek.appendChild(DOM.create_el({ attributes: {type: 'radio', value: "week", name: "hideRadio", class: "hide-popup-radio"}, tag: "input"}))
-  hidePopupGroupWeek.appendChild(DOM.create_el({text: browser.i18n.getMessage("ZM_hide_popup_week"), tag: 'label'}))
+  hidePopupGroupWeek.appendChild(DOM.create_el({text: browser.i18n.getMessage("ZM_hide_popup_week"), tag: 'span'}))
   hidePopupFormEl.appendChild(hidePopupGroupWeek)
 
-  const hidePopupGroupForever = DOM.create_el({tag: "div", attributes: {
+  const hidePopupGroupForever = DOM.create_el({tag: "label", attributes: {
     class: 'hide-popup-group'
   }});
-  hidePopupGroupForever.appendChild(DOM.create_el({ attributes: {type: 'radio', value: "forever", name: "hideRadio", class: "hide-popup-radio"}, tag: "input"}))
-  hidePopupGroupForever.appendChild(DOM.create_el({text: browser.i18n.getMessage("ZM_hide_popup_forever"), tag: 'label'}))
+  hidePopupGroupForever.appendChild(DOM.create_el({ attributes: {type: 'radio', value: "forever",  name: "hideRadio", class: "hide-popup-radio"}, tag: "input"}))
+  hidePopupGroupForever.appendChild(DOM.create_el({text: browser.i18n.getMessage("ZM_hide_popup_forever"),  tag: 'span'}))
   hidePopupFormEl.appendChild(hidePopupGroupForever)
 
   const hidePopupButton = DOM.create_el({tag: "div", attributes: {
