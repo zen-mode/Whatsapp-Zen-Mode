@@ -95,5 +95,17 @@
   },
   "ZM_update_notification_ok_button_label": {
     "message": "הבנתי"
+  },
+  "ZM_ctxMenuItem_hide_archived_count_menu_label": {
+    "message": "הסתר ספירת פרטים בארכיון"
+  },
+  "ZM_unread_archive_count_popup_text1": {
+    "message": "אנו מסתירים את ספירת הצ'אטים שלא נקראו כדי לסייע לך להתמקד"
+  },
+  "ZM_unread_archive_count_popup_text2": {
+    "message": "(zen icon) אתה יכול לשנות זאת דרך תפריט ה"
+  },
+  "ZM_unread_archive_count_popup_button_label": {
+    "message": "הבנתי"
   }
 }

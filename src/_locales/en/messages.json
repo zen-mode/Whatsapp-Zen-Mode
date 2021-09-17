@@ -127,5 +127,17 @@
   },
   "ZM_Trello_Context_ZenMode": {
     "message": "Zen Mode"
+  },
+  "ZM_ctxMenuItem_hide_archived_count_menu_label": {
+    "message": "Hide Archived Count"
+  },
+  "ZM_unread_archive_count_popup_text1": {
+    "message": "We're hiding the undread count, to help you focus."
+  },
+  "ZM_unread_archive_count_popup_text2": {
+    "message": "You can show it via the settings / ZM icon"
+  },
+  "ZM_unread_archive_count_popup_button_label": {
+    "message": "Ok"
   }
 }

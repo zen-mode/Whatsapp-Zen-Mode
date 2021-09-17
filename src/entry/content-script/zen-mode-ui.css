@@ -10,7 +10,7 @@
 .ZenModeLogoInlined {
   display: inline-block;
   vertical-align: middle;
-  margin: -.2em .5em 0;
+  margin: -0.2em 0.5em 0;
 }
 #ZenMode__toggle {
   --size: 25px;
@@ -42,7 +42,7 @@ html[dir="rtl"] #ZenMode__toggle__chevron {
   right: 0;
   background-color: #77dd77;
   border-radius: 50%;
-  box-shadow:0 0 1px #444;
+  box-shadow: 0 0 1px #444;
 }
 
 /* Release notes */
@@ -105,16 +105,15 @@ html[dir="rtl"] #ZenMode__toggle__chevron {
   justify-content: flex-end;
 }
 #ZenMode__zenMorningArea__footer > [data-action] {
-  color: rgba(0,0,0,.72);
+  color: rgba(0, 0, 0, 0.72);
   cursor: pointer;
   margin: 0 1em;
   font-weight: bold;
   text-transform: uppercase;
 }
-#ZenMode__zenMorningArea__footer [data-action=ok] {
-  color: #4ACD7C;
+#ZenMode__zenMorningArea__footer [data-action="ok"] {
+  color: #4acd7c;
 }
-
 
 #ZenMode__releaseNotes > h1,
 #ZenMode__zenMorningArea > h1 {
@@ -124,8 +123,8 @@ html[dir="rtl"] #ZenMode__toggle__chevron {
 
 #ZenMode__zenMorning__sunIcon {
   position: absolute;
-  left: .5em;
-  bottom: .5em;
+  left: 0.5em;
+  bottom: 0.5em;
   background-color: white;
   width: 1.33em;
   height: 1.33em;
@@ -144,21 +143,21 @@ html[dir] ._2Z4DV:hover #ZenMode__zenMorning__sunIcon {
 html[dir] ._2Z4DV._2GVnY #ZenMode__zenMorning__sunIcon {
   background-color: var(--background-default-active);
 }
-html[dir=rtl] #ZenMode__zenMorning__sunIcon {
+html[dir="rtl"] #ZenMode__zenMorning__sunIcon {
   position: absolute;
   left: unset;
-  right: .5em;
+  right: 0.5em;
 }
 
-.hiddenChatEl .dNJHX[data-action=fakeCtxMenu] {
+.hiddenChatEl .dNJHX[data-action="fakeCtxMenu"] {
   width: 20px;
 }
-.hiddenChatEl:not(:hover) .dNJHX[data-action=fakeCtxMenu] {
+.hiddenChatEl:not(:hover) .dNJHX[data-action="fakeCtxMenu"] {
   display: none;
 }
 
 .fakeCtxMenu {
-  animation-duration: .2s;
+  animation-duration: 0.2s;
   animation-fill-mode: forwards;
 }
 
@@ -169,7 +168,7 @@ html[dir=rtl] #ZenMode__zenMorning__sunIcon {
   position: relative;
 }
 .fakeCtxMenuItem.first::after {
-  content: '';
+  content: "";
   position: absolute;
   height: 1px;
   border-top: dashed 1px gray;
@@ -183,15 +182,15 @@ html[dir=rtl] #ZenMode__zenMorning__sunIcon {
   }
 }
 /* Zen mode menu */
-.fakeCtxMenu[data-menu-type=ZM] {
+.fakeCtxMenu[data-menu-type="ZM"] {
   width: 280px;
 }
 
-html[dir=rtl] .fakeCtxMenu[data-menu-type=ZM] {
+html[dir="rtl"] .fakeCtxMenu[data-menu-type="ZM"] {
   width: 310px;
 }
 
-.fakeCtxMenu[data-menu-type=ZM] [data-action=smartMute] ._2oldI.dJxPU {
+.fakeCtxMenu[data-menu-type="ZM"] [data-action="smartMute"] ._2oldI.dJxPU {
   padding: 12px 24px;
 }
 .ZenMode__contextMenuItem__withIcon {
@@ -242,16 +241,15 @@ html[dir=rtl] .fakeCtxMenu[data-menu-type=ZM] {
   background: #fff;
 }
 
-html[dir=rtl] .fakeCtxMenuSettings {
+html[dir="rtl"] .fakeCtxMenuSettings {
   width: 320px;
   left: -320px;
 }
 
-html[dir=ltr] .fakeCtxMenuSettings {
+html[dir="ltr"] .fakeCtxMenuSettings {
   width: 290px;
   right: -290px;
 }
-
 
 #ZenMode_hide_popup {
   position: fixed;
@@ -300,11 +298,37 @@ html[dir=ltr] .fakeCtxMenuSettings {
 /* Navigation Drawer */
 
 button._2fQtj {
-  fill: #DFE5E7;
+  fill: #dfe5e7;
 }
 ._2nY6U button._2fQtj {
   display: none;
 }
 ._2nY6U:hover button._2fQtj {
   display: initial;
+}
+
+.unread-archive-count-popup {
+  background: #333;
+  color: white;
+  font-weight: bold;
+  padding: 8px 8px;
+  font-size: 13px;
+  border-radius: 4px;
+  z-index: 99999;
+}
+
+.unread-archive-count-popup button {
+  color: #fff;
+  background: #4ced69;
+  outline: none;
+  border: none;
+  width: 100%;
+  margin-top: 16px;
+  padding: 8px;
+}
+
+.unread-archive-count-popup-overlay {
+  position: absolute;
+  inset: 0px;
+  z-index: 99998;
 }

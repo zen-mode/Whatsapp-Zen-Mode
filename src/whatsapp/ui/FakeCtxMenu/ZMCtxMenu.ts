@@ -10,6 +10,7 @@ import {remove_badge_el} from "../../../features/user-can/read-release-notes/rem
 import {set_extn_storage_item} from "../../../../utility-belt/helpers/extn/storage";
 import {presentUnreadChats} from "../NavigationDrawer/UnreadChats";
 import {getUnreadChats} from "../../ExtensionConnector";
+import { construct_hide_unread_count_menu_item, toggleHideUnreadCount } from "../HideArchiveUnreadCount";
 
 export interface ZMCtxMenuItem extends FakeCtxMenuItem {
   makeAction?: () => void,
@@ -56,6 +57,17 @@ const ZMMenuItems: ZMCtxMenuItem[] = [
 
       window.open(`${URLS.FEEDBACK_EMAIL}?subject=${subject}`);
     },
+  },
+  {
+    action: 'settings',
+    domNode: browser.i18n.getMessage("ZM_ctxMenuItem_settings"),
+    children: [
+      {
+        action: 'hideUnreadCount',
+        domNode: construct_hide_unread_count_menu_item(),
+        makeAction: toggleHideUnreadCount
+      },
+    ]
   },
 ];
 

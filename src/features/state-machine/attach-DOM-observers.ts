@@ -18,7 +18,9 @@ import {renderHiddenLabel} from "../user-can/hide-contacts/hide-contact";
 import {get_chat_el_raw_title} from "../../api/get-contact-el-name";
 import {findChatByTitle} from "../../whatsapp/ExtensionConnector";
 import {get_contact_el_by_chat_name} from "../../api/get-contact-el-by-contact-name";
-import { fixContextMenuPosition } from "../../whatsapp/ui/FakeCtxMenu/utils";
+import {fixContextMenuPosition} from "../../whatsapp/ui/FakeCtxMenu/utils";
+import {getHideUnreadCountStatus, setHideUnreadCountStatus} from "../../whatsapp/ui/HideArchiveUnreadCount";
+import {checkUnreadCounter} from "./mutationsProcessing/checkUnreadCounter";
 
 const CONTEXT_MENU_HEIGHT = 298;
 
@@ -59,6 +61,7 @@ const observer = new MutationObserver(async (mutations) => {
 
             const smartMuteStatus = await getSmartMuteStatus();
 
+            const  hiddeUnreadHiddenStatus = await getHideUnreadCountStatus();
 
             // Explain: Wait for all rendering and animations to complete; otherwise - buggy.
             setTimeout(() => {
@@ -73,6 +76,7 @@ const observer = new MutationObserver(async (mutations) => {
               });
               // Check smart mute
               setSmartMuteStatus(smartMuteStatus);
+              setHideUnreadCountStatus(hiddeUnreadHiddenStatus)
               // Open zen morning contact
               checkZenMorningChatState(zenMorningChat);
             }, TIME.ONE_SECOND);
@@ -93,6 +97,8 @@ const observer = new MutationObserver(async (mutations) => {
               });
             }
           }
+
+          await checkUnreadCounter(htmlEl);
         });
     });
 });
