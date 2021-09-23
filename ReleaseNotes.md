@@ -1,3 +1,9 @@
+# Release Notes 1.4.2.4
+### Third  public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
+1.**Unread chat list** - via Zen menu , enable mark as unrread per chat
+
+2.**Enable snooze option for hide chat** - Can be set to 8h/1w/forever improvements
+
 # Release Notes 1.4.2.3
 ### Third  public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
 1.**Unread chat list** - via Zen menu , enable mark as unrread per chat
