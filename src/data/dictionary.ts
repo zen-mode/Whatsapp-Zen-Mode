@@ -28,10 +28,7 @@ export const enum StateItemNames {
   ZEN_MODE_FORCE_BY_ZEN_MORNING = "ZEN_MODE_FORCE_BY_ZEN_MORNING",
   SMART_MUTE_STATUS = "SMART_MUTE_STATUS",
   AUTO_READ_HIDDEN_CONVERSATIONS_STATUS = "AUTO_READ_HIDDEN_CONVERSATIONS_STATUS",
-  SETTINGS_MENU = "SETTINGS_MENU",
-  HIDE_ARCHIVE_UNREAD_COUNT = "HIDE_ARCHIVE_UNREAD_COUNT",
-  
-  UNREAD_COUNT_POPUP_WAS_SHOWN = "UNREAD_COUNT_POPUP_WAS_SHOWN",
+  SETTINGS_MENU = "SETTINGS_MENU"
 }
 
 export const enum Selectors {
@@ -64,8 +61,6 @@ export const enum Selectors {
   WA_CONTACT_CTX_MENU_ITEM_CONTENTS_DIV = "._11srW, ._2xxet",
   WA_HIDDEN_LABEL_CONTAINER = "._1SjZ2 ._2TiQe._2SDbp",
 
-  WA_ARCHIVE_UNREAD_COUNT = ".hlFup",
-
   WA_CONTACT_INFO_PANEL = "#app > div > div > div:nth-of-type(2) > div:nth-of-type(1)",
   WA_SIDEBAR = "#side",
   WA_USER_NAVBAR = "#main header",
@@ -93,10 +88,7 @@ export const enum Selectors {
   ZM_TRELLO_POP_OVER_LIST = "pop-over-list",
   ZM_TRELLO_WINDOW_OVERLAY = "div.window-overlay",
   ZM_TRELLO_LIST_HEADER = "list-header-extras",
-  ZM_TRELLO_CLOSE_POP_OVER_BTN = "a.pop-over-header-close-btn",
-  ZM_CTX_MENU_ITEM_HIDE_UNREAD_COUNT = "#ZM_CTX_MENU_ITEM_HIDE_UNREAD_COUNT",
-  ZM_CTX_MENU_ITEM_HIDE_UNREAD_COUNT_TEXT = "#ZM_CTX_MENU_ITEM_HIDE_UNREAD_COUNT_TEXT",
-  ZM_CTX_MENU_ITEM_HIDE_UNREAD_COUNT_ICON = "#ZM_CTX_MENU_ITEM_HIDE_UNREAD_COUNT_ICON",
+  ZM_TRELLO_CLOSE_POP_OVER_BTN = "a.pop-over-header-close-btn"
 }
 
 export const enum ZenDomDataAttributes {
@@ -106,11 +98,6 @@ export const enum ZenDomDataAttributes {
 export const enum ZenModeStatuses {
   ON = "ON",
   OFF = "OFF",
-}
-
-export const enum HideUnreadCountStatuses {
-  ENABLED = "ENABLED",
-  DISABLED = "DISABLED",
 }
 
 //
