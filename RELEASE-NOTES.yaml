@@ -3,5 +3,4 @@ release:
     changes:
       - <b>Unread chat list</b> - via Zen menu, enable mark as unread per chat
       - <b>Enable snooze option for hide chat</b> - Can be set to 8h/1w/forever improvements
-      - <b>Hide archive count</b>
     link: <a href=\"https://github.com/zen-mode/Whatsapp-Zen-Mode/blob/main/ReleaseNotes.md\">See previous versions</a>
