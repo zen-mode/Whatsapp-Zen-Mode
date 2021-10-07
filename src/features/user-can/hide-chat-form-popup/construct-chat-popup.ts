@@ -17,9 +17,17 @@ export function construct_hide_popup_area(): HTMLDivElement {
   });
 
   const headerEl = DOM.create_el({
+    tag: "div",
+    attributes: {class: "hide-popup-title"}
+  });
+
+  const headerTitle = DOM.create_el({
     tag: "h1",
     text: `${browser.i18n.getMessage("ZM_hide_popup_title")}`
   });
+
+  headerEl.appendChild(headerTitle)
+  
   hidePopupArea.appendChild(headerEl);
 
   const hidePopupFormEl = DOM.create_el({tag: "form"});
@@ -45,6 +53,11 @@ export function construct_hide_popup_area(): HTMLDivElement {
   hidePopupGroupForever.appendChild(DOM.create_el({ attributes: {type: 'radio', value: "forever",  name: "hideRadio", class: "hide-popup-radio"}, tag: "input"}))
   hidePopupGroupForever.appendChild(DOM.create_el({text: browser.i18n.getMessage("ZM_hide_popup_forever"),  tag: 'span'}))
   hidePopupFormEl.appendChild(hidePopupGroupForever)
+
+  const buttonsContainer = DOM.create_el({tag: "div", attributes: {
+    class: 'hide-popup-buttons-container'
+  }})
+  hidePopupFormEl.appendChild(buttonsContainer)
 
   const hidePopupButton = DOM.create_el({tag: "div", attributes: {
     class: 'hide-popup-button',
@@ -72,18 +85,17 @@ export function construct_hide_popup_area(): HTMLDivElement {
         set_el_style(hidePopupArea, {display: "none"});
       }
   }
-  hidePopupFormEl.appendChild(hidePopupButton)
+  buttonsContainer.appendChild(hidePopupButton)
 
   const closeBtnEl = DOM.create_el({
     tag: "div",
     text: "x",
-    attributes: {id: Selectors.ZM_RELEASE_NOTES_AREA_CLOSE_BTN.substring(1)},
+    attributes: {class: "hide-popup-close-btn"},
   });
   closeBtnEl.addEventListener("click", () =>
     set_el_style(hidePopupArea, {display: "none"}),
   );
   hidePopupArea.appendChild(closeBtnEl);
-
   window.addEventListener('click', (e) => {
     if ((e.target as Element).closest(Selectors.ZM_HIDE_POPUP)) {
       return;
