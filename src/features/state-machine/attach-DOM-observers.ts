@@ -19,8 +19,10 @@ import {get_chat_el_raw_title} from "../../api/get-contact-el-name";
 import {findChatByTitle} from "../../whatsapp/ExtensionConnector";
 import {get_contact_el_by_chat_name} from "../../api/get-contact-el-by-contact-name";
 import { fixContextMenuPosition } from "../../whatsapp/ui/FakeCtxMenu/utils";
+import { get_hovered_contact_el } from "../../api/get-hovered-contact-el";
 
-const CONTEXT_MENU_HEIGHT = 298;
+const CONTACT_CONTEXT_MENU_HEIGHT = 298;
+const CHAT_CONTEXT_MENU_HEIGHT = 218;
 
 export let providerInjected = false;
 // Attaches DOM observer and checks for tf conditions:
@@ -39,9 +41,18 @@ const observer = new MutationObserver(async (mutations) => {
           const htmlEl = node as HTMLElement;
           // If WA contact context menu is present - Attach 'Hide contact' item.
           if (DOM.get_el(Selectors.WA_CONTACT_CTX_MENU) === htmlEl) {
-              attach_hide_contact_item(htmlEl);
-              attachUIToMainContactCtxMenu(htmlEl);
-              fixContextMenuPosition(htmlEl, CONTEXT_MENU_HEIGHT)
+            // Explain: If there is no hovered el in the DOM - it means the WA ctx menu has been..
+            // invoked from chat area, not contact list area.
+              const hoveredDivEl = get_hovered_contact_el();
+            
+              if (hoveredDivEl) {
+                attach_hide_contact_item(htmlEl);
+              } else {
+                attachUIToMainContactCtxMenu(htmlEl);
+              }
+
+              const targetHeight = hoveredDivEl ? CONTACT_CONTEXT_MENU_HEIGHT : CHAT_CONTEXT_MENU_HEIGHT;
+              fixContextMenuPosition(htmlEl, targetHeight);
           }
 
           // On page load - hides the contacts that were hidden by user previously.
