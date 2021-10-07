@@ -1,3 +1,7 @@
+# Release Notes 1.4.2.5
+### Third  public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
+Minor cosmetic bug fixes.
+
 # Release Notes 1.4.2.4
 ### Third  public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
 1.**Unread chat list** - via Zen menu , enable mark as unrread per chat
