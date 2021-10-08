@@ -1,5 +1,4 @@
 import {DOM} from "../../../../../utility-belt/helpers/dom/DOM-shortcuts";
-import {get_hovered_contact_el} from "../../../../api/get-hovered-contact-el";
 import {throw_DOM_error} from "../../process-errors/process-error";
 import {construct_Hide_contact_ctx_menu_item} from "./construct-hide-contact-item";
 import {construct_Unhide_contact_ctx_menu_item} from "./construct-unhide-contact-item";
@@ -23,11 +22,6 @@ export function attach_hide_contact_item(node: HTMLElement): void {
         Selectors.ZM_CTX_MENU.substring(1),
       ].includes(node.id)
   ) return;
-
-  // Explain: If there is no hovered el in the DOM - it means the WA ctx menu has been..
-  // invoked from chat area, not contact list area. In that case - break.
-  const hoveredDivEl = get_hovered_contact_el();
-  if (!hoveredDivEl) return;
 
   const waContactCtxMenuEl = DOM.get_el(Selectors.WA_CONTACT_CTX_MENU);
 
