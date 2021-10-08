@@ -13,6 +13,10 @@
     "message": "בוקר זן \uD83C\uDF1E",
     "description": "WA contact ctx menu item that turn zen morning for contact"
   },
+  "WA_contactCtxMenuItem_mark_unread": {
+    "message": "סמן כלא נקרא",
+    "description": "WA contact ctx menu item that marks chat as unread"
+  },
   "ZM_ctxMenuItem_contactUs": {
     "message": "צור/י קשר"
   },
