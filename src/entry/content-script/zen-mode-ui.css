@@ -264,8 +264,25 @@ html[dir=ltr] .fakeCtxMenuSettings {
   display: none;
   z-index: 9999999;
   padding: 1em;
-  direction: ltr;
-  text-align: left;
+}
+
+.hide-popup-title {
+  display: flex;
+  position: relative;
+}
+
+.hide-popup-close-btn {
+  position: absolute;
+  top: 10px;
+  cursor: pointer;
+}
+
+html[dir=rtl] .hide-popup-close-btn {
+  left: 10px
+}
+
+html[dir=ltr] .hide-popup-close-btn {
+  right: 10px
 }
 
 .hide-popup-group {
@@ -287,6 +304,11 @@ html[dir=ltr] .fakeCtxMenuSettings {
   margin-top: 8px;
 }
 
+.hide-popup-buttons-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .hide-popup-button {
   padding: 10px 16px;
   color: #fff;
@@ -294,7 +316,6 @@ html[dir=ltr] .fakeCtxMenuSettings {
   outline: none;
   border: none;
   width: fit-content;
-  margin-left: auto;
 }
 
 /* Navigation Drawer */
