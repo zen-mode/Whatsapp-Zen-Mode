@@ -1,6 +1,5 @@
 release:
     description: <b>Third  public beta version <a href="https://en.wikipedia.org/wiki/Golda_Meir">Golda Meir</a></b>
     changes:
-      - <b>Unread chat list</b> - via Zen menu, enable mark as unread per chat
-      - <b>Enable snooze option for hide chat</b> - Can be set to 8h/1w/forever improvements
+      - Minor cosmetic bug fixes.
     link: <a href=\"https://github.com/zen-mode/Whatsapp-Zen-Mode/blob/main/ReleaseNotes.md\">See previous versions</a>
