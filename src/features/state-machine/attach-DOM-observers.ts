@@ -21,8 +21,8 @@ import {get_contact_el_by_chat_name} from "../../api/get-contact-el-by-contact-n
 import { fixContextMenuPosition } from "../../whatsapp/ui/FakeCtxMenu/utils";
 import { get_hovered_contact_el } from "../../api/get-hovered-contact-el";
 
-const CONTACT_CONTEXT_MENU_HEIGHT = 298;
-const CHAT_CONTEXT_MENU_HEIGHT = 218;
+const CONTACT_CONTEXT_MENU_CUSTOM_ITEMS_COUNT = 2;
+const CHAT_CONTEXT_MENU_CUSTOM_ITEMS_COUNT = 1;
 
 export let providerInjected = false;
 // Attaches DOM observer and checks for tf conditions:
@@ -51,8 +51,8 @@ const observer = new MutationObserver(async (mutations) => {
                 attachUIToMainContactCtxMenu(htmlEl);
               }
 
-              const targetHeight = hoveredDivEl ? CONTACT_CONTEXT_MENU_HEIGHT : CHAT_CONTEXT_MENU_HEIGHT;
-              fixContextMenuPosition(htmlEl, targetHeight);
+              const customMenuItemsCount = hoveredDivEl ? CONTACT_CONTEXT_MENU_CUSTOM_ITEMS_COUNT : CHAT_CONTEXT_MENU_CUSTOM_ITEMS_COUNT;
+              fixContextMenuPosition(htmlEl, customMenuItemsCount);
           }
 
           // On page load - hides the contacts that were hidden by user previously.
