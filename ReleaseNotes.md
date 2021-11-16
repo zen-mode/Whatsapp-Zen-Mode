@@ -1,3 +1,8 @@
+# Release Notes 1.4.2.6
+###  Public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
+Zen morning feature bug fix.
+
+
 # Release Notes 1.4.2.5
 ### Third  public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
 Minor cosmetic bug fixes.
