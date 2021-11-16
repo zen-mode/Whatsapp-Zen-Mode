@@ -1,5 +1,5 @@
 release:
-    description: <b>Third  public beta version <a href="https://en.wikipedia.org/wiki/Golda_Meir">Golda Meir</a></b>
+    description: <b>Public beta version <a href="https://en.wikipedia.org/wiki/Golda_Meir">Golda Meir</a></b>
     changes:
       - Minor cosmetic bug fixes.
     link: <a href=\"https://github.com/zen-mode/Whatsapp-Zen-Mode/blob/main/ReleaseNotes.md\">See previous versions</a>
