@@ -7,10 +7,7 @@ import {process_error} from "../features/extension-can/process-errors/process-er
 
 export function renderZenMorningSunIcon(isZenMorning: boolean, chat: Chat, chatEl?: Element | null): void {
   chatEl = chatEl || get_contact_el_by_chat_name(chat.title);
-  if (!chatEl) {
-    process_error(new Error(`chatEl not found for ${JSON.stringify(chat)}`));
-    return;
-  }
+  if (!chatEl) { return; }
   const sunIcon = chatEl.querySelector(Selectors.ZM_ZENMORNING_CONTACT_SUNICON);
   if (sunIcon) {
     if (!isZenMorning) {

@@ -24,7 +24,7 @@ export function toggle_contact_visibility_on_scroll(
     return;
 
   const chatEl = mutation.target as HTMLElement;
-  if (!chatEl.classList.contains(Selectors.WA_CONTACT_CONTAINER.substring(1)) || !chatEl.closest(Selectors.WA_CONTACT_LIST)) return;
+  if (!chatEl.classList.contains(Selectors.WA_CONTACT_WRAPPER.substring(1)) || !chatEl.closest(Selectors.WA_CONTACT_LIST)) return;
 
   // 2. Sets it's visibility css according to whether it is hidden by User or not.
   const chatElInfo = chatEl.querySelector(Selectors.WA_CONTACT_INFO_CONTAINER);
@@ -33,8 +33,9 @@ export function toggle_contact_visibility_on_scroll(
 
   findChatByTitle(rawChatTitle, async (chat) => {
     if (!chat) return;
+    const isZenMorning = await isZenMorningChat(chat);
     renderZenMorningSunIcon(
-      await isZenMorningChat(chat),
+      isZenMorning,
       chat,
       chatElInfo
     );

@@ -50,8 +50,10 @@ export const enum Selectors {
   // WA_CONTACT_CTX_MENU_LIST_ITEM = "#app span:nth-of-type(4) > div ul li",
   // WA_CONTACT_CTX_MENU_ITEM_CONTENTS_DIV = "#app span:nth-of-type(4) > div ul [role='button']",
   WA_BACK_BTN = "._27F2N [data-testid=back]",
+  
+  WA_CONTACT_WRAPPER = "._3m_Xw",
   WA_CONTACT_CONTAINER = "._ccCW", // .FqYAR.i0jNr
-  WA_CONTACT_INFO_CONTAINER = "._2nY6U",
+  WA_CONTACT_INFO_CONTAINER = "._3vPI2",
   WA_CONTACT_CTX_MENU = "#app > div > span > .o--vV",
   WA_CONTACT_CTX_MENU_LIST = "._19rjv",
   WA_GENERAL_CTX_MENU = "._1R3Un ._1qAEq._11bi2",
