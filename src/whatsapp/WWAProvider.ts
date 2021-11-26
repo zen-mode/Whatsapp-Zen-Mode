@@ -16,7 +16,7 @@ export function provideModules(): void {
   WapModule = moduleRaid.findModule('Wap')[0].default;
   ChatModule = moduleRaid.findModule('Chat')[0].default;
   CmdModule = moduleRaid.findModule('Cmd')[0].default;
-  ConnModule = moduleRaid.findModule('Conn')[0].default;
+  ConnModule = moduleRaid.findModule('Conn')[0].Conn;
 }
 
 
