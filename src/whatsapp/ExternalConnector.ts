@@ -161,9 +161,9 @@ function handlePortDisconnection(port: any) {
   setChatsGlobalSoundsState(true);
 }
 
-// *
-// * EventBus.ts
-// *
+/*
+EventBus.ts
+*/
 
 const eventPort = browser.runtime.connect('%%EXTENSION_GLOBAL_ID%%', {
   name: BridgePortType.WWA_EVENTS_CONNECTOR
