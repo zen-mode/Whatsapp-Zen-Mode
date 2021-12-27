@@ -1,13 +1,36 @@
 import {get_extn_storage_item_value, set_extn_storage_item} from "../../utility-belt/helpers/extn/storage";
 import {StateItemNames} from "../data/dictionary";
 import {Chat} from "./model/Chat";
-import browser from "webextension-polyfill";
+import browser, {Storage} from "webextension-polyfill";
+import StorageChange = Storage.StorageChange;
 
 export function subscribeForeverHiddenChatChanges(onChanged: (hiddenChats: Chat[], oldHiddenChats: Chat[]) => void) {
+  subToStorageChangesForever(StateItemNames.HIDDEN_CONTACTS, (changes) => {
+    onChanged(changes.newValue, changes.oldValue);
+  });
+}
+
+export function subscribeForeverZenMorningChatChanges(onChanged: (zenMorningChat: Chat) => void) {
+  subToStorageChangesForever(StateItemNames.ZEN_MORNING_CHAT, (changes) => {
+    onChanged(changes.newValue);
+  });
+}
+
+function subToStorageChangesForever(key: String, onChanged: (changes: StorageChange) => void, initValue = true) {
+  if (initValue) {
+    browser.storage.local.get(key).then((value) => {
+      const v = value[key];
+      if (v != undefined) {
+        onChanged({
+          newValue: v,
+          oldValue: v
+        });
+      }
+    });
+  }
   browser.storage.onChanged.addListener((changes, areaName) => {
-    if (areaName === 'local' && changes.hasOwnProperty(StateItemNames.HIDDEN_CONTACTS)) {
-      const hiddenChatsChanges = changes[StateItemNames.HIDDEN_CONTACTS];
-      onChanged(hiddenChatsChanges.newValue, hiddenChatsChanges.oldValue);
+    if (areaName === 'local' && changes.hasOwnProperty(key)) {
+      onChanged(changes[key]);
     }
   })
 }

@@ -5,7 +5,6 @@ import {Selectors} from "../../data/dictionary";
 import {TIME} from "../../../utility-belt/constants/time";
 
 import {injectWAPageProvider} from "../../whatsapp/ExternalInjector";
-import {toggle_contact_visibility_on_scroll} from "../../api/toggle-contact-visibility-on-scroll";
 import {attach_hide_contact_item} from "../extension-can/display-zen-mode-ui/construct-zen-mode-ui/attach_hide_contact_item";
 import {getHiddenChats, isHiddenChat} from "../../whatsapp/Storage";
 import {setChatVisibility} from "../../api/set-chat-visibility";
@@ -27,11 +26,6 @@ const CHAT_CONTEXT_MENU_CUSTOM_ITEMS_COUNT = 1;
 export let providerInjected = false;
 // Attaches DOM observer and checks for tf conditions:
 const observer = new MutationObserver(async (mutations) => {
-  mutations.filter(m => m.type === 'attributes').forEach(mutation => {
-    // 1. Contact els mutation on scroll.
-    void toggle_contact_visibility_on_scroll(mutation);
-  });
-
   mutations
     .filter(mutation => mutation.type !== 'attributes')
     .forEach(mutation => {

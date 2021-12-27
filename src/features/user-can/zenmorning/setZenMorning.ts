@@ -9,7 +9,6 @@ import {
 } from "../../../../utility-belt/helpers/extn/storage";
 import {set_el_style} from "../../../../utility-belt/helpers/dom/set-el-style";
 import {construct_zenmorning_area} from "./construct-zenmorning-area";
-import {renderZenMorningSunIcon} from "../../../api/renderZenMorningSunIcon";
 import {Chat} from "../../../whatsapp/model/Chat";
 import {lastHoveredChat} from "../../extension-can/display-zen-mode-ui/construct-zen-mode-ui/attach_hide_contact_item";
 import {isZenMorningTime} from "../../../api/isZenMorningTime";
@@ -50,6 +49,7 @@ export function setZenMorning(): void {
 export function unsetZenMorning(): void {
   if (lastHoveredChat)
     toggleZenMorningForHoveredChat(false);
+    remove_extn_storage_item(StateItemNames.ZEN_MORNING_CHAT);
 }
 
 async function toggleZenMorning(chat: Chat, turnZenMorning: boolean) {
@@ -65,11 +65,6 @@ async function toggleZenMorning(chat: Chat, turnZenMorning: boolean) {
   } else {
     await remove_extn_storage_item(StateItemNames.ZEN_MORNING_CHAT);
   }
-  // Render sun icon
-  if (oldZenMorningChat) {
-    renderZenMorningSunIcon(false, oldZenMorningChat);
-  }
-  renderZenMorningSunIcon(turnZenMorning, chat);
 }
 
 async function toggleZenMorningForHoveredChat(turnZenMorning: boolean) {
@@ -94,7 +89,6 @@ export async function getZenMorningChat(): Promise<Chat | undefined> {
 export async function checkZenMorningChatState(zenMorningChat?: Chat): Promise<void> {
   zenMorningChat = zenMorningChat || await getZenMorningChat();
   if (zenMorningChat) {
-    renderZenMorningSunIcon(true, zenMorningChat);
     if (await isZenMorningTime()) {
       await set_extn_storage_item({
         [StateItemNames.LAST_ACTIVITY_DATE]: moment().toJSON(),
