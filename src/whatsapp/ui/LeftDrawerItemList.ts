@@ -38,29 +38,30 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
     const drawerEl = document.createElement('span');
     drawerEl.className = 'vXLk5';
     drawerEl.innerHTML = `
-    <div class="_3bvta" tabindex="-1" style="height: 100%; transform: translateX(0%);">
-      <span class="_2J8hu">
-         <div class="nBIOd _3kIRz tm2tP copyable-area">
-            <header class="_1PGhQ">
-               <div class="_1Yy4I" data-animate-drawer-title="true">
-                  <div class="_2-1k7">
-                     <button id='${DRAWER_UP_BUTTON_ID}' class="_18eKe">
-                        <span data-testid="back" data-icon="back" class="">
-                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                              <path fill="currentColor" d="M12 4l1.4 1.4L7.8 11H20v2H7.8l5.6 5.6L12 20l-8-8 8-8z"></path>
-                           </svg>
-                        </span>
-                     </button>
-                  </div>
-                  <div id="${DRAWER_TITLE_ID}" class="_1FrBz"></div>
-               </div>
-            </header>
-            <div id="${DRAWER_ITEMS_CONTAINER_ID}" class="_3Bc7H KPJpj">
-            </div>
-         </div>
-         <div hidden="" style="display: none;"></div>
-      </span>
-   </div>`;
+        <div class="_1N4rE" tabindex="-1" style="height: 100%; transform: translateX(0%);">
+          <span class="_2J8hu">
+             <div class="ihvf49ua p357zi0d f8m0rgwh ppled2lx tkdu00h0 gfz4du6o r7fjleex jv8uhy2r lhggkp7q qq0sjtgm ln8gz9je tm2tP copyable-area">
+                <header class="_1PGhQ">
+                   <div class="_1Yy4I" data-animate-drawer-title="true">
+                      <div class="_2-1k7">
+                         <button id='${DRAWER_UP_BUTTON_ID}' class="_18eKe" aria-label="Назад">
+                            <span data-testid="back" data-icon="back" class="">
+                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                  <path fill="currentColor" d="M12 4l1.4 1.4L7.8 11H20v2H7.8l5.6 5.6L12 20l-8-8 8-8z"></path>
+                               </svg>
+                            </span>
+                         </button>
+                      </div>
+                      <div id="${DRAWER_TITLE_ID}" class="_1FrBz"></div>
+                   </div>
+                </header>
+                <div id="${DRAWER_ITEMS_CONTAINER_ID}" class="_3Bc7H KPJpj"></div>
+             </div>
+             <div hidden="" style="display: none;"></div>
+          </span>
+        </div>
+        <div hidden="" style="display: none;"></div>
+    `;
     leftDrawerContainer.insertAdjacentElement('beforeend', drawerEl);
     drawerEl.remove();
     const itemsContainerEl = DOM.get_el('#' + DRAWER_ITEMS_CONTAINER_ID, drawerEl)!!;

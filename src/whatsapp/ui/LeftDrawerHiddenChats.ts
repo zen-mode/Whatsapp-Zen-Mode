@@ -33,48 +33,59 @@ function constructBasicChatListElement(chat: Chat): HTMLElement {
   const chatSVGBlankPic = chat.isGroup ? GROUP_CHAT_SVG_HTML : USER_CHAT_SVG_HTML;
 
   const div = document.createElement('DIV');
-  div.className = '_3m_Xw hiddenChatEl';
   // Styles
-  div.style.zIndex = '0';
-  div.style.transition = 'transition: none 0s ease 0s';
-  div.style.height = '72px';
-  div.style.transform = 'translateY(0px)';
-  div.innerHTML = `<div tabindex="-1" aria-selected="false" role="row">
-               <div data-testid="cell-frame-container" class="_2nY6U">
-                  <div class="_2EU3r">
-                    <div class="HONz8">
-                        <div class="_3GlyB" style="height: 49px; width: 49px;">
-                          <div class="_1lPgH">
-                             <span data-testid="default-group" data-icon="default-group" class="">
-                                ${chatSVGBlankPic}
-                            </span>
+  div.setAttribute('tabindex', '-1')
+  div.innerHTML = `
+            <span></span>
+            <div class="_3P67r">
+              <div class="_3uIPm WYyr1" style="height: 72px;">
+                <div class="_3m_Xw" style="z-index: 0; transition: none 0s ease 0s; height: 72px; transform: translateY(0px);">
+                  <div tabindex="-1" aria-selected="false" role="row">
+                     <div data-testid="cell-frame-container" class="_2nY6U">
+                        <div class="_2EU3r">
+                          <div class="HONz8">
+                              <div class="_3GlyB" style="height: 49px; width: 49px;">
+                                <div class="_1lPgH">
+                                   <span data-testid="default-group" data-icon="default-group" class="">
+                                      ${chatSVGBlankPic}
+                                  </span>
+                                </div>
+                              </div>
                           </div>
                         </div>
-                    </div>    
-                  </div>
-                  <div class="_3OvU8">
-                     <div role="gridcell" aria-colindex="2" class="_3vPI2">
-                        <div class="zoWT4"><span dir="auto" title="${chat.title}" class="_ccCW FqYAR i0jNr">${chat.title}</span></div>
-                        <div class="_3dulN"></div>
-                     </div>
-                     <div class="_37FrU">
-                        <div class="_1qB8f">
-                           <span class="Hy9nV" title="‬">
-                              <div class="_2qo4q _3NIfV"><span dir="ltr" class="_3-8er"></span></div>
-                           </span>
+                        <div class="_3OvU8">
+                           <div role="gridcell" aria-colindex="2" class="_3vPI2">
+                              <div class="zoWT4"><span dir="auto" title="${chat.title}" class="ggj6brxn gfz4du6o r7fjleex g0rxnol2 lhj4utae le5p0ye3 l7jjieqr i0jNr">${chat.title}</span></div>
+                              <div class="_1i_wG"></div>
+                           </div>
+                           <div class="_37FrU">
+                              <div class="_1qB8f">
+                                 <span class="Hy9nV" title="${chat.previewMessage}">
+                                    <div class="_2qo4q _3NIfV">
+                                        <span data-testid="status-dblcheck" data-icon="status-dblcheck" class="">
+                                            <svg viewBox="0 0 18 18" width="18" height="18" class="">
+                                                <path fill="currentColor" d="m17.394 5.035-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-.427-.388a.381.381 0 0 0-.578.038l-.451.576a.497.497 0 0 0 .043.645l1.575 1.51a.38.38 0 0 0 .577-.039l7.483-9.602a.436.436 0 0 0-.076-.609zm-4.892 0-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-2.614-2.556a.435.435 0 0 0-.614.007l-.505.516a.435.435 0 0 0 .007.614l3.887 3.8a.38.38 0 0 0 .577-.039l7.483-9.602a.435.435 0 0 0-.075-.609z"></path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <span dir="ltr" class="ggj6brxn gfz4du6o r7fjleex g0rxnol2 lhj4utae le5p0ye3 l7jjieqr i0jNr">${chat.previewMessage}</span>
+                                 </span>
+                              </div>
+                              <div role="gridcell" aria-colindex="1" class="_1i_wG">
+                                <span><span class="_1pJ9J  _3f7yK">${browser.i18n.getMessage('ZM_hidden')}</span></span>
+                                <span></span>
+                                <span>
+                                  <button class="dNJHX" data-action="fakeCtxMenu">
+                                    <span data-testid="down" data-icon="down">${ARROW_CTX_MENU_HTML}</span>
+                                  </button>
+                                </span>
+                              </div>
+                           </div>
                         </div>
-                        <div role="gridcell" aria-colindex="1" class="_1i_wG">
-                          <span><span class="_1pJ9J  _3f7yK">${browser.i18n.getMessage('ZM_hidden')}</span></span>
-                          <span></span>
-                          <span>
-                            <button class="dNJHX" data-action="fakeCtxMenu">
-                              <span data-testid="down" data-icon="down">${ARROW_CTX_MENU_HTML}</span>
-                            </button>
-                          </span>
-                        </div>
                      </div>
                   </div>
-               </div>
+                </div>
+              </div>
             </div>`;
   div.addEventListener('click', e1 => {
     // @ts-ignore
