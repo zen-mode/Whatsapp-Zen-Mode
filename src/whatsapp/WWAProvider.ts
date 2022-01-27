@@ -13,8 +13,9 @@ export let ConnModule: any = null;
 
 export function provideModules(): void {
   const moduleRaid = moduleRaidV5();
+  (window as any).moduleRaid = moduleRaid;
   WapModule = moduleRaid.findModule('queryLinkPreview')[0].default;
-  ChatModule = moduleRaid.findModule('Chat')[0].default;
+  ChatModule = moduleRaid.findModule('Chat')[2].default;
   CmdModule = moduleRaid.findModule('Cmd')[0].Cmd;
   ConnModule = moduleRaid.findModule('Conn')[0].Conn;
 }
