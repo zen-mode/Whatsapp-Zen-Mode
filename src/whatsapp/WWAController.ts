@@ -25,7 +25,7 @@ export function getChatByTitle(chatTitle: string): any {
 }
 
 export function getOpenedChat(): any {
-  return ChatModule.Chat.active();
+  return ChatModule.Chat.getActive();
 }
 
 export function muteChatLocally(chat: any) {
