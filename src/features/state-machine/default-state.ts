@@ -9,6 +9,7 @@ export function set_default_state(): void {
     {key: StateItemNames.ZEN_MODE_STATUS, defaultValue: false},
     {key: StateItemNames.SMART_MUTE_STATUS, defaultValue: false},
     {key: StateItemNames.SETTINGS_MENU, defaultValue: false},
+    {key: StateItemNames.SCHEDULED_HIDDEN, defaultValue: {chats: {}, hidden: []}},
   ] as const;
 
   // https://github.com/typescript-eslint/typescript-eslint/issues/3116 .
