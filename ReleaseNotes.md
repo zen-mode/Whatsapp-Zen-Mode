@@ -1,3 +1,7 @@
+# Release Notes 1.4.2.11
+###  Public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
+Bug fix due to WhatsAppweb update.
+
 # Release Notes 1.4.2.9
 ###  Public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
 Bug fix due to WhatsAppweb update.
