@@ -3,17 +3,31 @@ import "../../features/extension-can/activate-extn-icon-on-specific-page/activat
 import "../../features/state-machine/state-machine-bgs";
 import "../../whatsapp/BackgroundBridge";
 
-import { HiddenChatDaemon, SCHEDULE_MODE } from "../../whatsapp/HiddenScheduler";
+import { HiddenChatDaemon, DayOfTheWeek, VisibilityShedule, WeekShedule } from "../../whatsapp/HiddenScheduler";
 const d = new HiddenChatDaemon();
-d.forseUpdate();
-d.setChat('79062267189-1537273735@g.us', SCHEDULE_MODE.ALL_DAYS);
+// d.updateChatsVisibility();
 
-d.setChat('79119122203@c.us', SCHEDULE_MODE.BY_DAY, {
-    monday: true, tuesday: true, wednesday: false, thursday: true,
-    friday: true, saturday: true, sunday: true
-});
+// d.setChat('120363040944507914@g.us', SCHEDULE_MODE.ALL_DAYS);
 
-d.setChat('79788589408@c.us', SCHEDULE_MODE.CUSTOM_PERIOD, {
-   monday: [0,0], tuesday: [0,0], wednesday: [0,0], thursday: [0,0],
-   friday: [0,0], saturday: [0,0], sunday: [0,0]
-});
+const testShedule =  {
+        [DayOfTheWeek.MON]: [480, 1260],
+        [DayOfTheWeek.TUE]: [480, 1260],
+        [DayOfTheWeek.WED]: [480, 1260],
+        [DayOfTheWeek.THU]: [480, 1260],
+        [DayOfTheWeek.FRI]: [480, 1260],
+        [DayOfTheWeek.SAT]: [480, 540],
+        [DayOfTheWeek.SUN]: [480, 1260],
+    }
+
+
+d.setShedule('120363040526600626@g.us', testShedule);
+
+// d.setChat('79119122203@c.us', SCHEDULE_MODE.BY_DAY, {
+//     monday: true, tuesday: true, wednesday: false, thursday: true,
+//     friday: true, saturday: true, sunday: true
+// });
+
+// d.setChat('79788589408@c.us', SCHEDULE_MODE.CUSTOM_PERIOD, {
+//    monday: [0,0], tuesday: [0,0], wednesday: [0,0], thursday: [0,0],
+//    friday: [0,0], saturday: [0,0], sunday: [0,0]
+// });

@@ -73,6 +73,10 @@ async function alarmsWorker(alarmInfo: any) {
   const hiddenContacts = (await get_extn_storage_item_value(
     StateItemNames.HIDDEN_CONTACTS,
   )) as Chat[];
+
+  if (!hiddenContacts) {
+    return
+  }
   const currentChat = hiddenContacts.find(item => item.id === alarmInfo.name);
   hiddenContacts.splice(hiddenContacts.findIndex(item => item.id === alarmInfo.name), 1);
   browser.tabs.query({}).then((tabs: any) => {
@@ -87,7 +91,9 @@ async function alarmsWorker(alarmInfo: any) {
 }
 
 browser.alarms.onAlarm.addListener(function(alarmInfo) {
-  alarmsWorker(alarmInfo)
+  if (alarmInfo.name !== 'alarm_HiddenChatDaemon') {
+    alarmsWorker(alarmInfo)
+  }
 })
 
 function closeCurrentTab() {

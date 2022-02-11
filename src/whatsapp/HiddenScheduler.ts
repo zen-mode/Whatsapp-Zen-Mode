@@ -3,168 +3,116 @@ import {
     StateItemNames
 } from "../data/dictionary";
 
-export enum SCHEDULE_MODE {
-    ALL_DAYS,
-    BY_DAY,
-    CUSTOM_PERIOD
+export enum DayOfTheWeek  {
+    MON = 1,
+    TUE = 2,
+    WED = 3,
+    THU = 4,
+    FRI = 5,
+    SAT = 6,
+    SUN = 7,
 }
+
+export type TimePeriod = [number, number];
+export type WeekShedule = Record<DayOfTheWeek, TimePeriod>
+
+
+export type VisibilityShedule = [string, WeekShedule][]
+
 
 export class HiddenChatDaemon {
     private static STORAGE_TAG = StateItemNames.SCHEDULED_HIDDEN;
     private static DAEMON_NAME = 'alarm_HiddenChatDaemon';
 
     constructor() {
+        this.hiddenChats = [];
         this.runDaemon();
     }
-
+    
+    private hiddenChats: string[];
+    private сhatsVisibilityShedule: VisibilityShedule = []
+    
     private runDaemon() {
+        browser.storage.local.get(HiddenChatDaemon.STORAGE_TAG).then((storage) => {
+            this.сhatsVisibilityShedule = storage[HiddenChatDaemon.STORAGE_TAG] || [];
+            console.log({сhatsVisibilityShedule: this.сhatsVisibilityShedule});
+        })
+        this.updateChatsVisibility();
+        this.setAlarms();
+    }
+
+    private hideChat(chatId: string) {
+        this.hiddenChats.push(chatId);
+        console.log("hideChat", chatId, this.hiddenChats);
+    }
+
+    private showChat(chatId: string) {
+        this.hiddenChats = this.hiddenChats.filter((id) => chatId != id);
+        console.log("showChat", chatId, this.hiddenChats);
+    }
+
+    
+    private setAlarms() {
         browser.alarms.clear(HiddenChatDaemon.DAEMON_NAME);
         browser.alarms.create(HiddenChatDaemon.DAEMON_NAME, {
-            delayInMinutes: 0,
+            delayInMinutes: 1,
             periodInMinutes: 1
         });
         browser.alarms.onAlarm.addListener(({
             name
         }) => {
             if (name === HiddenChatDaemon.DAEMON_NAME) {
-                this.onAlarm();
+                this.updateChatsVisibility();
             }
+        });
+
+    }
+
+    private getChatsForHide() {
+        const dateTime = new Date();
+        const day = dateTime.getDay();
+        const time = dateTime.getHours() * 60 + dateTime.getMinutes();
+        return this.сhatsVisibilityShedule.reduce((result: string[], curr) => {
+            const [chatId, chatShedule] = curr;
+            const currentDayChatShedule = chatShedule[day];
+            const [start, end] = currentDayChatShedule;
+            if (time <= start  || time >= end) {
+                result.push(chatId);
+            }          
+            return result  
+        }, []);
+    }
+
+    public setShedule(chatId: string, newShedule: WeekShedule) {
+            if (!this.сhatsVisibilityShedule.find(([sheduleChatId, _]) => sheduleChatId === chatId)) {
+                const newVisibilityShedule: VisibilityShedule = [...this.сhatsVisibilityShedule, [chatId, newShedule]];
+                this.updateShedule(newVisibilityShedule)
+            }
+            const newVisibilityShedule: VisibilityShedule = this.сhatsVisibilityShedule.map(([sheduleChatId, shedule]) =>
+                sheduleChatId === chatId ? [sheduleChatId, newShedule] : [sheduleChatId, shedule]);
+            this.updateShedule(newVisibilityShedule)
+    }
+
+    private updateShedule(newVisibilityShedule: VisibilityShedule) {
+        browser.storage.local.set({
+            [HiddenChatDaemon.STORAGE_TAG]: newVisibilityShedule
+        }).then(() => {
+            this.сhatsVisibilityShedule = newVisibilityShedule;
+            this.updateChatsVisibility();
         });
     }
 
-    private getChatsForHide(pendingChats) {
-        const e = Object.entries(pendingChats);
-        if (e.length) {
-            const result = [];
-            const dateTime = new Date();
-            const day = dateTime.getDay();
-            for (let i = e.length - 1; i >= 0; i--) {
-                const chatId = e[i][0];
-                const {
-                    days,
-                    mode
-                } = e[i][1];
-                switch (mode) {
-                    case SCHEDULE_MODE.ALL_DAYS:
-                        result.push(chatId);
-                        break;
-                    case SCHEDULE_MODE.BY_DAY:
-                        if (days[day - 1]) {
-                            result.push(chatId);
-                        }
-                        break;
-                    case SCHEDULE_MODE.CUSTOM_PERIOD:
-                        const [start, end] = days[day - 1];
-                        if (dateTime >= start && dateTime <= end) {
-                            result.push(chatId);
-                        }
-                        break;
-                }
-            }
-            return result;
-        } else {
-            return [];
-        }
+    public deleteChatShedule(chatId: String) {
+        const newVisibilityShedule: VisibilityShedule = this.сhatsVisibilityShedule.filter(([id, _]) => chatId !== id);
+        this.updateShedule(newVisibilityShedule);
     }
 
-    private onAlarm() {
-        browser.storage.local.get(HiddenChatDaemon.STORAGE_TAG).then((storage) => {
-            const data = storage[HiddenChatDaemon.STORAGE_TAG];
-            const chats = data.chats;
-            const chatsForHide = this.getChatsForHide(chats);
-
-            if (!chatsForHide.length) {
-                return;
-            }
-
-            const hiddenByScheduler = data.hidden;
-            let hiddenChats = data.hidden;
-
-            for (let i = chatsForHide.length - 1; i; i--) {
-                const chatId = chatsForHide[i];
-                if (!hiddenByScheduler.includes(chatId)) {
-                    hiddenByScheduler.push(chatId);
-                    console.log('HIDE CHAT', chatId);
-                    // HIDE CHAT
-                }
-
-                const a = hiddenChats.indexOf(chatId);
-                if (a) {
-                    hiddenChats.splice(a, 1);
-                }
-            }
-
-            if (hiddenChats.length) {
-                for (let i = hiddenChats.length - 1; i; i--) {
-                    const chatId = hiddenChats[i];
-                    console.log('UNHIDE CHAT', chatId);
-                    // UNHIDE CHAT
-                }
-            }
-        });
+    public updateChatsVisibility() {
+        const chatsForHide = this.getChatsForHide();
+        const chatsToShow = this.hiddenChats.filter((chatId) => !chatsForHide.includes(chatId));
+        const newHiddenChats = chatsForHide.filter((chatId) => !this.hiddenChats.includes(chatId));
+        newHiddenChats.forEach((chatId) => this.hideChat(chatId));
+        chatsToShow.forEach((chatId) => this.showChat(chatId));
     }
 
-    setChat(chatId, mode: SCHEDULE_MODE, days: {
-        monday: any,
-        tuesday: any,
-        wednesday: any,
-        thursday: any,
-        friday: any,
-        saturday: any,
-        sunday: any
-    } | null) {
-        let newSettings: Array < Boolean | Array < Number >> ;
-        switch (mode) {
-            case SCHEDULE_MODE.ALL_DAYS:
-                newSettings = [];
-                break;
-            case SCHEDULE_MODE.BY_DAY:
-                if (days) {
-                    newSettings = [
-                        days.monday === true,
-                        days.tuesday === true,
-                        days.wednesday === true,
-                        days.thursday === true,
-                        days.friday === true,
-                        days.saturday === true,
-                        days.sunday === true
-                    ];
-                    break;
-                }
-                case SCHEDULE_MODE.CUSTOM_PERIOD:
-                    if (days) {
-                        newSettings = [days.monday, days.tuesday, days.wednesday, days.thursday,
-                            days.friday, days.saturday, days.sunday
-                        ];
-                        break;
-                    }
-                    default:
-                        return false;
-        }
-        browser.storage.local.get(HiddenChatDaemon.STORAGE_TAG).then((storage) => {
-            const data = storage[HiddenChatDaemon.STORAGE_TAG];
-            data.chats[chatId] = {
-                days: newSettings,
-                mode: mode
-            };
-            browser.storage.local.set({
-                [HiddenChatDaemon.STORAGE_TAG]: data
-            });
-        });
-        return true;
-    }
-
-    clearChat(chatId: String) {
-        browser.storage.local.get(HiddenChatDaemon.STORAGE_TAG).then((data) => {
-            data = data[HiddenChatDaemon.STORAGE_TAG];
-            delete data.chats[chatId];
-            browser.storage.local.set({
-                [HiddenChatDaemon.STORAGE_TAG]: data
-            });
-        });
-    }
-
-    forseUpdate() {
-        this.onAlarm();
-    }
 }
