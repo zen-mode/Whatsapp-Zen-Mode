@@ -37,7 +37,7 @@ export const enum Selectors {
   // Attention: Non-exclusive! Other unrelated els have this too.
   WA_CONTACT_NAME = "span.ggj6brxn[title]",
   WA_CONTACT_SECOND_DIV = "[role='gridcell']",
-  WA_CONTACT_ELEMENT_HOVERED_DIV = ".hover",
+  WA_CONTACT_ELEMENT_HOVERED_DIV = ".hoverLocal",
   WA_CONTACT_ICON_CLASS_NAME = "_2TiQe",
   WA_CONTACT_UNREAD_SPAN = "._38M1B",
 
