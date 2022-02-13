@@ -16,11 +16,10 @@ const testShedule =  {
         [DayOfTheWeek.THU]: [480, 1260],
         [DayOfTheWeek.FRI]: [480, 1260],
         [DayOfTheWeek.SAT]: [480, 540],
-        [DayOfTheWeek.SUN]: [480, 1260],
+        [DayOfTheWeek.SUN]: [480, 540],
     }
-
-
-d.setShedule('120363040526600626@g.us', testShedule);
+console.log("testShedule", testShedule);
+d.setShedule('120363040944507914@g.us', testShedule);
 
 // d.setChat('79119122203@c.us', SCHEDULE_MODE.BY_DAY, {
 //     monday: true, tuesday: true, wednesday: false, thursday: true,

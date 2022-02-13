@@ -4,13 +4,13 @@ import {
 } from "../data/dictionary";
 
 export enum DayOfTheWeek  {
+    SUN = 0,
     MON = 1,
     TUE = 2,
     WED = 3,
     THU = 4,
     FRI = 5,
     SAT = 6,
-    SUN = 7,
 }
 
 export type TimePeriod = [number, number];
@@ -75,10 +75,12 @@ export class HiddenChatDaemon {
         return this.сhatsVisibilityShedule.reduce((result: string[], curr) => {
             const [chatId, chatShedule] = curr;
             const currentDayChatShedule = chatShedule[day];
-            const [start, end] = currentDayChatShedule;
-            if (time <= start  || time >= end) {
-                result.push(chatId);
-            }          
+            if (currentDayChatShedule) {
+                const [start, end] = currentDayChatShedule;
+                if (time <= start || time >= end) {
+                    result.push(chatId);
+                }          
+            }
             return result  
         }, []);
     }
@@ -87,6 +89,7 @@ export class HiddenChatDaemon {
             if (!this.сhatsVisibilityShedule.find(([sheduleChatId, _]) => sheduleChatId === chatId)) {
                 const newVisibilityShedule: VisibilityShedule = [...this.сhatsVisibilityShedule, [chatId, newShedule]];
                 this.updateShedule(newVisibilityShedule)
+                return;
             }
             const newVisibilityShedule: VisibilityShedule = this.сhatsVisibilityShedule.map(([sheduleChatId, shedule]) =>
                 sheduleChatId === chatId ? [sheduleChatId, newShedule] : [sheduleChatId, shedule]);
@@ -102,7 +105,7 @@ export class HiddenChatDaemon {
         });
     }
 
-    public deleteChatShedule(chatId: String) {
+    public deleteShedule(chatId: String) {
         const newVisibilityShedule: VisibilityShedule = this.сhatsVisibilityShedule.filter(([id, _]) => chatId !== id);
         this.updateShedule(newVisibilityShedule);
     }
@@ -111,8 +114,10 @@ export class HiddenChatDaemon {
         const chatsForHide = this.getChatsForHide();
         const chatsToShow = this.hiddenChats.filter((chatId) => !chatsForHide.includes(chatId));
         const newHiddenChats = chatsForHide.filter((chatId) => !this.hiddenChats.includes(chatId));
+        console.log("updateChatsVisibility", {newHiddenChats, chatsToShow, hiddenChats: this.hiddenChats});
         newHiddenChats.forEach((chatId) => this.hideChat(chatId));
         chatsToShow.forEach((chatId) => this.showChat(chatId));
+        console.log("hiddenChats", this.hiddenChats);
     }
 
 }
