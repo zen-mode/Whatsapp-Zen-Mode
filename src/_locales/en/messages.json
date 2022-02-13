@@ -10,6 +10,9 @@
     "message": "Hide/Snooze chat",
     "description": "WA contact ctx menu item that hides the contact"
   },
+  "WA_contactCtxMenuItem_visibiltySheduler": {
+    "message": "Visibility Schedule"
+  },
   "WA_contactCtxMenuItem_unhide": {
     "message": "Unhide chat",
     "description": "WA contact ctx menu item that unhides the contact"

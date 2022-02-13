@@ -10,6 +10,7 @@ import {Chat} from "../../../../whatsapp/model/Chat";
 import {isHiddenChat} from "../../../../whatsapp/Storage";
 import {isZenMorningChat} from "../../../user-can/zenmorning/setZenMorning";
 import {construct_zenMorning_contact_ctx_menu_item} from "./construct-zenmorning-contact-item";
+import { construct_visibilty_sheduler_ctx_menu_item } from "./construct-visibility-sheduler-item";
 
 
 export let lastHoveredChat: Chat | null;
@@ -48,7 +49,8 @@ export function attach_hide_contact_item(node: HTMLElement): void {
     const zenMorningItemEl = construct_zenMorning_contact_ctx_menu_item(
       await isZenMorningChat(hoveredChat)
     );
-    waContactCtxMenuListEl.append(menuItemEl, zenMorningItemEl);
+    const visibilityShedulerItemEl = construct_visibilty_sheduler_ctx_menu_item();
+    waContactCtxMenuListEl.append(menuItemEl, visibilityShedulerItemEl, zenMorningItemEl);
     waContactCtxMenuListEl.click(); // Corrects ctx menu visualization.
   });
 }
