@@ -42,6 +42,8 @@ async function attach_Zen_mode_UI(): Promise<void> {
     ZenModeBtnEl,
     releaseNotesAreaEl,
     hideChatAreaEl,
+    visibilityShedulerAreaEl
+
   ] = construct_Zen_mode_UI();
 
   leftHeaderButtonsEl.prepend(ZenModeBtnEl);
@@ -56,6 +58,12 @@ async function attach_Zen_mode_UI(): Promise<void> {
     DOM.get_el(Selectors.ZM_HIDE_POPUP) === null;
   if (permanentZM_elsAreaNotYetAttached) {
     document.body.appendChild(hideChatAreaEl);
+  }
+
+  const permanentZM_visibilityShedulerAreaElNotYetAttached =
+    DOM.get_el(Selectors.ZM_VISIBILITY_SHEDULER_POPUP) === null;
+  if (permanentZM_visibilityShedulerAreaElNotYetAttached) {
+    document.body.appendChild(visibilityShedulerAreaEl);
   }
 
   devprint("STATUS: UI attached.");
