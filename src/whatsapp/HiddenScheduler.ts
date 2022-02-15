@@ -14,10 +14,16 @@ export enum DayOfTheWeek  {
 }
 
 export type TimePeriod = [number, number];
-export type WeekShedule = Record<DayOfTheWeek, TimePeriod>
+export type WeekShedule = Record<DayOfTheWeek, TimePeriod>;
 
 
-export type VisibilityShedule = [string, WeekShedule][]
+export type VisibilityShedule = [string, WeekShedule][];
+
+export enum VisibilitySheduleVariant {
+    Everyday="Everyday",
+    Weekdays="Weekdays",
+    Custom="Custom", 
+}
 
 
 export class HiddenChatDaemon {
