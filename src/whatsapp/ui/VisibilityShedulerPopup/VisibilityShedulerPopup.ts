@@ -2,13 +2,18 @@ import {DOM} from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
 import {set_el_style} from "../../../../utility-belt/helpers/dom/set-el-style";
 
 import {Selectors} from "../../../data/dictionary";
-import {DayOfTheWeek, VisibilitySheduleVariant, WeekShedule} from "../../HiddenScheduler";
+import {
+  DayOfTheWeek,
+  TimePeriod,
+  VisibilitySheduleVariant,
+  WeekShedule,
+} from "../../HiddenScheduler";
 
 import "./TimeSelector";
 import {construct_time_selector} from "./TimeSelector";
 
 export function constructVisibilityShedulerPopup(): HTMLDivElement {
-  const shedule: WeekShedule = {
+  let shedule: WeekShedule = {
     [DayOfTheWeek.SUN]: undefined,
     [DayOfTheWeek.MON]: undefined,
     [DayOfTheWeek.TUE]: undefined,
@@ -38,6 +43,10 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     attributes: {class: "ZenMode__select", id: "SheduleTypeSelector", value: "Custom"},
   });
 
+  const typeSelectorContainer = DOM.create_el({
+    tag: "div",
+  });
+
   const onCustomFromTimeSelectionChange = (day: string) => {
     return function () {
       const time = (this as HTMLSelectElement).value;
@@ -57,22 +66,22 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
         shedule[day] = [time, time + 30];
       }
       const fromSelectedIndex = (this as HTMLSelectElement).selectedIndex;
-        const toSelectedIndex = (toTimeSelector as HTMLSelectElement).selectedIndex;
-        (toTimeSelector as HTMLSelectElement).selectedIndex = Math.max(
-          fromSelectedIndex,
-          toSelectedIndex,
-        );
-        shedule[day][1] = (toTimeSelector as HTMLSelectElement).value;
-        const toTimeOptions = (toTimeSelector as HTMLSelectElement).getElementsByTagName(
-          "option",
-        );
-        for (let i = 0; i < toTimeOptions.length; i++) {
-          if (i >= fromSelectedIndex) {
-            toTimeOptions[i]!.disabled = false;
-          } else {
-            toTimeOptions[i]!.disabled = true;
-          }
+      const toSelectedIndex = (toTimeSelector as HTMLSelectElement).selectedIndex;
+      (toTimeSelector as HTMLSelectElement).selectedIndex = Math.max(
+        fromSelectedIndex,
+        toSelectedIndex,
+      );
+      shedule[day][1] = (toTimeSelector as HTMLSelectElement).value;
+      const toTimeOptions = (toTimeSelector as HTMLSelectElement).getElementsByTagName(
+        "option",
+      );
+      for (let i = 0; i < toTimeOptions.length; i++) {
+        if (i >= fromSelectedIndex) {
+          toTimeOptions[i]!.disabled = false;
+        } else {
+          toTimeOptions[i]!.disabled = true;
         }
+      }
 
       console.log(shedule);
     };
@@ -84,9 +93,59 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     console.log(shedule);
   };
 
-  const onWeekdaysFromTimeSelector = (day: string) => () => {
-    
-  }
+  function onWeekdaysFromTimeSelector ()  {
+    debugger;
+    const fromTime = Number((this as HTMLSelectElement).value);
+    const toTimeSelector = DOM.get_el(`#WeekdayToTimeSelector`)!;
+
+    const fromSelectedIndex = (this as HTMLSelectElement).selectedIndex;
+    const toSelectedIndex = (toTimeSelector as HTMLSelectElement).selectedIndex;
+    (toTimeSelector as HTMLSelectElement).selectedIndex = Math.max(
+      fromSelectedIndex,
+      toSelectedIndex,
+    );
+
+    const toTimeOptions = (toTimeSelector as HTMLSelectElement).getElementsByTagName(
+      "option",
+    );
+    for (let i = 0; i < toTimeOptions.length; i++) {
+      if (i >= fromSelectedIndex) {
+        toTimeOptions[i]!.disabled = false;
+      } else {
+        toTimeOptions[i]!.disabled = true;
+      }
+    }
+    const toTime = Number((toTimeSelector as HTMLSelectElement).value);
+    const weekdayShedule: TimePeriod = [fromTime, toTime];
+
+    shedule = {
+      [DayOfTheWeek.SUN]: weekdayShedule,
+      [DayOfTheWeek.MON]: weekdayShedule,
+      [DayOfTheWeek.TUE]: weekdayShedule,
+      [DayOfTheWeek.WED]: weekdayShedule,
+      [DayOfTheWeek.THU]: weekdayShedule,
+      [DayOfTheWeek.FRI]: undefined,
+      [DayOfTheWeek.SAT]: undefined,
+    };
+    console.log(shedule);
+  };
+
+  function onWeekdaysToTimeSelector () {
+    const toTime = Number((this as HTMLSelectElement).value);
+    const fromTimeSelector = DOM.get_el(`#WeekdayFromTimeSelector`)!;
+    const fromTime = Number((fromTimeSelector as HTMLSelectElement).value);
+    const weekdayShedule: TimePeriod = [fromTime, toTime];
+    shedule = {
+      [DayOfTheWeek.SUN]: weekdayShedule,
+      [DayOfTheWeek.MON]: weekdayShedule,
+      [DayOfTheWeek.TUE]: weekdayShedule,
+      [DayOfTheWeek.WED]: weekdayShedule,
+      [DayOfTheWeek.THU]: weekdayShedule,
+      [DayOfTheWeek.FRI]: undefined,
+      [DayOfTheWeek.SAT]: undefined,
+    };
+    console.log(shedule);
+  };
 
   sheduleTypeSelector.onchange = function () {
     const value = (this as HTMLSelectElement).value;
@@ -103,20 +162,16 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
           attributes: {id: "WeekdaysShedulerForm"},
         });
         const fromTimeSelector = construct_time_selector({
-          onChange: function () {
-            console.log(this);
-          },
-          id: "fromTimeSelector",
+          onChange: onWeekdaysFromTimeSelector,
+          id: "WeekdayFromTimeSelector",
         });
         const toTimeSelector = construct_time_selector({
-          onChange: function () {
-            console.log(this);
-          },
-          id: "toTimeSelector",
+          onChange: onWeekdaysToTimeSelector,
+          id: "WeekdayToTimeSelector",
         });
         weekdaysShedulerForm.append(fromTimeSelector, toTimeSelector);
 
-        popup.appendChild(weekdaysShedulerForm);
+        typeSelectorContainer.appendChild(weekdaysShedulerForm);
         break;
       case VisibilitySheduleVariant.Custom:
         removeForms();
@@ -174,7 +229,8 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
 
   sheduleTypeSelectorOptions.forEach((option) => sheduleTypeSelector.appendChild(option));
 
-  popup.appendChild(sheduleTypeSelector);
+  typeSelectorContainer.appendChild(sheduleTypeSelector);
+  popup.appendChild(typeSelectorContainer);
 
   const closeBtnEl = DOM.create_el({
     tag: "div",
