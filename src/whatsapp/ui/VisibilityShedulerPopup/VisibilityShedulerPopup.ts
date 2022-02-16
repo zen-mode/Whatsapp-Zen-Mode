@@ -4,6 +4,9 @@ import {set_el_style} from "../../../../utility-belt/helpers/dom/set-el-style";
 import {Selectors} from "../../../data/dictionary";
 import {VisibilitySheduleVariant} from "../../HiddenScheduler";
 
+import "./TimeSelector";
+import {construct_time_selector} from "./TimeSelector";
+
 export function constructVisibilityShedulerPopup(): HTMLDivElement {
   const popup = DOM.create_el({
     tag: "div",
@@ -26,41 +29,57 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     attributes: {class: "ZenMode__select", id: "SheduleTypeSelector", value: "Custom"},
   });
 
-  const fromTimeSelectorOptions = getTimeSelectorOptions(30);
-  const toTimeSelectorOptions = getTimeSelectorOptions(30);
-
   sheduleTypeSelector.onchange = function () {
     const value = (this as HTMLSelectElement).value;
+
+    function onTimeSelectChange() {
+        
+    }
 
     switch (value) {
       case VisibilitySheduleVariant.Everyday:
         console.log("delete chat chedule");
-        DOM.remove_el("#WeekdaysShedulerForm");
+        removeForms();
         break;
       case VisibilitySheduleVariant.Weekdays:
-        // clear form
+        removeForms();
         const weekdaysShedulerForm = DOM.create_el({
           tag: "div",
           attributes: {id: "WeekdaysShedulerForm"},
         });
-        const fromTimeSelector = DOM.create_el({
-          tag: "select",
-          attributes: {class: "ZenMode__select", id: "WeekdaysFromTimeSelector"},
+        const fromTimeSelector = construct_time_selector({
+          onChange: function () {
+            console.log(this);
+          },
+          id: "fromTimeSelector",
         });
-
-        const toTimeSelector = DOM.create_el({
-          tag: "select",
-          attributes: {class: "ZenMode__select", id: "WeekdaysToTimeSelector"},
-        });
-        fromTimeSelectorOptions.forEach((option) => {
-          fromTimeSelector.appendChild(option);
-        });
-
-        toTimeSelectorOptions.forEach((option) => {
-          toTimeSelector.appendChild(option);
+        const toTimeSelector = construct_time_selector({
+          onChange: function () {
+            console.log(this);
+          },
+          id: "toTimeSelector",
         });
         weekdaysShedulerForm.append(fromTimeSelector, toTimeSelector);
+
         popup.appendChild(weekdaysShedulerForm);
+        break;
+      case VisibilitySheduleVariant.Custom:
+        removeForms();
+        const customShedulerForm = DOM.create_el({
+          tag: "div",
+          attributes: {id: "CustomShedulerForm"},
+        });
+
+        const customShedulerOptions = Array(7).map((it, idx) =>
+          construct_time_selector({
+            onChange: function () {
+              console.log((this as HTMLSelectElement).id);
+            },
+            id: `fromTimeSelector${}`,
+          }),
+        );
+
+        popup.appendChild(customShedulerForm);
     }
   };
 
@@ -104,28 +123,7 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
   return popup as HTMLDivElement;
 }
 
-function getTimeSelectorOptions(timeInterval: number) {
-  let time = 0;
-  const timeList = [];
-  while (time < 24 * 60) {
-    timeList.push(time);
-    time += timeInterval;
-  }
-
-  const timeOptions = timeList.map((value) => {
-    const hours24 = Math.floor(value / 60);
-    const minutes = value % 60;
-    const minutesString = minutes < 10 ? `0${minutes}` : minutes;
-    const timePostfix = hours24 < 12 ? "AM" : "PM";
-    const hours12 = hours24 % 12 || 12;
-
-    const label = `${hours12}:${minutesString} ${timePostfix}`;
-    return DOM.create_el({
-      tag: "option",
-      attributes: {value: value.toString()},
-      text: label,
-    });
-  });
-
-  return timeOptions;
+function removeForms() {
+  DOM.remove_el("#WeekdaysShedulerForm");
+  DOM.remove_el("#customShedulerForm");
 }
