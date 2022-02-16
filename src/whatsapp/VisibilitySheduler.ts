@@ -26,7 +26,7 @@ export enum VisibilitySheduleVariant {
 }
 
 
-export class HiddenChatDaemon {
+export class VisibilitySheduler {
     private static STORAGE_TAG = StateItemNames.SCHEDULED_HIDDEN;
     private static DAEMON_NAME = 'alarm_HiddenChatDaemon';
 
@@ -39,8 +39,8 @@ export class HiddenChatDaemon {
     private сhatsVisibilityShedule: VisibilityShedule = []
     
     private runDaemon() {
-        browser.storage.local.get(HiddenChatDaemon.STORAGE_TAG).then((storage) => {
-            this.сhatsVisibilityShedule = storage[HiddenChatDaemon.STORAGE_TAG] || [];
+        browser.storage.local.get(VisibilitySheduler.STORAGE_TAG).then((storage) => {
+            this.сhatsVisibilityShedule = storage[VisibilitySheduler.STORAGE_TAG] || [];
             console.log({сhatsVisibilityShedule: this.сhatsVisibilityShedule});
         })
         this.updateChatsVisibility();
@@ -59,15 +59,15 @@ export class HiddenChatDaemon {
 
     
     private setAlarms() {
-        browser.alarms.clear(HiddenChatDaemon.DAEMON_NAME);
-        browser.alarms.create(HiddenChatDaemon.DAEMON_NAME, {
+        browser.alarms.clear(VisibilitySheduler.DAEMON_NAME);
+        browser.alarms.create(VisibilitySheduler.DAEMON_NAME, {
             delayInMinutes: 1,
             periodInMinutes: 1
         });
         browser.alarms.onAlarm.addListener(({
             name
         }) => {
-            if (name === HiddenChatDaemon.DAEMON_NAME) {
+            if (name === VisibilitySheduler.DAEMON_NAME) {
                 this.updateChatsVisibility();
             }
         });
@@ -104,7 +104,7 @@ export class HiddenChatDaemon {
 
     private updateShedule(newVisibilityShedule: VisibilityShedule) {
         browser.storage.local.set({
-            [HiddenChatDaemon.STORAGE_TAG]: newVisibilityShedule
+            [VisibilitySheduler.STORAGE_TAG]: newVisibilityShedule
         }).then(() => {
             this.сhatsVisibilityShedule = newVisibilityShedule;
             this.updateChatsVisibility();

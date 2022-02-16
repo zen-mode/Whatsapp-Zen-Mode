@@ -3,7 +3,7 @@ import "../../features/extension-can/activate-extn-icon-on-specific-page/activat
 import "../../features/state-machine/state-machine-bgs";
 import "../../whatsapp/BackgroundBridge";
 
-import { HiddenChatDaemon, DayOfTheWeek, VisibilityShedule, WeekShedule } from "../../whatsapp/HiddenScheduler";
+import { HiddenChatDaemon, DayOfTheWeek, VisibilityShedule, WeekShedule } from "../../whatsapp/VisibilitySheduler";
 const d = new HiddenChatDaemon();
 // d.updateChatsVisibility();
 

@@ -7,7 +7,7 @@ import {
   TimePeriod,
   VisibilitySheduleVariant,
   WeekShedule,
-} from "../../HiddenScheduler";
+} from "../../VisibilitySheduler";
 
 import "./TimeSelector";
 import {construct_time_selector} from "./TimeSelector";
