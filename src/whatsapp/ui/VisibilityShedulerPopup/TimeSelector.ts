@@ -1,5 +1,4 @@
 import {DOM} from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
-import { selector_and_click } from "../../../../utility-belt/testing/puppeteer";
 
 export type ConstructTimeSelectorConfig = {
   onChange: (this: GlobalEventHandlers, ev: Event) => void;
@@ -76,6 +75,3 @@ function getTimeSelectorOptions(timeInterval: number) {
   return timeOptions;
 }
 
-function construct_time_range_selector() {
-
-}

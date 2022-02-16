@@ -38,7 +38,7 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     attributes: {class: "ZenMode__select", id: "SheduleTypeSelector", value: "Custom"},
   });
 
-  const onFromTimeSelectionChange = (day: string) => {
+  const onCustomFromTimeSelectionChange = (day: string) => {
     return function () {
       const time = (this as HTMLSelectElement).value;
       const toTimeSelector = DOM.get_el(`#CustomToTimeSelector${day}`)!;
@@ -78,11 +78,15 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     };
   };
 
-  const onToTimeSelectionChange = (day: string) => () => {
+  const onCustomToTimeSelectionChange = (day: string) => () => {
     const time = (this as HTMLSelectElement).value;
     shedule[day][1] = time;
     console.log(shedule);
   };
+
+  const onWeekdaysFromTimeSelector = (day: string) => () => {
+    
+  }
 
   sheduleTypeSelector.onchange = function () {
     const value = (this as HTMLSelectElement).value;
@@ -125,11 +129,11 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
           const container = DOM.create_el({tag: "div"});
 
           const fromTimeSelector = construct_time_selector({
-            onChange: onFromTimeSelectionChange(day.toString()),
+            onChange: onCustomFromTimeSelectionChange(day.toString()),
             includeNone: true,
           });
           const toTimeSelector = construct_time_selector({
-            onChange: onToTimeSelectionChange(day.toString()),
+            onChange: onCustomToTimeSelectionChange(day.toString()),
             id: `CustomToTimeSelector${day}`,
           });
           toTimeSelector.style.visibility = "hidden";
