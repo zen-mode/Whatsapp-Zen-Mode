@@ -13,7 +13,7 @@ export enum DayOfTheWeek  {
     SAT = "6",
 }
 
-export type TimePeriod = [number, number];
+export type TimePeriod = [number, number] | undefined;
 export type WeekShedule = Record<DayOfTheWeek, TimePeriod>;
 
 

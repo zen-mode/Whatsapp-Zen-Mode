@@ -1,14 +1,17 @@
 import {DOM} from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
+import { selector_and_click } from "../../../../utility-belt/testing/puppeteer";
 
 export type ConstructTimeSelectorConfig = {
   onChange: (this: GlobalEventHandlers, ev: Event) => void;
+  attributes?: Record<string, string>,
   id?: string;
   includeNone?: boolean;
+  value?: string;
 };
 
 const TIME_INTERVAL = 30;
 export function construct_time_selector(config: ConstructTimeSelectorConfig) {
-  const {onChange, id, includeNone} = config;
+  const {onChange, id, includeNone, value} = config;
 
   let timeSelectorOptions = getTimeSelectorOptions(TIME_INTERVAL);
   if (includeNone) {
@@ -18,6 +21,10 @@ export function construct_time_selector(config: ConstructTimeSelectorConfig) {
   const attributes = {class: "ZenMode__select"};
   if (id) {
     attributes["id"] = id;
+  }
+
+  if (value) {
+    attributes["value"] = value;
   }
 
   const timeSelector = DOM.create_el({
@@ -67,4 +74,8 @@ function getTimeSelectorOptions(timeInterval: number) {
   });
 
   return timeOptions;
+}
+
+function construct_time_range_selector() {
+
 }
