@@ -3,7 +3,7 @@ import {DOM} from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
 import {set_el_style} from "../../../../utility-belt/helpers/dom/set-el-style";
 
 import {Selectors} from "../../../data/dictionary";
-import { lastHoveredChat } from "../../../features/extension-can/display-zen-mode-ui/construct-zen-mode-ui/attach_hide_contact_item";
+import {lastHoveredChat} from "../../../features/extension-can/display-zen-mode-ui/construct-zen-mode-ui/attach_hide_contact_item";
 import {
   DayOfTheWeek,
   TimePeriod,
@@ -13,6 +13,16 @@ import {
 
 import "./TimeSelector";
 import {construct_time_selector} from "./TimeSelector";
+
+const daysLabels: Record<DayOfTheWeek, string> = {
+  [DayOfTheWeek.SUN]: browser.i18n.getMessage("ZM_visibilty_sheduler_Sunday"),
+  [DayOfTheWeek.MON]: browser.i18n.getMessage("ZM_visibilty_sheduler_Monday"),
+  [DayOfTheWeek.TUE]: browser.i18n.getMessage("ZM_visibilty_sheduler_Tuesday"),
+  [DayOfTheWeek.WED]: browser.i18n.getMessage("ZM_visibilty_sheduler_Wednesday"),
+  [DayOfTheWeek.THU]: browser.i18n.getMessage("ZM_visibilty_sheduler_Thursday"),
+  [DayOfTheWeek.FRI]: browser.i18n.getMessage("ZM_visibilty_sheduler_Friday"),
+  [DayOfTheWeek.SAT]: browser.i18n.getMessage("ZM_visibilty_sheduler_Saturday"),
+};
 
 export function constructVisibilityShedulerPopup(): HTMLDivElement {
   let shedule: WeekShedule = {
@@ -25,7 +35,7 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     [DayOfTheWeek.SAT]: undefined,
   };
 
-  let selectedSheduleVariant = VisibilitySheduleVariant.Everyday; 
+  let selectedSheduleVariant = VisibilitySheduleVariant.Everyday;
 
   const popup = DOM.create_el({
     tag: "div",
@@ -37,10 +47,23 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
 
   const description = DOM.create_el({
     tag: "div",
-    html: "You'll only see this chat in the days/hours you choose. <br />(you can always access it via archived groups or Show Hidden Groups)",
+    html: browser.i18n.getMessage("ZM_visibilty_sheduler_description"),
+    attributes: {class: "ZenMode_visibility-sheduler_description"},
   });
 
-  popup.appendChild(description);
+  // Visibility Schedule
+  const sheduleTitle = DOM.create_el({
+    tag: "div",
+    html: browser.i18n.getMessage("ZM_visibilty_sheduler_title"),
+    attributes: {class: "ZenMode_visibility-sheduler_title"},
+  });
+
+  const customShedulerFormContainer = DOM.create_el({
+    tag: "div",
+  });
+
+  popup.append(description, sheduleTitle);
+
   popup.addEventListener("click", (e) => e.stopPropagation());
 
   const sheduleTypeSelector = DOM.create_el({
@@ -50,6 +73,7 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
 
   const typeSelectorContainer = DOM.create_el({
     tag: "div",
+    attributes: {class: "ZenMode__sheduler_row"},
   });
 
   const onCustomFromTimeSelectionChange = (day: string) => {
@@ -159,6 +183,7 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
       case VisibilitySheduleVariant.Everyday:
         removeForms();
         break;
+
       case VisibilitySheduleVariant.Weekdays:
         removeForms();
         const weekdaysShedulerForm = DOM.create_el({
@@ -173,10 +198,17 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
           onChange: onWeekdaysToTimeSelector,
           id: "WeekdayToTimeSelector",
         });
-        weekdaysShedulerForm.append(fromTimeSelector, toTimeSelector);
+
+        const separator = DOM.create_el({
+          tag: "span",
+          text: "-",
+        });
+
+        weekdaysShedulerForm.append(fromTimeSelector, separator, toTimeSelector);
 
         typeSelectorContainer.appendChild(weekdaysShedulerForm);
         break;
+
       case VisibilitySheduleVariant.Custom:
         removeForms();
         const customShedulerForm = DOM.create_el({
@@ -185,7 +217,16 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
         });
 
         const customShedulerOptions = [...Array(7)].map((it, day) => {
-          const container = DOM.create_el({tag: "div"});
+          const container = DOM.create_el({
+            tag: "div",
+            attributes: {class: "ZenMode__sheduler_row"},
+          });
+
+          const label = DOM.create_el({
+            tag: "div",
+            text: daysLabels[day],
+            attributes: {class: "ZenMode__sheduler_weekday-label"},
+          });
 
           const fromTimeSelector = construct_time_selector({
             onChange: onCustomFromTimeSelectionChange(day.toString()),
@@ -203,30 +244,30 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
             attributes: {style: "visibility: hidden", id: `CustomTimeSeparator${day}`},
           });
 
-          container.append(fromTimeSelector, separator, toTimeSelector);
+          container.append(label, fromTimeSelector, separator, toTimeSelector);
           return container;
         });
         customShedulerOptions.forEach((option) => {
           customShedulerForm.appendChild(option);
         });
-        popup.appendChild(customShedulerForm);
+        customShedulerFormContainer.appendChild(customShedulerForm);
     }
   };
 
   const sheduleTypeSelectorOptions = [
     DOM.create_el({
       tag: "option",
-      text: "Every day",
+      text: browser.i18n.getMessage("ZM_visibilty_sheduler_All_the_time"),
       attributes: {value: VisibilitySheduleVariant.Everyday},
     }),
     DOM.create_el({
       tag: "option",
-      text: "Weekdays",
+      text: browser.i18n.getMessage("ZM_visibilty_sheduler_weekdays"),
       attributes: {value: VisibilitySheduleVariant.Weekdays},
     }),
     DOM.create_el({
       tag: "option",
-      text: "Custom",
+      text: browser.i18n.getMessage("ZM_visibilty_sheduler_custom"),
       attributes: {value: VisibilitySheduleVariant.Custom},
     }),
   ];
@@ -234,7 +275,7 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
   sheduleTypeSelectorOptions.forEach((option) => sheduleTypeSelector.appendChild(option));
 
   typeSelectorContainer.appendChild(sheduleTypeSelector);
-  popup.appendChild(typeSelectorContainer);
+  popup.append(typeSelectorContainer, customShedulerFormContainer);
 
   const closeBtnEl = DOM.create_el({
     tag: "div",
@@ -261,24 +302,30 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
   const addSheduleButton = DOM.create_el({
     tag: "div",
     attributes: {
-      class: "hide-popup-button",
+      class: "hide-popup-button ZenMode__sheduler_apply-button",
       type: "button",
     },
-    text: browser.i18n.getMessage("WA_contactCtxMenuItem_hide"),
+    text: browser.i18n.getMessage("ZM_onboarding_page_agree"),
   });
 
-  buttonsContainer.appendChild(addSheduleButton);
-
-  addSheduleButton.onclick = function(e: MouseEvent) {
+  addSheduleButton.onclick = function (e: MouseEvent) {
     e.preventDefault();
+    set_el_style(popup, {display: "none"});
     if (lastHoveredChat) {
       if (selectedSheduleVariant !== VisibilitySheduleVariant.Everyday) {
-        browser.runtime.sendMessage({type: 'setShedule', payload: {chat: lastHoveredChat, shedule}})
+        browser.runtime.sendMessage({
+          type: "setShedule",
+          payload: {chat: lastHoveredChat, shedule},
+        });
         return;
       }
-      browser.runtime.sendMessage({type: 'deleteShedule', payload: {chat: lastHoveredChat}})
+      browser.runtime.sendMessage({
+        type: "deleteShedule",
+        payload: {chat: lastHoveredChat},
+      });
     }
-  }
+  };
+  buttonsContainer.appendChild(addSheduleButton);
 
   popup.appendChild(buttonsContainer);
 

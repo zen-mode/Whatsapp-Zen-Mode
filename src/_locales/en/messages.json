@@ -10,9 +10,6 @@
     "message": "Hide/Snooze chat",
     "description": "WA contact ctx menu item that hides the contact"
   },
-  "WA_contactCtxMenuItem_visibiltySheduler": {
-    "message": "Visibility Schedule"
-  },
   "WA_contactCtxMenuItem_unhide": {
     "message": "Unhide chat",
     "description": "WA contact ctx menu item that unhides the contact"
@@ -134,5 +131,44 @@
   },
   "ZM_Trello_Context_ZenMode": {
     "message": "Zen Mode"
+  },
+  "ZM_visibilty_sheduler_description": {
+    "message": "You'll only see this chat in the days/hours you choose. <br />(you can always access it via archived groups or Show Hidden Groups)"
+  },
+  "ZM_visibilty_sheduler_title": {
+    "message": "Visibility Schedule"
+  },
+  "ZM_visibilty_sheduler_All_the_time": {
+    "message": "All the time"
+  },
+  "ZM_visibilty_sheduler_weekdays": {
+    "message": "Weekdays"
+  },
+  "ZM_visibilty_sheduler_custom": {
+    "message": "Custom"
+  },
+  "ZM_visibilty_sheduler_Monday": {
+    "message": "Monday"
+  },
+  "ZM_visibilty_sheduler_Tuesday": {
+    "message": "Tuesday"
+  },
+  "ZM_visibilty_sheduler_Wednesday": {
+    "message": "Wednesday"
+  },
+  "ZM_visibilty_sheduler_Thursday": {
+    "message": "Thursday"
+  },
+  "ZM_visibilty_sheduler_Friday": {
+    "message": "Friday"
+  },
+  "ZM_visibilty_sheduler_Saturday": {
+    "message": "Saturday"
+  },
+  "ZM_visibilty_sheduler_Sunday": {
+    "message": "Sunday"
+  },
+  "WA_contactCtxMenuItem_visibiltySheduler": {
+    "message": "Visibility Schedule"
   }
 }

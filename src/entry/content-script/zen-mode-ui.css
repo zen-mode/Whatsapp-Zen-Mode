@@ -344,6 +344,37 @@ html[dir=ltr] .hide-popup-close-btn {
   background-color: white;
   border: revert;
   appearance: auto;
+  margin: 0 10px;
+}
+
+.ZenMode_visibility-sheduler_description {
+  margin: 20px 0;
+}
+
+.ZenMode_visibility-sheduler_title {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.ZenMode__sheduler_row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 8px;
+}
+
+.ZenMode__sheduler_weekday-label {
+  width: 90px;
+}
+
+#WeekdaysShedulerForm {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.ZenMode__sheduler_apply-button {
+  margin-top: 20px;
 }
 
 /* Navigation Drawer */

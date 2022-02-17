@@ -6,9 +6,6 @@
   "WA_contactCtxMenuItem_hide": {
     "message": "הסתר צ'אט זמנית"
   },
-  "WA_contactCtxMenuItem_visibiltySheduler": {
-    "message": "Hide/Snooze chat"
-  },
   "WA_contactCtxMenuItem_unhide": {
     "message": "הצג צ'אט מוסתר"
   },
@@ -97,10 +94,48 @@
     "message": "צ'אטים שלא נקראו"
   },
   "ZM_update_notification_message": {
-    "message":"קיימת גרסה חדשה לזן מוד\n נדרש ריענון כדי שהגרסה תהיה אקטיבית"
-
+    "message": "קיימת גרסה חדשה לזן מוד\n נדרש ריענון כדי שהגרסה תהיה אקטיבית"
   },
   "ZM_update_notification_ok_button_label": {
     "message": "הבנתי"
+  },
+  "ZM_visibilty_sheduler_description": {
+    "message": "אתה תראה את הצ'ט הזה רק בימים/שעות לבחירתך. ( יכול תמיד לגשת לצ'ט דרך הארכיון או רשימת הצ'טים המוסתרים)"
+  },
+  "ZM_visibilty_sheduler_title": {
+    "message": "זמני הצגת הצ'ט"
+  },
+  "ZM_visibilty_sheduler_All_the_time": {
+    "message": "תמיד"
+  },
+  "ZM_visibilty_sheduler_weekdays": {
+    "message": "ימי עבודה"
+  },
+  "ZM_visibilty_sheduler_custom": {
+    "message": "מותאם"
+  },
+  "ZM_visibilty_sheduler_Monday": {
+    "message": "שני"
+  },
+  "ZM_visibilty_sheduler_Tuesday": {
+    "message": "שלישי"
+  },
+  "ZM_visibilty_sheduler_Wednesday": {
+    "message": "רביעי"
+  },
+  "ZM_visibilty_sheduler_Thursday": {
+    "message": "חמישי"
+  },
+  "ZM_visibilty_sheduler_Friday": {
+    "message": "שישי"
+  },
+  "ZM_visibilty_sheduler_Saturday": {
+    "message": "שבת"
+  },
+  "ZM_visibilty_sheduler_Sunday": {
+    "message": "ראשון"
+  },
+  "WA_contactCtxMenuItem_visibiltySheduler": {
+    "message": "זמני הצגת הצ'ט"
   }
 }
