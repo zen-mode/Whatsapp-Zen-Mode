@@ -3,6 +3,7 @@ import {StateItemNames} from "../data/dictionary";
 import {Chat} from "./model/Chat";
 import browser, {Storage} from "webextension-polyfill";
 import StorageChange = Storage.StorageChange;
+import { VisibilityShedule } from "./VisibilitySheduler";
 
 export function subscribeForeverHiddenChatChanges(onChanged: (hiddenChats: Chat[], oldHiddenChats: Chat[]) => void) {
   subToStorageChangesForever(StateItemNames.HIDDEN_CONTACTS, (changes) => {
@@ -38,6 +39,11 @@ function subToStorageChangesForever(key: String, onChanged: (changes: StorageCha
 export async function getHiddenChats(): Promise<Chat[]> {
   const hiddenChats = await get_extn_storage_item_value(StateItemNames.HIDDEN_CONTACTS) ?? [];
   return hiddenChats as Chat[];
+}
+
+export async function getVisibiltyShedule(): Promise<VisibilityShedule> {
+  const visibiltyShedule = await get_extn_storage_item_value(StateItemNames.SCHEDULED_HIDDEN) ?? [];
+  return visibiltyShedule as VisibilityShedule;
 }
 
 export async function getHiddenChatById(chatId: string): Promise<Chat | undefined> {

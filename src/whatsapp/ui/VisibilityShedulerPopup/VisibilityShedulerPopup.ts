@@ -47,8 +47,10 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
 
   const description = DOM.create_el({
     tag: "div",
-    html: browser.i18n.getMessage("ZM_visibilty_sheduler_description"),
-    attributes: {class: "ZenMode_visibility-sheduler_description"},
+    html: `${browser.i18n.getMessage(
+      "ZM_visibilty_sheduler_description",
+    )}<br />${browser.i18n.getMessage("ZM_visibilty_sheduler_description")}`,
+    attributes: {class: "ZenMode_visibility-sheduler_description1"},
   });
 
   // Visibility Schedule
@@ -116,10 +118,12 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     };
   };
 
-  const onCustomToTimeSelectionChange = (day: string) => () => {
-    const time = (this as HTMLSelectElement).value;
-    shedule[day][1] = time;
-    console.log(shedule);
+  const onCustomToTimeSelectionChange = (day: string) => {
+    return function () {
+      const time = (this as HTMLSelectElement).value;
+      shedule[day][1] = time;
+      console.log(shedule);
+    };
   };
 
   function onWeekdaysFromTimeSelector() {

@@ -261,7 +261,6 @@ html[dir=ltr] .fakeCtxMenuSettings {
   top: 50%;
   min-width: 400px;
   transform: translate(-50%, -50%);
-  display: none;
   z-index: 9999999;
   padding: 1em;
 }
@@ -375,6 +374,12 @@ html[dir=ltr] .hide-popup-close-btn {
 
 .ZenMode__sheduler_apply-button {
   margin-top: 20px;
+}
+
+.ZenMode__warning-area {
+  margin: 10px 0;
+  color: red;
+  font-weight: bold;
 }
 
 /* Navigation Drawer */

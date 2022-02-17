@@ -8,14 +8,14 @@ export function construct_Zen_mode_UI(): [
   HTMLDivElement,
   HTMLDivElement,
   HTMLDivElement,
-  HTMLDivElement
+  // HTMLDivElement
 ] {
   const ZMMenuButtonEl = constructZMMenuButton();
   const releaseNotesAreaEl = construct_release_notes_area();
-  const hideChatAreaEl = construct_hide_popup_area();
+  // const hideChatAreaEl = construct_hide_popup_area();
   const visibilityShedulerAreaEl = constructVisibilityShedulerPopup();
 
   devprint("STATUS: UI constructed.");
 
-  return [ZMMenuButtonEl, releaseNotesAreaEl, hideChatAreaEl, visibilityShedulerAreaEl];
+  return [ZMMenuButtonEl, releaseNotesAreaEl, visibilityShedulerAreaEl];
 }

@@ -133,7 +133,10 @@
     "message": "Zen Mode"
   },
   "ZM_visibilty_sheduler_description": {
-    "message": "You'll only see this chat in the days/hours you choose. <br />(you can always access it via archived groups or Show Hidden Groups)"
+    "message": "You'll only see this chat in the days/hours you choose."
+  },
+  "ZM_visibilty_sheduler_description1": {
+    "message": "(you can always access it via archived groups or Show Hidden Groups)"
   },
   "ZM_visibilty_sheduler_title": {
     "message": "Visibility Schedule"
@@ -170,5 +173,8 @@
   },
   "WA_contactCtxMenuItem_visibiltySheduler": {
     "message": "Visibility Schedule"
+  },
+  "ZM_visibilty_sheduler_Warning": {
+    "message": "This action will cancel the visibility schedule"
   }
 }

@@ -34,7 +34,11 @@ const ZMMenuItems: ZMCtxMenuItem[] = [
   {
     action: 'unhideAll',
     domNode: browser.i18n.getMessage("ZM_ctxMenuItem_unhideAll"),
-    makeAction: clearHiddenChats
+    makeAction: async () => {
+      const hiddenChats = await getHiddenChats();
+      browser.runtime.sendMessage({type: 'deleteShedule', payload: {chat: hiddenChats}});
+      clearHiddenChats();
+    }
   },
   {
     action: 'releaseNotes',

@@ -3,7 +3,7 @@ import {
     StateItemNames
 } from "../data/dictionary";
 import { Chat } from "./model/Chat";
-import { addHiddenChats, removeHiddenChats } from "./Storage";
+import { addHiddenChats, getVisibiltyShedule, removeHiddenChats } from "./Storage";
 
 export enum DayOfTheWeek  {
     SUN = "0",
@@ -41,7 +41,7 @@ export class VisibilitySheduler {
     private сhatsVisibilityShedule: VisibilityShedule = []
     
     private runDaemon() {
-        browser.storage.local.get(VisibilitySheduler.STORAGE_TAG).then((storage) => {
+        getVisibiltyShedule().then((storage) => {
             this.сhatsVisibilityShedule = storage[VisibilitySheduler.STORAGE_TAG] || [];
             console.log({сhatsVisibilityShedule: this.сhatsVisibilityShedule});
         })
@@ -83,6 +83,11 @@ export class VisibilitySheduler {
         return this.сhatsVisibilityShedule.reduce((result: Chat[], curr) => {
             const [chat, chatShedule] = curr;
             const currentDayChatShedule = chatShedule[day];
+            
+            if (!currentDayChatShedule) {
+                result.push(chat);
+            }
+
             if (currentDayChatShedule) {
                 const [start, end] = currentDayChatShedule;
                 if (time <= start || time >= end) {
@@ -125,7 +130,7 @@ export class VisibilitySheduler {
             }
             case 'deleteShedule': {
                 const {chat} = payload;
-                this.deleteShedule(chat);
+                chat.forEach((it: Chat) => this.deleteShedule(it))
                 console.log("deleteShedule", payload);
                 break;
             }
