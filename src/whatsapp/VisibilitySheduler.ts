@@ -43,7 +43,6 @@ export class VisibilitySheduler {
     private runDaemon() {
         getVisibiltyShedule().then((storage) => {
             this.сhatsVisibilityShedule = storage[VisibilitySheduler.STORAGE_TAG] || [];
-            console.log({сhatsVisibilityShedule: this.сhatsVisibilityShedule});
         })
         this.updateChatsVisibility();
         this.setMessageListeners();
@@ -119,19 +118,16 @@ export class VisibilitySheduler {
     }
 
     private handleMessages = (message: any) => {
-        console.log("handleMessages", message);
         const { type, payload } = message;
         switch (type) {
             case 'setShedule': {
                 const {chat, shedule} = payload;
                 this.setShedule(chat, shedule)
-                console.log("set shedule", payload);
                 break;
             }
             case 'deleteShedule': {
                 const {chat} = payload;
                 chat.forEach((it: Chat) => this.deleteShedule(it))
-                console.log("deleteShedule", payload);
                 break;
             }
         }
@@ -150,10 +146,8 @@ export class VisibilitySheduler {
         const chatsForHide = this.getChatsForHide();
         const chatsToShow = this.hiddenChats.filter((chatId) => !chatsForHide.includes(chatId));
         const newHiddenChats = chatsForHide.filter((chatId) => !this.hiddenChats.includes(chatId));
-        console.log("updateChatsVisibility", {newHiddenChats, chatsToShow, hiddenChats: this.hiddenChats});
         newHiddenChats.forEach((chatId) => this.hideChat(chatId));
         chatsToShow.forEach((chatId) => this.showChat(chatId));
-        console.log("hiddenChats", this.hiddenChats);
     }
 
 }

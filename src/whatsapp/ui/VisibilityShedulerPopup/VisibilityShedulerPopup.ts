@@ -113,8 +113,6 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
           toTimeOptions[i]!.disabled = true;
         }
       }
-
-      console.log(shedule);
     };
   };
 
@@ -122,12 +120,10 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     return function () {
       const time = (this as HTMLSelectElement).value;
       shedule[day][1] = time;
-      console.log(shedule);
     };
   };
 
   function onWeekdaysFromTimeSelector() {
-    debugger;
     const fromTime = Number((this as HTMLSelectElement).value);
     const toTimeSelector = DOM.get_el(`#WeekdayToTimeSelector`)!;
 
@@ -160,7 +156,6 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
       [DayOfTheWeek.FRI]: undefined,
       [DayOfTheWeek.SAT]: undefined,
     };
-    console.log(shedule);
   }
 
   function onWeekdaysToTimeSelector() {
@@ -177,7 +172,6 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
       [DayOfTheWeek.FRI]: undefined,
       [DayOfTheWeek.SAT]: undefined,
     };
-    console.log(shedule);
   }
 
   sheduleTypeSelector.onchange = function () {
