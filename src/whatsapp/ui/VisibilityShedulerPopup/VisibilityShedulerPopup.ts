@@ -49,8 +49,8 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     tag: "div",
     html: `${browser.i18n.getMessage(
       "ZM_visibilty_sheduler_description",
-    )}<br />${browser.i18n.getMessage("ZM_visibilty_sheduler_description")}`,
-    attributes: {class: "ZenMode_visibility-sheduler_description1"},
+    )}<br />${browser.i18n.getMessage("ZM_visibilty_sheduler_description1")}`,
+    attributes: {class: "ZenMode_visibility-sheduler_description"},
   });
 
   // Visibility Schedule
