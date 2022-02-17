@@ -31,6 +31,7 @@ function set_hide_contact(hide: boolean, chosenDelay?: number): void {
     addHiddenChats(lastHoveredChat);
   } else {
     removeHiddenChats(lastHoveredChat);
+    browser.runtime.sendMessage({type: 'deleteShedule', payload: {chatId: lastHoveredChat.id}});
   }
 }
 

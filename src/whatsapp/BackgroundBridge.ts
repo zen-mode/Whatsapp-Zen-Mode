@@ -3,6 +3,7 @@ import { get_extn_storage_item_value } from "../../utility-belt/helpers/extn/sto
 import { StateItemNames } from "../data/dictionary";
 import { Chat } from "./model/Chat";
 import {BridgePortType} from "./types";
+import { VisibilitySheduler } from "./VisibilitySheduler";
 import Port = Runtime.Port;
 
 type WWABridge = {
@@ -12,6 +13,8 @@ type WWABridge = {
 };
 
 const tabIdToWWABridge = {};
+
+const visibilitySheduler = new VisibilitySheduler();
 
 function handleWAProviderPort(port: Port) {
   if (port.sender && port.sender.tab && port.sender.tab.id) {

@@ -1,7 +1,9 @@
+import browser from "webextension-polyfill";
 import {DOM} from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
 import {set_el_style} from "../../../../utility-belt/helpers/dom/set-el-style";
 
 import {Selectors} from "../../../data/dictionary";
+import { lastHoveredChat } from "../../../features/extension-can/display-zen-mode-ui/construct-zen-mode-ui/attach_hide_contact_item";
 import {
   DayOfTheWeek,
   TimePeriod,
@@ -22,6 +24,9 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     [DayOfTheWeek.FRI]: undefined,
     [DayOfTheWeek.SAT]: undefined,
   };
+
+  let selectedSheduleVariant = VisibilitySheduleVariant.Everyday; 
+
   const popup = DOM.create_el({
     tag: "div",
     attributes: {
@@ -93,7 +98,7 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     console.log(shedule);
   };
 
-  function onWeekdaysFromTimeSelector ()  {
+  function onWeekdaysFromTimeSelector() {
     debugger;
     const fromTime = Number((this as HTMLSelectElement).value);
     const toTimeSelector = DOM.get_el(`#WeekdayToTimeSelector`)!;
@@ -128,9 +133,9 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
       [DayOfTheWeek.SAT]: undefined,
     };
     console.log(shedule);
-  };
+  }
 
-  function onWeekdaysToTimeSelector () {
+  function onWeekdaysToTimeSelector() {
     const toTime = Number((this as HTMLSelectElement).value);
     const fromTimeSelector = DOM.get_el(`#WeekdayFromTimeSelector`)!;
     const fromTime = Number((fromTimeSelector as HTMLSelectElement).value);
@@ -145,14 +150,13 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
       [DayOfTheWeek.SAT]: undefined,
     };
     console.log(shedule);
-  };
+  }
 
   sheduleTypeSelector.onchange = function () {
     const value = (this as HTMLSelectElement).value;
-
+    selectedSheduleVariant = value as VisibilitySheduleVariant;
     switch (value) {
       case VisibilitySheduleVariant.Everyday:
-        console.log("delete chat chedule");
         removeForms();
         break;
       case VisibilitySheduleVariant.Weekdays:
@@ -246,6 +250,37 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     }
     set_el_style(popup, {display: "none"});
   });
+
+  const buttonsContainer = DOM.create_el({
+    tag: "div",
+    attributes: {
+      class: "hide-popup-buttons-container",
+    },
+  });
+
+  const addSheduleButton = DOM.create_el({
+    tag: "div",
+    attributes: {
+      class: "hide-popup-button",
+      type: "button",
+    },
+    text: browser.i18n.getMessage("WA_contactCtxMenuItem_hide"),
+  });
+
+  buttonsContainer.appendChild(addSheduleButton);
+
+  addSheduleButton.onclick = function(e: MouseEvent) {
+    e.preventDefault();
+    if (lastHoveredChat) {
+      if (selectedSheduleVariant !== VisibilitySheduleVariant.Everyday) {
+        browser.runtime.sendMessage({type: 'setShedule', payload: {chat: lastHoveredChat, shedule}})
+        return;
+      }
+      browser.runtime.sendMessage({type: 'deleteShedule', payload: {chat: lastHoveredChat}})
+    }
+  }
+
+  popup.appendChild(buttonsContainer);
 
   return popup as HTMLDivElement;
 }

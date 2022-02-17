@@ -2,6 +2,8 @@ import browser from "webextension-polyfill";
 import {
     StateItemNames
 } from "../data/dictionary";
+import { Chat } from "./model/Chat";
+import { addHiddenChats, removeHiddenChats } from "./Storage";
 
 export enum DayOfTheWeek  {
     SUN = "0",
@@ -17,7 +19,7 @@ export type TimePeriod = [number, number] | undefined;
 export type WeekShedule = Record<DayOfTheWeek, TimePeriod>;
 
 
-export type VisibilityShedule = [string, WeekShedule][];
+export type VisibilityShedule = [Chat, WeekShedule][];
 
 export enum VisibilitySheduleVariant {
     Everyday="Everyday",
@@ -35,7 +37,7 @@ export class VisibilitySheduler {
         this.runDaemon();
     }
     
-    private hiddenChats: string[];
+    private hiddenChats: Chat[];
     private сhatsVisibilityShedule: VisibilityShedule = []
     
     private runDaemon() {
@@ -44,20 +46,20 @@ export class VisibilitySheduler {
             console.log({сhatsVisibilityShedule: this.сhatsVisibilityShedule});
         })
         this.updateChatsVisibility();
+        this.setMessageListeners();
         this.setAlarms();
     }
 
-    private hideChat(chatId: string) {
-        this.hiddenChats.push(chatId);
-        console.log("hideChat", chatId, this.hiddenChats);
+    private hideChat(chat: Chat) {
+        this.hiddenChats.push(chat);
+        addHiddenChats(chat);
     }
 
-    private showChat(chatId: string) {
-        this.hiddenChats = this.hiddenChats.filter((id) => chatId != id);
-        console.log("showChat", chatId, this.hiddenChats);
+    private showChat(chat: Chat) {
+        this.hiddenChats = this.hiddenChats.filter(({id}) => chat.id != id);
+        removeHiddenChats(chat);
     }
 
-    
     private setAlarms() {
         browser.alarms.clear(VisibilitySheduler.DAEMON_NAME);
         browser.alarms.create(VisibilitySheduler.DAEMON_NAME, {
@@ -78,27 +80,27 @@ export class VisibilitySheduler {
         const dateTime = new Date();
         const day = dateTime.getDay();
         const time = dateTime.getHours() * 60 + dateTime.getMinutes();
-        return this.сhatsVisibilityShedule.reduce((result: string[], curr) => {
-            const [chatId, chatShedule] = curr;
+        return this.сhatsVisibilityShedule.reduce((result: Chat[], curr) => {
+            const [chat, chatShedule] = curr;
             const currentDayChatShedule = chatShedule[day];
             if (currentDayChatShedule) {
                 const [start, end] = currentDayChatShedule;
                 if (time <= start || time >= end) {
-                    result.push(chatId);
+                    result.push(chat);
                 }          
             }
             return result  
         }, []);
     }
 
-    public setShedule(chatId: string, newShedule: WeekShedule) {
-            if (!this.сhatsVisibilityShedule.find(([sheduleChatId, _]) => sheduleChatId === chatId)) {
-                const newVisibilityShedule: VisibilityShedule = [...this.сhatsVisibilityShedule, [chatId, newShedule]];
+    public setShedule(chat: Chat, newShedule: WeekShedule) {
+            if (!this.сhatsVisibilityShedule.find(([{id}, _]) => id === chat.id)) {
+                const newVisibilityShedule: VisibilityShedule = [...this.сhatsVisibilityShedule, [chat, newShedule]];
                 this.updateShedule(newVisibilityShedule)
                 return;
             }
-            const newVisibilityShedule: VisibilityShedule = this.сhatsVisibilityShedule.map(([sheduleChatId, shedule]) =>
-                sheduleChatId === chatId ? [sheduleChatId, newShedule] : [sheduleChatId, shedule]);
+            const newVisibilityShedule: VisibilityShedule = this.сhatsVisibilityShedule.map(([{id}, shedule]) =>
+                chat.id === id ? [chat, newShedule] : [chat, shedule]);
             this.updateShedule(newVisibilityShedule)
     }
 
@@ -111,8 +113,31 @@ export class VisibilitySheduler {
         });
     }
 
-    public deleteShedule(chatId: String) {
-        const newVisibilityShedule: VisibilityShedule = this.сhatsVisibilityShedule.filter(([id, _]) => chatId !== id);
+    private handleMessages = (message: any) => {
+        console.log("handleMessages", message);
+        const { type, payload } = message;
+        switch (type) {
+            case 'setShedule': {
+                const {chat, shedule} = payload;
+                this.setShedule(chat, shedule)
+                console.log("set shedule", payload);
+                break;
+            }
+            case 'deleteShedule': {
+                const {chat} = payload;
+                this.deleteShedule(chat);
+                console.log("deleteShedule", payload);
+                break;
+            }
+        }
+    }
+
+    private setMessageListeners() {
+        browser.runtime.onMessage.addListener(this.handleMessages);
+    }
+
+    public deleteShedule(chat: Chat) {
+        const newVisibilityShedule: VisibilityShedule = this.сhatsVisibilityShedule.filter(([{id}, _]) => chat.id !== id);
         this.updateShedule(newVisibilityShedule);
     }
 
