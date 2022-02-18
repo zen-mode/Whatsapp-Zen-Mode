@@ -1,5 +1,5 @@
 release:
     description: <b>Public beta version <a href="https://en.wikipedia.org/wiki/Golda_Meir">Golda Meir</a></b>
     changes:
-      - Bug fix due to WhatsAppweb update.
+      - <b>1. Visibility Schedule</b> - can be set via chat menu.
     link: <a href="https://github.com/zen-mode/Whatsapp-Zen-Mode/blob/main/ReleaseNotes.md">See previous versions</a>
