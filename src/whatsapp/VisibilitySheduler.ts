@@ -149,5 +149,4 @@ export class VisibilitySheduler {
         newHiddenChats.forEach((chatId) => this.hideChat(chatId));
         chatsToShow.forEach((chatId) => this.showChat(chatId));
     }
-
 }
