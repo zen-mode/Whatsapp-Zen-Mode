@@ -109,7 +109,6 @@ export function construct_hide_popup_area(): HTMLDivElement {
     if ((e.target as Element).closest(Selectors.ZM_HIDE_POPUP)) {
       return;
     }
-    // set_el_style(hidePopupArea, {display: "none"});
   });
 
   getVisibiltyShedule().then((shedule) => {

@@ -53,7 +53,6 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     attributes: {class: "ZenMode_visibility-sheduler_description"},
   });
 
-  // Visibility Schedule
   const sheduleTitle = DOM.create_el({
     tag: "div",
     html: browser.i18n.getMessage("ZM_visibilty_sheduler_title"),
