@@ -28,7 +28,8 @@ export const enum StateItemNames {
   ZEN_MODE_FORCE_BY_ZEN_MORNING = "ZEN_MODE_FORCE_BY_ZEN_MORNING",
   SMART_MUTE_STATUS = "SMART_MUTE_STATUS",
   AUTO_READ_HIDDEN_CONVERSATIONS_STATUS = "AUTO_READ_HIDDEN_CONVERSATIONS_STATUS",
-  SETTINGS_MENU = "SETTINGS_MENU"
+  SETTINGS_MENU = "SETTINGS_MENU",
+  SCHEDULED_HIDDEN = 'SCHEDULED_HIDDEN'
 }
 
 export const enum Selectors {
@@ -37,7 +38,7 @@ export const enum Selectors {
   // Attention: Non-exclusive! Other unrelated els have this too.
   WA_CONTACT_NAME = "span.ggj6brxn[title]",
   WA_CONTACT_SECOND_DIV = "[role='gridcell']",
-  WA_CONTACT_ELEMENT_HOVERED_DIV = ".hover",
+  WA_CONTACT_ELEMENT_HOVERED_DIV = ".hoverLocal",
   WA_CONTACT_ICON_CLASS_NAME = "_2TiQe",
   WA_CONTACT_UNREAD_SPAN = "._38M1B",
 
@@ -71,6 +72,7 @@ export const enum Selectors {
   ZM_HIDE_CONTACT_CTX_MENU_ITEM = "#ZenMode__hideContact",
   ZM_UNHIDE_CONTACT_CTX_MENU_ITEM = "#ZenMode__unhideContact",
 	ZM_ZENMORNING_CONTACT_CTX_MENU_ITEM = "#ZenMode__zenMorning",
+  ZM_VISIBILITY_SHEDULER_CTX_MENU_ITEM = "#ZenMode__visibilitySheduler",
   ZM_ZENMORNING_CONTACT_SUNICON = "#ZenMode__zenMorning__sunIcon",
   ZM_ZENMORNING_AREA = "#ZenMode__zenMorningArea",
   ZM_ZENMORNING_AREA_FOOTER = "#ZenMode__zenMorningArea__footer",
@@ -85,6 +87,7 @@ export const enum Selectors {
   ZM_BADGE = "#ZenMode__badge",
   ZM_TRELLO_LIST_CONTENT = "js-list-content",
   ZM_HIDE_POPUP = "#ZenMode_hide_popup",
+  ZM_VISIBILITY_SHEDULER_POPUP = "#ZenMode__visibilityShedulerPopup",
   ZM_TRELLO_POP_OVER = "div.pop-over",
   ZM_TRELLO_POP_OVER_CONTENT = "div.pop-over-content",
   ZM_TRELLO_POP_OVER_LIST = "pop-over-list",

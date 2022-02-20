@@ -6,6 +6,8 @@ import {set_el_style} from "../../../../utility-belt/helpers/dom/set-el-style";
 import {Selectors} from "../../../data/dictionary";
 import browser from "webextension-polyfill";
 import { hide_contact } from "../hide-contacts/hide-contact";
+import { getVisibiltyShedule } from "../../../whatsapp/Storage";
+import { lastHoveredChat } from "../../extension-can/display-zen-mode-ui/construct-zen-mode-ui/attach_hide_contact_item";
 
 export function construct_hide_popup_area(): HTMLDivElement {
   const hidePopupArea = DOM.create_el({
@@ -29,6 +31,12 @@ export function construct_hide_popup_area(): HTMLDivElement {
   headerEl.appendChild(headerTitle)
   
   hidePopupArea.appendChild(headerEl);
+
+  const warningArea = DOM.create_el({
+    tag: "div",
+    attributes: {class: "ZenMode__warning-area"}
+  })
+  hidePopupArea.appendChild(warningArea);
 
   const hidePopupFormEl = DOM.create_el({tag: "form"});
   hidePopupArea.appendChild(hidePopupFormEl);
@@ -94,14 +102,22 @@ export function construct_hide_popup_area(): HTMLDivElement {
   });
   closeBtnEl.addEventListener("click", () =>
     set_el_style(hidePopupArea, {display: "none"}),
+    DOM.remove_el(Selectors.ZM_HIDE_POPUP)
   );
   hidePopupArea.appendChild(closeBtnEl);
   window.addEventListener('click', (e) => {
     if ((e.target as Element).closest(Selectors.ZM_HIDE_POPUP)) {
       return;
     }
-    set_el_style(hidePopupArea, {display: "none"});
   });
+
+  getVisibiltyShedule().then((shedule) => {
+    const hoveredChatId = lastHoveredChat?.id;
+    if (hoveredChatId && shedule.find(s => s[0].id === hoveredChatId)) {
+      const warningMessage = DOM.create_el({tag: "span", text: browser.i18n.getMessage("ZM_visibilty_sheduler_Warning")});
+      warningArea.append(warningMessage)
+    }
+  })
 
   return hidePopupArea as HTMLDivElement;
 }

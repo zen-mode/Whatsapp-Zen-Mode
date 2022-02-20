@@ -3,6 +3,7 @@ import {Selectors} from "../../../../data/dictionary";
 import {constructFakeCtxMenuItem} from "../../../user-can/use-zen-mode-ctx-menu/construct-zen-mode-ctx-menu-item";
 import { DOM } from "../../../../../utility-belt/helpers/dom/DOM-shortcuts";
 import { set_el_style } from "../../../../../utility-belt/helpers/dom/set-el-style";
+import { construct_hide_popup_area } from "../../../user-can/hide-chat-form-popup/construct-chat-popup";
 
 export function construct_Hide_contact_ctx_menu_item(): HTMLLIElement {
   const menuItemEl = constructFakeCtxMenuItem(
@@ -15,5 +16,7 @@ export function construct_Hide_contact_ctx_menu_item(): HTMLLIElement {
 }
 
 function hidePopup() {
-    set_el_style(DOM.get_el(Selectors.ZM_HIDE_POPUP), {display: "initial"});
+  const hideChatAreaEl = construct_hide_popup_area();
+  document.body.appendChild(hideChatAreaEl);
+    // set_el_style(DOM.get_el(Selectors.ZM_HIDE_POPUP), {display: "initial"});
 }

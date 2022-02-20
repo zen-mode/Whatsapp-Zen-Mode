@@ -20,7 +20,7 @@ import {get_contact_el_by_chat_name} from "../../api/get-contact-el-by-contact-n
 import { fixContextMenuPosition } from "../../whatsapp/ui/FakeCtxMenu/utils";
 import { get_hovered_contact_el } from "../../api/get-hovered-contact-el";
 
-const CONTACT_CONTEXT_MENU_CUSTOM_ITEMS_COUNT = 2;
+const CONTACT_CONTEXT_MENU_CUSTOM_ITEMS_COUNT = 3;
 const CHAT_CONTEXT_MENU_CUSTOM_ITEMS_COUNT = 1;
 
 export let providerInjected = false;

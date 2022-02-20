@@ -261,7 +261,6 @@ html[dir=ltr] .fakeCtxMenuSettings {
   top: 50%;
   min-width: 400px;
   transform: translate(-50%, -50%);
-  display: none;
   z-index: 9999999;
   padding: 1em;
 }
@@ -318,6 +317,71 @@ html[dir=ltr] .hide-popup-close-btn {
   width: fit-content;
 }
 
+#ZenMode__visibilityShedulerPopup {
+  position: fixed;
+  height: fit-content;
+  width: fit-content;
+  left: 50%;
+  top: 50%;
+  min-width: 400px;
+  min-height: 200px;
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 9999999;
+  padding: 1em;
+}
+
+.ZenMode__select {
+  box-sizing: border-box;
+  font-size: 14px;
+  line-height: 18px;
+  outline: none;
+  padding: 6px 6px;
+  border-radius: 4px;
+  width: fit-content;
+  color: var(--primary-stronger);
+  background-color: white;
+  border: revert;
+  appearance: auto;
+  margin: 0 10px;
+}
+
+.ZenMode_visibility-sheduler_description {
+  margin: 20px 0;
+}
+
+.ZenMode_visibility-sheduler_title {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.ZenMode__sheduler_row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 8px;
+}
+
+.ZenMode__sheduler_weekday-label {
+  width: 90px;
+}
+
+#WeekdaysShedulerForm {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.ZenMode__sheduler_apply-button {
+  margin-top: 20px;
+}
+
+.ZenMode__warning-area {
+  margin: 10px 0;
+  color: red;
+  font-weight: bold;
+}
+
 /* Navigation Drawer */
 
 button._2fQtj {
@@ -329,3 +393,4 @@ button._2fQtj {
 ._2nY6U:hover button._2fQtj {
   display: initial;
 }
+
