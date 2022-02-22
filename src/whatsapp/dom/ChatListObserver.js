@@ -42,13 +42,11 @@ function onChatListUpdated(m) {
 function updateChatElementState(e) {
   const chatNode = new ChatNode(e, true, false);
   const title = chatNode.title();
-  if (_zenMorningChat) {
-    if (title === _zenMorningChat.title) {
+  if (_zenMorningChat && _zenMorningChat.title === title) {
       setSunTo(chatNode);
     } else {
       clearSun(chatNode.node);
     }
-  }
 }
 
 function refreshVisibleChatsState() {
