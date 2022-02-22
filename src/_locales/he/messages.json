@@ -10,7 +10,7 @@
     "message": "הצג צ'אט מוסתר"
   },
   "WA_contactCtxMenuItem_zenMorning": {
-    "message": "בוקר זן \uD83C\uDF1E",
+    "message": "\uD83C\uDF1E בוקר זן",
     "description": "WA contact ctx menu item that turn zen morning for contact"
   },
   "WA_contactCtxMenuItem_mark_unread": {
@@ -139,7 +139,7 @@
     "message": "ראשון"
   },
   "WA_contactCtxMenuItem_visibiltySheduler": {
-    "message": "זמני הצגת הצ'ט"
+    "message": "\uD83D\uDD50 זמני הצגת הצ'ט"
   },
   "ZM_visibilty_sheduler_Warning": {
     "message": "פעולה זו תבטל את הזמנים המוגדרים לצ'ט"
