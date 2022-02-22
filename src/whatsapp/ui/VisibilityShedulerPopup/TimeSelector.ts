@@ -1,3 +1,4 @@
+import browser from "webextension-polyfill";
 import {DOM} from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
 
 export type ConstructTimeSelectorConfig = {
@@ -44,7 +45,7 @@ function addNoneOption(options: HTMLElement[]) {
   const noneOption = DOM.create_el({
     tag: "option",
     attributes: {value: "none"},
-    text: "none",
+    text: browser.i18n.getMessage("ZM_visibilty_sheduler_time_selector_none"),
   });
   return [noneOption, ...options];
 }

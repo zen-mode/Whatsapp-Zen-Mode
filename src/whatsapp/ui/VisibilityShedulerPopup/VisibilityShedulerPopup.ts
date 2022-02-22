@@ -302,7 +302,7 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
       class: "hide-popup-button ZenMode__sheduler_apply-button",
       type: "button",
     },
-    text: browser.i18n.getMessage("ZM_onboarding_page_agree"),
+    text: browser.i18n.getMessage("ZM_visibilty_sheduler_confirmation_button_label"),
   });
 
   addSheduleButton.onclick = function (e: MouseEvent) {

@@ -117,6 +117,9 @@
   "ZM_visibilty_sheduler_custom": {
     "message": "מותאם"
   },
+  "ZM_visibilty_sheduler_time_selector_none": {
+    "message": "כלל לא"
+  },
   "ZM_visibilty_sheduler_Monday": {
     "message": "שני"
   },
@@ -143,5 +146,8 @@
   },
   "ZM_visibilty_sheduler_Warning": {
     "message": "פעולה זו תבטל את הזמנים המוגדרים לצ'ט"
+  },
+  "ZM_visibilty_sheduler_confirmation_button_label": {
+    "message": "אישור"
   }
 }
