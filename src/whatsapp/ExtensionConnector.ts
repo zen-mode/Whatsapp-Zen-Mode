@@ -38,7 +38,6 @@ async function processChatMessage(response: any) {
   const userId = user.toString();
   const chatId = msg.fromMe ? msg.to : msg.from;
   const chat = await getHiddenChatById(chatId)
-  const isHidden = !!chat;
   
   if (chat?.isGroup) {
     const isMentioned = msg.mentionedJidList.find((mentionedJid: string) => mentionedJid === userId);
