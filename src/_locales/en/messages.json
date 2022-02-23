@@ -15,7 +15,7 @@
     "description": "WA contact ctx menu item that unhides the contact"
   },
   "WA_contactCtxMenuItem_zenMorning": {
-    "message": "Zen Morning \uD83C\uDF1E",
+    "message": "\uD83C\uDF1E Zen Morning",
     "description": "WA contact ctx menu item that turn zen morning for contact"
   },
   "WA_contactCtxMenuItem_mark_unread": {
@@ -172,7 +172,7 @@
     "message": "Sunday"
   },
   "WA_contactCtxMenuItem_visibiltySheduler": {
-    "message": "Visibility Schedule"
+    "message": "\uD83D\uDD50 Visibility Schedule"
   },
   "ZM_visibilty_sheduler_Warning": {
     "message": "This action will cancel the visibility schedule"
