@@ -16,7 +16,8 @@ const DRAWER_CONTAINER_HEIGHT_PX = 72;
 const DRAWER_UP_BUTTON_ID = 'backButton';
 
 export function constructBaseLeftDrawerItemList<T>(title: string,
-                                                   items: T[], onBackButtonClick: (event: MouseEvent) => void,
+                                                   items: T[],
+                                                   onBackButtonClick: (event: MouseEvent) => void,
                                                    constructItemEl: (item: T) => HTMLElement,
                                                    onClickOnItemEl: (event: MouseEvent, item: T) => void,
                                                    constructEmptyPlugEl?: () => HTMLElement): LeftDrawerItemList<T> {
@@ -138,6 +139,11 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
     devprint('itemElToItem', itemElToItem)
     if (itemElToItem.size > 0) {
       setEmptyPlugEl(null);
+      let currentIndex = -1;
+      for (const itemEl of itemElToItem.keys()) {
+        currentIndex++;
+        itemEl.style.transform = `translateY(${currentIndex * DRAWER_CONTAINER_HEIGHT_PX}px)`;
+      }
     } else if (constructEmptyPlugEl) {
       setEmptyPlugEl(constructEmptyPlugEl());
     }
