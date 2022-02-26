@@ -34,7 +34,21 @@ function constructBasicChatListElement(chat: Chat): HTMLElement {
 
   const div = document.createElement('DIV');
   // Styles
-  div.setAttribute('tabindex', '-1')
+  div.setAttribute('tabindex', '-1');
+  
+  const previewMessageHTML = chat.previewMessage ? `
+    <div class="_1qB8f">
+        <span class="Hy9nV" title="${chat.previewMessage}">
+             <div class="_2qo4q _3NIfV">
+                 <span data-testid="status-dblcheck" data-icon="status-dblcheck" class="">
+                     <svg viewBox="0 0 18 18" width="18" height="18" class="">
+                         <path fill="currentColor" d="m17.394 5.035-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-.427-.388a.381.381 0 0 0-.578.038l-.451.576a.497.497 0 0 0 .043.645l1.575 1.51a.38.38 0 0 0 .577-.039l7.483-9.602a.436.436 0 0 0-.076-.609zm-4.892 0-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-2.614-2.556a.435.435 0 0 0-.614.007l-.505.516a.435.435 0 0 0 .007.614l3.887 3.8a.38.38 0 0 0 .577-.039l7.483-9.602a.435.435 0 0 0-.075-.609z"></path>
+                    </svg>
+                </span>
+            </div>
+            <span dir="ltr" class="ggj6brxn gfz4du6o r7fjleex g0rxnol2 lhj4utae le5p0ye3 l7jjieqr i0jNr">${chat.previewMessage}</span>
+        </span>
+    </div>` : `<div class="_1qB8f"></div>`
   div.innerHTML = `
             <span></span>
             <div class="_3P67r">
@@ -59,18 +73,7 @@ function constructBasicChatListElement(chat: Chat): HTMLElement {
                               <div class="_1i_wG"></div>
                            </div>
                            <div class="_37FrU">
-                              <div class="_1qB8f">
-                                 <span class="Hy9nV" title="${chat.previewMessage}">
-                                    <div class="_2qo4q _3NIfV">
-                                        <span data-testid="status-dblcheck" data-icon="status-dblcheck" class="">
-                                            <svg viewBox="0 0 18 18" width="18" height="18" class="">
-                                                <path fill="currentColor" d="m17.394 5.035-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-.427-.388a.381.381 0 0 0-.578.038l-.451.576a.497.497 0 0 0 .043.645l1.575 1.51a.38.38 0 0 0 .577-.039l7.483-9.602a.436.436 0 0 0-.076-.609zm-4.892 0-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-2.614-2.556a.435.435 0 0 0-.614.007l-.505.516a.435.435 0 0 0 .007.614l3.887 3.8a.38.38 0 0 0 .577-.039l7.483-9.602a.435.435 0 0 0-.075-.609z"></path>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                    <span dir="ltr" class="ggj6brxn gfz4du6o r7fjleex g0rxnol2 lhj4utae le5p0ye3 l7jjieqr i0jNr">${chat.previewMessage}</span>
-                                 </span>
-                              </div>
+                              ${previewMessageHTML}
                               <div role="gridcell" aria-colindex="1" class="_1i_wG">
                                 <span><span class="_1pJ9J  _3f7yK">${browser.i18n.getMessage('ZM_hidden')}</span></span>
                                 <span></span>
