@@ -34,7 +34,21 @@ function constructBasicChatListElement(chat: Chat): HTMLElement {
 
   const div = document.createElement('DIV');
   // Styles
-  div.setAttribute('tabindex', '-1')
+  div.setAttribute('tabindex', '-1');
+  
+  const previewMessageHTML = chat.previewMessage ? `
+    <div class="_1qB8f">
+        <span class="Hy9nV" title="${chat.previewMessage}">
+             <div class="_2qo4q _3NIfV">
+                 <span data-testid="status-dblcheck" data-icon="status-dblcheck" class="">
+                     <svg viewBox="0 0 18 18" width="18" height="18" class="">
+                         <path fill="currentColor" d="m17.394 5.035-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-.427-.388a.381.381 0 0 0-.578.038l-.451.576a.497.497 0 0 0 .043.645l1.575 1.51a.38.38 0 0 0 .577-.039l7.483-9.602a.436.436 0 0 0-.076-.609zm-4.892 0-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-2.614-2.556a.435.435 0 0 0-.614.007l-.505.516a.435.435 0 0 0 .007.614l3.887 3.8a.38.38 0 0 0 .577-.039l7.483-9.602a.435.435 0 0 0-.075-.609z"></path>
+                    </svg>
+                </span>
+            </div>
+            <span dir="ltr" class="ggj6brxn gfz4du6o r7fjleex g0rxnol2 lhj4utae le5p0ye3 l7jjieqr i0jNr">${chat.previewMessage}</span>
+        </span>
+    </div>` : `<div class="_1qB8f"></div>`
   div.innerHTML = `
             <span></span>
             <div class="_3P67r">
@@ -59,18 +73,7 @@ function constructBasicChatListElement(chat: Chat): HTMLElement {
                               <div class="_1i_wG"></div>
                            </div>
                            <div class="_37FrU">
-                              <div class="_1qB8f">
-                                 <span class="Hy9nV" title="${chat.previewMessage}">
-                                    <div class="_2qo4q _3NIfV">
-                                        <span data-testid="status-dblcheck" data-icon="status-dblcheck" class="">
-                                            <svg viewBox="0 0 18 18" width="18" height="18" class="">
-                                                <path fill="currentColor" d="m17.394 5.035-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-.427-.388a.381.381 0 0 0-.578.038l-.451.576a.497.497 0 0 0 .043.645l1.575 1.51a.38.38 0 0 0 .577-.039l7.483-9.602a.436.436 0 0 0-.076-.609zm-4.892 0-.57-.444a.434.434 0 0 0-.609.076l-6.39 8.198a.38.38 0 0 1-.577.039l-2.614-2.556a.435.435 0 0 0-.614.007l-.505.516a.435.435 0 0 0 .007.614l3.887 3.8a.38.38 0 0 0 .577-.039l7.483-9.602a.435.435 0 0 0-.075-.609z"></path>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                    <span dir="ltr" class="ggj6brxn gfz4du6o r7fjleex g0rxnol2 lhj4utae le5p0ye3 l7jjieqr i0jNr">${chat.previewMessage}</span>
-                                 </span>
-                              </div>
+                              ${previewMessageHTML}
                               <div role="gridcell" aria-colindex="1" class="_1i_wG">
                                 <span><span class="_1pJ9J  _3f7yK">${browser.i18n.getMessage('ZM_hidden')}</span></span>
                                 <span></span>
@@ -123,8 +126,8 @@ function constructBasicChatListElement(chat: Chat): HTMLElement {
 
 function constructEmptyPlug(): HTMLElement {
   document.body.insertAdjacentHTML('afterbegin', `
-        <div id="${EMPTY_HIDDEN_CHATS_LIST_PLUG_ID}" class="_3Iwj9">
-            <div class="_2t_t3">
+        <div id="${EMPTY_HIDDEN_CHATS_LIST_PLUG_ID}" class="cm280p3y p357zi0d ggj6brxn f8m0rgwh gndfcl4n ac2vgrno ppled2lx gq7nj7y3 td5bf8pq eynyaxvo l3k7h4x6 hp667wtd qfejxiq4">
+            <div class="p357zi0d tvf2evcx oq44ahr5 lb5m6g5c gndfcl4n ac2vgrno f6essjlf j19d4s4u pcx1034m r2u2pyhj myzbk5ck f2yrvmhs g9p5wyxn i0tg5vk9 aoogvgrq o2zu3hjb">
                <span data-testid="empty-archived" data-icon="empty-archived" class="">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90" width="90" height="90">
                      <path fill="currentColor" d="M71.109 24.113l-4.288-5.222c-.594-.934-1.825-1.528-3.396-1.528h-36.85a5.083 5.083 0 0 0-3.693 1.528l-3.991 5.222c-.934 1.231-1.528 2.462-1.528 3.991v38.377a6.16 6.16 0 0 0 6.156 6.156h42.962a6.16 6.16 0 0 0 6.156-6.156V28.104c0-1.529-.595-2.76-1.528-3.991zM45.042 61.896L28.146 45h10.741v-6.156h12.269V45h10.741L45.042 61.896zM23.859 23.519l2.462-3.057H63.17l2.759 3.057h-42.07z"></path>
