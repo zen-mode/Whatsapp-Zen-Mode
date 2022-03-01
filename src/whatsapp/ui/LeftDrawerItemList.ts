@@ -139,11 +139,6 @@ export function constructBaseLeftDrawerItemList<T>(title: string,
     devprint('itemElToItem', itemElToItem)
     if (itemElToItem.size > 0) {
       setEmptyPlugEl(null);
-      let currentIndex = -1;
-      for (const itemEl of itemElToItem.keys()) {
-        currentIndex++;
-        itemEl.style.transform = `translateY(${currentIndex * DRAWER_CONTAINER_HEIGHT_PX}px)`;
-      }
     } else if (constructEmptyPlugEl) {
       setEmptyPlugEl(constructEmptyPlugEl());
     }
