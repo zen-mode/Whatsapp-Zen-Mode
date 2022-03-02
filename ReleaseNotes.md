@@ -1,4 +1,4 @@
-# Release Notes 1.4.2.14
+# Release Notes 1.4.2.15
 ###  Public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
 1.**Visibility Schedule** - can be set via chat menu
 2.Cosmetic changes
