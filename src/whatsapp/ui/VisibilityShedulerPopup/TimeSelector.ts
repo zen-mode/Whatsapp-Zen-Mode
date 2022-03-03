@@ -7,17 +7,18 @@ export type ConstructTimeSelectorConfig = {
   id?: string;
   includeNone?: boolean;
   value?: string;
+  disableAboveSelected?: boolean;
 };
 
 const TIME_INTERVAL = 30;
 const DEFAULT_SELECTED_VALUE = 480;
 
 export function construct_time_selector(config: ConstructTimeSelectorConfig) {
-  const {onChange, id, includeNone, value = DEFAULT_SELECTED_VALUE} = config;
+  const {onChange, id, includeNone, value = DEFAULT_SELECTED_VALUE, disableAboveSelected} = config;
 
   const defaultSelectedValue = includeNone ? undefined : 480;
 
-  let timeSelectorOptions = getTimeSelectorOptions(TIME_INTERVAL, defaultSelectedValue);
+  let timeSelectorOptions = getTimeSelectorOptions(TIME_INTERVAL, defaultSelectedValue, disableAboveSelected);
   if (includeNone) {
     timeSelectorOptions = addNoneOption(timeSelectorOptions);
   }
@@ -54,7 +55,7 @@ function addNoneOption(options: HTMLElement[]) {
   return [noneOption, ...options];
 }
 
-function getTimeSelectorOptions(timeInterval: number, defaultSelected?: number) {
+function getTimeSelectorOptions(timeInterval: number, defaultSelected?: number, disableAboveSelected?: boolean) {
   let time = 0;
   const timeList = [];
   while (time < 24 * 60) {
@@ -71,7 +72,7 @@ function getTimeSelectorOptions(timeInterval: number, defaultSelected?: number) 
 
     const label = `${hours12}:${minutesString} ${timePostfix}`;
 
-    const isDisabled = defaultSelected && value < defaultSelected;
+    const isDisabled = defaultSelected && disableAboveSelected && value < defaultSelected;
 
     const optionElement = DOM.create_el({
       tag: "option",

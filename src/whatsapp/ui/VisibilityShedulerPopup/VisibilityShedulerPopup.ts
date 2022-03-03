@@ -195,10 +195,12 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
         const fromTimeSelector = construct_time_selector({
           onChange: onWeekdaysFromTimeSelector,
           id: "WeekdayFromTimeSelector",
+          disableAboveSelected: false
         });
         const toTimeSelector = construct_time_selector({
           onChange: onWeekdaysToTimeSelector,
           id: "WeekdayToTimeSelector",
+          disableAboveSelected: true
         });
 
         const separator = DOM.create_el({
