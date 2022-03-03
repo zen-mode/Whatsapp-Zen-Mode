@@ -3,19 +3,24 @@ import {DOM} from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
 
 export type ConstructTimeSelectorConfig = {
   onChange: (this: GlobalEventHandlers, ev: Event) => void;
-  attributes?: Record<string, string>,
+  attributes?: Record<string, string>;
   id?: string;
   includeNone?: boolean;
   value?: string;
+  disableAboveSelected?: boolean;
 };
 
 const TIME_INTERVAL = 30;
-export function construct_time_selector(config: ConstructTimeSelectorConfig) {
-  const {onChange, id, includeNone, value} = config;
+const DEFAULT_SELECTED_VALUE = 480;
 
-  let timeSelectorOptions = getTimeSelectorOptions(TIME_INTERVAL);
+export function construct_time_selector(config: ConstructTimeSelectorConfig) {
+  const {onChange, id, includeNone, value = DEFAULT_SELECTED_VALUE, disableAboveSelected} = config;
+
+  const defaultSelectedValue = includeNone ? undefined : 480;
+
+  let timeSelectorOptions = getTimeSelectorOptions(TIME_INTERVAL, defaultSelectedValue, disableAboveSelected);
   if (includeNone) {
-    timeSelectorOptions = addNoneOption(timeSelectorOptions)
+    timeSelectorOptions = addNoneOption(timeSelectorOptions);
   }
 
   const attributes = {class: "ZenMode__select"};
@@ -24,7 +29,7 @@ export function construct_time_selector(config: ConstructTimeSelectorConfig) {
   }
 
   if (value) {
-    attributes["value"] = value;
+    attributes["value"] = value.toString();
   }
 
   const timeSelector = DOM.create_el({
@@ -50,7 +55,7 @@ function addNoneOption(options: HTMLElement[]) {
   return [noneOption, ...options];
 }
 
-function getTimeSelectorOptions(timeInterval: number) {
+function getTimeSelectorOptions(timeInterval: number, defaultSelected?: number, disableAboveSelected?: boolean) {
   let time = 0;
   const timeList = [];
   while (time < 24 * 60) {
@@ -66,13 +71,24 @@ function getTimeSelectorOptions(timeInterval: number) {
     const hours12 = hours24 % 12 || 12;
 
     const label = `${hours12}:${minutesString} ${timePostfix}`;
-    return DOM.create_el({
+
+    const isDisabled = defaultSelected && disableAboveSelected && value < defaultSelected;
+
+    const optionElement = DOM.create_el({
       tag: "option",
       attributes: {value: value.toString()},
       text: label,
     });
+
+    if (defaultSelected === value) {
+      optionElement.setAttribute("selected", "1");
+    }
+
+    if (isDisabled) {
+      optionElement.setAttribute("disabled", "1");
+    }
+    return optionElement;
   });
 
   return timeOptions;
 }
-

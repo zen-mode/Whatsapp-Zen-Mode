@@ -63,6 +63,10 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     tag: "div",
   });
 
+  const weekdaysDescriptionContainer = DOM.create_el({
+    tag: "div",
+  });
+
   popup.append(description, sheduleTitle);
 
   popup.addEventListener("click", (e) => e.stopPropagation());
@@ -187,13 +191,16 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
           tag: "div",
           attributes: {id: "WeekdaysShedulerForm"},
         });
+        
         const fromTimeSelector = construct_time_selector({
           onChange: onWeekdaysFromTimeSelector,
           id: "WeekdayFromTimeSelector",
+          disableAboveSelected: false
         });
         const toTimeSelector = construct_time_selector({
           onChange: onWeekdaysToTimeSelector,
           id: "WeekdayToTimeSelector",
+          disableAboveSelected: true
         });
 
         const separator = DOM.create_el({
@@ -202,8 +209,16 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
         });
 
         weekdaysShedulerForm.append(fromTimeSelector, separator, toTimeSelector);
+        
+        const description = DOM.create_el({
+            tag: "span",
+            attributes: {id: "WeekdaysDescription"},
+            text: browser.i18n.getMessage("ZM_visibilty_sheduler_weekdays_description"),
+          });
 
-        typeSelectorContainer.appendChild(weekdaysShedulerForm);
+        weekdaysDescriptionContainer.append(description);
+
+        typeSelectorContainer.append(weekdaysShedulerForm);
         break;
 
       case VisibilitySheduleVariant.Custom:
@@ -213,7 +228,7 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
           attributes: {id: "CustomShedulerForm"},
         });
 
-        const customShedulerOptions = [...Array(7)].map((it, day) => {
+        const customShedulerOptions = [...Array(7)].map((_, day) => {
           const container = DOM.create_el({
             tag: "div",
             attributes: {class: "ZenMode__sheduler_row"},
@@ -272,7 +287,7 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
   sheduleTypeSelectorOptions.forEach((option) => sheduleTypeSelector.appendChild(option));
 
   typeSelectorContainer.appendChild(sheduleTypeSelector);
-  popup.append(typeSelectorContainer, customShedulerFormContainer);
+  popup.append(typeSelectorContainer, weekdaysDescriptionContainer, customShedulerFormContainer);
 
   const closeBtnEl = DOM.create_el({
     tag: "div",
@@ -332,4 +347,5 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
 function removeForms() {
   DOM.remove_el("#WeekdaysShedulerForm");
   DOM.remove_el("#CustomShedulerForm");
+  DOM.remove_el("#WeekdaysDescription");
 }
