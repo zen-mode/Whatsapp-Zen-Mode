@@ -149,5 +149,8 @@
   },
   "ZM_visibilty_sheduler_confirmation_button_label": {
     "message": "אישור"
+  },
+  "ZM_visibilty_sheduler_weekdays_description": {
+    "message": "(ימי העבודה הם ראשון עד חמישי)"
   }
 }
