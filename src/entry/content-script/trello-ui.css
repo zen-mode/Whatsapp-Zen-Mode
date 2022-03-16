@@ -17,6 +17,10 @@
   cursor: pointer;
 }
 
+.js-list-content {
+  display: none !important;
+}
+
 .zen-mode-trello-icon {
   width: 32px;
   background-size: cover;
@@ -39,4 +43,8 @@
 
 .hidding_column {
   display: none !important;
+}
+
+.show_column {
+  display: inherit !important;
 }
