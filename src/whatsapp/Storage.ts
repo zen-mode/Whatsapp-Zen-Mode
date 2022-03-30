@@ -106,3 +106,12 @@ export async function isHiddenChat(
 ): Promise<boolean> {
   return isHiddenChatById(chat.id)
 }
+
+export enum StorageLogEventType {
+    INFO = "INFO",
+    WARNING = "WARNING",
+    ERROR = "ERROR"
+}
+export async function storageLog(StorageLogEventType: string, message: string) {
+    console.log("***storageLog***", `${StorageLogEventType}: ${message}`)
+}

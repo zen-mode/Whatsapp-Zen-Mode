@@ -26,6 +26,8 @@ import {
   stopRetentionArchiveChatLocally,
   stopRetentionMuteChatLocally
 } from "./RetentionArchiveChat";
+import { storageLog, StorageLogEventType } from "./Storage";
+import { devprint } from "../../utility-belt/helpers/debug/devprint";
 // @ts-ignore
 const browser = chrome;
 
@@ -128,10 +130,12 @@ extBridgePort.onMessage.addListener((request: WWAProviderRequest) => {
 });
 
 ChatModule.Msg.on('add', (msg:any) => {
+  devprint("New message", msg);
+  storageLog(StorageLogEventType.INFO, `New message event ${JSON.stringify(msg)}`)
   if (!msg.isNewMsg) return;
   if (msg.id.fromMe) return;
   const user = ConnModule.wid;
-  extBridgePort.postMessage({action: "NEW_MESSAGE", payload: {msg, user}})
+  extBridgePort.postMessage({action: "NEW_MESSAGE", payload: {msg, user}});
 })
 
 extBridgePort.onDisconnect.addListener(handlePortDisconnection);
@@ -181,5 +185,7 @@ ChatModule.Chat.on('change:unreadCount', (chat: any) => {
 });
 
 ChatModule.Msg.on('add', (message: any) => {
+  devprint("New message", message);
+  storageLog(StorageLogEventType.INFO, `New message event ${JSON.stringify(message)}`)
   publishEvent(InternalEvent.CHAT_NEW_MESSAGE, [message]);
 })

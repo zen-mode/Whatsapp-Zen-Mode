@@ -2,12 +2,27 @@ import "../../features/state-machine/state-machine-cs";
 import "../../features/extension-can/display-zen-mode-ui/attach-zen-mode-ui";
 import "../../features/state-machine/attach-DOM-observers";
 import "../../whatsapp/dom/ChatListObserver";
+import {storageLog} from "../../whatsapp/Storage"
 
 // Explain: https://github.com/parcel-bundler/parcel/issues/5865.
 // import "../../features/extension-can/display-zen-mode-ui/zen-mode-ui.css";
 
 let zenModeOn = null;
 let iconUpdaterInterval = null;
+
+window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+    // console.log('Caught background script error');
+    // console.log('errorMsg: ' + errorMsg);
+    // console.log('url: ' + url);
+    // console.log('lineNumber: ' + lineNumber);
+    // console.log('column: ' + column);
+    // console.log('errorObj follows:');
+    // console.log(errorObj);
+    storageLog("Content script Error", errorMsg);
+    return true;
+};
+
+// throw new Error('Is this error caught?');
 
 return;
 
@@ -101,3 +116,6 @@ function embed(fn) {
   script.text = `(function(){let zenModeOn=${zenModeOn};(${fn.toString()})()})();`;
   document.documentElement.appendChild(script);
 }
+
+
+
