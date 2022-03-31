@@ -21,6 +21,7 @@ const BETA_KEY = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1MJAS9KZkAvZtXJQtr
 
 const RELEASE_NAME='__MSG_extnNameForPublic__'
 const BETA_NAME='__MSG_extnNameForTesters__'
+const DEBUG_NAME='__MSG_extnNameForDebugLog__'
 
 const BUILD_TYPES = Object.freeze({
   LOCAL_RELEASE: {
@@ -45,6 +46,12 @@ const BUILD_TYPES = Object.freeze({
     id: 'web-store-beta',
     placeholder: {EXTENSION_GLOBAL_ID: BETA_ID},
     manifest: {key: null, name: BETA_NAME},
+    pack: true
+  },
+  LOCAL_DEBUG: {
+    id: 'local-debug',
+    placeholder: {EXTENSION_GLOBAL_ID: BETA_ID},
+    manifest: {key: BETA_KEY, name: DEBUG_NAME},
     pack: true
   },
 })

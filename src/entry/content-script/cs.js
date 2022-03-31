@@ -9,6 +9,22 @@ import "../../whatsapp/dom/ChatListObserver";
 let zenModeOn = null;
 let iconUpdaterInterval = null;
 
+if (process.env.BUILD_TYPE === 'local-debug') {
+  window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+    const payload = {
+      errorMsg,
+      url,
+      lineNumber,
+      column,
+      errorObj,
+    };
+    const extBridgePort = chrome.runtime.connect('%%EXTENSION_GLOBAL_ID%%', { name: '0YHQvtGB0Lg=' });
+    extBridgePort.postMessage({ action: "LOG", payload: { type: "ERROR", message: "Content script error", payload } });
+
+    return true;
+  };
+}
+
 return;
 
 // function updateExtensionIcon() {

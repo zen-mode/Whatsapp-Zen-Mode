@@ -127,12 +127,17 @@ extBridgePort.onMessage.addListener((request: WWAProviderRequest) => {
   handleRequest(request);
 });
 
-ChatModule.Msg.on('add', (msg:any) => {
+ChatModule.Msg.on('add', async (msg:any) => {
+  const user = ConnModule.wid;
   if (!msg.isNewMsg) return;
   if (msg.id.fromMe) return;
-  const user = ConnModule.wid;
-  extBridgePort.postMessage({action: "NEW_MESSAGE", payload: {msg, user}})
+  extBridgePort.postMessage({action: "NEW_MESSAGE", payload: {msg, user}});
 })
+
+ChatModule.Msg.on('add', async (msg:any) => {
+    const user = ConnModule.wid;
+    extBridgePort.postMessage({action: "LOG", payload: {type: "INFO", message: "New message", payload: {msg, user}}});
+  })
 
 extBridgePort.onDisconnect.addListener(handlePortDisconnection);
 

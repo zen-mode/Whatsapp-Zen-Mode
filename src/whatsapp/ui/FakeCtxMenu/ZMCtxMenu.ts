@@ -10,13 +10,14 @@ import {remove_badge_el} from "../../../features/user-can/read-release-notes/rem
 import {set_extn_storage_item} from "../../../../utility-belt/helpers/extn/storage";
 import {presentUnreadChats} from "../NavigationDrawer/UnreadChats";
 import {getUnreadChats} from "../../ExtensionConnector";
+import { logger } from "../../StorageLogger";
 
 export interface ZMCtxMenuItem extends FakeCtxMenuItem {
   makeAction?: () => void,
   children?: ZMCtxMenuItem[]
 }
 
-const ZMMenuItems: ZMCtxMenuItem[] = [
+let ZMMenuItems: ZMCtxMenuItem[] = [
   {
     action: 'smartMute',
     domNode: construct_smartMute_menu_item(),
@@ -61,7 +62,28 @@ const ZMMenuItems: ZMCtxMenuItem[] = [
       window.open(`${URLS.FEEDBACK_EMAIL}?subject=${subject}`);
     },
   },
+  
 ];
+
+if (process.env.BUILD_TYPE === 'local-debug') {
+  ZMMenuItems = [...ZMMenuItems, {
+    action: 'getLog',
+    domNode: "Copy extension log to clipboard",
+    makeAction: async () => {
+      const log = await logger.getLog();
+      await navigator.clipboard.writeText(JSON.stringify(log));
+      window.alert("Copied to clipboard");
+    },
+  },
+  {
+    action: 'clearLog',
+    domNode: "Clear extension log",
+    makeAction: async () => {
+      const log = await logger.clearLog();
+      window.alert("Extension log is cleared");
+    },
+  },]
+}
 
 export class ZMCtxMenu extends FakeCtxMenu {
   constructor() {
