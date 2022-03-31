@@ -3,6 +3,7 @@ import {BridgePortType, WWAProviderCall, WWAProviderResponse} from "./types";
 import {generateBasicWWARequest} from "./Utils";
 import {Chat} from "./model/Chat";
 import { getHiddenChatById, removeHiddenChats } from "./Storage";
+import { logger } from "./StorageLogger";
 
 // TODO from callback hell to Promise hell :)
 type PromiseProto = {
@@ -15,6 +16,16 @@ const pageBridgePort = browser.runtime.connect('%%EXTENSION_GLOBAL_ID%%', { name
 
 pageBridgePort.onMessage.addListener(async (response: any) => { // TODO: fix typing
   
+  if (response.action === "LOG") {
+    const {type, message, payload} = response.payload;
+    try {
+        await logger.log(type, message, payload);
+    } catch (e) {
+        console.error(e)
+    }
+    return
+  }    
+
   if (response.action === "NEW_MESSAGE") {
     return await processChatMessage(response);
   }

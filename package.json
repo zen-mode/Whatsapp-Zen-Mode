@@ -8,9 +8,11 @@
     "build-ws-beta": "npm run parcel-beta-minify && cross-env BUILD_TYPE=web-store-beta node ./scripts/build.js",
     "build-ws-release": "npm run parcel-release && cross-env BUILD_TYPE=web-store-release node ./scripts/build.js",
     "parcel-beta": "cross-env NODE_ENV=development parcel build src/manifest.json --no-source-maps --no-optimize",
+    "parcel-debug": "cross-env NODE_ENV=development BUILD_TYPE=local-debug parcel build src/manifest.json --no-source-maps --no-optimize",
     "parcel-beta-minify": "cross-env NODE_ENV=development parcel build src/manifest.json --no-source-maps",
     "parcel-release": "rimraf ./dist && cross-env NODE_ENV=production parcel build src/manifest.json --no-source-maps --no-cache",
-    "build-all-packs": "npm run build-beta && npm run build-ws-beta && npm run build-release && npm run build-ws-release"
+    "build-all-packs": "npm run build-beta && npm run build-ws-beta && npm run build-release && npm run build-ws-release",
+    "build-debug": "npm run parcel-debug && cross-env BUILD_TYPE=local-debug node ./scripts/build.js"
   },
   "devDependencies": {
     "@parcel/config-webextension": "next",
@@ -23,6 +25,7 @@
     "@testing-library/jest-dom": "5.11.0",
     "@testing-library/react": "11.2.2",
     "@types/lodash-es": "^4.17.4",
+    "@types/node": "^17.0.23",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/uuid": "^8.3.0",

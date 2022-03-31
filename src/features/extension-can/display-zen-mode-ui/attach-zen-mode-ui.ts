@@ -39,6 +39,7 @@ async function attach_Zen_mode_UI(): Promise<void> {
   // 2. Attaches Zen mode UI to the page.
   // 2.1. Constructs the UI.
   const [
+    debugVersionInfoEl,  
     ZenModeBtnEl,
     releaseNotesAreaEl,
     visibilityShedulerAreaEl
@@ -46,6 +47,10 @@ async function attach_Zen_mode_UI(): Promise<void> {
   ] = construct_Zen_mode_UI();
 
   leftHeaderButtonsEl.prepend(ZenModeBtnEl);
+  devprint("process.env.BUILD_TYPE", process.env.BUILD_TYPE);
+  if (process.env.BUILD_TYPE === 'local-debug') {
+    leftHeaderButtonsEl.prepend(debugVersionInfoEl);
+  }
 
   const permanentZM_elsAreNotYetAttached =
     DOM.get_el(Selectors.ZM_RELEASE_NOTES_AREA) === null;

@@ -72,6 +72,9 @@
   "extnNameForPublic": {
     "message": "(זן מוד (עבור ווטסאפב ווב- גרסת בטא"
   },
+  "extnNameForDebugLog": {
+    "message": "Zen Mode (for whatsapp - Debug log)"
+  },
   "ZM_ctxMenuItem_settings": {
     "message": "הגדרות"
   },

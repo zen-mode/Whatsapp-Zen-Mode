@@ -10,6 +10,13 @@ declare module "RELEASE-NOTES.yaml";
 export {};
 
 declare global {
+
+  namespace NodeJS {
+    interface ProcessEnv {
+        BUILD_TYPE: string;
+    }
+  }
+  
   const FontFace: FontFace;
 
   interface Document {
