@@ -1,3 +1,7 @@
+# Release Notes 1.4.2.16
+###  Public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
+1.**Trello zoom on list** - via list ,enu in trello
+2. Fixes due to WhatsAppweb update
 # Release Notes 1.4.2.15
 ###  Public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
 1.**Visibility Schedule** - can be set via chat menu
