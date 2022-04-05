@@ -52,6 +52,11 @@ export async function setDebugModeStatus(debugModeStatus: boolean): Promise<void
         [StateItemNames.DEBUG_MODE_STATUS]: debugModeStatus
     });
 
+    const debugModeIndicator = DOM.get_el(Selectors.ZM_DEBUG_MODE_INDICATOR);
+    if (debugModeIndicator) {
+        debugModeIndicator.innerText = debugModeStatus ? browser.i18n.getMessage("ZM_ctxMenuItem_debug_mode"): "";
+    }
+
     const debugModeIcon = DOM.get_el(Selectors.ZM_CTX_MENU_ITEM_DEBUG_SWITCH_ICON);
     if (debugModeIcon) {
         debugModeIcon.innerHTML = debugModeStatus ? SWITCH_ON : SWITCH_OFF

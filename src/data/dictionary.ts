@@ -88,6 +88,8 @@ export const enum Selectors {
   ZM_CTX_MENU_ITEM_DEBUG_TEXT = "#ZenMode__contextMenuItem__debugMode__text",
   ZM_CTX_MENU_ITEM_DEBUG_SWITCH_ICON = "#ZenMode__contextMenuItem__debugMode__switchIcon",
 
+  ZM_DEBUG_MODE_INDICATOR = "#ZenMode__debugModeIndidcator",
+
   
   ZM_TOGGLE_BUTTON = "#ZenMode__toggle",
   ZM_TOGGLE_BUTTON_CHEVRON = "#ZenMode__toggle__chevron",

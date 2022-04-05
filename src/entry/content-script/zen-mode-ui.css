@@ -210,8 +210,8 @@ html[dir=rtl] .fakeCtxMenu[data-menu-type=ZM] {
 }
 
 #ZenMode__contextMenuItem__debugMode__switchIcon svg {
-  height: auto;
-  width: 24px;
+  height: 24px;
+  width: auto;
 }
 /* Fake Context Menu animations */
 @keyframes showFakeCtxMenu {
