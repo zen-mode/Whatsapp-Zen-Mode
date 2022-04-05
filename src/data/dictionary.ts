@@ -29,7 +29,8 @@ export const enum StateItemNames {
   SMART_MUTE_STATUS = "SMART_MUTE_STATUS",
   AUTO_READ_HIDDEN_CONVERSATIONS_STATUS = "AUTO_READ_HIDDEN_CONVERSATIONS_STATUS",
   SETTINGS_MENU = "SETTINGS_MENU",
-  SCHEDULED_HIDDEN = 'SCHEDULED_HIDDEN'
+  SCHEDULED_HIDDEN = 'SCHEDULED_HIDDEN',
+  DEBUG_MODE_STATUS = "DEBUG_MODE_STATUS",
 }
 
 export const enum Selectors {
@@ -82,6 +83,12 @@ export const enum Selectors {
   ZM_CTX_MENU_ITEM_SMARTMUTE = "#ZenMode__contextMenuItem__smartMute",
   ZM_SMARTMUTE_SOUNDICON = "#ZenMode__smartMute__soundIcon",
   ZM_SMARTMUTE_TEXT = "#ZenMode__smartMute__text",
+
+  ZM_CTX_MENU_ITEM_DEBUG_MODE = "#ZenMode__contextMenuItem__debugMode",
+  ZM_CTX_MENU_ITEM_DEBUG_TEXT = "#ZenMode__contextMenuItem__debugMode__text",
+  ZM_CTX_MENU_ITEM_DEBUG_SWITCH_ICON = "#ZenMode__contextMenuItem__debugMode__switchIcon",
+
+  
   ZM_TOGGLE_BUTTON = "#ZenMode__toggle",
   ZM_TOGGLE_BUTTON_CHEVRON = "#ZenMode__toggle__chevron",
   ZM_BADGE = "#ZenMode__badge",

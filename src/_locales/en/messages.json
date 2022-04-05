@@ -60,6 +60,10 @@
   "ZM_hiddenChats": {
     "message": "Hidden Chats"
   },
+  "ZM_ctxMenuItem_debug_mode": {
+    "message": "Debug mode",
+    "description": "ZM ctx menu item that toggle debug mode."
+  },
   "ZM_noBtn": {
     "message": "no"
   },

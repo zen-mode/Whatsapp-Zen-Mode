@@ -44,6 +44,9 @@
   "ZM_hiddenChats": {
     "message": "צ'אטים מוסתרים"
   },
+  "ZM_ctxMenuItem_debug_mode": {
+    "message": "מוד דיבאג"
+  },
   "ZM_noBtn": {
     "message": "לא"
   },

@@ -11,6 +11,7 @@ import {set_extn_storage_item} from "../../../../utility-belt/helpers/extn/stora
 import {presentUnreadChats} from "../NavigationDrawer/UnreadChats";
 import {getUnreadChats} from "../../ExtensionConnector";
 import { logger } from "../../StorageLogger";
+import { constructDebugModeMenuItem, toggleDebugMode } from "../MenuItems/debugMode";
 
 export interface ZMCtxMenuItem extends FakeCtxMenuItem {
   makeAction?: () => void,
@@ -61,6 +62,11 @@ let ZMMenuItems: ZMCtxMenuItem[] = [
 
       window.open(`${URLS.FEEDBACK_EMAIL}?subject=${subject}`);
     },
+  },
+  {
+    action: 'debugMode',
+    domNode: constructDebugModeMenuItem(),
+    makeAction: toggleDebugMode
   },
   
 ];
