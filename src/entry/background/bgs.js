@@ -2,23 +2,23 @@ import "../../features/user-can/read-release-notes/read-release-notes-bgs";
 import "../../features/extension-can/activate-extn-icon-on-specific-page/activate-extn-icon";
 import "../../features/state-machine/state-machine-bgs";
 import "../../whatsapp/BackgroundBridge";
-import {VisibilitySheduler} from "../../whatsapp/VisibilitySheduler";
-import {logger} from "../../whatsapp/StorageLogger";
+import { VisibilitySheduler } from "../../whatsapp/VisibilitySheduler";
+import { logger } from "../../whatsapp/StorageLogger";
 
 new VisibilitySheduler();
 
-if (process.env.BUILD_TYPE === 'local-debug') {
-    window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
-        const payload = {
-          errorMsg,
-          url,
-          lineNumber,
-          column,
-          errorObj,
-        };
-        logger.log("ERROR", "Caught background script error", payload);
-      
-        return true;
-      };
-}
+
+window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+  const payload = {
+    errorMsg,
+    url,
+    lineNumber,
+    column,
+    errorObj,
+  };
+  logger.log("ERROR", "Caught background script error", payload);
+
+  return true;
+};
+
 

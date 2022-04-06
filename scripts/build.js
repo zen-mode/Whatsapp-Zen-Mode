@@ -48,12 +48,6 @@ const BUILD_TYPES = Object.freeze({
     manifest: {key: null, name: BETA_NAME},
     pack: true
   },
-  LOCAL_DEBUG: {
-    id: 'local-debug',
-    placeholder: {EXTENSION_GLOBAL_ID: BETA_ID},
-    manifest: {key: BETA_KEY, name: DEBUG_NAME},
-    pack: true
-  },
 })
 
 const BUILD_TYPE = Object.values(BUILD_TYPES).find(b => b.id === process.env.BUILD_TYPE) || BUILD_TYPES.LOCAL_BETA;

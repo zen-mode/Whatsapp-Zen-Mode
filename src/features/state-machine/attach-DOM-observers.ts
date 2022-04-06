@@ -19,6 +19,7 @@ import {findChatByTitle} from "../../whatsapp/ExtensionConnector";
 import {get_contact_el_by_chat_name} from "../../api/get-contact-el-by-contact-name";
 import { fixContextMenuPosition } from "../../whatsapp/ui/FakeCtxMenu/utils";
 import { get_hovered_contact_el } from "../../api/get-hovered-contact-el";
+import { getDebugModeStatus, setDebugModeStatus } from "../../whatsapp/ui/MenuItems/debugMode";
 
 const CONTACT_CONTEXT_MENU_CUSTOM_ITEMS_COUNT = 3;
 const CHAT_CONTEXT_MENU_CUSTOM_ITEMS_COUNT = 1;
@@ -64,6 +65,8 @@ const observer = new MutationObserver(async (mutations) => {
 
             const smartMuteStatus = await getSmartMuteStatus();
 
+            const debugModeStatus = await getDebugModeStatus();
+
 
             // Explain: Wait for all rendering and animations to complete; otherwise - buggy.
             setTimeout(() => {
@@ -78,6 +81,8 @@ const observer = new MutationObserver(async (mutations) => {
               });
               // Check smart mute
               setSmartMuteStatus(smartMuteStatus);
+
+              setDebugModeStatus(debugModeStatus);
               // Open zen morning contact
               checkZenMorningChatState(zenMorningChat);
             }, TIME.ONE_SECOND);
