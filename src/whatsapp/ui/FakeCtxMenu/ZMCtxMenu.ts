@@ -1,20 +1,20 @@
-import {FakeCtxMenu, FakeCtxMenuEventType, FakeCtxMenuItem} from "./FakeCtxMenu";
+import { FakeCtxMenu, FakeCtxMenuEventType, FakeCtxMenuItem } from "./FakeCtxMenu";
 import browser from "webextension-polyfill";
-import {presentHiddenChatsLeftDrawer} from "../LeftDrawerHiddenChats";
-import {clearHiddenChats, getHiddenChats} from "../../Storage";
+import { presentHiddenChatsLeftDrawer } from "../LeftDrawerHiddenChats";
+import { clearHiddenChats, getHiddenChats } from "../../Storage";
 import {
   construct_smartMute_menu_item,
   toggleSmartMute,
 } from "../../../features/user-can/SmartMute/SmartMute";
-import {DOM} from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
-import {Selectors, StateItemNames, URLS} from "../../../data/dictionary";
-import {set_el_style} from "../../../../utility-belt/helpers/dom/set-el-style";
-import {remove_badge_el} from "../../../features/user-can/read-release-notes/remove-ver-num-badge";
-import {set_extn_storage_item} from "../../../../utility-belt/helpers/extn/storage";
-import {presentUnreadChats} from "../NavigationDrawer/UnreadChats";
-import {getUnreadChats} from "../../ExtensionConnector";
-import {logger} from "../../StorageLogger";
-import {constructDebugModeMenuItem, toggleDebugMode} from "../MenuItems/debugMode";
+import { DOM } from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
+import { Selectors, StateItemNames, URLS } from "../../../data/dictionary";
+import { set_el_style } from "../../../../utility-belt/helpers/dom/set-el-style";
+import { remove_badge_el } from "../../../features/user-can/read-release-notes/remove-ver-num-badge";
+import { set_extn_storage_item } from "../../../../utility-belt/helpers/extn/storage";
+import { presentUnreadChats } from "../NavigationDrawer/UnreadChats";
+import { getUnreadChats } from "../../ExtensionConnector";
+import { logger } from "../../StorageLogger";
+import { constructDebugModeMenuItem, toggleDebugMode } from "../MenuItems/debugMode";
 
 export interface ZMCtxMenuItem extends FakeCtxMenuItem {
   makeAction?: () => void;
@@ -42,7 +42,7 @@ let ZMMenuItems: ZMCtxMenuItem[] = [
     domNode: browser.i18n.getMessage("ZM_ctxMenuItem_unhideAll"),
     makeAction: async () => {
       const hiddenChats = await getHiddenChats();
-      browser.runtime.sendMessage({type: "deleteShedule", payload: {chat: hiddenChats}});
+      browser.runtime.sendMessage({ type: "deleteShedule", payload: { chat: hiddenChats } });
       clearHiddenChats();
     },
   },
@@ -51,11 +51,11 @@ let ZMMenuItems: ZMCtxMenuItem[] = [
     domNode: browser.i18n.getMessage("ZM_ctxMenuItem_releaseNotes"),
     makeAction: () => {
       const releaseNotesAreaEl = DOM.get_el(Selectors.ZM_RELEASE_NOTES_AREA);
-      set_el_style(releaseNotesAreaEl, {display: "initial"});
+      set_el_style(releaseNotesAreaEl, { display: "initial" });
 
       remove_badge_el();
 
-      set_extn_storage_item({[StateItemNames.RELEASE_NOTES_VIEWED]: true});
+      set_extn_storage_item({ [StateItemNames.RELEASE_NOTES_VIEWED]: true });
     },
   },
   {
@@ -96,7 +96,7 @@ export const debugModeItems = [
 
 ZMMenuItems = [
   ...ZMMenuItems,
-//   ...debugModeItems
+  //   ...debugModeItems
 ];
 
 export const debugModeActions = debugModeItems.map(it => it.action)
@@ -106,6 +106,48 @@ class ZMCtxMenu extends FakeCtxMenu {
     super("ZM", menuItems);
     // Initial render
     document.body.append(this._node!);
+    this._setEventListeners();
+  }
+
+  /**
+   * Used to change chat by item click.
+   */
+  handleItemClick = (e: CustomEvent) => {
+    const { item } = e.detail as { item: ZMCtxMenuItem };
+    if (item.makeAction) {
+      item.makeAction();
+    }
+    this.isVisible = false;
+  };
+
+  addItems(newItems: FakeCtxMenuItem[]) {
+    this._removeEventListeners();
+    super.addItems(newItems);
+    this._setEventListeners()
+  }
+
+  removeItems(actions: string[]) {
+    this._removeEventListeners();
+    super.removeItems(actions);
+    this._setEventListeners();
+  }
+
+  private _removeEventListeners() {
+    if (this._node) {
+      // @ts-ignore
+      this._node.removeEventListener(
+        "itemClick" as FakeCtxMenuEventType,
+        this.handleItemClick
+      );
+      // @ts-ignore
+      this._node.removeEventListener(
+        "clickToEmptySpace" as FakeCtxMenuEventType,
+        () => (this.isVisible = false)
+      );
+    }
+  }
+
+  private _setEventListeners() {
     // @ts-ignore
     this._node.addEventListener(
       "itemClick" as FakeCtxMenuEventType,
@@ -117,17 +159,6 @@ class ZMCtxMenu extends FakeCtxMenu {
       () => (this.isVisible = false),
     );
   }
-
-  /**
-   * Used to change chat by item click.
-   */
-  handleItemClick = (e: CustomEvent) => {
-    const {item} = e.detail as {item: ZMCtxMenuItem};
-    if (item.makeAction) {
-      item.makeAction();
-    }
-    this.isVisible = false;
-  };
 }
 
 export default new ZMCtxMenu(ZMMenuItems);

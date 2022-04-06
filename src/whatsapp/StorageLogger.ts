@@ -2,6 +2,8 @@ import {
   get_extn_storage_item_value,
   set_extn_storage_item,
 } from "../../utility-belt/helpers/extn/storage";
+import { StateItemNames } from "../data/dictionary";
+import { getDebugModeStatus } from "./ui/MenuItems/debugMode";
 
 export enum LoggerEventType {
   INFO = "INFO",
@@ -30,7 +32,10 @@ class Logger {
       message,
       payload: payload && JSON.stringify(payload),
     };
-    if (process.env.BUILD_TYPE === 'local-debug') {
+
+    const debugModeStatus = await get_extn_storage_item_value(StateItemNames.DEBUG_MODE_STATUS);
+    
+    if (debugModeStatus) {
 
       const currentLog: Log = await this.getLog();
       const truncatedLog = currentLog.slice(-MAX_LOG_ENTRIES - 1);
