@@ -53,6 +53,12 @@
   "ZM_ctxMenuItem_zenMode": {
     "message": "Zen Mode"
   },
+  "ZM_ctxMenuItem_debugModeCopyToClipboard": {
+    "message": "Copy extension log to clipboard"
+  },
+  "ZM_ctxMenuItem_debugModeClearLog": {
+    "message": "Clear extension logs"
+  },
   "ZM_hidden": {
     "message": "Hidden",
     "description": "Used to hidden label for chat element."

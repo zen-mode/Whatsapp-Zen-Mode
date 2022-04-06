@@ -41,6 +41,12 @@
   "ZM_ctxMenuItem_zenMode": {
     "message": "זן מוד"
   },
+  "ZM_ctxMenuItem_debugModeCopyToClipboard": {
+    "message": "העתק לוגים ללוח"
+  },
+  "ZM_ctxMenuItem_debugModeClearLog": {
+    "message": "נקה לוגים"
+  },
   "ZM_hiddenChats": {
     "message": "צ'אטים מוסתרים"
   },

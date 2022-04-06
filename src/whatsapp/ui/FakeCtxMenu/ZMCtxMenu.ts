@@ -77,7 +77,7 @@ let ZMMenuItems: ZMCtxMenuItem[] = [
 export const debugModeItems = [
   {
     action: "getLog",
-    domNode: "Copy extension log to clipboard",
+    domNode: browser.i18n.getMessage("ZM_ctxMenuItem_debugModeCopyToClipboard"),
     makeAction: async () => {
       const log = await logger.getLog();
       await navigator.clipboard.writeText(JSON.stringify(log));
@@ -86,7 +86,7 @@ export const debugModeItems = [
   },
   {
     action: "clearLog",
-    domNode: "Clear extension log",
+    domNode: browser.i18n.getMessage("ZM_ctxMenuItem_debugModeClearLog"),
     makeAction: async () => {
       await logger.clearLog();
       window.alert("Extension log is cleared");
