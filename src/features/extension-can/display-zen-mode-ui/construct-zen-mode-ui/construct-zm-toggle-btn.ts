@@ -2,12 +2,12 @@ import {set_el_attributes} from "../../../../../utility-belt/helpers/dom/set-el-
 import {get_extn_storage_item_value} from "../../../../../utility-belt/helpers/extn/storage";
 
 import {Selectors, StateItemNames} from "../../../../data/dictionary";
-import {ZMCtxMenu} from "../../../../whatsapp/ui/FakeCtxMenu/ZMCtxMenu";
+import ZMCtxMenu from "../../../../whatsapp/ui/FakeCtxMenu/ZMCtxMenu";
 import {set_el_style} from "../../../../../utility-belt/helpers/dom/set-el-style";
 import browser from "webextension-polyfill";
 
 export function constructZMMenuButton(): HTMLDivElement {
-  const ctxMenu = new ZMCtxMenu();
+
   const ZenModeBtnEl = document.createElement("div");
   set_el_attributes(ZenModeBtnEl, {
     id: Selectors.ZM_TOGGLE_BUTTON.substring(1),
@@ -18,10 +18,10 @@ export function constructZMMenuButton(): HTMLDivElement {
   });
   const toggleZMMenuByClick = (e: MouseEvent) => {
     e.stopPropagation();
-    if (ctxMenu.isVisible) {
-      ctxMenu.isVisible = false;
+    if (ZMCtxMenu.isVisible) {
+        ZMCtxMenu.isVisible = false;
     } else {
-      ctxMenu.tieToAnchor(ZenModeBtnEl.getBoundingClientRect());
+        ZMCtxMenu.tieToAnchor(ZenModeBtnEl.getBoundingClientRect());
     }
   };
   // .addEventListener("click", toggle_Zen_mode);
