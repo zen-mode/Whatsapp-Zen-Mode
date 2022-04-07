@@ -14,6 +14,9 @@ import {
 import "./TimeSelector";
 import {construct_time_selector} from "./TimeSelector";
 
+const DEFAULT_WEEKDAYS_START_TIME = 480;
+const DEFAULT_WEEKDAYS_STOP_TIME = 1200;
+
 const daysLabels: Record<DayOfTheWeek, string> = {
   [DayOfTheWeek.SUN]: browser.i18n.getMessage("ZM_visibilty_sheduler_Sunday"),
   [DayOfTheWeek.MON]: browser.i18n.getMessage("ZM_visibilty_sheduler_Monday"),
@@ -195,12 +198,14 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
         const fromTimeSelector = construct_time_selector({
           onChange: onWeekdaysFromTimeSelector,
           id: "WeekdayFromTimeSelector",
-          disableAboveSelected: false
+          disableAboveSelected: false,
+          value: DEFAULT_WEEKDAYS_START_TIME
         });
         const toTimeSelector = construct_time_selector({
           onChange: onWeekdaysToTimeSelector,
           id: "WeekdayToTimeSelector",
-          disableAboveSelected: true
+          disableAboveSelected: true,
+          value: DEFAULT_WEEKDAYS_STOP_TIME
         });
 
         const separator = DOM.create_el({
