@@ -6,7 +6,7 @@ export type ConstructTimeSelectorConfig = {
   attributes?: Record<string, string>;
   id?: string;
   includeNone?: boolean;
-  value?: string;
+  value?: number;
   disableAboveSelected?: boolean;
 };
 
@@ -16,7 +16,7 @@ const DEFAULT_SELECTED_VALUE = 480;
 export function construct_time_selector(config: ConstructTimeSelectorConfig) {
   const {onChange, id, includeNone, value = DEFAULT_SELECTED_VALUE, disableAboveSelected} = config;
 
-  const defaultSelectedValue = includeNone ? undefined : 480;
+  const defaultSelectedValue = includeNone ? undefined : value;
 
   let timeSelectorOptions = getTimeSelectorOptions(TIME_INTERVAL, defaultSelectedValue, disableAboveSelected);
   if (includeNone) {
