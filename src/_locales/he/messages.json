@@ -47,6 +47,9 @@
   "ZM_ctxMenuItem_debugModeClearLog": {
     "message": "נקה לוגים"
   },
+  "ZM_ctxMenuItem_offline_mode": {
+    "message": "מצב לא מקוון"
+  },
   "ZM_hiddenChats": {
     "message": "צ'אטים מוסתרים"
   },

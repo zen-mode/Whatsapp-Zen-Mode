@@ -198,6 +198,11 @@ html[dir=rtl] .fakeCtxMenu[data-menu-type=ZM] {
 .fakeCtxMenu[data-menu-type=ZM] [data-action=debugMode] ._2oldI.dJxPU {
   padding: 12px 24px;
 }
+
+.fakeCtxMenu[data-menu-type=ZM] [data-action=offlineMode] ._2oldI.dJxPU {
+  padding: 12px 24px;
+}
+
 .ZenMode__contextMenuItem__withIcon {
   align-items: center;
   color: inherit;
@@ -210,6 +215,11 @@ html[dir=rtl] .fakeCtxMenu[data-menu-type=ZM] {
 }
 
 #ZenMode__contextMenuItem__debugMode__switchIcon svg {
+  height: 24px;
+  width: auto;
+}
+
+#ZenMode__contextMenuItem__offlineMode__switchIcon svg {
   height: 24px;
   width: auto;
 }

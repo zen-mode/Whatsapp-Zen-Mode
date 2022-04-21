@@ -21,3 +21,9 @@ ZenMorning
  */
 export const ZEN_MORNING_SUN_ID = Selectors.ZM_ZENMORNING_CONTACT_SUNICON.substring(1);
 
+/*
+Offline Mode
+ */
+export const ZM_CTX_MENU_ITEM_OFFLINE_MODE_ID = 'ZM_CTX_MENU_ITEM_OFFLINE_MODE_ID' 
+export const ZM_CTX_MENU_ITEM_OFFLINE_MODE_TEXT_ID = 'ZM_CTX_MENU_ITEM_OFFLINE_MODE_TEXT_ID'
+export const ZM_CTX_MENU_ITEM_OFFLINE_MODE_BUTTON_ID = 'ZenMode__contextMenuItem__offlineMode__switchIcon'

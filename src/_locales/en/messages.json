@@ -59,6 +59,9 @@
   "ZM_ctxMenuItem_debugModeClearLog": {
     "message": "Clear extension logs"
   },
+  "ZM_ctxMenuItem_offline_mode": {
+    "message": "Offline mode"
+  },
   "ZM_hidden": {
     "message": "Hidden",
     "description": "Used to hidden label for chat element."

@@ -15,6 +15,7 @@ import { presentUnreadChats } from "../NavigationDrawer/UnreadChats";
 import { getUnreadChats } from "../../ExtensionConnector";
 import { logger } from "../../StorageLogger";
 import { constructDebugModeMenuItem, toggleDebugMode } from "../MenuItems/debugMode";
+import { buildOfflineModeMenuItem, toggleOfflineMode } from "../MenuItems/offlineMode";
 
 export interface ZMCtxMenuItem extends FakeCtxMenuItem {
   makeAction?: () => void;
@@ -68,10 +69,15 @@ let ZMMenuItems: ZMCtxMenuItem[] = [
     },
   },
   {
+    action: "offlineMode",
+    domNode: buildOfflineModeMenuItem(),
+    makeAction: toggleOfflineMode,
+  },
+  {
     action: "debugMode",
     domNode: constructDebugModeMenuItem(),
     makeAction: toggleDebugMode,
-  },
+  }
 ];
 
 export const debugModeItems = [

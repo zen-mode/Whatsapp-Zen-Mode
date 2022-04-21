@@ -62,10 +62,19 @@ async function processChatMessage(response: any) {
   return;
 }
 
+/*
+  @depricated Use callProvider based on promise
+ */
 function callProviderFunctionWithCallback(call: WWAProviderCall, args: any[], callback?: (result: any) => void) {
   const request = generateBasicWWARequest(call, args);
   requestIdToPromiseProto[request.id] = callback;
   pageBridgePort.postMessage(request);
+}
+
+function callProvider(call: WWAProviderCall, args: any[]): Promise<any> {
+  return new Promise((resolve, _) => {
+    callProviderFunctionWithCallback(call, args, resolve)
+  })
 }
 
 export function findChatByTitle(chatTitle: string, callback?: (chat: Chat | null) => void): void {
@@ -138,4 +147,12 @@ export function getProfilePicUrl(chat: Chat, callback: (picUrl: string | null) =
 
 export function getUnreadChats(callback: (chats: Chat[]) => void) {
   callProviderFunctionWithCallback(WWAProviderCall.getUnreadChats, [], callback);
+}
+
+export function enableOfflineMode(enable: Boolean): Promise<void> {
+  return callProvider(WWAProviderCall.enableOfflineMode, [enable]);
+}
+
+export function isOfflineModeEnabled(): Promise<boolean> {
+  return callProvider(WWAProviderCall.isOfflineModeEnabled, []);
 }

@@ -27,6 +27,9 @@ export enum WWAProviderCall {
   markChatUnread,
   getProfilePicUrl,
   getUnreadChats,
+  enableOfflineMode,
+  isOfflineModeEnabled,
+
 }
 
 export type WWAProviderRequest = {

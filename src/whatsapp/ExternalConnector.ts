@@ -17,7 +17,7 @@ import {
   getChats,
   markChatUnread
 } from "./WWAController";
-import {ChatModule, ConnModule, provideModules} from "./WWAProvider";
+import {ChatModule, ConnModule, provideModules, SocketModule} from "./WWAProvider";
 import {Chat} from "./model/Chat";
 import {ChatFabric} from "./ChatFabric";
 import {
@@ -116,6 +116,19 @@ callerFunctions.set(WWAProviderCall.getUnreadChats, (): Chat[] => {
   return getUnreadChats().map(ChatFabric.fromWWAChat);
 });
 
+callerFunctions.set(WWAProviderCall.enableOfflineMode, (enable: Boolean) => {
+  window['WebSocketWrapper'].setBlockMode(enable)
+  if (enable) {
+    window['WebSocketWrapper'].closeAll()
+  } else {
+    SocketModule.runResume(true);
+  }
+});
+
+callerFunctions.set(WWAProviderCall.isOfflineModeEnabled, (): Boolean => {
+  return window['WebSocketWrapper'].isBlocked()
+});
+
 
 provideModules();
 
@@ -127,6 +140,7 @@ extBridgePort.onMessage.addListener((request: WWAProviderRequest) => {
   handleRequest(request);
 });
 
+// Move to EventBus
 ChatModule.Msg.on('add', async (msg:any) => {
   const user = ConnModule.wid;
   if (!msg.isNewMsg) return;
@@ -134,10 +148,11 @@ ChatModule.Msg.on('add', async (msg:any) => {
   extBridgePort.postMessage({action: "NEW_MESSAGE", payload: {msg, user}});
 })
 
+// Move to EventBus
 ChatModule.Msg.on('add', async (msg:any) => {
-    const user = ConnModule.wid;
-    extBridgePort.postMessage({action: "LOG", payload: {type: "INFO", message: "New message", payload: {msg, user}}});
-  })
+  const user = ConnModule.wid;
+  extBridgePort.postMessage({action: "LOG", payload: {type: "INFO", message: "New message", payload: {msg, user}}});
+})
 
 extBridgePort.onDisconnect.addListener(handlePortDisconnection);
 
