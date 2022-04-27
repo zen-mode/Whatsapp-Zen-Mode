@@ -13,3 +13,8 @@ export function injectWAPageProvider(): void {
   const root = (document.head || document.documentElement);
   root.appendChild(createScript('whatsapp/ExternalConnector.js'));
 }
+
+export function injectSocketWrapper(): void {
+  const root = (document.head || document.documentElement);
+  root.appendChild(createScript('whatsapp/WebSocketWrapper.js'));
+}

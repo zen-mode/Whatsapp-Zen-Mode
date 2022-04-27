@@ -14,7 +14,7 @@
 }
 #ZenMode__toggle {
   --size: 25px;
-  margin-right: 10px;
+  margin: 0 10px;
   cursor: pointer;
   position: relative;
 }
@@ -22,6 +22,16 @@ html[dir="rtl"] #ZenMode__toggle {
   margin-right: 0;
   margin-left: 10px;
 }
+
+/* Offline Mode icon */
+#ZenMode__offlineModeIcon {
+  height: 25px;
+  width: 25px;
+  margin: 0px 20px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
 /* ZM button chevron */
 #ZenMode__toggle__chevron {
   width: fit-content;
@@ -198,6 +208,11 @@ html[dir=rtl] .fakeCtxMenu[data-menu-type=ZM] {
 .fakeCtxMenu[data-menu-type=ZM] [data-action=debugMode] ._2oldI.dJxPU {
   padding: 12px 24px;
 }
+
+.fakeCtxMenu[data-menu-type=ZM] [data-action=offlineMode] ._2oldI.dJxPU {
+  padding: 12px 24px;
+}
+
 .ZenMode__contextMenuItem__withIcon {
   align-items: center;
   color: inherit;
@@ -213,6 +228,12 @@ html[dir=rtl] .fakeCtxMenu[data-menu-type=ZM] {
   height: 24px;
   width: auto;
 }
+
+#ZenMode__contextMenuItem__offlineMode__switchIcon svg {
+  height: 24px;
+  width: auto;
+}
+
 /* Fake Context Menu animations */
 @keyframes showFakeCtxMenu {
   0% {

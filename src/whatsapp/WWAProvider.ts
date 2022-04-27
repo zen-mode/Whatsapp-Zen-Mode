@@ -10,6 +10,7 @@ export let WapModule: any = null;
 export let ChatModule: any = null;
 export let CmdModule: any = null;
 export let ConnModule: any = null;
+export let SocketModule: any = null;
 
 export function provideModules(): void {
   const moduleRaid = moduleRaidV5();
@@ -17,6 +18,7 @@ export function provideModules(): void {
   ChatModule = moduleRaid.findModule('Chat')[2].default;
   CmdModule = moduleRaid.findModule('Cmd')[0].Cmd;
   ConnModule = moduleRaid.findModule('Conn')[0].Conn;
+  SocketModule = moduleRaid.findModule('Socket')[0].Socket;
 }
 
 devprint('WhatsApp Web version:', getWWVersion())
