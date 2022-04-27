@@ -1,9 +1,11 @@
 import browser from "webextension-polyfill";
 import {DOM} from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
 import {set_el_attributes} from "../../../../utility-belt/helpers/dom/set-el-attributes";
+import { set_el_style } from "../../../../utility-belt/helpers/dom/set-el-style";
 import "../../dom/DOMConstants";
 import { 
     ZM_CTX_MENU_ITEM_OFFLINE_MODE_BUTTON_ID,
+    ZM_CTX_MENU_ITEM_OFFLINE_MODE_ICON_ID,
     ZM_CTX_MENU_ITEM_OFFLINE_MODE_ID,
     ZM_CTX_MENU_ITEM_OFFLINE_MODE_TEXT_ID 
 } from "../../dom/DOMConstants";
@@ -51,6 +53,26 @@ export function buildOfflineModeMenuItem(): HTMLElement {
   return menuItem;
 }
 
+export function buildOfflineModeIcon(): HTMLElement {
+  const icon = document.createElement('div');
+  const iconUrl = browser.runtime.getURL('assets/whatsapp/offline-mode-icon.png');
+  set_el_attributes(icon, {
+      id: ZM_CTX_MENU_ITEM_OFFLINE_MODE_ICON_ID,
+  });
+  set_el_style(icon, {
+    'background-image': `url(${iconUrl})`,
+    display: 'none'
+  })
+  return icon;
+}
+
+export function setOfflineModeIconVisible(visible: boolean) {
+  const icon = document.getElementById(ZM_CTX_MENU_ITEM_OFFLINE_MODE_ICON_ID);
+  set_el_style(icon, {
+    display: visible ? 'block' : 'none'
+  })
+}
+
 async function updateMenuItem(button: HTMLElement, enable: boolean | null = null) {
     if (button) {
         if (enable == null) {
@@ -66,6 +88,7 @@ async function setOfflineMode(enable: boolean): Promise<void> {
     if (button) {
         updateMenuItem(button, enable)
     }
+    setOfflineModeIconVisible(enable)
     return await enableOfflineMode(enable)
   }
 

@@ -42,12 +42,14 @@ async function attach_Zen_mode_UI(): Promise<void> {
     debugVersionInfoEl,  
     ZenModeBtnEl,
     releaseNotesAreaEl,
-    visibilityShedulerAreaEl
-
+    visibilityShedulerAreaEl,
+    offlineModeInfoEl
   ] = construct_Zen_mode_UI();
 
   leftHeaderButtonsEl.prepend(ZenModeBtnEl);
-   
+
+  leftHeaderButtonsEl.prepend(offlineModeInfoEl);
+  
   leftHeaderButtonsEl.prepend(debugVersionInfoEl);
   
   const permanentZM_elsAreNotYetAttached =
