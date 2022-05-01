@@ -1,3 +1,6 @@
+# Release Notes 1.4.2.18
+###  Public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
+1.**Add "Offline Mode"** option - via zen menu
 # Release Notes 1.4.2.17
 ###  Public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
 1. Debug abilities update
