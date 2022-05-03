@@ -1,4 +1,4 @@
-import {WapModule, ChatModule, CmdModule, MUTE_FOREVER} from "./WWAProvider";
+import {WapModule, ChatModule, CmdModule, MUTE_FOREVER, SocketModule} from "./WWAProvider";
 
 export function getWWVersion() {
   // @ts-ignore
@@ -91,4 +91,35 @@ export async function getProfilePicUrl(chatId: string): Promise<string | undefin
 
 export function getUnreadChats(): any[] {
   return ChatModule.Chat.models.filter((c: any) => c.hasUnread);
+}
+
+function setRetryTime(time: number) {
+  SocketModule.retryTimestamp = time
+}
+
+function appIsOnline(): boolean {
+  return SocketModule.state === 'CONNECTED'
+}
+
+function appIsRetryConnecting() {
+  return SocketModule.retryTimestamp != null
+}
+
+export function runAutoReconnecting(timeout: number) {
+  if (appIsRetryConnecting()) {
+    setRetryTime(0)
+  } else {
+    let rate = 0
+    const stepRate = 100
+    const maxRate = timeout
+    const interval = setInterval(() => {
+      if (appIsOnline() || rate >= maxRate) {
+        clearInterval(interval)
+        return;
+      } else if (appIsRetryConnecting()) {
+        setRetryTime(0)
+      }
+      rate += stepRate
+    }, stepRate)
+  }
 }

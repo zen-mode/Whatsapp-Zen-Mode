@@ -15,7 +15,8 @@ import {
   getProfilePicUrl,
   getUnreadChats,
   getChats,
-  markChatUnread
+  markChatUnread,
+  runAutoReconnecting
 } from "./WWAController";
 import {ChatModule, ConnModule, provideModules, SocketModule} from "./WWAProvider";
 import {Chat} from "./model/Chat";
@@ -121,7 +122,7 @@ callerFunctions.set(WWAProviderCall.enableOfflineMode, (enable: Boolean) => {
   if (enable) {
     window['WebSocketWrapper'].closeAll()
   } else {
-    SocketModule.runResume(true);
+    runAutoReconnecting(30000)
   }
 });
 
