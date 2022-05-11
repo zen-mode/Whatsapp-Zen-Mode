@@ -6,6 +6,7 @@ export interface BaseChat {
   hasUnread: boolean;
   unreadCount: number;
   previewMessage?: string;
+  archive: boolean;
 }
 
 export type Chat = BaseChat;

@@ -1,6 +1,6 @@
 import { FakeCtxMenu, FakeCtxMenuEventType, FakeCtxMenuItem } from "./FakeCtxMenu";
 import browser from "webextension-polyfill";
-import { presentHiddenChatsLeftDrawer } from "../LeftDrawerHiddenChats";
+import { presentHiddenChatsLeftDrawer } from "../NavigationDrawer/HiddenChats";
 import { clearHiddenChats, getHiddenChats } from "../../Storage";
 import {
   construct_smartMute_menu_item,

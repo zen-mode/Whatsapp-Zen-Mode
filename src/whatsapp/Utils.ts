@@ -1,6 +1,5 @@
 import {WWAProviderCall, WWAProviderRequest, WWAProviderResponse} from "./types";
 import {v4 as uuidv4} from "uuid";
-import {BaseChat, Chat} from "./model/Chat";
 
 export function generateBasicWWARequest(call: WWAProviderCall, args: any[] = []): WWAProviderRequest {
   return {

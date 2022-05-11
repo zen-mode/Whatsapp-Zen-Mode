@@ -160,10 +160,10 @@ html[dir=rtl] #ZenMode__zenMorning__sunIcon {
   right: .5em;
 }
 
-.hiddenChatEl .dNJHX[data-action=fakeCtxMenu] {
+#fake-chat-container #fake-arrow-button {
   width: 20px;
 }
-.hiddenChatEl:not(:hover) .dNJHX[data-action=fakeCtxMenu] {
+#fake-chat-container:not(:hover) #fake-arrow-button {
   display: none;
 }
 
