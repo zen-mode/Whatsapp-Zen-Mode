@@ -19,6 +19,23 @@ export function provideModules(): void {
   CmdModule = moduleRaid.findModule('Cmd')[0].Cmd;
   ConnModule = moduleRaid.findModule('Conn')[0].Conn;
   SocketModule = moduleRaid.findModule('Socket')[0].Socket;
+  
+  const m = 'module not found';
+  if (!WapModule) {
+    devprint('WapModule', m);
+  }
+  if (!ChatModule) {
+    devprint('ChatModule', m);
+  }
+  if (!CmdModule) {
+    devprint('CmdModule', m);
+  }
+  if (!ConnModule) {
+    devprint('ConnModule', m);
+  }
+  if (!SocketModule) {
+    devprint('SocketModule', m);
+  }
 }
 
 devprint('WhatsApp Web version:', getWWVersion())
