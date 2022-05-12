@@ -44,7 +44,7 @@ export function construct_hide_popup_area(): HTMLDivElement {
   const hidePopupGroupHours = DOM.create_el({tag: "label", attributes: {
     class: 'hide-popup-group',
   }});
-  hidePopupGroupHours.appendChild(DOM.create_el({ attributes: {type: 'radio', value: "hours", name: "hideRadio", class: "hide-popup-radio"}, tag: "input"}))
+  hidePopupGroupHours.appendChild(DOM.create_el({ attributes: {checked: '', type: 'radio', value: "hours", name: "hideRadio", class: "hide-popup-radio"}, tag: "input"}))
   hidePopupGroupHours.appendChild(DOM.create_el({text: browser.i18n.getMessage("ZM_hide_popup_hours"), tag: "span"}))
   hidePopupFormEl.appendChild(hidePopupGroupHours)
 

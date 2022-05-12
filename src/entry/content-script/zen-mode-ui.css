@@ -345,6 +345,7 @@ html[dir=ltr] .hide-popup-close-btn {
   outline: none;
   border: none;
   width: fit-content;
+  cursor: pointer;
 }
 
 #ZenMode__visibilityShedulerPopup {
