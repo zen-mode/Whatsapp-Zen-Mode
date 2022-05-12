@@ -1,3 +1,9 @@
+# Release Notes 1.4.2.19
+###  Public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
+1.**Add "Offline Mode"** option - via zen menu
+2. Changes in show unread chats
+3. bug fixing resulting WA updates
+
 # Release Notes 1.4.2.18
 ###  Public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
 1.**Add "Offline Mode"** option - via zen menu
