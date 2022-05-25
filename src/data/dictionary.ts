@@ -39,7 +39,7 @@ export const enum Selectors {
   // Attention: Non-exclusive! Other unrelated els have this too.
   WA_CONTACT_NAME = "span.ggj6brxn[title]",
   WA_CONTACT_SECOND_DIV = "[role='gridcell']",
-  WA_CONTACT_ELEMENT_HOVERED_DIV = '._3m_Xw:hover',
+  WA_CONTACT_ELEMENT_HOVERED_DIV = '.vq6sj:hover',
   WA_CONTACT_ICON_CLASS_NAME = "_2TiQe",
   WA_CONTACT_UNREAD_SPAN = "._38M1B",
 
@@ -53,7 +53,7 @@ export const enum Selectors {
   // WA_CONTACT_CTX_MENU_ITEM_CONTENTS_DIV = "#app span:nth-of-type(4) > div ul [role='button']",
   WA_BACK_BTN = "._27F2N [data-testid=back]",
 
-  WA_CONTACT_WRAPPER_CLASS = "_3m_Xw",
+  WA_CONTACT_WRAPPER_CLASS = "vq6sj",
   WA_CONTACT_CONTAINER = "._ccCW", // .FqYAR.i0jNr
   WA_CONTACT_INFO_CONTAINER = "._3vPI2",
   WA_CONTACT_CTX_MENU = "#app > div > span > .o--vV",
