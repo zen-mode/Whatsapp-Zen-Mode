@@ -1,3 +1,6 @@
+# Release Notes 1.4.2.20
+###  Public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
+1. bug fixing resulting WA updates
 # Release Notes 1.4.2.19
 ###  Public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
 1.**Add "Offline Mode"** option - via zen menu
