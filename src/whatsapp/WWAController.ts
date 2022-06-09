@@ -23,7 +23,7 @@ export function getChat(chatId: string): any {
 }
 
 export function getChatByTitle(chatTitle: string): any {
-  return ChatModule.Chat.models.find((chat: any) => {
+  return ChatModule.Chat._models.find((chat: any) => {
     return chat.title() === chatTitle;
   })
 }
