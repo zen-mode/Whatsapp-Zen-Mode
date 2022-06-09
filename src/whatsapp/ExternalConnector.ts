@@ -198,8 +198,12 @@ function publishEvent(event: InternalEvent, args: any[]) {
 }
 
 ChatModule.Chat.on('change:pin', (message: any) => {
-})
+});
+
+ChatModule.Chat.on('change:unreadCount', (chat: any) => {
+  publishEvent(InternalEvent.CHAT_CHANGED_UNREAD_COUNT, [ChatFabric.fromWWAChat(chat)]);
+});
 
 ChatModule.Msg.on('add', (message: any) => {
   publishEvent(InternalEvent.CHAT_NEW_MESSAGE, [message]);
-})
+});
