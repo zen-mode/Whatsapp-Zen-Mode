@@ -425,3 +425,33 @@ button._2fQtj {
   display: initial;
 }
 
+
+
+#inchat-status-container {
+  position: absolute;
+  bottom: 0;
+  right: 6px;
+  z-index: 101;
+  text-align: -webkit-right;
+}
+
+#inchat-status-container * {
+  user-select: none;
+}
+
+.inchat-status-item {
+  width: fit-content;
+  font-size: 14px;
+  padding: 4px;
+  margin: 2px;
+  border-radius: 4px;
+  background-color: #00866973;
+}
+
+.inchat-status-item-container {
+
+}
+
+.inchat-status-item-body {
+
+}

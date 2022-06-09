@@ -2,6 +2,7 @@ import "../../features/state-machine/state-machine-cs";
 import "../../features/extension-can/display-zen-mode-ui/attach-zen-mode-ui";
 import "../../features/state-machine/attach-DOM-observers";
 import "../../whatsapp/dom/ChatListObserver";
+import "../../whatsapp/InchatPinsStatus";
 
 // Explain: https://github.com/parcel-bundler/parcel/issues/5865.
 // import "../../features/extension-can/display-zen-mode-ui/zen-mode-ui.css";
