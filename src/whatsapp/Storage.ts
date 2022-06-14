@@ -17,6 +17,12 @@ export function subscribeForeverZenMorningChatChanges(onChanged: (zenMorningChat
   });
 }
 
+export function subscribeForeverPinnedChatsStatusChanges(onChanged: (enabled: boolean) => void) {
+  subToStorageChangesForever(StateItemNames.PINNED_CHATS_STATUS_ENABLED, (changes) => {
+    onChanged(changes.newValue);
+  });
+}
+
 function subToStorageChangesForever(key: String, onChanged: (changes: StorageChange) => void, initValue = true) {
   if (initValue) {
     browser.storage.local.get(key).then((value) => {

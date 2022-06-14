@@ -82,7 +82,6 @@ async function updateMenuItem(button: HTMLElement, enable: boolean | null = null
             enable = await getDebugModeStatus();
         }
         button.innerHTML = enable ? SWITCH_ON : SWITCH_OFF;
-        console.log(button, enable)
     }
 }
 

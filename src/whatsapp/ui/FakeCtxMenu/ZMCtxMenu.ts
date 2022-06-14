@@ -16,6 +16,7 @@ import { getUnreadChats } from "../../ExtensionConnector";
 import { logger } from "../../StorageLogger";
 import { constructDebugModeMenuItem, toggleDebugMode } from "../MenuItems/debugMode";
 import { buildOfflineModeMenuItem, toggleOfflineMode } from "../MenuItems/offlineMode";
+import { buildPinnedChatsStatusMenuItem, togglePinnedChatsStatusMode } from "../MenuItems/pinnedChatsStatus";
 
 export interface ZMCtxMenuItem extends FakeCtxMenuItem {
   makeAction?: () => void;
@@ -67,6 +68,11 @@ let ZMMenuItems: ZMCtxMenuItem[] = [
 
       window.open(`${URLS.FEEDBACK_EMAIL}?subject=${subject}`);
     },
+  },
+  {
+    action: "showPinnedChatsStatus",
+    domNode: buildPinnedChatsStatusMenuItem(),
+    makeAction: togglePinnedChatsStatusMode,
   },
   {
     action: "offlineMode",

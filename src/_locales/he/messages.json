@@ -56,6 +56,9 @@
   "ZM_ctxMenuItem_debug_mode": {
     "message": "מוד דיבאג"
   },
+  "ZM_ctxMenuItem_pinned_status": {
+    "message": "הצג מצב צ'טים מוצמדים"
+  },
   "ZM_noBtn": {
     "message": "לא"
   },
@@ -167,5 +170,17 @@
   },
   "ZM_visibilty_sheduler_weekdays_description": {
     "message": "(ימי העבודה הם ראשון עד חמישי)"
+  },
+  "pinnedChatsStatus_group_typing": {
+    "message": "מישהו ב \"%chat_title\" מקליד/ה…"
+  },
+  "pinnedChatsStatus_user_typing": {
+    "message": "\"%chat_title\" מקליד/ה..."
+  },
+  "pinnedChatsStatus_group_recording": {
+    "message": "מישהו ב \"%chat_title\" מקליט/ה"
+  },
+  "pinnedChatsStatus_user_recording": {
+    "message": "\"%chat_title\" מקליט/ה"
   }
 }

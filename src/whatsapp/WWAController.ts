@@ -9,6 +9,10 @@ export function getChats(): any[] {
   return ChatModule.Chat._models;
 }
 
+export function getPinnedChats(): any[] {
+  return ChatModule.Chat.filter((c: any) => c.pin);
+}
+
 export function getChatsExceptId(chatId: string): any[] {
   return getChats()
     .filter(chat => !chat.mute.isMute && chat.id.toString() !== chatId);
@@ -16,6 +20,10 @@ export function getChatsExceptId(chatId: string): any[] {
 
 export function getChat(chatId: string): any {
   return ChatModule.Chat.get(chatId);
+}
+
+export function getChatByWID(wid: any): any {
+  return ChatModule.Chat.get(wid);
 }
 
 export function getChatByTitle(chatTitle: string): any {
@@ -123,3 +131,5 @@ export function runAutoReconnecting(timeout: number) {
     }, stepRate)
   }
 }
+
+

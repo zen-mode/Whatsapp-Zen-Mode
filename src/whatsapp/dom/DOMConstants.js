@@ -28,3 +28,10 @@ export const ZM_CTX_MENU_ITEM_OFFLINE_MODE_ID = 'ZM_CTX_MENU_ITEM_OFFLINE_MODE_I
 export const ZM_CTX_MENU_ITEM_OFFLINE_MODE_TEXT_ID = 'ZM_CTX_MENU_ITEM_OFFLINE_MODE_TEXT_ID'
 export const ZM_CTX_MENU_ITEM_OFFLINE_MODE_BUTTON_ID = 'ZenMode__contextMenuItem__offlineMode__switchIcon'
 export const ZM_CTX_MENU_ITEM_OFFLINE_MODE_ICON_ID = 'ZenMode__offlineModeIcon'
+
+/*
+Pinned chats status
+ */
+export const ZM_CTX_MENU_ITEM_PINNED_STATUS_ID = 'ZM_CTX_MENU_ITEM_PINNED_STATUS_ID' 
+export const ZM_CTX_MENU_ITEM_PINNED_STATUS_TEXT_ID = 'ZM_CTX_MENU_ITEM_PINNED_STATUS_TEXT_ID'
+export const ZM_CTX_MENU_ITEM_PINNED_STATUS_BUTTON_ID = 'ZenMode__contextMenuItem__pinnedChatsStatus__switchIcon'

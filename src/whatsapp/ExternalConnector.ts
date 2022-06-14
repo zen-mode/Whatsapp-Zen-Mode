@@ -4,6 +4,7 @@ import {BridgePortType, InternalBusEvent, InternalEvent, WWAProviderCall, WWAPro
 import {generateBasicWWAResponse} from "./Utils";
 import {
   getChat,
+  getChatByWID,
   getChatByTitle,
   openChat,
   synchronizeWWChats,
@@ -14,11 +15,11 @@ import {
   markChatAsRead,
   getProfilePicUrl,
   getUnreadChats,
-  getChats,
+  getPinnedChats,
   markChatUnread,
   runAutoReconnecting
 } from "./WWAController";
-import {ChatModule, ConnModule, provideModules, SocketModule} from "./WWAProvider";
+import {ChatModule, ConnModule, provideModules, SocketModule, WapModule} from "./WWAProvider";
 import {Chat} from "./model/Chat";
 import {ChatFabric} from "./ChatFabric";
 import {
@@ -27,6 +28,7 @@ import {
   stopRetentionArchiveChatLocally,
   stopRetentionMuteChatLocally
 } from "./RetentionArchiveChat";
+import { ContactFabric } from "./ContactFabric";
 // @ts-ignore
 const browser = chrome;
 
@@ -131,6 +133,10 @@ callerFunctions.set(WWAProviderCall.isOfflineModeEnabled, (): Boolean => {
 });
 
 
+callerFunctions.set(WWAProviderCall.getPinnedChats, (): Chat[] => {
+  return getPinnedChats().map(ChatFabric.fromWWAChat);
+});
+
 provideModules();
 
 
@@ -197,10 +203,42 @@ function publishEvent(event: InternalEvent, args: any[]) {
   } as InternalBusEvent)
 }
 
+ChatModule.Presence.on('change', (event: any) => {
+  if (event.id) {
+    const chat = getChatByWID(event.id);
+    if (event.isGroup && event.chatstates._models) {
+      event.chatstates._models.forEach(({id, type}) => {
+        if (type) {
+          var user = null;
+          if (chat.isUser) {
+            console.log('isgroup');
+            user = getChatByWID(id);
+          } else if (chat.isGroup) {
+            console.log('isuser');
+            user = chat.groupMetadata.participants.get(id).__x_contact;
+          }
+          console.log('user', user);
+          if (user) {
+            publishEvent(InternalEvent.CHAT_CHANGED_STATUS, [ChatFabric.fromWWAChat(chat), ContactFabric.fromWWAContact(user), type]);
+          }
+        }
+      })
+    } else if (event.isUser && event.chatstate) {
+      const type = event.chatstate.type;
+      const chatObj = ChatFabric.fromWWAChat(chat);
+      publishEvent(InternalEvent.CHAT_CHANGED_STATUS, [chatObj, chatObj, type]);
+    }
+  }
+});
+
+ChatModule.Chat.on('change:pin', (chat: any) => {
+  publishEvent(InternalEvent.CHAT_CHANGED_PIN, [ChatFabric.fromWWAChat(chat)]);
+});
+
 ChatModule.Chat.on('change:unreadCount', (chat: any) => {
   publishEvent(InternalEvent.CHAT_CHANGED_UNREAD_COUNT, [ChatFabric.fromWWAChat(chat)]);
 });
 
 ChatModule.Msg.on('add', (message: any) => {
   publishEvent(InternalEvent.CHAT_NEW_MESSAGE, [message]);
-})
+});

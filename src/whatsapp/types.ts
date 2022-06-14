@@ -6,7 +6,9 @@ export enum BridgePortType {
 
 export enum InternalEvent {
   CHAT_CHANGED_UNREAD_COUNT = 'CHAT_CHANGED_UNREAD_COUNT',
-  CHAT_NEW_MESSAGE = 'CHAT_NEW_MESSAGE'
+  CHAT_NEW_MESSAGE = 'CHAT_NEW_MESSAGE',
+  CHAT_CHANGED_PIN = 'CHAT_CHANGED_PIN',
+  CHAT_CHANGED_STATUS = 'CHAT_CHANGED_STATUS'
 }
 
 export enum WWAProviderCall {
@@ -29,7 +31,7 @@ export enum WWAProviderCall {
   getUnreadChats,
   enableOfflineMode,
   isOfflineModeEnabled,
-
+  getPinnedChats
 }
 
 export type WWAProviderRequest = {
