@@ -156,3 +156,7 @@ export function enableOfflineMode(enable: Boolean): Promise<void> {
 export function isOfflineModeEnabled(): Promise<boolean> {
   return callProvider(WWAProviderCall.isOfflineModeEnabled, []);
 }
+
+export function getPinnedChats(): Promise<Chat[]> {
+  return callProvider(WWAProviderCall.getPinnedChats, []);
+}

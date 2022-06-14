@@ -15,7 +15,8 @@
     {
       "matches": ["https://web.whatsapp.com/*"],
       "js": ["entry/content-script/cs.js"],
-      "css": ["entry/content-script/zen-mode-ui.css"]
+      "css": ["entry/content-script/zen-mode-ui.css",
+        "entry/content-script/zen-mode-font.css"]
     },
     {
       "matches": ["https://web.whatsapp.com/*"],

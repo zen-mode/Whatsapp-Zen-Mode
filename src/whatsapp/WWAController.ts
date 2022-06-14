@@ -22,6 +22,10 @@ export function getChat(chatId: string): any {
   return ChatModule.Chat.get(chatId);
 }
 
+export function getChatByWID(wid: any): any {
+  return ChatModule.Chat.get(wid);
+}
+
 export function getChatByTitle(chatTitle: string): any {
   return ChatModule.Chat._models.find((chat: any) => {
     return chat.title() === chatTitle;

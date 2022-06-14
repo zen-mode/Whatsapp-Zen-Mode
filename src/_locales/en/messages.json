@@ -62,6 +62,9 @@
   "ZM_ctxMenuItem_offline_mode": {
     "message": "Offline mode"
   },
+  "ZM_ctxMenuItem_pinned_status": {
+    "message": "Show pinned chats status"
+  },
   "ZM_hidden": {
     "message": "Hidden",
     "description": "Used to hidden label for chat element."
@@ -202,5 +205,17 @@
   },
   "ZM_visibilty_sheduler_weekdays_description": {
     "message": "(Weekdays are Sunday-Thursday)"
+  },
+  "pinnedChatsStatus_group_typing": {
+    "message": "Someone in \"%chat_title\" is typing…"
+  },
+  "pinnedChatsStatus_user_typing": {
+    "message": "\"%chat_title\" is typing…"
+  },
+  "pinnedChatsStatus_group_recording": {
+    "message": "Someone in \"%chat_title\" is recording…"
+  },
+  "pinnedChatsStatus_user_recording": {
+    "message": "\"%chat_title\" is recording…"
   }
 }

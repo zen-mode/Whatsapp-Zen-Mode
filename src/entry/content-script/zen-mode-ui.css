@@ -213,6 +213,10 @@ html[dir=rtl] .fakeCtxMenu[data-menu-type=ZM] {
   padding: 12px 24px;
 }
 
+.fakeCtxMenu[data-menu-type=ZM] [data-action=showPinnedChatsStatus] ._2oldI.dJxPU {
+  padding: 12px 24px;
+}
+
 .ZenMode__contextMenuItem__withIcon {
   align-items: center;
   color: inherit;
@@ -230,6 +234,11 @@ html[dir=rtl] .fakeCtxMenu[data-menu-type=ZM] {
 }
 
 #ZenMode__contextMenuItem__offlineMode__switchIcon svg {
+  height: 24px;
+  width: auto;
+}
+
+#ZenMode__contextMenuItem__pinnedChatsStatus__switchIcon svg {
   height: 24px;
   width: auto;
 }
@@ -431,7 +440,7 @@ button._2fQtj {
   position: absolute;
   bottom: 0;
   right: 6px;
-  z-index: 101;
+  z-index: 202;
   text-align: -webkit-right;
 }
 
@@ -442,16 +451,34 @@ button._2fQtj {
 .inchat-status-item {
   width: fit-content;
   font-size: 14px;
-  padding: 4px;
-  margin: 2px;
-  border-radius: 4px;
-  background-color: #00866973;
+  padding: 6px;
+  margin: 4px;
+  border-radius: 6px;
+  background-color: rgba(0, 168, 132, 0.4);
 }
 
-.inchat-status-item-container {
-
+.inchat-status-item #unreadMark {
+  height: 20px;
+  width: 20px;
+  background-color: #FF0000;
+  color: white;
+  position: absolute;
+  border-radius: 50%;
+  text-align: center;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
 }
 
-.inchat-status-item-body {
+html[dir=ltr] .inchat-status-item #unreadMark {
+  right: 0;
+  transform: translateX(-18px) translateY(-28px);
+}
 
+html[dir=rtl] .inchat-status-item #unreadMark {
+  left: 0;
+  transform: translateX(18px) translateY(-28px);
 }

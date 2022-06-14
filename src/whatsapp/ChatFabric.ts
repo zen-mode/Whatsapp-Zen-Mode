@@ -10,7 +10,8 @@ export class ChatFabric {
       hasUnread: wwaChat.unreadCount > 0,
       unreadCount: wwaChat.unreadCount,
       previewMessage: wwaChat.previewMessage && wwaChat.previewMessage.text ? wwaChat.previewMessage.text : null,
-      archive: wwaChat.archive
+      archive: wwaChat.archive,
+      pinned: wwaChat.pin
     }
   }
 }
