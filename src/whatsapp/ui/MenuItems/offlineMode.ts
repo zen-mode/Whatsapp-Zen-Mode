@@ -62,7 +62,10 @@ export function buildOfflineModeIcon(): HTMLElement {
   set_el_style(icon, {
     'background-image': `url(${iconUrl})`,
     display: 'none'
-  })
+  });
+  icon.addEventListener('click', () => {
+    toggleOfflineMode();
+  });
   return icon;
 }
 

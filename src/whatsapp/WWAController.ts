@@ -6,7 +6,7 @@ export function getWWVersion() {
 }
 
 export function getChats(): any[] {
-  return ChatModule.Chat.models;
+  return ChatModule.Chat._models;
 }
 
 export function getChatsExceptId(chatId: string): any[] {
@@ -90,7 +90,7 @@ export async function getProfilePicUrl(chatId: string): Promise<string | undefin
 }
 
 export function getUnreadChats(): any[] {
-  return ChatModule.Chat.models.filter((c: any) => c.hasUnread);
+  return ChatModule.Chat._models.filter((c: any) => c.hasUnread);
 }
 
 function setRetryTime(time: number) {
