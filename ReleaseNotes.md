@@ -1,3 +1,9 @@
+# Release Notes 1.4.2.21
+###  Public beta version [Marie Curie](https://en.wikipedia.org/wiki/Marie_Curie)
+1.**Pinned chat indicator added** -via zen menu
+2.Offline mode change via tool bar
+3.WA updates
+1. bug fixing resulting WA updates
 # Release Notes 1.4.2.20
 ###  Public beta version [Golda Meir](https://en.wikipedia.org/wiki/Golda_Meir)
 1. bug fixing resulting WA updates
