@@ -344,7 +344,48 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
   });
   popup.appendChild(closeBtnEl);
 
+  // returns to the original version when window was just opened
+  function resetToPreviousVersion() {
+    if (selectedSheduleVariant != currentScheduleVariant) {
+      (sheduleTypeSelector as HTMLInputElement).value = selectedSheduleVariant = currentScheduleVariant;
+      sheduleTypeSelector.dispatchEvent(new Event('change')); 
+      
+      switch (selectedSheduleVariant) {
+        case VisibilitySheduleVariant.Custom:  
+          const customShedulerForm = DOM.get_el(`#CustomShedulerForm`);
+          for (const day in shedule) {
+            if (shedule[day]) {
+              let customShedulerFromSelect = customShedulerForm?.childNodes[day].getElementsByTagName('select')[0];
+              (customShedulerFromSelect as HTMLSelectElement).value = String(shedule[day]![0]);
+
+              let customShedulerToSelect = customShedulerForm?.childNodes[day].getElementsByTagName('select')[1];
+              (customShedulerToSelect as HTMLSelectElement).value = String(shedule[day]![1]);   
+
+              customShedulerFromSelect?.dispatchEvent(new Event('change')); 
+              customShedulerToSelect?.dispatchEvent(new Event('change')); 
+              shedule = currentChatShedule;
+            }
+          }
+          break;        
+        case VisibilitySheduleVariant.Weekdays:
+          if (shedule[DayOfTheWeek.MON]) {
+            const WeekdayFromTimeSelector = DOM.get_el(`#WeekdayFromTimeSelector`);
+            (WeekdayFromTimeSelector as HTMLSelectElement).value = String(shedule[DayOfTheWeek.MON]![0]);
+
+            const WeekdayToTimeSelector = DOM.get_el(`#WeekdayToTimeSelector`);
+            (WeekdayToTimeSelector as HTMLSelectElement).value = String(shedule[DayOfTheWeek.MON]![1]);
+            WeekdayFromTimeSelector?.dispatchEvent(new Event('change')); 
+            WeekdayToTimeSelector?.dispatchEvent(new Event('change')); 
+            shedule = currentChatShedule;
+          }
+          break;
+                  
+      }
+    }
+  }
+
   function createClosePopup(popup: HTMLElement) {
+    console.log("Creating close popup");
     const closePopup = DOM.create_el({
       tag: "div",
       attributes: {
@@ -378,9 +419,10 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     }); 
 
     closePopupYesButton.addEventListener("click", () => {
+      resetToPreviousVersion();
       closePopup.remove();
       set_el_style(popup, {"pointer-events": "initial"});
-      set_el_style(popup, {display: "none"});
+      set_el_style(popup, {display: "none"});  
     });    
 
     closePopupButtonsContainer.append(closePopupYesButton);
