@@ -171,6 +171,15 @@
   "ZM_visibilty_sheduler_weekdays_description": {
     "message": "(ימי העבודה הם ראשון עד חמישי)"
   },
+  "ZM_visibilty_sheduler_close_popup_title": {
+    "message": "לבטל את השינויים שלך?"
+  },  
+  "ZM_visibilty_sheduler_close_popup_yes_button": {
+    "message": "כן"
+  },    
+  "ZM_visibilty_sheduler_close_popup_no_button": {
+    "message": "לא"
+  },        
   "pinnedChatsStatus_group_typing": {
     "message": "מישהו ב \"%chat_title\" מקליד/ה…"
   },

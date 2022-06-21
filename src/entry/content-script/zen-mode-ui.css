@@ -30,6 +30,7 @@ html[dir="rtl"] #ZenMode__toggle {
   margin: 0px 20px;
   background-size: 100%;
   background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 /* ZM button chevron */
@@ -481,4 +482,40 @@ html[dir=ltr] .inchat-status-item #unreadMark {
 html[dir=rtl] .inchat-status-item #unreadMark {
   left: 0;
   transform: translateX(18px) translateY(-28px);
+}
+
+.close-popup {
+  position: absolute;
+  background: #fff;
+  padding: 35px 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 90%;
+  background-color: var(--modal-background);
+  border-radius: 3px;
+  box-shadow: 0 17px 50px 0 rgba(var(--shadow-rgb),.19),0 12px 15px 0 rgba(var(--shadow-rgb),.24);
+  width: 500px;
+  overflow: hidden;
+  left: 0;
+  right: 0;
+  margin: auto;
+  pointer-events: auto;
+}
+
+.closepopup-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.closepopup-buttons-container {
+  display: flex;
+  justify-content: space-around;  
+  margin-top: 50px;
+}
+
+.closepopup-button-yes-button, .closepopup-button-no-button {
+  border: 1px solid;
+  padding: 8px 16px;  
+  cursor: pointer;
 }

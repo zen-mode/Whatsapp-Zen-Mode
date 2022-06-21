@@ -206,6 +206,15 @@
   "ZM_visibilty_sheduler_weekdays_description": {
     "message": "(Weekdays are Sunday-Thursday)"
   },
+  "ZM_visibilty_sheduler_close_popup_title": {
+    "message": "Cancel your changes?"
+  },  
+  "ZM_visibilty_sheduler_close_popup_yes_button": {
+    "message": "Yes"
+  },    
+  "ZM_visibilty_sheduler_close_popup_no_button": {
+    "message": "No"
+  },      
   "pinnedChatsStatus_group_typing": {
     "message": "Someone in \"%chat_title\" is typing…"
   },

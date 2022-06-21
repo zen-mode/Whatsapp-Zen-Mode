@@ -117,7 +117,7 @@ export class VisibilitySheduler {
         });
     }
 
-    private handleMessages = (message: any) => {
+    private handleMessages = (message: any, sender: any, sendResponse: any) => {
         const { type, payload } = message;
         switch (type) {
             case 'setShedule': {

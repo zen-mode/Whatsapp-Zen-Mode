@@ -28,6 +28,16 @@ const daysLabels: Record<DayOfTheWeek, string> = {
 };
 
 export function constructVisibilityShedulerPopup(): HTMLDivElement {
+  let currentChatShedule: WeekShedule = {
+    [DayOfTheWeek.SUN]: undefined,
+    [DayOfTheWeek.MON]: undefined,
+    [DayOfTheWeek.TUE]: undefined,
+    [DayOfTheWeek.WED]: undefined,
+    [DayOfTheWeek.THU]: undefined,
+    [DayOfTheWeek.FRI]: undefined,
+    [DayOfTheWeek.SAT]: undefined,
+  };
+
   let shedule: WeekShedule = {
     [DayOfTheWeek.SUN]: undefined,
     [DayOfTheWeek.MON]: undefined,
@@ -38,6 +48,7 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     [DayOfTheWeek.SAT]: undefined,
   };
 
+  let currentScheduleVariant = VisibilitySheduleVariant.Everyday;
   let selectedSheduleVariant = VisibilitySheduleVariant.Everyday;
 
   const popup = DOM.create_el({
@@ -69,6 +80,26 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
   const weekdaysDescriptionContainer = DOM.create_el({
     tag: "div",
   });
+
+  schedulerCalled(popup);
+
+  function schedulerCalled(popup: Element) {
+    const options = {
+      rootMargin: '0px',
+      threshold: 1.0
+    };
+  
+    var observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio > 0) {
+          currentChatShedule = shedule;
+          currentScheduleVariant = selectedSheduleVariant;
+        } 
+      });
+    }, options);
+  
+    observer.observe(popup);
+  }
 
   popup.append(description, sheduleTitle);
 
@@ -299,15 +330,81 @@ export function constructVisibilityShedulerPopup(): HTMLDivElement {
     text: "x",
     attributes: {class: "hide-popup-close-btn"},
   });
-  closeBtnEl.addEventListener("click", () => set_el_style(popup, {display: "none"}));
+  closeBtnEl.addEventListener("click", function() {
+    if (
+      JSON.stringify(currentChatShedule) != JSON.stringify(shedule) ||
+      currentScheduleVariant != selectedSheduleVariant
+    ) {
+      console.log("Asking if they really want to close");
+      createClosePopup(popup);
+      set_el_style(popup, {"pointer-events": "none"});
+    } else {
+      set_el_style(popup, {display: "none"});
+    }
+  });
   popup.appendChild(closeBtnEl);
 
-  window.addEventListener("click", (e) => {
-    if ((e.target as Element).closest(Selectors.ZM_HIDE_POPUP)) {
-      return;
-    }
-    set_el_style(popup, {display: "none"});
-  });
+  function createClosePopup(popup: HTMLElement) {
+    const closePopup = DOM.create_el({
+      tag: "div",
+      attributes: {
+        class: "close-popup",
+      },
+    });
+
+    const titleOfClosePopup = DOM.create_el({
+      tag: "div",
+      text: browser.i18n.getMessage("ZM_visibilty_sheduler_close_popup_title"),
+      attributes: {class: "closepopup-title"},
+    });    
+
+
+    closePopup.append(titleOfClosePopup);
+
+    const closePopupButtonsContainer = DOM.create_el({
+      tag: "div",
+      attributes: {
+        class: "closepopup-buttons-container",
+      },
+    });    
+
+    const closePopupYesButton = DOM.create_el({
+      tag: "div",
+      attributes: {
+        class: "closepopup-button-yes-button",
+        type: "button",
+      },
+      text: browser.i18n.getMessage("ZM_visibilty_sheduler_close_popup_yes_button"),
+    }); 
+
+    closePopupYesButton.addEventListener("click", () => {
+      closePopup.remove();
+      set_el_style(popup, {"pointer-events": "initial"});
+      set_el_style(popup, {display: "none"});
+    });    
+
+    closePopupButtonsContainer.append(closePopupYesButton);
+
+    const closePopupNoButton = DOM.create_el({
+      tag: "div",
+      attributes: {
+        class: "closepopup-button-no-button",
+        type: "button",
+      },
+      text: browser.i18n.getMessage("ZM_visibilty_sheduler_close_popup_no_button"),
+    }); 
+
+    closePopupNoButton.addEventListener("click", () => {
+      set_el_style(popup, {"pointer-events": "initial"});
+      closePopup.remove();
+    });
+
+    closePopupButtonsContainer.append(closePopupNoButton);
+
+    closePopup.append(closePopupButtonsContainer);
+
+    popup.append(closePopup);
+  }
 
   const buttonsContainer = DOM.create_el({
     tag: "div",
