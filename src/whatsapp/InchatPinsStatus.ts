@@ -5,6 +5,15 @@ import { Chat } from "./model/Chat";
 import { Contact } from "./model/Contact";
 import { subscribeForeverPinnedChatsStatusChanges } from "./Storage";
 import { InternalEvent } from "./types";
+import { get_extn_storage_item_value, set_extn_storage_item } from "../../utility-belt/helpers/extn/storage";
+import { StateItemNames } from "../data/dictionary";
+import {DOM} from "../../utility-belt/helpers/dom/DOM-shortcuts";
+
+let wasShownOnboarding: boolean;
+
+async function getStatusOfOnboarding(): Promise<boolean> {
+  return Boolean(await get_extn_storage_item_value(StateItemNames.WAS_SHOWN_PINNED_CHATS_STATUS_ONBOARDING));
+}
 
 function getChatContainer(): HTMLElement | null {
    return document.getElementById('inchat-status-container');
@@ -40,8 +49,7 @@ function injectContainerInChat() {
     return null
 }
 
-function createBaseItem(chat: Chat, user: Contact, status: string = '') {
-
+function createBaseItem(chat: Chat, user: Chat, status: string = '') {
    const showUnreadMark = chat.unreadCount > 0 || chat.unreadCount == -1;
    
    const isActiveStatus = status === 'composing';
@@ -125,8 +133,44 @@ function createBaseItem(chat: Chat, user: Contact, status: string = '') {
    if (!needToShow) {
       main.style.display = 'none';
    }
-   
+  if (needToShow && !wasShownOnboarding) {
+    showOnboarding();
+  }         
+   console.log("Creating base item", chat, user, status);
+   console.log("chat=", chat);
+   console.log("user=", user);
+   console.log("status=", status);   
    return main;
+}
+
+function showOnboarding() {
+  const container = getChatContainer();
+  const onboardingContainer = DOM.create_el({
+    tag: "div",
+    attributes: {
+      id: "pinned-chat-onborading",
+    },
+    text: browser.i18n.getMessage('pinned_chat_onboarding')
+  });  
+  const onboardingContainerClose = DOM.create_el({
+    tag: "span",
+    attributes: {
+      id: "pinned-chat-onborading-close",
+    },
+    text: "x"
+  });  
+  onboardingContainer.append(onboardingContainerClose);
+  container?.append(onboardingContainer);
+  set_extn_storage_item({
+    [StateItemNames.WAS_SHOWN_PINNED_CHATS_STATUS_ONBOARDING]: true
+  });  
+  onboardingContainerClose.addEventListener("click", function() {
+    onboardingContainer.remove();
+  });
+  setTimeout(function() {
+    onboardingContainer.remove();
+  }, 10000)
+  wasShownOnboarding = true;
 }
 
 function addChat(...chat: Chat[]) {
@@ -149,7 +193,7 @@ function hasChat(chat: Chat): boolean {
 
 const cachedChatStatus = {}
 
-function updateChat(chat: Chat, user: Chat, status: string = '') {
+function updateChat(chat: Chat, user: Contact, status: string = '') {
    if (!status) {
       status = cachedChatStatus[chat.id];
    } else {
@@ -198,12 +242,14 @@ function disableStatuses() {
    }
 }
 
-function enableStatuses() {
-   injectionInterval = setInterval(async function() {
-      if (injectContainerInChat()) {
-         addChat(...await getPinnedChats());
-      }
-   }, 100);
+async function enableStatuses() {
+  console.log("ENABLE STATUS");
+  wasShownOnboarding = await getStatusOfOnboarding();  
+  injectionInterval = setInterval(async function() {
+    if (injectContainerInChat()) {
+        addChat(...await getPinnedChats());
+    }
+  }, 100);
 }
 
 subscribeForeverPinnedChatsStatusChanges((enabled: boolean) => {

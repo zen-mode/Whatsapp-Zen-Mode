@@ -191,5 +191,8 @@
   },
   "pinnedChatsStatus_user_recording": {
     "message": "\"%chat_title\" מקליט/ה"
-  }
+  },
+  "pinned_chat_onboarding": {
+    "message": "הצגת מצב צ'אטים מוצמדים פעילה, לשינוי יש לגשת לתפריט זן"
+  }  
 }

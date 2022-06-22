@@ -484,6 +484,33 @@ html[dir=rtl] .inchat-status-item #unreadMark {
   transform: translateX(18px) translateY(-28px);
 }
 
+#pinned-chat-onborading {
+  position: absolute;
+  width: 331px;
+  height: 65px;
+  right: 6px;
+  top: -99px;
+  background: #8fcfbd;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 10px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: bold;
+  border-radius: 6px;  
+}
+
+#pinned-chat-onborading-close {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 5px;  
+}
+
 .close-popup {
   position: absolute;
   background: #fff;

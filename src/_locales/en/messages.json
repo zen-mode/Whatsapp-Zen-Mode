@@ -226,5 +226,8 @@
   },
   "pinnedChatsStatus_user_recording": {
     "message": "\"%chat_title\" is recording…"
+  },
+  "pinned_chat_onboarding": {
+    "message": "Show pinned chat status is on! You can change the mode in Zen Mode menu"
   }
 }
