@@ -107,6 +107,7 @@ function createBaseItem(chat: Chat, user: Chat, status: string = '') {
 <img src="${browser.runtime.getURL('assets/whatsapp/message.svg')}" style="
    height: 22px;
    width: 23px;
+   margin-right: 10px;
    transform: translateY(10%);
    visibility: ${showUnreadMark ? 'visible' : 'hidden'};
 ">`
@@ -121,7 +122,7 @@ function createBaseItem(chat: Chat, user: Chat, status: string = '') {
    const container = document.createElement('div');
    container.className = 'inchat-status-item-container';
    const body = document.createElement('div');
-   body.innerHTML = `${titleSpan}${unreadIcon}${unreadMark}`;
+   body.innerHTML = `${unreadIcon}${unreadMark}${titleSpan}`;
    body.className = 'inchat-status-item-body';
    container.append(body);
    main.append(container);
@@ -243,7 +244,7 @@ function disableStatuses() {
 }
 
 async function enableStatuses() {
-  console.log("ENABLE STATUS");
+  console.log(browser.i18n.getMessage('__MSG_@@bidi_dir__'));
   wasShownOnboarding = await getStatusOfOnboarding();  
   injectionInterval = setInterval(async function() {
     if (injectContainerInChat()) {

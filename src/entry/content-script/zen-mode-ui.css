@@ -474,13 +474,19 @@ button._2fQtj {
   text-align: center;
 }
 
+.inchat-status-item-body {
+  position: relative;
+}
+
 html[dir=ltr] .inchat-status-item #unreadMark {
-  right: 0;
+  /* right: 0; */
+  left: 28px;
   transform: translateX(-18px) translateY(-28px);
 }
 
 html[dir=rtl] .inchat-status-item #unreadMark {
-  left: 0;
+  /* left: 0; */
+  right: 23px;
   transform: translateX(18px) translateY(-28px);
 }
 
