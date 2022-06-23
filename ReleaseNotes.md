@@ -1,3 +1,8 @@
+# Release Notes 1.4.2.22
+###  Public beta version [Marie Curie](https://en.wikipedia.org/wiki/Marie_Curie)
+1.**Pinned chat indicator set to On** -via zen menu can set off
+2.Cosmetic changes
+3.WA updates fixes
 # Release Notes 1.4.2.21
 ###  Public beta version [Marie Curie](https://en.wikipedia.org/wiki/Marie_Curie)
 1.**Pinned chat indicator added** -via zen menu
