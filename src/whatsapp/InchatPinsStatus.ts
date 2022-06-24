@@ -1,6 +1,6 @@
 import browser from "webextension-polyfill";
 import { WWEvents } from "./extension/EventBus";
-import { getPinnedChats } from "./ExtensionConnector";
+import { getPinnedChats, getOpenedChat } from "./ExtensionConnector";
 import { Chat } from "./model/Chat";
 import { Contact } from "./model/Contact";
 import { subscribeForeverPinnedChatsStatusChanges } from "./Storage";
@@ -10,6 +10,7 @@ import { StateItemNames } from "../data/dictionary";
 import {DOM} from "../../utility-belt/helpers/dom/DOM-shortcuts";
 
 let wasShownOnboarding: boolean;
+let openedChat: any;
 
 async function getStatusOfOnboarding(): Promise<boolean> {
   return Boolean(await get_extn_storage_item_value(StateItemNames.WAS_SHOWN_PINNED_CHATS_STATUS_ONBOARDING));
@@ -49,12 +50,12 @@ function injectContainerInChat() {
     return null
 }
 
-function createBaseItem(chat: Chat, user: Chat, status: string = '') {
+function createBaseItem(chat: Chat, user: Contact, status: string = '') {
    const showUnreadMark = chat.unreadCount > 0 || chat.unreadCount == -1;
    
    const isActiveStatus = status === 'composing';
 
-   const needToShow =  showUnreadMark || isActiveStatus;
+   const needToShow =  (showUnreadMark || isActiveStatus) && (openedChat.id != chat.id);
 
    var title;
    switch (status) {
@@ -137,10 +138,6 @@ function createBaseItem(chat: Chat, user: Chat, status: string = '') {
   if (needToShow && !wasShownOnboarding) {
     showOnboarding();
   }         
-   console.log("Creating base item", chat, user, status);
-   console.log("chat=", chat);
-   console.log("user=", user);
-   console.log("status=", status);   
    return main;
 }
 
@@ -188,13 +185,13 @@ function removeChat(chat: Chat) {
 }
 
 function hasChat(chat: Chat): boolean {
-   console.log('hasChat', chat, getChatItem(chat));
+   //console.log('hasChat', chat, getChatItem(chat));
    return Boolean(getChatItem(chat)); 
 }
 
 const cachedChatStatus = {}
 
-function updateChat(chat: Chat, user: Contact, status: string = '') {
+function updateChat(chat: Chat, user: Chat, status: string = '') {
    if (!status) {
       status = cachedChatStatus[chat.id];
    } else {
@@ -208,7 +205,7 @@ function updateChat(chat: Chat, user: Contact, status: string = '') {
 
 WWEvents.on(InternalEvent.CHAT_CHANGED_STATUS, (chat: Chat, user: any, status: string) => {
    if (hasChat(chat)) {
-      console.log('New Status for ', chat.name, status)
+      //console.log('New Status for ', chat.name, status)
       updateChat(chat, user, status);
    }
 });
@@ -226,12 +223,13 @@ WWEvents.on(InternalEvent.CHAT_CHANGED_PIN, (chat: Chat) => {
 });
 
 WWEvents.on(InternalEvent.CHAT_CHANGED_UNREAD_COUNT, (chat: Chat) => {
+  //console.log("CHAT_CHANGED_UNREAD_COUNT", chat);
    if (hasChat(chat)) {
       updateChat(chat, chat);
    }
 });
 
-var injectionInterval;
+let injectionInterval: ReturnType<typeof setInterval>;
 
 function disableStatuses() {
    if (injectionInterval) {
@@ -244,11 +242,16 @@ function disableStatuses() {
 }
 
 async function enableStatuses() {
-  console.log(browser.i18n.getMessage('__MSG_@@bidi_dir__'));
+  //console.log("ENABLING STATUSES");
   wasShownOnboarding = await getStatusOfOnboarding();  
   injectionInterval = setInterval(async function() {
     if (injectContainerInChat()) {
-        addChat(...await getPinnedChats());
+      //console.log("Injecting container in chat");
+      openedChat = await new Promise(resolve => getOpenedChat(resolve));
+      //console.log(openedChat);
+      let pinnedChats = await getPinnedChats();
+      //console.log("Getting pinned chats", pinnedChats);
+      addChat(...pinnedChats);
     }
   }, 100);
 }
