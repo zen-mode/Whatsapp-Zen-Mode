@@ -1,6 +1,6 @@
 import browser from "webextension-polyfill";
 import { WWEvents } from "./extension/EventBus";
-import { getPinnedChats, getOpenedChat } from "./ExtensionConnector";
+import { getPinnedChats, getOpenedChat, openChat } from "./ExtensionConnector";
 import { Chat } from "./model/Chat";
 import { Contact } from "./model/Contact";
 import { subscribeForeverPinnedChatsStatusChanges } from "./Storage";
@@ -129,7 +129,8 @@ function createBaseItem(chat: Chat, user: Contact, status: string = '') {
    main.append(container);
    
    main.onclick = function(e) {
-      main.remove();
+    openChat(chat);
+    main.remove();
    }
 
    if (!needToShow) {

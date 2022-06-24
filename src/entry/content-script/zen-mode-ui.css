@@ -456,6 +456,7 @@ button._2fQtj {
   margin: 4px;
   border-radius: 6px;
   background-color: rgba(0, 168, 132, 0.4);
+  cursor: pointer;
 }
 
 .inchat-status-item #unreadMark {
