@@ -358,6 +358,13 @@ html[dir=ltr] .hide-popup-close-btn {
   cursor: pointer;
 }
 
+#WA_contactCtxMenuItem_hide_id {
+  width: 15px;
+  margin-right: 6px;
+  margin-left: 2px;
+  vertical-align: middle;
+}
+
 #ZenMode__visibilityShedulerPopup {
   position: fixed;
   height: fit-content;
@@ -371,6 +378,8 @@ html[dir=ltr] .hide-popup-close-btn {
   z-index: 9999999;
   padding: 1em;
 }
+
+
 
 .ZenMode__select {
   box-sizing: border-box;
