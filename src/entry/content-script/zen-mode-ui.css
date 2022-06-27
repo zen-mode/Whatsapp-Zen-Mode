@@ -464,8 +464,7 @@ button._2fQtj {
   padding: 6px;
   margin: 4px;
   border-radius: 6px;
-  background-color: rgba(0, 168, 132, 0.4);
-  cursor: pointer;
+  background-color: rgba(0, 168, 132, 0.4);;
 }
 
 .inchat-status-item #unreadMark {
@@ -484,20 +483,53 @@ button._2fQtj {
   text-align: center;
 }
 
-.inchat-status-item-body {
-  position: relative;
+.inchat-status-item .pin-icon {
+  height: 16px;
+  width: 12px;
+  transform: translateY(-20%);
+  margin-right: 8px;     
+}
+
+html[dir=rtl] .inchat-status-item .pin-icon {
+  margin-right: 0;
+}
+
+.inchat-status-item .inchat-title {
+  vertical-align: super;
+  height: .75em;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: black;
+  display: inline-table;
+  padding-right: 15px;  
 }
 
 html[dir=ltr] .inchat-status-item #unreadMark {
-  /* right: 0; */
-  left: 28px;
+  right: 0;
   transform: translateX(-18px) translateY(-28px);
 }
 
 html[dir=rtl] .inchat-status-item #unreadMark {
-  /* left: 0; */
-  right: 23px;
+  left: 0;
   transform: translateX(18px) translateY(-28px);
+}
+
+.inchat-status-item #unreadMark > span {
+  display: block;
+  margin: 2.5px 0.5px 0 0;
+}
+
+.inchat-status-item .unread-icon {
+  height: 22px;
+  width: 23px;
+  transform: translateY(10%);  
+}
+
+html[dir=rtl] .inchat-status-item .unread-icon {
+  margin-right: 8px;
 }
 
 #pinned-chat-onborading {

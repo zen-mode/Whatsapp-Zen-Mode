@@ -83,39 +83,18 @@ function createBaseItem(chat: Chat, user: Contact, status: string = '') {
          title = chat.title;
    } 
 
+   const pinIcon = `
+<img src="${browser.runtime.getURL('assets/whatsapp/pin.svg')}" class="pin-icon">`   
+
    const titleSpan = `
-<span style="
-   vertical-align: super;
-   height: .75em;
-   font-family: 'Inter';
-   font-style: normal;
-   font-weight: 400;
-   font-size: 16px;
-   line-height: 19px;
-   color: black
-   display: inline-table;
-   padding-right: 5px;
-">${title}</span>`;
+<span class="inchat-title">${title}</span>`;
 
    const unreadMark = showUnreadMark ? `
 <div id="unreadMark">
-<span style="
-   display: block;
-   margin: 2.5px 0.5px 0 0;
-">${chat.unreadCount == -1 ? '' : chat.unreadCount}</span></div>` : '';
+<span>${chat.unreadCount == -1 ? '' : chat.unreadCount}</span></div>` : '';
 
    const unreadIcon = `
-<img src="${browser.runtime.getURL('assets/whatsapp/message.svg')}" style="
-   height: 22px;
-   width: 23px;
-   margin-right: 10px;
-   transform: translateY(10%);
-   visibility: ${showUnreadMark ? 'visible' : 'hidden'};
-">`
-   // font-size: 12px;
-   // vertical-align: super;
-   // height: .75em;
-   // line-height: .75em;
+<img src="${browser.runtime.getURL('assets/whatsapp/message.svg')}" class="unread-icon" style="visibility: ${showUnreadMark ? 'visible' : 'hidden'};">`
 
    const main = document.createElement('div');
    main.className = 'inchat-status-item';
@@ -123,7 +102,7 @@ function createBaseItem(chat: Chat, user: Contact, status: string = '') {
    const container = document.createElement('div');
    container.className = 'inchat-status-item-container';
    const body = document.createElement('div');
-   body.innerHTML = `${unreadIcon}${unreadMark}${titleSpan}`;
+   body.innerHTML = `${pinIcon}${titleSpan}${unreadIcon}${unreadMark}`;
    body.className = 'inchat-status-item-body';
    container.append(body);
    main.append(container);
