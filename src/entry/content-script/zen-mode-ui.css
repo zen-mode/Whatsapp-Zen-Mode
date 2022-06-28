@@ -50,10 +50,15 @@ html[dir="rtl"] #ZenMode__toggle__chevron {
   bottom: 0;
   border-radius: 50%;
   font-size: 11px;
+  color: rgb(0, 0, 0);
+  transform: rotate(337deg);
+  bottom: -1px;
+  right: -12px;  
 }
 
 #ZenMode__badge::after {
-  content: "NEW";
+  content: "New";
+  font-family: "Segoes";
 }
 
 /* Release notes */

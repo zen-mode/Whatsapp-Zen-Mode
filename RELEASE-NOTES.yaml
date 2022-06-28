@@ -1,7 +1,6 @@
 release:
     description: <b>Public beta version <a href="https://en.wikipedia.org/wiki/Marie_Curie">Marie Curie</a></b>
     changes:
-      - 1.**Pinned chat indicator set to On** -via zen menu can set off
-      - 2.Cosmetic changes
-      - 3.WA updates fixes
+      - 1.Cosmetic changes
+      - 2.Pinned chat enhancements
     link: <a href="https://github.com/zen-mode/Whatsapp-Zen-Mode/blob/main/ReleaseNotes.md">See previous versions</a>
