@@ -1,4 +1,4 @@
-# Release Notes 1.4.2.21
+# Release Notes 1.4.2.23
 ###  Public beta version [Marie Curie](https://en.wikipedia.org/wiki/Marie_Curie)
 1.Cosmetic changes
 2.Pinned chat enhancements 
