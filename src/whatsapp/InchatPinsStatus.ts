@@ -93,6 +93,10 @@ function createBaseItem(chat: Chat, user: Contact, status: string = '') {
 <div id="unreadMark">
 <span>${chat.unreadCount == -1 ? '' : chat.unreadCount}</span></div>` : '';
 
+const hideMark = `
+<div id="hideMark">
+<span>x</span></div>`;
+
    const unreadIcon = `
 <img src="${browser.runtime.getURL('assets/whatsapp/message.svg')}" class="unread-icon" style="visibility: ${showUnreadMark ? 'visible' : 'hidden'};">`
 
@@ -102,8 +106,13 @@ function createBaseItem(chat: Chat, user: Contact, status: string = '') {
    const container = document.createElement('div');
    container.className = 'inchat-status-item-container';
    const body = document.createElement('div');
-   body.innerHTML = `${pinIcon}${titleSpan}${unreadIcon}${unreadMark}`;
+   body.innerHTML = `${hideMark}${pinIcon}${titleSpan}${unreadIcon}${unreadMark}`;
    body.className = 'inchat-status-item-body';
+
+   body.querySelector('#hideMark')!.addEventListener('click', function(event) {
+    event.stopPropagation();
+    main.remove()
+  });   
    container.append(body);
    main.append(container);
    
