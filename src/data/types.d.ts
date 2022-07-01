@@ -11,6 +11,6 @@ export type ReleaseNotes = {
   release: {
     description: string;
     changes: string[];
-    link: "<a href=\"https://github.com/zen-mode/Whatsapp-Zen-Mode/blob/main/ReleaseNotes.md\">See previous versions</a>"
+    link: "<a taget=\"_blank\" href=\"https://github.com/zen-mode/Whatsapp-Zen-Mode/blob/main/ReleaseNotes.md\">See previous versions</a>"
   }
 };
