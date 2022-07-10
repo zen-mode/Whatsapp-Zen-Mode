@@ -1,3 +1,7 @@
+# Release Notes 1.5.0.0
+###  Public beta version [Marie Curie](https://en.wikipedia.org/wiki/Marie_Curie)
+1.Zen menu changes
+
 # Release Notes 1.4.2.24
 ###  Public beta version [Marie Curie](https://en.wikipedia.org/wiki/Marie_Curie)
 1.Cosmetic changes
