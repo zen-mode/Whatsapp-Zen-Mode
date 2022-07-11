@@ -102,8 +102,8 @@
   "ZM_hide_popup_week": {
     "message": "שבוע"
   },
-  "ZM_hide_popup_forever": {
-    "message": "תמיד"
+  "ZM_hide_popup_day": {
+    "message": "יום"
   },
   "ZM_ctxMenuItem_unreadChats": {
     "message": "לרשימת צ'אטים שלא נקראו"

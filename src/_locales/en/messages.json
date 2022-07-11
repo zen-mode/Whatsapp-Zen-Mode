@@ -7,7 +7,7 @@
     "description": "WA contact ctx menu item that turn zen morning for contact"
   },
   "WA_contactCtxMenuItem_hide": {
-    "message": "Hide/Snooze chat",
+    "message": "Snooze chat",
     "description": "WA contact ctx menu item that hides the contact"
   },
   "WA_contactCtxMenuItem_unhide": {
@@ -131,8 +131,8 @@
   "ZM_hide_popup_week": {
     "message": "1 week"
   },
-  "ZM_hide_popup_forever": {
-    "message": "Forever"
+  "ZM_hide_popup_day": {
+    "message": "1 day"
   },
   "ZM_ctxMenuItem_unreadChats": {
     "message": "Unread chats"

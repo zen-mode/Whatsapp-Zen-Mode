@@ -50,7 +50,7 @@ export function attach_hide_contact_item(node: HTMLElement): void {
       await isZenMorningChat(hoveredChat)
     );
     const visibilityShedulerItemEl = construct_visibilty_sheduler_ctx_menu_item();
-    waContactCtxMenuListEl.append(menuItemEl, visibilityShedulerItemEl, zenMorningItemEl);
+    waContactCtxMenuListEl.append(menuItemEl, visibilityShedulerItemEl);
     waContactCtxMenuListEl.click(); // Corrects ctx menu visualization.
   });
 }

@@ -193,6 +193,7 @@ html[dir=rtl] #ZenMode__zenMorning__sunIcon {
   right: 20px;
   top: 0;
 }
+
 @media (prefers-color-scheme: dark) {
   .fakeCtxMenuItem.first::after {
     border-top-color: white;
@@ -215,6 +216,13 @@ html[dir=rtl] .fakeCtxMenu[data-menu-type=ZM] {
   padding: 12px 24px;
 }
 
+.fakeCtxMenu[data-menu-type=ZM] [data-action=debugMode] {
+  background-image: linear-gradient(to right, black 41%, rgba(255,255,255,0) 0%);
+  background-position: 0 4px;
+  background-size: 6px 2px;
+  background-repeat: repeat-x;    
+}
+
 .fakeCtxMenu[data-menu-type=ZM] [data-action=offlineMode] ._2oldI.dJxPU {
   padding: 12px 24px;
 }
@@ -230,8 +238,8 @@ html[dir=rtl] .fakeCtxMenu[data-menu-type=ZM] {
   justify-content: space-between;
 }
 #ZenMode__smartMute__soundIcon svg {
-  height: auto;
-  width: 18px;
+  height: 24px;
+  width: auto;
 }
 
 #ZenMode__contextMenuItem__debugMode__switchIcon svg {

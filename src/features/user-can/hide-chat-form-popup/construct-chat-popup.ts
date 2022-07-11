@@ -48,19 +48,19 @@ export function construct_hide_popup_area(): HTMLDivElement {
   hidePopupGroupHours.appendChild(DOM.create_el({text: browser.i18n.getMessage("ZM_hide_popup_hours"), tag: "span"}))
   hidePopupFormEl.appendChild(hidePopupGroupHours)
 
+  const hidePopupGroupDay = DOM.create_el({tag: "label", attributes: {
+    class: 'hide-popup-group'
+  }});
+  hidePopupGroupDay.appendChild(DOM.create_el({ attributes: {type: 'radio', value: "day",  name: "hideRadio", class: "hide-popup-radio"}, tag: "input"}))
+  hidePopupGroupDay.appendChild(DOM.create_el({text: browser.i18n.getMessage("ZM_hide_popup_day"),  tag: 'span'}))
+  hidePopupFormEl.appendChild(hidePopupGroupDay)  
+
   const hidePopupGroupWeek = DOM.create_el({tag: "label", attributes: {
     class: 'hide-popup-group'
   }});
   hidePopupGroupWeek.appendChild(DOM.create_el({ attributes: {type: 'radio', value: "week", name: "hideRadio", class: "hide-popup-radio"}, tag: "input"}))
   hidePopupGroupWeek.appendChild(DOM.create_el({text: browser.i18n.getMessage("ZM_hide_popup_week"), tag: 'span'}))
   hidePopupFormEl.appendChild(hidePopupGroupWeek)
-
-  const hidePopupGroupForever = DOM.create_el({tag: "label", attributes: {
-    class: 'hide-popup-group'
-  }});
-  hidePopupGroupForever.appendChild(DOM.create_el({ attributes: {type: 'radio', value: "forever",  name: "hideRadio", class: "hide-popup-radio"}, tag: "input"}))
-  hidePopupGroupForever.appendChild(DOM.create_el({text: browser.i18n.getMessage("ZM_hide_popup_forever"),  tag: 'span'}))
-  hidePopupFormEl.appendChild(hidePopupGroupForever)
 
   const buttonsContainer = DOM.create_el({tag: "div", attributes: {
     class: 'hide-popup-buttons-container'
@@ -85,13 +85,13 @@ export function construct_hide_popup_area(): HTMLDivElement {
       if (selectedValue === "hours") {
         hide_contact(480)
         set_el_style(hidePopupArea, {display: "none"});
+      } else if (selectedValue === "day") {
+        hide_contact(1440)
+        set_el_style(hidePopupArea, {display: "none"});
       } else if (selectedValue === "week") {
         hide_contact(10080)
         set_el_style(hidePopupArea, {display: "none"});
-      } else if (selectedValue === "forever") {
-        hide_contact()
-        set_el_style(hidePopupArea, {display: "none"});
-      }
+      } 
   }
   buttonsContainer.appendChild(hidePopupButton)
 

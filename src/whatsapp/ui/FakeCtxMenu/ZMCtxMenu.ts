@@ -1,6 +1,5 @@
 import { FakeCtxMenu, FakeCtxMenuEventType, FakeCtxMenuItem } from "./FakeCtxMenu";
 import browser from "webextension-polyfill";
-import { presentHiddenChatsLeftDrawer } from "../NavigationDrawer/HiddenChats";
 import { clearHiddenChats, getHiddenChats } from "../../Storage";
 import {
   construct_smartMute_menu_item,
@@ -25,28 +24,9 @@ export interface ZMCtxMenuItem extends FakeCtxMenuItem {
 
 let ZMMenuItems: ZMCtxMenuItem[] = [
   {
-    action: "smartMute",
-    domNode: construct_smartMute_menu_item(),
-    makeAction: toggleSmartMute,
-  },
-  {
-    action: "hiddenChats",
-    domNode: browser.i18n.getMessage("ZM_ctxMenuItem_hiddenChats"),
-    makeAction: async () => presentHiddenChatsLeftDrawer(await getHiddenChats()),
-  },
-  {
     action: "unreadChats",
     domNode: browser.i18n.getMessage("ZM_ctxMenuItem_unreadChats"),
     makeAction: async () => getUnreadChats(presentUnreadChats),
-  },
-  {
-    action: "unhideAll",
-    domNode: browser.i18n.getMessage("ZM_ctxMenuItem_unhideAll"),
-    makeAction: async () => {
-      const hiddenChats = await getHiddenChats();
-      browser.runtime.sendMessage({ type: "deleteShedule", payload: { chat: hiddenChats } });
-      clearHiddenChats();
-    },
   },
   {
     action: "releaseNotes",
@@ -61,14 +41,10 @@ let ZMMenuItems: ZMCtxMenuItem[] = [
     },
   },
   {
-    action: "sendFeedback",
-    domNode: browser.i18n.getMessage("ZM_ctxMenuItem_contactUs"),
-    makeAction: () => {
-      const subject = "Zen Mode extension feedback";
-
-      window.open(`${URLS.FEEDBACK_EMAIL}?subject=${subject}`);
-    },
-  },
+    action: "smartMute",
+    domNode: construct_smartMute_menu_item(),
+    makeAction: toggleSmartMute,
+  },  
   {
     action: "showPinnedChatsStatus",
     domNode: buildPinnedChatsStatusMenuItem(),
@@ -83,7 +59,16 @@ let ZMMenuItems: ZMCtxMenuItem[] = [
     action: "debugMode",
     domNode: constructDebugModeMenuItem(),
     makeAction: toggleDebugMode,
-  }
+  },
+  {
+    action: "sendFeedback",
+    domNode: browser.i18n.getMessage("ZM_ctxMenuItem_contactUs"),
+    makeAction: () => {
+      const subject = "Zen Mode extension feedback";
+
+      window.open(`${URLS.FEEDBACK_EMAIL}?subject=${subject}`);
+    },
+  },  
 ];
 
 export const debugModeItems = [

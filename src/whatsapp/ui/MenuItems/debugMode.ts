@@ -25,7 +25,7 @@ export function constructDebugModeMenuItem(): HTMLElement {
   const menuItem = document.createElement("DIV");
   set_el_attributes(menuItem, {
     id: Selectors.ZM_CTX_MENU_ITEM_DEBUG_MODE.substring(1),
-    class: "ZenMode__contextMenuItem__withIcon",
+    class: "ZenMode__contextMenuItem__withIcon ZenMode_debugMode",
   });
   const textEl = DOM.create_el({
     tag: "span",
