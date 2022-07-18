@@ -8,6 +8,24 @@ import { InternalEvent } from "./types";
 import { get_extn_storage_item_value, set_extn_storage_item } from "../../utility-belt/helpers/extn/storage";
 import { StateItemNames } from "../data/dictionary";
 import {DOM} from "../../utility-belt/helpers/dom/DOM-shortcuts";
+import {
+  getChat,
+  getChatByWID,
+  getChatByTitle,
+  openChat,
+  synchronizeWWChats,
+  getChatsExceptId,
+  getOpenedChat,
+  setChatsGlobalSoundsState,
+  getChatsGlobalSoundsState,
+  markChatAsRead,
+  getProfilePicUrl,
+  getUnreadChats,
+  getPinnedChats,
+  markChatUnread,
+  runAutoReconnecting
+} from "./WWAController";
+
 
 let wasShownOnboarding: boolean;
 let openedChat: any;
@@ -16,8 +34,27 @@ async function getStatusOfOnboarding(): Promise<boolean> {
   return Boolean(await get_extn_storage_item_value(StateItemNames.WAS_SHOWN_PINNED_CHATS_STATUS_ONBOARDING));
 }
 
+function showHiddenItemIfExistNewMessage() {
+  let chatPinsItems = document.getElementsByClassName('inchat-status-item');
+  if (chatPinsItems) {
+    for (let item of chatPinsItems) {
+      if (item.querySelector('.inchat-status-item-container').querySelector('.inchat-status-item-body').querySelector('#unreadMark')) {
+        var newMessageCount = item.querySelector('.inchat-status-item-container').querySelector('.inchat-status-item-body').querySelector('#unreadMark').querySelector('span').textContent;
+
+        if (newMessageCount != localStorage.getItem(item.id+'-unreadCount')) {
+          localStorage.setItem(item.id+'-unreadCount', newMessageCount);
+          localStorage.setItem(item.id, 'show');
+          document.getElementById(item.id).style.display = 'block';
+        }
+      }
+    }
+  }
+}
+
+
 function getChatContainer(): HTMLElement | null {
-   return document.getElementById('inchat-status-container');
+  showHiddenItemIfExistNewMessage();
+  return document.getElementById('inchat-status-container');
 }
 
 function getSelectorFromChat(chat: Chat) {
@@ -40,7 +77,7 @@ function getChatItem(chat: Chat): HTMLElement | null {
 
 function injectContainerInChat() {
     let chatMessagesDiv = document.getElementsByClassName('_2gzeB')[0];
-    if (chatMessagesDiv 
+    if (chatMessagesDiv
       && !getChatContainer()) {
         const div = document.createElement('div');
         div.id = 'inchat-status-container';
@@ -52,7 +89,7 @@ function injectContainerInChat() {
 
 function createBaseItem(chat: Chat, user: Contact, status: string = '') {
    const showUnreadMark = chat.unreadCount > 0 || chat.unreadCount == -1;
-   
+
    const isActiveStatus = status === 'composing';
 
    const needToShow =  (showUnreadMark || isActiveStatus) && (openedChat.id != chat.id);
@@ -81,10 +118,10 @@ function createBaseItem(chat: Chat, user: Contact, status: string = '') {
          break;
       default:
          title = chat.title;
-   } 
+   }
 
    const pinIcon = `
-<img src="${browser.runtime.getURL('assets/whatsapp/pin.svg')}" class="pin-icon">`   
+<img src="${browser.runtime.getURL('assets/whatsapp/pin.svg')}" class="pin-icon">`
 
    const titleSpan = `
 <span class="inchat-title">${title}</span>`;
@@ -101,22 +138,28 @@ const hideMark = `
 <img src="${browser.runtime.getURL('assets/whatsapp/message.svg')}" class="unread-icon" style="visibility: ${showUnreadMark ? 'visible' : 'hidden'};">`
 
    const main = document.createElement('div');
-   main.className = 'inchat-status-item';
+   main.className = 'inchat-status-item' ;
    main.id = getSelectorFromChat(chat);
+   main.className+=' ' + localStorage.getItem(main.id);
    const container = document.createElement('div');
    container.className = 'inchat-status-item-container';
    const body = document.createElement('div');
    body.innerHTML = `${hideMark}${pinIcon}${titleSpan}${unreadIcon}${unreadMark}`;
    body.className = 'inchat-status-item-body';
 
+
    body.querySelector('#hideMark')!.addEventListener('click', function(event) {
     event.stopPropagation();
-    main.remove()
-  });   
+    document.getElementById(main.id).style.display = 'none';
+    localStorage.setItem(main.id, 'hidden');
+    localStorage.setItem(main.id+'-unreadCount', chat.unreadCount);
+  });
    container.append(body);
    main.append(container);
-   
+
    main.onclick = function(e) {
+    localStorage.setItem(main.id, 'show');
+    localStorage.setItem(main.id+'-unreadCount', 0);
     openChat(chat);
     main.remove();
    }
@@ -126,7 +169,7 @@ const hideMark = `
    }
   if (needToShow && !wasShownOnboarding) {
     showOnboarding();
-  }         
+  }
    return main;
 }
 
@@ -138,19 +181,19 @@ function showOnboarding() {
       id: "pinned-chat-onborading",
     },
     text: browser.i18n.getMessage('pinned_chat_onboarding')
-  });  
+  });
   const onboardingContainerClose = DOM.create_el({
     tag: "span",
     attributes: {
       id: "pinned-chat-onborading-close",
     },
     text: "x"
-  });  
+  });
   onboardingContainer.append(onboardingContainerClose);
   container?.append(onboardingContainer);
   set_extn_storage_item({
     [StateItemNames.WAS_SHOWN_PINNED_CHATS_STATUS_ONBOARDING]: true
-  });  
+  });
   onboardingContainerClose.addEventListener("click", function() {
     onboardingContainer.remove();
   });
@@ -175,7 +218,7 @@ function removeChat(chat: Chat) {
 
 function hasChat(chat: Chat): boolean {
    //console.log('hasChat', chat, getChatItem(chat));
-   return Boolean(getChatItem(chat)); 
+   return Boolean(getChatItem(chat));
 }
 
 const cachedChatStatus = {}
@@ -186,6 +229,8 @@ function updateChat(chat: Chat, user: Chat, status: string = '') {
    } else {
       cachedChatStatus[chat.id] = status;
    }
+
+
    getChatItem(chat)?.remove();
    const container = getChatContainer();
    container?.insertBefore(createBaseItem(chat, user, status), container.firstChild);
@@ -232,7 +277,7 @@ function disableStatuses() {
 
 async function enableStatuses() {
   //console.log("ENABLING STATUSES");
-  wasShownOnboarding = await getStatusOfOnboarding();  
+  wasShownOnboarding = await getStatusOfOnboarding();
   injectionInterval = setInterval(async function() {
     if (injectContainerInChat()) {
       //console.log("Injecting container in chat");
