@@ -6,7 +6,7 @@ import {TIME} from "../../../utility-belt/constants/time";
 
 import {injectWAPageProvider} from "../../whatsapp/ExternalInjector";
 import {attach_hide_contact_item} from "../extension-can/display-zen-mode-ui/construct-zen-mode-ui/attach_hide_contact_item";
-import {getHiddenChats, isHiddenChat} from "../../whatsapp/Storage";
+import {getHiddenChats, isHiddenChat, getMiniPreviewChats} from "../../whatsapp/Storage";
 import {setChatVisibility} from "../../api/set-chat-visibility";
 import {checkZenMorningChatState, getZenMorningChat} from "../user-can/zenmorning/setZenMorning";
 import {getSmartMuteStatus, setSmartMuteStatus} from "../user-can/SmartMute/SmartMute";
@@ -14,6 +14,7 @@ import {trackArchivedChatsVisibility} from "../../api/track-archived-chats-visib
 import {attachUIToMainContactCtxMenu} from "../extension-can/display-zen-mode-ui/construct-zen-mode-ui/attachUIToMainContactCtxMenu";
 import {get_Zen_mode_status, toggle_Zen_mode_on_page} from "../user-can/toggle-zen-mode/cs/toggle-zen-mode";
 import {renderHiddenLabel} from "../user-can/hide-contacts/hide-contact";
+import {addMiniPreviewIcon} from "../user-can/mini-preview-contacts/mini-preview-contacts";
 import {get_chat_el_raw_title} from "../../api/get-contact-el-name";
 import {findChatByTitle} from "../../whatsapp/ExtensionConnector";
 import {get_contact_el_by_chat_name} from "../../api/get-contact-el-by-contact-name";
@@ -67,18 +68,24 @@ const observer = new MutationObserver(async (mutations) => {
 
             const debugModeStatus = await getDebugModeStatus();
 
+            const miniPreviewChats = await getMiniPreviewChats();
+
 
             // Explain: Wait for all rendering and animations to complete; otherwise - buggy.
             setTimeout(() => {
               // Zen mode activation
               toggle_Zen_mode_on_page(zenModeStatus);
+              // mini preview chats
+              miniPreviewChats.forEach(miniPreviewChat => {
+                addMiniPreviewIcon(miniPreviewChat);
+              });                
               // Hidden chats
               hiddenChats.forEach(hiddenChat => {
                 setChatVisibility(hiddenChat, false, smartMuteStatus);
                 const chatEl = get_contact_el_by_chat_name(hiddenChat.title);
                 if (!chatEl) return;
                 renderHiddenLabel(chatEl);
-              });
+              });            
               // Check smart mute
               setSmartMuteStatus(smartMuteStatus);
 

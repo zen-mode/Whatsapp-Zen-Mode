@@ -7,15 +7,13 @@ import {get_hovered_contact_raw_title} from "../../../user-can/hide-contacts/get
 import {Selectors} from "../../../../data/dictionary";
 import {findChatByTitle} from "../../../../whatsapp/ExtensionConnector";
 import {Chat} from "../../../../whatsapp/model/Chat";
-import {isHiddenChat} from "../../../../whatsapp/Storage";
-import {isZenMorningChat} from "../../../user-can/zenmorning/setZenMorning";
-import {construct_zenMorning_contact_ctx_menu_item} from "./construct-zenmorning-contact-item";
+import {isHiddenChat, isMiniPreviewChat, getPinnedChatsStatus} from "../../../../whatsapp/Storage";
 import { construct_visibilty_sheduler_ctx_menu_item } from "./construct-visibility-sheduler-item";
-
+import { construct_mini_preview_ctx_menu_item } from "./construct-mini-preview-contact-item";
 
 export let lastHoveredChat: Chat | null;
 
-export function attach_hide_contact_item(node: HTMLElement): void {
+export async function attach_hide_contact_item(node: HTMLElement): Promise<void> {
   // prettier-ignore
   // Explain: It shouldn't be a ZM element using WA styling; eg ZM_CTX_MENU or RN area .
   if ([
@@ -46,11 +44,17 @@ export function attach_hide_contact_item(node: HTMLElement): void {
       ? construct_Unhide_contact_ctx_menu_item()
       : construct_Hide_contact_ctx_menu_item();
     menuItemEl.classList.add('first');
-    const zenMorningItemEl = construct_zenMorning_contact_ctx_menu_item(
-      await isZenMorningChat(hoveredChat)
-    );
+    // const zenMorningItemEl = construct_zenMorning_contact_ctx_menu_item(
+    //   await isZenMorningChat(hoveredChat)
+    // );
     const visibilityShedulerItemEl = construct_visibilty_sheduler_ctx_menu_item();
-    waContactCtxMenuListEl.append(menuItemEl, visibilityShedulerItemEl);
+    const status = await getPinnedChatsStatus();
+    if (status) {
+      const miniPreviewItemEl = construct_mini_preview_ctx_menu_item(await isMiniPreviewChat(hoveredChat))      
+      waContactCtxMenuListEl.append(menuItemEl, visibilityShedulerItemEl, miniPreviewItemEl);
+    } else {
+      waContactCtxMenuListEl.append(menuItemEl, visibilityShedulerItemEl);
+    }
     waContactCtxMenuListEl.click(); // Corrects ctx menu visualization.
   });
 }

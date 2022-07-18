@@ -14,6 +14,14 @@
     "message": "Unhide chat",
     "description": "WA contact ctx menu item that unhides the contact"
   },
+  "WA_contactCtxMenuItem_preview_on": {
+    "message": "ON Mini preview",
+    "description": "WA contact ctx menu item that enables preview"
+  },  
+  "WA_contactCtxMenuItem_preview_off": {
+    "message": "OFF Mini preview",
+    "description": "WA contact ctx menu item that disables preview"
+  },   
   "WA_contactCtxMenuItem_zenMorning": {
     "message": "\uD83C\uDF1E Zen Morning",
     "description": "WA contact ctx menu item that turn zen morning for contact"
@@ -63,7 +71,7 @@
     "message": "Offline mode"
   },
   "ZM_ctxMenuItem_pinned_status": {
-    "message": "Show pinned chats status"
+    "message": "Mini preview"
   },
   "ZM_hidden": {
     "message": "Hidden",
@@ -76,6 +84,9 @@
     "message": "Debug mode",
     "description": "ZM ctx menu item that toggle debug mode."
   },
+  "ZM_minipreview_popup_warning": {
+    "message": "You can enable a mini preview for only 10 chats"
+  },  
   "ZM_noBtn": {
     "message": "no"
   },

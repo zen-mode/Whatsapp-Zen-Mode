@@ -25,7 +25,7 @@ const handleMouseOver = (e: MouseEvent) => {
 export function constructFakeCtxMenuItem(
   domNodes: (HTMLElement | string)[],
   action: GenericFn | string,
-  children: ZMCtxMenuItem[] = []
+  children: ZMCtxMenuItem[] = [],
 ): HTMLLIElement {
   const li = document.createElement('LI') as HTMLLIElement;
   li.className = "_1wMaz _18oo2 fakeCtxMenuItem";

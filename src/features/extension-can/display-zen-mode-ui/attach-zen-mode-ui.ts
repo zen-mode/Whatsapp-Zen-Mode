@@ -43,7 +43,8 @@ async function attach_Zen_mode_UI(): Promise<void> {
     ZenModeBtnEl,
     releaseNotesAreaEl,
     visibilityShedulerAreaEl,
-    offlineModeInfoEl
+    offlineModeInfoEl,
+    miniPreviewAreaEl,
   ] = construct_Zen_mode_UI();
 
   leftHeaderButtonsEl.prepend(ZenModeBtnEl);
@@ -57,6 +58,12 @@ async function attach_Zen_mode_UI(): Promise<void> {
   if (permanentZM_elsAreNotYetAttached) {
     document.body.appendChild(releaseNotesAreaEl);
   }
+
+  const permanentZM_miniPreviewAreNotYetAttached =
+    DOM.get_el(Selectors.ZM_MINI_PREVIEW_AREA) === null;
+  if (permanentZM_miniPreviewAreNotYetAttached) {
+    document.body.appendChild(miniPreviewAreaEl);
+  }  
 
   const permanentZM_visibilityShedulerAreaElNotYetAttached =
     DOM.get_el(Selectors.ZM_VISIBILITY_SHEDULER_POPUP) === null;

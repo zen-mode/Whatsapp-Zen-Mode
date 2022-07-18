@@ -4,6 +4,7 @@ import {Chat} from "./model/Chat";
 import browser, {Storage} from "webextension-polyfill";
 import StorageChange = Storage.StorageChange;
 import { VisibilityShedule } from "./VisibilitySheduler";
+import {get_contact_el_by_chat_name} from "../api/get-contact-el-by-contact-name";
 
 export function subscribeForeverHiddenChatChanges(onChanged: (hiddenChats: Chat[], oldHiddenChats: Chat[]) => void) {
   subToStorageChangesForever(StateItemNames.HIDDEN_CONTACTS, (changes) => {
@@ -111,4 +112,68 @@ export async function isHiddenChat(
   chat: Chat
 ): Promise<boolean> {
   return isHiddenChatById(chat.id)
+}
+
+export async function addMiniPreviewChats(
+  ...chats: Chat[]
+): Promise<void> {
+  const storageChats = await getMiniPreviewChats();
+  for (const chat of chats) {
+    const chatId = chat.id;
+    const chatIndex = storageChats.findIndex(c => c.id === chatId);
+    if (chatIndex === -1) {
+      storageChats.push(chat);
+    } else {
+      storageChats[chatIndex] = chat;
+    }
+  }
+  setMiniPreviewChats(storageChats);
+}
+
+export async function getPinnedChatsStatus(): Promise<boolean> {
+  const pinnedChatsStatus = await get_extn_storage_item_value(StateItemNames.PINNED_CHATS_STATUS_ENABLED) ?? [];
+  return pinnedChatsStatus as boolean;
+}
+
+export async function getMiniPreviewChats(): Promise<Chat[]> {
+  const miniPreviewChats = await get_extn_storage_item_value(StateItemNames.MINI_PREVIEW_CONTACTS) ?? [];
+  return miniPreviewChats as Chat[];
+}
+
+async function setMiniPreviewChats(chats: Chat[]): Promise<void> {
+  await set_extn_storage_item({
+    [StateItemNames.MINI_PREVIEW_CONTACTS]: chats
+  });
+}
+
+export async function removeMiniPreviewChats(
+  ...chats: Chat[]
+): Promise<void> {
+  const storageChats = await getMiniPreviewChats();
+  for (const chat of chats) {
+    storageChats.splice(storageChats.findIndex(c => c.id === chat.id), 1);
+  }
+  setMiniPreviewChats(storageChats);
+}
+
+export async function isMiniPreviewChat(
+  chat: Chat
+): Promise<boolean> {
+  return isMiniPreviewChatById(chat.id)
+}
+
+export async function isMiniPreviewChatById(
+  chatId: string
+): Promise<boolean> {
+  const storageChats = await getMiniPreviewChats();
+  return storageChats.some(c => c.id === chatId)
+}
+
+export async function countMiniPreviewChats() {
+  const storageChats = await getMiniPreviewChats();
+  return storageChats.length;
+}
+
+export function clearMiniPreviewChats(): void {
+  setMiniPreviewChats([]);
 }

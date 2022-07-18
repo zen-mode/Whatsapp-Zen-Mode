@@ -1,6 +1,6 @@
 import browser from "webextension-polyfill";
 import { WWEvents } from "./extension/EventBus";
-import { getPinnedChats, getOpenedChat, openChat } from "./ExtensionConnector";
+import { getOpenedChat, openChat } from "./ExtensionConnector";
 import { Chat } from "./model/Chat";
 import { Contact } from "./model/Contact";
 import { subscribeForeverPinnedChatsStatusChanges } from "./Storage";
@@ -8,27 +8,23 @@ import { InternalEvent } from "./types";
 import { get_extn_storage_item_value, set_extn_storage_item } from "../../utility-belt/helpers/extn/storage";
 import { StateItemNames } from "../data/dictionary";
 import {DOM} from "../../utility-belt/helpers/dom/DOM-shortcuts";
-import {
-  getChat,
-  getChatByWID,
-  getChatByTitle,
-  openChat,
-  synchronizeWWChats,
-  getChatsExceptId,
-  getOpenedChat,
-  setChatsGlobalSoundsState,
-  getChatsGlobalSoundsState,
-  markChatAsRead,
-  getProfilePicUrl,
-  getUnreadChats,
-  getPinnedChats,
-  markChatUnread,
-  runAutoReconnecting
-} from "./WWAController";
-
+import {isMiniPreviewChat} from "./Storage";
+import {setMiniPreview, fetchMiniPreviewChats} from "../features/user-can/mini-preview-contacts/mini-preview-contacts";
 
 let wasShownOnboarding: boolean;
 let openedChat: any;
+
+browser.runtime.onMessage.addListener(function(message) {
+  const { type, payload } = message;
+  console.log("GOT MESSAGE");
+  switch (type) {
+      case 'deleteMiniPreview': {
+          const {chat} = payload;
+          console.log(chat);
+          removeChat(chat);
+      }
+  }
+});
 
 async function getStatusOfOnboarding(): Promise<boolean> {
   return Boolean(await get_extn_storage_item_value(StateItemNames.WAS_SHOWN_PINNED_CHATS_STATUS_ONBOARDING));
@@ -38,13 +34,12 @@ function showHiddenItemIfExistNewMessage() {
   let chatPinsItems = document.getElementsByClassName('inchat-status-item');
   if (chatPinsItems) {
     for (let item of chatPinsItems) {
-      if (item.querySelector('.inchat-status-item-container').querySelector('.inchat-status-item-body').querySelector('#unreadMark')) {
-        var newMessageCount = item.querySelector('.inchat-status-item-container').querySelector('.inchat-status-item-body').querySelector('#unreadMark').querySelector('span').textContent;
-
-        if (newMessageCount != localStorage.getItem(item.id+'-unreadCount')) {
+      if (item.querySelector('.inchat-status-item-container .inchat-status-item-body #unreadMark')) {
+        var newMessageCount = item.querySelector('.inchat-status-item-container .inchat-status-item-body #unreadMark span')!.textContent;
+        if (newMessageCount && newMessageCount != localStorage.getItem(item.id+'-unreadCount')) {
           localStorage.setItem(item.id+'-unreadCount', newMessageCount);
           localStorage.setItem(item.id, 'show');
-          document.getElementById(item.id).style.display = 'block';
+          document.getElementById(item.id)!.style.display = 'block';
         }
       }
     }
@@ -76,15 +71,16 @@ function getChatItem(chat: Chat): HTMLElement | null {
 }
 
 function injectContainerInChat() {
-    let chatMessagesDiv = document.getElementsByClassName('_2gzeB')[0];
-    if (chatMessagesDiv
-      && !getChatContainer()) {
-        const div = document.createElement('div');
-        div.id = 'inchat-status-container';
-        chatMessagesDiv.append(div)
-        return chatMessagesDiv
-    }
-    return null
+  let chatMessagesDiv = document.getElementsByClassName('_2gzeB')[0];
+  if (chatMessagesDiv 
+    && !getChatContainer()) {
+      console.log("Injecting container in chat");
+      const div = document.createElement('div');
+      div.id = 'inchat-status-container';
+      chatMessagesDiv.append(div)
+      return chatMessagesDiv
+  }
+  return null
 }
 
 function createBaseItem(chat: Chat, user: Contact, status: string = '') {
@@ -150,18 +146,19 @@ const hideMark = `
 
    body.querySelector('#hideMark')!.addEventListener('click', function(event) {
     event.stopPropagation();
-    document.getElementById(main.id).style.display = 'none';
+    document.getElementById(main.id)!.style.display = 'none';
     localStorage.setItem(main.id, 'hidden');
-    localStorage.setItem(main.id+'-unreadCount', chat.unreadCount);
+    localStorage.setItem(main.id+'-unreadCount', String(chat.unreadCount));
   });
    container.append(body);
    main.append(container);
 
    main.onclick = function(e) {
     localStorage.setItem(main.id, 'show');
-    localStorage.setItem(main.id+'-unreadCount', 0);
+    localStorage.setItem(main.id+'-unreadCount', "0");
     openChat(chat);
     main.remove();
+    openChat(chat);
    }
 
    if (!needToShow) {
@@ -212,7 +209,7 @@ function addChat(...chat: Chat[]) {
    }
 }
 
-function removeChat(chat: Chat) {
+export function removeChat(chat: Chat) {
    getChatItem(chat)?.remove();
 }
 
@@ -237,30 +234,45 @@ function updateChat(chat: Chat, user: Chat, status: string = '') {
 
 }
 
-WWEvents.on(InternalEvent.CHAT_CHANGED_STATUS, (chat: Chat, user: any, status: string) => {
-   if (hasChat(chat)) {
-      //console.log('New Status for ', chat.name, status)
-      updateChat(chat, user, status);
-   }
+WWEvents.on(InternalEvent.CHAT_CHANGED_STATUS, async (chat: Chat, user: any, status: string) => {
+  const isMiniPreview = await isMiniPreviewChat(chat);
+  if (isMiniPreview && !hasChat(chat)) {
+    addChat(chat);   
+  } else if (isMiniPreview && hasChat(chat)) {
+    updateChat(chat, user, status);
+  } else {
+    removeChat(chat);
+  }
 });
 
-WWEvents.on(InternalEvent.CHAT_CHANGED_PIN, (chat: Chat) => {
-   if (hasChat(chat)) {
-      if (!chat.pinned) {
-         removeChat(chat);
-      }
-   } else {
-      if (chat.pinned) {
-         addChat(chat);
-      }
-   }
+export function appendChat(chat: Chat) {
+  !hasChat(chat) ? addChat(chat) : updateChat(chat, chat);    
+}
+
+WWEvents.on(InternalEvent.CHAT_CHANGED_PIN, async (chat: Chat) => {
+  const isMiniPreview = await isMiniPreviewChat(chat);
+  if (!chat.pinned) {
+    if (isMiniPreview) {
+      appendChat(chat);
+    } else {
+      removeChat(chat);
+    }   
+  } else {
+    console.log("adding mini preview");
+    setMiniPreview();
+    appendChat(chat);   
+  }
 });
 
-WWEvents.on(InternalEvent.CHAT_CHANGED_UNREAD_COUNT, (chat: Chat) => {
+WWEvents.on(InternalEvent.CHAT_CHANGED_UNREAD_COUNT, async (chat: Chat) => {
   //console.log("CHAT_CHANGED_UNREAD_COUNT", chat);
-   if (hasChat(chat)) {
-      updateChat(chat, chat);
-   }
+  console.log('[InternalEvent.CHAT_CHANGED_UNREAD_COUNT] New Status for ', chat.name, chat.title)
+  const isMiniPreview = await isMiniPreviewChat(chat);
+  if (isMiniPreview) {
+    !hasChat(chat) ? addChat(chat) : updateChat(chat, chat);
+  } else {
+    removeChat(chat);
+  }
 });
 
 let injectionInterval: ReturnType<typeof setInterval>;
@@ -280,20 +292,27 @@ async function enableStatuses() {
   wasShownOnboarding = await getStatusOfOnboarding();
   injectionInterval = setInterval(async function() {
     if (injectContainerInChat()) {
-      //console.log("Injecting container in chat");
       openedChat = await new Promise(resolve => getOpenedChat(resolve));
       //console.log(openedChat);
-      let pinnedChats = await getPinnedChats();
+      let chatsWithMiniPreview = await fetchMiniPreviewChats();
+      //console.log(chatsWithMiniPreview);
       //console.log("Getting pinned chats", pinnedChats);
-      addChat(...pinnedChats);
+      addChat(...chatsWithMiniPreview);
     }
+
+    const tags = [...document.querySelectorAll('.inchat-status-item')];
+    const ids = new Set(tags.map(x => x.id));
+    tags.forEach(tag => {
+      if(ids.has(tag.id)){
+        ids.delete(tag.id);
+      }
+      else{
+        tag.remove()
+      }
+    })    
   }, 100);
 }
 
 subscribeForeverPinnedChatsStatusChanges((enabled: boolean) => {
-   if (enabled) {
-      enableStatuses();
-   } else {
-      disableStatuses();
-   }
+  enabled ? enableStatuses() : disableStatuses();
 });

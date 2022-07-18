@@ -9,6 +9,12 @@
   "WA_contactCtxMenuItem_unhide": {
     "message": "הצג צ'אט מוסתר"
   },
+  "WA_contactCtxMenuItem_preview_on": {
+    "message": "ON תצוגת מוקטנת"
+  },  
+  "WA_contactCtxMenuItem_preview_off": {
+    "message": "OFF תצוגת מוקטנת"
+  },     
   "WA_contactCtxMenuItem_zenMorning": {
     "message": "\uD83C\uDF1E בוקר זן",
     "description": "WA contact ctx menu item that turn zen morning for contact"
@@ -52,12 +58,15 @@
   },
   "ZM_hiddenChats": {
     "message": "צ'אטים מוסתרים"
-  },
+  },  
   "ZM_ctxMenuItem_debug_mode": {
     "message": "מוד דיבאג"
   },
+  "ZM_minipreview_popup_warning": {
+    "message": "ניתן לאפשר תצוגה מוקטנת רק ל10 צ'טים"
+  },    
   "ZM_ctxMenuItem_pinned_status": {
-    "message": "הצג מצב צ'טים מוצמדים"
+    "message": "תצוגה מוקטנת"
   },
   "ZM_noBtn": {
     "message": "לא"

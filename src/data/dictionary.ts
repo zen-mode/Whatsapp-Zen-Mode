@@ -33,6 +33,7 @@ export const enum StateItemNames {
   DEBUG_MODE_STATUS = "DEBUG_MODE_STATUS",
   PINNED_CHATS_STATUS_ENABLED = "PINNED_CHATS_STATUS_ENABLED",
   WAS_SHOWN_PINNED_CHATS_STATUS_ONBOARDING = "WAS_SHOWN_PINNED_CHATS_STATUS_ONBOARDING",
+  MINI_PREVIEW_CONTACTS = "MINI_PREVIEW_CONTACTS",
 }
 
 export const enum Selectors {
@@ -56,8 +57,9 @@ export const enum Selectors {
   WA_BACK_BTN = "._27F2N [data-testid=back]",
 
   WA_CONTACT_WRAPPER_CLASS = "vq6sj",
-  WA_CONTACT_CONTAINER = "._ccCW", // .FqYAR.i0jNr
+  WA_CONTACT_CONTAINER = ".zoWT4 .i0jNr", // .FqYAR.i0jNr
   WA_CONTACT_INFO_CONTAINER = "._3vPI2",
+  WA_CONTACT_ICONS = "[role='gridcell']._1i_wG",  
   WA_CONTACT_CTX_MENU = "#app > div > span > .o--vV",
   WA_CONTACT_CTX_MENU_LIST = "._19rjv",
   WA_GENERAL_CTX_MENU = "._1R3Un ._1qAEq._11bi2",
@@ -74,6 +76,7 @@ export const enum Selectors {
   ZM_CTX_MENU_ITEM = ".ZenMode__contextMenuItem",
   ZM_HIDE_CONTACT_CTX_MENU_ITEM = "#ZenMode__hideContact",
   ZM_UNHIDE_CONTACT_CTX_MENU_ITEM = "#ZenMode__unhideContact",
+  ZM_PREVIEW_CONTACT_CTX_MENU_ITEM = "#ZenMode__previewContact",
 	ZM_ZENMORNING_CONTACT_CTX_MENU_ITEM = "#ZenMode__zenMorning",
   ZM_VISIBILITY_SHEDULER_CTX_MENU_ITEM = "#ZenMode__visibilitySheduler",
   ZM_ZENMORNING_CONTACT_SUNICON = "#ZenMode__zenMorning__sunIcon",
@@ -104,7 +107,9 @@ export const enum Selectors {
   ZM_TRELLO_POP_OVER_LIST = "pop-over-list",
   ZM_TRELLO_WINDOW_OVERLAY = "div.window-overlay",
   ZM_TRELLO_LIST_HEADER = "list-header-extras",
-  ZM_TRELLO_CLOSE_POP_OVER_BTN = "a.pop-over-header-close-btn"
+  ZM_TRELLO_CLOSE_POP_OVER_BTN = "a.pop-over-header-close-btn",
+
+  ZM_MINI_PREVIEW_AREA="#ZenMode__minipreviewwarning",
 }
 
 export const enum ZenDomDataAttributes {

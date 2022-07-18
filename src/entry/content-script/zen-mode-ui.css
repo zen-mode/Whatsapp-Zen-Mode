@@ -641,3 +641,58 @@ html[dir=rtl] .inchat-status-item .unread-icon {
   padding: 8px 16px;  
   cursor: pointer;
 }
+
+.fakemenu_switcher {
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  margin-top: -12px;  
+}
+
+.withPreview {
+  position: relative !important;
+}
+
+.withPreview:before {
+  content: url('chrome-extension://__MSG_@@extension_id__/assets/whatsapp/eye.svg');
+  margin-right: 7px
+}
+
+#ZenMode__minipreviewwarning {
+  position: fixed;
+  height: fit-content;
+  width: fit-content;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 9999999;
+  direction: ltr;
+  text-align: left;
+  padding: 1em;
+}
+
+.mini-preview-buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 40px;
+}
+
+.mini-preview-buttons {
+  color: rgb(255, 255, 255);
+  width: fit-content;
+  cursor: pointer;
+  padding: 10px 16px;
+  background: rgb(76, 237, 105);
+  outline: none;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  border-image: initial;
+}
+
+.hidden {
+  display: none;
+}

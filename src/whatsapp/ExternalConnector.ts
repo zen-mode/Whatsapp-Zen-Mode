@@ -203,18 +203,23 @@ function publishEvent(event: InternalEvent, args: any[]) {
   } as InternalBusEvent)
 }
 
+// type can be: 'unavailable' | 'available' | 'composing' | 'recording' | 'paused'
 ChatModule.Presence.on('change', (event: any) => {
   if (event.id) {
     const chat = getChatByWID(event.id);
     if (event.isGroup && event.chatstates._models) {
+      // console.log("event.isGroup && event.chatstates._models");
+      // console.log("event.chatstates", JSON.parse(JSON.stringify(event.chatstates)));
+      // console.log("event.chatstates._models", JSON.parse(JSON.stringify(event.chatstates._models)));
+      // console.log("-------------------------------------------------------------")
       event.chatstates._models.forEach(({id, type}) => {
         if (type) {
           var user = null;
           if (chat.isUser) {
-            console.log('isgroup');
+            console.log('isuser');
             user = getChatByWID(id);
           } else if (chat.isGroup) {
-            console.log('isuser');
+            console.log('isgroup');
             user = chat.groupMetadata.participants.get(id).__x_contact;
           }
           console.log('user', user);
@@ -226,7 +231,16 @@ ChatModule.Presence.on('change', (event: any) => {
     } else if (event.isUser && event.chatstate) {
       const type = event.chatstate.type;
       const chatObj = ChatFabric.fromWWAChat(chat);
-      publishEvent(InternalEvent.CHAT_CHANGED_STATUS, [chatObj, chatObj, type]);
+      // console.log("event.isUser && event.chatstate");
+      // console.log("chat object", chatObj);
+      // console.log("event", JSON.parse(JSON.stringify(event)));
+      // console.log("event.chatstate", JSON.parse(JSON.stringify(event.chatstate)));
+      // console.log("type ", event.chatstate.type, !!event.chatstate.type);
+      // console.log("event.chatstateS ", JSON.parse(JSON.stringify(event.chatstates)));
+      // console.log("-------------------------------------------------------------")
+      if (type) {
+        publishEvent(InternalEvent.CHAT_CHANGED_STATUS, [chatObj, chatObj, type]);
+      }
     }
   }
 });
