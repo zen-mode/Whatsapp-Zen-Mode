@@ -1,8 +1,8 @@
 # Release Notes 1.5.1.0
 ###  Public beta version [Marie Curie](https://en.wikipedia.org/wiki/Marie_Curie)
-1.Zen menu changes- removed filter unread and mute (locates in whatsapp web menu)
-2.**Mini oreview per chosen chats added**- can be set via chat menu
-3.cosmetic changes
+1. Zen menu changes- removed filter unread and mute (locates in whatsapp web menu)
+2. **Mini oreview per chosen chats added**- can be set via chat menu
+3. cosmetic changes
 
 # Release Notes 1.5.0.0
 ###  Public beta version [Marie Curie](https://en.wikipedia.org/wiki/Marie_Curie)
