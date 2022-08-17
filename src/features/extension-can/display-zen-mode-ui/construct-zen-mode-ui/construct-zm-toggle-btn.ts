@@ -41,6 +41,9 @@ export function constructZMMenuButton(): HTMLDivElement {
         });
 
         ZenModeBtnEl.appendChild(badgeEl);
+      }else{
+        document.styleSheets[0].addRule('.releaseNotesItem > div::before', 'display: none', 0);
+        document.styleSheets[0].addRule('.releaseNotesItem > div::after', 'display: none', 0);
       }});
 
   return ZenModeBtnEl;

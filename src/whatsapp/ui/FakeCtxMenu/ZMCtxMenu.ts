@@ -36,15 +36,16 @@ let ZMMenuItems: ZMCtxMenuItem[] = [
       set_el_style(releaseNotesAreaEl, { display: "initial" });
 
       remove_badge_el();
-
+      document.styleSheets[0].addRule('.releaseNotesItem > div::before', 'display: none', 0);
+      document.styleSheets[0].addRule('.releaseNotesItem > div::after', 'display: none', 0);
       set_extn_storage_item({ [StateItemNames.RELEASE_NOTES_VIEWED]: true });
     },
   },
-  {
+  /*{
     action: "smartMute",
     domNode: construct_smartMute_menu_item(),
     makeAction: toggleSmartMute,
-  },  
+  },  */
   {
     action: "showPinnedChatsStatus",
     domNode: buildPinnedChatsStatusMenuItem(),
@@ -68,7 +69,7 @@ let ZMMenuItems: ZMCtxMenuItem[] = [
 
       window.open(`${URLS.FEEDBACK_EMAIL}?subject=${subject}`);
     },
-  },  
+  },
 ];
 
 export const debugModeItems = [
