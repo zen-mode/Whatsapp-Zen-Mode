@@ -1,4 +1,4 @@
-# Release Notes 1.5.1.0
+# Release Notes 1.5.0.1
 ###  Public beta version [Marie Curie](https://en.wikipedia.org/wiki/Marie_Curie)
 1.Fix bugs
 2.Cosmetic changes
