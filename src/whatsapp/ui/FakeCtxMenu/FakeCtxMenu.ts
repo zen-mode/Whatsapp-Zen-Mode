@@ -138,6 +138,7 @@ export class FakeCtxMenu {
       const itemLis = this.items.map((item) =>
         constructFakeCtxMenuItem([item.domNode], item.action, item.children),
       );
+
       const div = document.createElement("DIV");
       div.className = "o--vV _1qAEq fakeCtxMenu";
       div.setAttribute("data-menu-type", this._type);
@@ -157,7 +158,6 @@ export class FakeCtxMenu {
     this._node?.removeEventListener("click", this.handleClick);
     // window.removeEventListener("click", this.handleClickToEmptySpace);
     // window.removeEventListener("contextmenu", this.handleClickToEmptySpace, true);
-
     this._node?.remove();
     this._node = null;
     this._node = this._render();

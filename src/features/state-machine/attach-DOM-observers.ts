@@ -40,7 +40,7 @@ const observer = new MutationObserver(async (mutations) => {
             // Explain: If there is no hovered el in the DOM - it means the WA ctx menu has been..
             // invoked from chat area, not contact list area.
               const hoveredDivEl = get_hovered_contact_el();
-            
+
               if (hoveredDivEl) {
                 attach_hide_contact_item(htmlEl);
               } else {
@@ -76,16 +76,17 @@ const observer = new MutationObserver(async (mutations) => {
               // Zen mode activation
               toggle_Zen_mode_on_page(zenModeStatus);
               // mini preview chats
+
               miniPreviewChats.forEach(miniPreviewChat => {
                 addMiniPreviewIcon(miniPreviewChat);
-              });                
+              });
               // Hidden chats
               hiddenChats.forEach(hiddenChat => {
                 setChatVisibility(hiddenChat, false, smartMuteStatus);
                 const chatEl = get_contact_el_by_chat_name(hiddenChat.title);
                 if (!chatEl) return;
                 renderHiddenLabel(chatEl);
-              });            
+              });
               // Check smart mute
               setSmartMuteStatus(smartMuteStatus);
 

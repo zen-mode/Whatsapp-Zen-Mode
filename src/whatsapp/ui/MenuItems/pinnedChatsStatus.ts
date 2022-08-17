@@ -5,7 +5,7 @@ import { get_extn_storage_item_value, set_extn_storage_item } from "../../../../
 import { StateItemNames } from "../../../data/dictionary";
 import "../../dom/DOMConstants";
 import {
-    ZM_CTX_MENU_ITEM_PINNED_STATUS_BUTTON_ID, 
+    ZM_CTX_MENU_ITEM_PINNED_STATUS_BUTTON_ID,
     ZM_CTX_MENU_ITEM_PINNED_STATUS_ID,
     ZM_CTX_MENU_ITEM_PINNED_STATUS_TEXT_ID
 } from "../../dom/DOMConstants";
@@ -59,6 +59,12 @@ async function updateMenuItem(button: HTMLElement, enable: boolean | null = null
             enable = await getStatusEnabled();
         }
         button.innerHTML = enable ? SWITCH_ON : SWITCH_OFF;
+
+        if (enable) {
+          localStorage.setItem('mini-preview-chat', 'on');
+        }else{
+          localStorage.setItem('mini-preview-chat', 'off');
+        }
     }
 }
 
@@ -78,4 +84,3 @@ export async function togglePinnedChatsStatusMode(): Promise<void> {
     updateMenuItem(document.getElementById(ZM_CTX_MENU_ITEM_PINNED_STATUS_BUTTON_ID), !enabled);
     setStatusEnabled(!enabled);
 }
-

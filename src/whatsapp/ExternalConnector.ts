@@ -32,7 +32,9 @@ import { ContactFabric } from "./ContactFabric";
 // @ts-ignore
 const browser = chrome;
 
-
+export function getAllPinnedChats(){
+  return getPinnedChats();
+}
 
 const callerFunctions = new Map<WWAProviderCall, any>();
 

@@ -46,11 +46,36 @@ function showHiddenItemIfExistNewMessage() {
   }
 }
 
+/*function showHiddenItem() {
+
+  let chatPinsItems = document.getElementsByClassName('inchat-status-item');
+  console.log(chatPinsItems);
+  if (chatPinsItems ) {
+    for (let item of chatPinsItems) {
+      if (item.querySelector('.unread-icon').style.visibility !== 'hidden') {
+        document.getElementById(item.id)!.style.display = 'block';
+      }
+    }
+  }
+}*/
+
 
 function getChatContainer(): HTMLElement | null {
   showHiddenItemIfExistNewMessage();
+  //changeEyeColorIfExistDarkTheme();
   return document.getElementById('inchat-status-container');
 }
+
+/*function changeEyeColorIfExistDarkTheme() {
+  if (document.querySelector('body').classList.contains('dark'))) {
+    let eyes = document.getElementsByClassName('withPreview');
+    if (eyes) {
+      for (let item of eyes) {
+        item.classList.add('withPreviewDark');
+      }
+    }
+  }
+}*/
 
 function getSelectorFromChat(chat: Chat) {
    const alph = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
@@ -72,7 +97,7 @@ function getChatItem(chat: Chat): HTMLElement | null {
 
 function injectContainerInChat() {
   let chatMessagesDiv = document.getElementsByClassName('_2gzeB')[0];
-  if (chatMessagesDiv 
+  if (chatMessagesDiv
     && !getChatContainer()) {
       console.log("Injecting container in chat");
       const div = document.createElement('div');
@@ -80,6 +105,9 @@ function injectContainerInChat() {
       chatMessagesDiv.append(div)
       return chatMessagesDiv
   }
+
+
+
   return null
 }
 
@@ -210,7 +238,7 @@ function addChat(...chat: Chat[]) {
 }
 
 export function removeChat(chat: Chat) {
-   getChatItem(chat)?.remove();
+  getChatItem(chat)?.remove();
 }
 
 function hasChat(chat: Chat): boolean {
@@ -237,7 +265,7 @@ function updateChat(chat: Chat, user: Chat, status: string = '') {
 WWEvents.on(InternalEvent.CHAT_CHANGED_STATUS, async (chat: Chat, user: any, status: string) => {
   const isMiniPreview = await isMiniPreviewChat(chat);
   if (isMiniPreview && !hasChat(chat)) {
-    addChat(chat);   
+    addChat(chat);
   } else if (isMiniPreview && hasChat(chat)) {
     updateChat(chat, user, status);
   } else {
@@ -246,7 +274,7 @@ WWEvents.on(InternalEvent.CHAT_CHANGED_STATUS, async (chat: Chat, user: any, sta
 });
 
 export function appendChat(chat: Chat) {
-  !hasChat(chat) ? addChat(chat) : updateChat(chat, chat);    
+  !hasChat(chat) ? addChat(chat) : updateChat(chat, chat);
 }
 
 WWEvents.on(InternalEvent.CHAT_CHANGED_PIN, async (chat: Chat) => {
@@ -256,11 +284,11 @@ WWEvents.on(InternalEvent.CHAT_CHANGED_PIN, async (chat: Chat) => {
       appendChat(chat);
     } else {
       removeChat(chat);
-    }   
+    }
   } else {
     console.log("adding mini preview");
     setMiniPreview();
-    appendChat(chat);   
+    appendChat(chat);
   }
 });
 
@@ -298,6 +326,7 @@ async function enableStatuses() {
       //console.log(chatsWithMiniPreview);
       //console.log("Getting pinned chats", pinnedChats);
       addChat(...chatsWithMiniPreview);
+      //showHiddenItem();
     }
 
     const tags = [...document.querySelectorAll('.inchat-status-item')];
@@ -309,7 +338,7 @@ async function enableStatuses() {
       else{
         tag.remove()
       }
-    })    
+    })
   }, 100);
 }
 

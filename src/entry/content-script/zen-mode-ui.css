@@ -48,17 +48,20 @@ html[dir="rtl"] #ZenMode__toggle__chevron {
 #ZenMode__badge {
   position: absolute;
   bottom: 0;
-  border-radius: 50%;
-  font-size: 11px;
-  color: rgb(0, 0, 0);
-  transform: rotate(337deg);
   bottom: -1px;
-  right: -12px;  
+  right: -12px;
+  transform: none;
+  background: #01C715;
+  border-radius: 4px;
+  color: white;
+  padding: 2px;
+  font-size: 10px;
 }
 
 #ZenMode__badge::after {
-  content: "New";
-  font-family: "Segoes";
+  content: "NEW";
+  font-size: 9px;
+  font-family: 'Inter';
 }
 
 /* Release notes */
@@ -216,12 +219,25 @@ html[dir=rtl] .fakeCtxMenu[data-menu-type=ZM] {
   padding: 12px 24px;
 }
 
+.fakeCtxMenu[data-menu-type=ZM] [data-action=unreadChats] {
+    display: none !important;
+}
+
 .fakeCtxMenu[data-menu-type=ZM] [data-action=debugMode] {
-  background-image: linear-gradient(to right, black 41%, rgba(255,255,255,0) 0%);
+  border-top: 1px solid #cfcfcf;
+  /*background-image: linear-gradient(to right, black 41%, rgba(255,255,255,0) 0%);*/
   background-position: 0 4px;
   background-size: 6px 2px;
-  background-repeat: repeat-x;    
+  background-repeat: repeat-x;
+  margin-left: 15px;
+  margin-right: 15px;
 }
+
+.fakeCtxMenu[data-menu-type=ZM] [data-action=debugMode] ._2oldI.dJxPU{
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
 
 .fakeCtxMenu[data-menu-type=ZM] [data-action=offlineMode] ._2oldI.dJxPU {
   padding: 12px 24px;
@@ -493,8 +509,8 @@ button._2fQtj {
   font-size: 10px;
   width: 20px;
   height: 20px;
-  line-height: 14px;    
-}  
+  line-height: 14px;
+}
 
 
 .inchat-status-item #hideMark {
@@ -511,7 +527,7 @@ button._2fQtj {
   width: 15px;
   height: 15px;
   top: -12px;
-  line-height: 13px; 
+  line-height: 13px;
   cursor: pointer;
 }
 
@@ -528,7 +544,7 @@ html[dir=rtl] .inchat-status-item #hideMark {
   height: 16px;
   width: 12px;
   transform: translateY(-20%);
-  margin-right: 8px;     
+  margin-right: 8px;
 }
 
 html[dir=rtl] .inchat-status-item .pin-icon {
@@ -546,7 +562,7 @@ html[dir=rtl] .inchat-status-item .pin-icon {
   line-height: 19px;
   color: black;
   display: inline-table;
-  padding-right: 15px;  
+  padding-right: 15px;
 }
 
 .inchat-status-item-body {
@@ -571,12 +587,12 @@ html[dir=rtl] .inchat-status-item #unreadMark {
 .inchat-status-item .unread-icon {
   height: 22px;
   width: 23px;
-  transform: translateY(10%);  
+  transform: translateY(10%);
 }
 
 html[dir=rtl] .inchat-status-item .unread-icon {
   margin-right: 8px;
-  transform: matrix(-1, 0, 0, 1, 0, 0) translateY(10%);  
+  transform: matrix(-1, 0, 0, 1, 0, 0) translateY(10%);
 }
 
 #pinned-chat-onborading {
@@ -596,14 +612,14 @@ html[dir=rtl] .inchat-status-item .unread-icon {
   font-size: 16px;
   line-height: 19px;
   font-weight: bold;
-  border-radius: 6px;  
+  border-radius: 6px;
 }
 
 #pinned-chat-onborading-close {
   cursor: pointer;
   position: absolute;
   right: 10px;
-  top: 5px;  
+  top: 5px;
 }
 
 .close-popup {
@@ -632,13 +648,13 @@ html[dir=rtl] .inchat-status-item .unread-icon {
 
 .closepopup-buttons-container {
   display: flex;
-  justify-content: space-around;  
+  justify-content: space-around;
   margin-top: 50px;
 }
 
 .closepopup-button-yes-button, .closepopup-button-no-button {
   border: 1px solid;
-  padding: 8px 16px;  
+  padding: 8px 16px;
   cursor: pointer;
 }
 
@@ -648,7 +664,7 @@ html[dir=rtl] .inchat-status-item .unread-icon {
   position: absolute;
   right: 24px;
   top: 50%;
-  margin-top: -12px;  
+  margin-top: -12px;
 }
 
 .withPreview {
@@ -659,6 +675,15 @@ html[dir=rtl] .inchat-status-item .unread-icon {
   content: url('chrome-extension://__MSG_@@extension_id__/assets/whatsapp/eye.svg');
   margin-right: 7px
 }
+
+.withPreviewDark:before {
+  filter: invert(99%) sepia(0%) saturate(0%) hue-rotate(297deg) brightness(109%) contrast(100%);
+}
+
+/*.dark>#app>.app-wrapper-web>._1XkO3>.ldL67>#side>#pane-side>div>.withPreview:before {
+  content: url('chrome-extension://__MSG_@@extension_id__/assets/whatsapp/eye.svg');
+  margin-right: 7px
+}*/
 
 #ZenMode__minipreviewwarning {
   position: fixed;
@@ -695,4 +720,35 @@ html[dir=rtl] .inchat-status-item .unread-icon {
 
 .hidden {
   display: none;
+}
+._2oldI{
+  overflow: inherit !important;
+}
+.releaseNotesItem>div::after{
+  content: "NEW";
+  margin-left: 109px;
+  transform: none;
+  color: white;
+  font-size: 10px;
+  background: rgb(1, 199, 21);
+  border-radius: 4px;
+  padding: 2px;
+}
+.releaseNotesItemForRTL>div::after{
+  content: "NEW";
+  margin-left: 140px;
+  transform: none;
+  color: white;
+  font-size: 10px;
+  background: rgb(1, 199, 21);
+  border-radius: 4px;
+  padding: 2px;
+}
+.pinned_chat_status_swither{
+  margin-left: 20px;
+  width: 40px;
+}
+
+.switch_text{
+  margin-right: 25px;
 }

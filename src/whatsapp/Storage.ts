@@ -5,6 +5,7 @@ import browser, {Storage} from "webextension-polyfill";
 import StorageChange = Storage.StorageChange;
 import { VisibilityShedule } from "./VisibilitySheduler";
 import {get_contact_el_by_chat_name} from "../api/get-contact-el-by-contact-name";
+import { getChatById, refreshWWChats, findChatByTitle, getPinnedChats } from "./ExtensionConnector";
 
 export function subscribeForeverHiddenChatChanges(onChanged: (hiddenChats: Chat[], oldHiddenChats: Chat[]) => void) {
   subToStorageChangesForever(StateItemNames.HIDDEN_CONTACTS, (changes) => {
@@ -117,7 +118,13 @@ export async function isHiddenChat(
 export async function addMiniPreviewChats(
   ...chats: Chat[]
 ): Promise<void> {
+
+  if (chats[0].length != null) {
+    chats = chats[0];
+  }
+
   const storageChats = await getMiniPreviewChats();
+  
   for (const chat of chats) {
     const chatId = chat.id;
     const chatIndex = storageChats.findIndex(c => c.id === chatId);
@@ -137,6 +144,18 @@ export async function getPinnedChatsStatus(): Promise<boolean> {
 
 export async function getMiniPreviewChats(): Promise<Chat[]> {
   const miniPreviewChats = await get_extn_storage_item_value(StateItemNames.MINI_PREVIEW_CONTACTS) ?? [];
+  const pinnedChats = await getPinnedChats();
+
+  for (const chat of pinnedChats) {
+    const chatId = chat.id;
+    const chatIndex = miniPreviewChats.findIndex(c => c.id === chatId);
+    if (chatIndex === -1) {
+      await miniPreviewChats.push(chat);
+    } else {
+      miniPreviewChats[chatIndex] = chat;
+    }
+  }
+
   return miniPreviewChats as Chat[];
 }
 
@@ -167,6 +186,18 @@ export async function isMiniPreviewChatById(
 ): Promise<boolean> {
   const storageChats = await getMiniPreviewChats();
   return storageChats.some(c => c.id === chatId)
+}
+
+function getArrayWithUniqueItems(array) {
+  var prims = {"boolean":{}, "number":{}, "string":{}}, objs = [];
+
+  return array.filter(function(item) {
+      var type = typeof item;
+      if(type in prims)
+          return prims[type].hasOwnProperty(item) ? false : (prims[type][item] = true);
+      else
+          return objs.indexOf(item) >= 0 ? false : objs.push(item);
+  });
 }
 
 export async function countMiniPreviewChats() {
