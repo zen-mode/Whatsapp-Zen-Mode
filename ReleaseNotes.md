@@ -1,4 +1,4 @@
-# Release Notes 1.5.1.0
+# Release Notes 1.5.0.1
 ###  Public beta version [Marie Curie](https://en.wikipedia.org/wiki/Marie_Curie)
 1. Zen menu changes- removed filter unread and mute (locates in whatsapp web menu)
 2. **Mini oreview per chosen chats added**- can be set via chat menu
@@ -11,11 +11,11 @@
 # Release Notes 1.4.2.24
 ###  Public beta version [Marie Curie](https://en.wikipedia.org/wiki/Marie_Curie)
 1.Cosmetic changes
-2.Pinned chat enhancements 
+2.Pinned chat enhancements
 # Release Notes 1.4.2.23
 ###  Public beta version [Marie Curie](https://en.wikipedia.org/wiki/Marie_Curie)
 1.Cosmetic changes
-2.Pinned chat enhancements 
+2.Pinned chat enhancements
 # Release Notes 1.4.2.22
 ###  Public beta version [Marie Curie](https://en.wikipedia.org/wiki/Marie_Curie)
 1.**Pinned chat indicator set to On** -via zen menu can set off
@@ -109,7 +109,7 @@ Minor cosmetic bug fixes.
 
 4.**Add suuport in Zen Mode in Trello** - access trello to check
 
-5 **Bug fixing** - mute notifications in zen, message counter 
+5 **Bug fixing** - mute notifications in zen, message counter
 
 6 **Refresh update notification**
 # Release Notes 1.4.2.1
@@ -141,7 +141,7 @@ Minor cosmetic bug fixes.
 ### Improvements to first public beta version [Rosa Parks](https://en.wikipedia.org/wiki/Rosa_Parks)
 1.**Add configurable setting of marking hidden chats as read** - Can be changed via Zen Mode Menu.
 
-2.**Syntax changes** 
+2.**Syntax changes**
 
 3.**Enable snooze option for hide chat** - Can be set to 8h/1w/forever
 
@@ -169,4 +169,4 @@ Minor cosmetic bug fixes.
 2. **Hide chats**- Hide button moves chats to a "hidden chats" list. You can Un-hide from there or unhide all from main zen menu.
 3. **Zen Morning.** - You can choose to wake up every morning with Zen Mode focused on a pre-selected conversation. (see conversation menu)
 4. **Smart Mute** - Mute everything except voice/video messages you play.
-5. **Zen Mode**  - click on conversation menu\ right click in conversation to create focus on the current conversations. 
+5. **Zen Mode**  - click on conversation menu\ right click in conversation to create focus on the current conversations.
