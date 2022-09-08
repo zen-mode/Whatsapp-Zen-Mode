@@ -59,7 +59,7 @@ export const enum Selectors {
   WA_CONTACT_WRAPPER_CLASS = "vq6sj",
   WA_CONTACT_CONTAINER = ".zoWT4 .i0jNr", // .FqYAR.i0jNr
   WA_CONTACT_INFO_CONTAINER = "._3vPI2",
-  WA_CONTACT_ICONS = "[role='gridcell']._1i_wG",  
+  WA_CONTACT_ICONS = "[role='gridcell']._1i_wG",
   WA_CONTACT_CTX_MENU = "#app > div > span > .o--vV",
   WA_CONTACT_CTX_MENU_LIST = "._19rjv",
   WA_GENERAL_CTX_MENU = "._1R3Un ._1qAEq._11bi2",
@@ -79,6 +79,7 @@ export const enum Selectors {
   ZM_PREVIEW_CONTACT_CTX_MENU_ITEM = "#ZenMode__previewContact",
 	ZM_ZENMORNING_CONTACT_CTX_MENU_ITEM = "#ZenMode__zenMorning",
   ZM_VISIBILITY_SHEDULER_CTX_MENU_ITEM = "#ZenMode__visibilitySheduler",
+  ZM_BATCH_MODE_CTX_MENU_ITEM = "#ZenMode__batchMode",
   ZM_ZENMORNING_CONTACT_SUNICON = "#ZenMode__zenMorning__sunIcon",
   ZM_ZENMORNING_AREA = "#ZenMode__zenMorningArea",
   ZM_ZENMORNING_AREA_FOOTER = "#ZenMode__zenMorningArea__footer",
@@ -95,13 +96,15 @@ export const enum Selectors {
 
   ZM_DEBUG_MODE_INDICATOR = "#ZenMode__debugModeIndidcator",
 
-  
+
   ZM_TOGGLE_BUTTON = "#ZenMode__toggle",
   ZM_TOGGLE_BUTTON_CHEVRON = "#ZenMode__toggle__chevron",
   ZM_BADGE = "#ZenMode__badge",
   ZM_TRELLO_LIST_CONTENT = "js-list-content",
   ZM_HIDE_POPUP = "#ZenMode_hide_popup",
   ZM_VISIBILITY_SHEDULER_POPUP = "#ZenMode__visibilityShedulerPopup",
+  ZM_BATCH_MODE_POPUP = "#ZenMode__batchModePopup",
+  ZM_BATCH_MODE_POPUP_OFF = "#ZenMode__batchModePopup_off",
   ZM_TRELLO_POP_OVER = "div.pop-over",
   ZM_TRELLO_POP_OVER_CONTENT = "div.pop-over-content",
   ZM_TRELLO_POP_OVER_LIST = "pop-over-list",

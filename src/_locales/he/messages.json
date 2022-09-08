@@ -11,10 +11,10 @@
   },
   "WA_contactCtxMenuItem_preview_on": {
     "message": "ON תצוגת מוקטנת"
-  },  
+  },
   "WA_contactCtxMenuItem_preview_off": {
     "message": "OFF תצוגת מוקטנת"
-  },     
+  },
   "WA_contactCtxMenuItem_zenMorning": {
     "message": "\uD83C\uDF1E בוקר זן",
     "description": "WA contact ctx menu item that turn zen morning for contact"
@@ -58,13 +58,13 @@
   },
   "ZM_hiddenChats": {
     "message": "צ'אטים מוסתרים"
-  },  
+  },
   "ZM_ctxMenuItem_debug_mode": {
     "message": "מוד דיבאג"
   },
   "ZM_minipreview_popup_warning": {
     "message": "ניתן לאפשר תצוגה מוקטנת רק ל10 צ'טים"
-  },    
+  },
   "ZM_ctxMenuItem_pinned_status": {
     "message": "תצוגה מוקטנת"
   },
@@ -132,6 +132,27 @@
   "ZM_visibilty_sheduler_description1": {
     "message": "( יכול תמיד לגשת לצ'ט דרך הארכיון או רשימת הצ'טים המוסתרים)"
   },
+  "ZM_batch_mode_title": {
+    "message":  "מצב אצווה"
+  },
+  "ZM_batch_mode_description": {
+    "message": "להשהות את הצ'אט הזה למשך 12 שעות לאחר קריאת כל ההודעות? (אתה יכול לחפש אותו בכל עת)"
+  },
+  "ZM_batch_mode_description_off": {
+    "message": "לבטל מצב אצווה עבור הצ'אט הזה?"
+  },
+  "ZM_batch_mode_button_yes": {
+    "message": "כן"
+  },
+  "ZM_batch_mode_button_no": {
+    "message": "לא"
+  },
+  "ZM_batch_mode_ok_button": {
+    "message": "בסדר"
+  },
+  "ZM_batch_mode_cancel_button": {
+    "message": "לְבַטֵל"
+  },
   "ZM_visibilty_sheduler_title": {
     "message": "זמני הצגת הצ'ט"
   },
@@ -168,6 +189,12 @@
   "ZM_visibilty_sheduler_Sunday": {
     "message": "ראשון"
   },
+  "WA_contactCtxMenuItem_batchMode": {
+    "message": "מצב אצווה"
+  },
+  "WA_contactCtxMenuItem_batchMode_on": {
+    "message": "מצב אצווה כבר מופעל"
+  },
   "WA_contactCtxMenuItem_visibiltySheduler": {
     "message": "\uD83D\uDD50 זמני הצגת הצ'ט"
   },
@@ -182,13 +209,13 @@
   },
   "ZM_visibilty_sheduler_close_popup_title": {
     "message": "לבטל את השינויים שלך?"
-  },  
+  },
   "ZM_visibilty_sheduler_close_popup_yes_button": {
     "message": "כן"
-  },    
+  },
   "ZM_visibilty_sheduler_close_popup_no_button": {
     "message": "לא"
-  },        
+  },
   "pinnedChatsStatus_group_typing": {
     "message": "מישהו ב \"%chat_title\" מקליד/ה…"
   },
@@ -203,5 +230,5 @@
   },
   "pinned_chat_onboarding": {
     "message": "הצגת מצב צ'אטים מוצמדים פעילה, לשינוי יש לגשת לתפריט זן"
-  }  
+  }
 }

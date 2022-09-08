@@ -17,11 +17,11 @@
   "WA_contactCtxMenuItem_preview_on": {
     "message": "ON Mini preview",
     "description": "WA contact ctx menu item that enables preview"
-  },  
+  },
   "WA_contactCtxMenuItem_preview_off": {
     "message": "OFF Mini preview",
     "description": "WA contact ctx menu item that disables preview"
-  },   
+  },
   "WA_contactCtxMenuItem_zenMorning": {
     "message": "\uD83C\uDF1E Zen Morning",
     "description": "WA contact ctx menu item that turn zen morning for contact"
@@ -86,7 +86,7 @@
   },
   "ZM_minipreview_popup_warning": {
     "message": "You can enable a mini preview for only 10 chats"
-  },  
+  },
   "ZM_noBtn": {
     "message": "no"
   },
@@ -169,6 +169,27 @@
   "ZM_visibilty_sheduler_description1": {
     "message": "(you can always access it via archived groups or Show Hidden Groups)"
   },
+  "ZM_batch_mode_title": {
+    "message": "Batch Mode"
+  },
+  "ZM_batch_mode_description": {
+    "message": "Snooze this chat for 12 hourse once all message are read? \n(You can search for it anytime)"
+  },
+  "ZM_batch_mode_description_off": {
+    "message": "Cancel Batch Mode for this chat?"
+  },
+  "ZM_batch_mode_button_yes": {
+    "message": "Yes"
+  },
+  "ZM_batch_mode_button_no": {
+    "message": "No"
+  },
+  "ZM_batch_mode_ok_button": {
+    "message": "Ok"
+  },
+  "ZM_batch_mode_cancel_button": {
+    "message": "Cancel"
+  },
   "ZM_visibilty_sheduler_title": {
     "message": "Visibility Schedule"
   },
@@ -208,6 +229,12 @@
   "WA_contactCtxMenuItem_visibiltySheduler": {
     "message": "\uD83D\uDD50 Visibility Schedule"
   },
+  "WA_contactCtxMenuItem_batchMode": {
+    "message": "Batch mode - OFF"
+  },
+  "WA_contactCtxMenuItem_batchMode_on": {
+    "message": "Batch mode - ON"
+  },
   "ZM_visibilty_sheduler_Warning": {
     "message": "This action will cancel the visibility schedule"
   },
@@ -219,13 +246,13 @@
   },
   "ZM_visibilty_sheduler_close_popup_title": {
     "message": "Cancel your changes?"
-  },  
+  },
   "ZM_visibilty_sheduler_close_popup_yes_button": {
     "message": "Yes"
-  },    
+  },
   "ZM_visibilty_sheduler_close_popup_no_button": {
     "message": "No"
-  },      
+  },
   "pinnedChatsStatus_group_typing": {
     "message": "Someone in \"%chat_title\" is typing…"
   },

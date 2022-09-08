@@ -5,6 +5,7 @@ import {DOM} from "../../../../../utility-belt/helpers/dom/DOM-shortcuts";
 import { setMiniPreview, unsetMiniPreview } from "../../../user-can/mini-preview-contacts/mini-preview-contacts";
 import {hide_WA_context_menu} from "../../../../api/hide-wa-context-menu";
 import {lastHoveredChat} from "./attach_hide_contact_item";
+
 const SWITCH_ON = `
     <!--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
         <path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/>
