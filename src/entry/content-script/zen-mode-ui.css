@@ -408,6 +408,36 @@ html[dir=ltr] .hide-popup-close-btn {
   padding: 1em;
 }
 
+#ZenMode__batchModePopup {
+  position: fixed;
+  height: fit-content;
+  width: fit-content;
+  left: 50%;
+  top: 50%;
+  min-width: 400px;
+  min-height: auto;
+  padding-bottom: 25px;
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 9999999;
+  padding: 1em;
+}
+
+#ZenMode__batchModePopup_off {
+  position: fixed;
+  height: fit-content;
+  width: fit-content;
+  left: 50%;
+  top: 50%;
+  min-width: 400px;
+  min-height: auto;
+  padding-bottom: 25px;
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 9999999;
+  padding: 1em;
+}
+
 
 
 .ZenMode__select {
@@ -434,6 +464,36 @@ html[dir=ltr] .hide-popup-close-btn {
   margin-bottom: 20px;
 }
 
+.ZenMode_batch_mode_title{
+  text-align: center;
+  font-size: 24px;
+  padding-bottom: 1rem;
+}
+
+.ZenMode_batch_mode_description{
+  text-align: center;
+}
+
+.ZenMode_batch_mode_button_block{
+  text-align: center;
+  margin-top: 40px;
+}
+.ZenMode_batch_mode_cancel_button{
+  border: 1px solid grey;
+  color: grey;
+  padding: 5px;
+  cursor: pointer;
+}
+.ZenMode_batch_mode_ok_button{
+  border: 1px solid green;
+  padding: 5px;
+  margin-left: 10px;
+  color: green;
+  cursor: pointer;
+}
+.batch_mode_on{
+  color: green !important;
+}
 .ZenMode__sheduler_row {
   display: flex;
   align-items: center;
@@ -751,4 +811,24 @@ html[dir=rtl] .inchat-status-item .unread-icon {
 
 .switch_text{
   margin-right: 25px;
+}
+
+#ZenMode__hideContact>._2oldI.dJxPU {
+    height: auto !important;
+    padding-top: 10px !important;
+}
+
+#ZenMode__visibilitySheduler>._2oldI.dJxPU {
+    height: auto !important;
+    padding-top: 10px !important;
+}
+
+#ZenMode__previewContact>._2oldI.dJxPU {
+    height: auto !important;
+    padding-top: 10px !important;
+}
+
+#ZenMode__batchMode>._2oldI.dJxPU {
+    height: auto !important;
+    padding-top: 10px !important;
 }
