@@ -51,6 +51,8 @@ export class VisibilitySheduler {
 
     private hideChat(chat: Chat) {
         this.hiddenChats.push(chat);
+        chat.hasUnread = false
+        chat.unreadCount = 0;
         addHiddenChats(chat);
     }
 

@@ -7,7 +7,7 @@ export class ChatFabric {
       isGroup: wwaChat.isGroup,
       name: wwaChat.name,
       title: wwaChat.title(),
-      hasUnread: wwaChat.unreadCount > 0,
+      hasUnread: wwaChat.unreadCount === 0 ? false : true,
       unreadCount: wwaChat.unreadCount,
       previewMessage: wwaChat.previewMessage && wwaChat.previewMessage.text ? wwaChat.previewMessage.text : null,
       archive: wwaChat.archive,

@@ -12,7 +12,7 @@ const unreadChatCtxMenu = new DrawerChatCtxMenu([
     action: "unread",
     domNode: browser.i18n.getMessage("WA_contactCtxMenuItem_mark_unread"),
     chatChange: (chat) => {
-      markChatUnread(chat.id)
+      markChatUnread(chat.id);
     },
   },
 ]);
@@ -38,19 +38,19 @@ export function presentUnreadChats(chats: Chat[]): LeftDrawerItemList<Chat> {
               unreadChatCtxMenu.attachToChat(chat, e.target.getBoundingClientRect());
             }
           },
-        ).htmlElement
+        ).htmlElement;
       } else {
-        return null
+        return null;
       }
     },
     () => {},
   );
   WWEvents.on(InternalEvent.CHAT_CHANGED_UNREAD_COUNT, (chat: Chat) => {
     const chatFromDrawerIndex = chats.findIndex((c) => c.id === chat.id);
-    if (chatFromDrawerIndex!==-1) {
-      chats.splice(chatFromDrawerIndex, 1, chat)
+    if (chatFromDrawerIndex !== -1) {
+      chats.splice(chatFromDrawerIndex, 1, chat);
       drawer.clear();
-      drawer.set(chats)
+      drawer.set(chats);
     } else {
       chats.push(chat);
       drawer.add(chat);

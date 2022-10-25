@@ -1,6 +1,6 @@
 {
   "name": "__MSG_extnName__",
-  "version": "1.5.1.0",
+  "version": "1.5.2.0",
   "description": "__MSG_appDescription__",
   "default_locale": "en",
   "minimum_chrome_version": "78",
@@ -30,7 +30,7 @@
     }
   ],
 
-  "web_accessible_resources": ["assets/**/*", "whatsapp/ExternalConnector.ts", "whatsapp/WebSocketWrapper.ts", "entry/content-script/onboarding.css", "entry/content-script/onboarding.js", "onboarding.html"],
+  "web_accessible_resources": ["assets/**/*", "assets/whatsapp/batch-mode-icon.png", "whatsapp/ExternalConnector.ts", "whatsapp/WebSocketWrapper.ts", "entry/content-script/onboarding.css", "entry/content-script/onboarding.js", "onboarding.html"],
 
   "page_action": {
     "default_title": "Toggle Zen mode",

@@ -45,8 +45,8 @@ pageBridgePort.onMessage.addListener(async (response: any) => { // TODO: fix typ
 });
 
 async function processChatMessage(response: any) {
-  const { msg, user } = response.payload;
-  const userId = user.toString();
+  const { msg } = response.payload;
+  const userId = msg.from;
   const chatId = msg.fromMe ? msg.to : msg.from;
   const chat = await getHiddenChatById(chatId)
   

@@ -133,13 +133,13 @@
     "message": "( יכול תמיד לגשת לצ'ט דרך הארכיון או רשימת הצ'טים המוסתרים)"
   },
   "ZM_batch_mode_title": {
-    "message":  "מצב אצווה"
+    "message":  "מצב מקבץ"
   },
   "ZM_batch_mode_description": {
     "message": "להשהות את הצ'אט הזה למשך 12 שעות לאחר קריאת כל ההודעות? (אתה יכול לחפש אותו בכל עת)"
   },
   "ZM_batch_mode_description_off": {
-    "message": "לבטל מצב אצווה עבור הצ'אט הזה?"
+    "message": "לבטל מצב מקבץ עבור הצ'אט הזה?"
   },
   "ZM_batch_mode_button_yes": {
     "message": "כן"
@@ -190,10 +190,10 @@
     "message": "ראשון"
   },
   "WA_contactCtxMenuItem_batchMode": {
-    "message": "מצב אצווה"
+    "message": "מצב מקבץ"
   },
   "WA_contactCtxMenuItem_batchMode_on": {
-    "message": "מצב אצווה כבר מופעל"
+    "message": "מצב מקבץ כבר מופעל"
   },
   "WA_contactCtxMenuItem_visibiltySheduler": {
     "message": "\uD83D\uDD50 זמני הצגת הצ'ט"

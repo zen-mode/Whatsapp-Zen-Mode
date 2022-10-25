@@ -29,7 +29,7 @@ export function constructFakeCtxMenuItem(
   action: GenericFn | string,
   children: ZMCtxMenuItem[] = [],
 ): HTMLLIElement {
-  console.log(browser.i18n.getUILanguage());
+  // console.log(browser.i18n.getUILanguage());
   const li = document.createElement('LI') as HTMLLIElement;
   li.className = "_1wMaz _18oo2 fakeCtxMenuItem";
 

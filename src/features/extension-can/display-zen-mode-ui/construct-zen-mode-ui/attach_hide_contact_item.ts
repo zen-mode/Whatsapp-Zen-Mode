@@ -66,15 +66,11 @@ export async function attach_hide_contact_item(node: HTMLElement): Promise<void>
 }
 
 function checkExistChatInBatchMode() {
-	if ( localStorage.getItem ("chatsInBatchMode") == null ) {
-		return false;
-	}
+	if ( localStorage.getItem ("chatsInBatchMode") == null ) return false;
 
 	const chatsInBatchMode = JSON.parse (localStorage.getItem ("chatsInBatchMode"));
 
-	if (chatsInBatchMode.find(chat => chat.id === lastHoveredChat.id) != null) {
-		return true;
-	}
+	if (chatsInBatchMode.find(chat => chat.id === lastHoveredChat.id) != null) return true;
 
 	return false;
 }

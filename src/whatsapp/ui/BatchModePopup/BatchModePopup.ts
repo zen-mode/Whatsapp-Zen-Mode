@@ -5,7 +5,6 @@ import {set_el_style} from "../../../../utility-belt/helpers/dom/set-el-style";
 import {Selectors} from "../../../data/dictionary";
 import {lastHoveredChat} from "../../../features/extension-can/display-zen-mode-ui/construct-zen-mode-ui/attach_hide_contact_item";
 import { hide_contact } from "../../../features/user-can/hide-contacts/hide-contact";
-import { hide_contact } from "../../../features/user-can/hide-contacts/hide-contact";
 const default_time_to_hidden_Chat = 720;
 
 export function constructBatchModePopup(): HTMLDivElement {
@@ -61,8 +60,10 @@ export function constructBatchModePopup(): HTMLDivElement {
     set_el_style(DOM.get_el(Selectors.ZM_BATCH_MODE_POPUP), {display: "none"});
   );
 
-  okButton.addEventListener("click", (e) =>
-    addChatInBatchMode(lastHoveredChat);
+  okButton.addEventListener("click", (e) => {
+    localStorage.setItem("chatInBatchModeChanged", "true")
+    return addChatInBatchMode(lastHoveredChat);
+  }
   );
 
   return popup as HTMLDivElement;
