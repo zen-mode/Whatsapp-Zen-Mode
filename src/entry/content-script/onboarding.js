@@ -11,6 +11,4 @@ function constructLocales() {
 constructLocales();
 
 // Set listeners
-agreeEl.addEventListener('click', function() {
-  window.close()
-});
+agreeEl.addEventListener('click', () => {window.close()});

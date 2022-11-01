@@ -7,7 +7,6 @@ import { logger } from "../../whatsapp/StorageLogger";
 
 new VisibilitySheduler();
 
-
 window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
   const payload = {
     errorMsg,
