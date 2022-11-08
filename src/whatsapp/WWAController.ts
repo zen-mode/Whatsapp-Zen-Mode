@@ -1,4 +1,4 @@
-import {WapModule, ChatModule, CmdModule, MUTE_FOREVER, SocketModule} from "./WWAProvider";
+import {WapModule, CmdModule, MUTE_FOREVER, SocketModule} from "./WWAProvider";
 
 export function getWWVersion() {
   // @ts-ignore
@@ -6,11 +6,11 @@ export function getWWVersion() {
 }
 
 export function getChats(): any[] {
-  return ChatModule.Chat._models;
+  return WapModule.Chat._models;
 }
 
 export function getPinnedChats(): any[] {
-  return ChatModule.Chat.filter((c: any) => c.pin);
+  return WapModule.Chat.filter((c: any) => c.pin);
 }
 
 export function getChatsExceptId(chatId: string): any[] {
@@ -19,21 +19,21 @@ export function getChatsExceptId(chatId: string): any[] {
 }
 
 export function getChat(chatId: string): any {
-  return ChatModule.Chat.get(chatId);
+  return WapModule.Chat.get(chatId);
 }
 
 export function getChatByWID(wid: any): any {
-  return ChatModule.Chat.get(wid);
+  return WapModule.Chat.get(wid);
 }
 
 export function getChatByTitle(chatTitle: string): any {
-  return ChatModule.Chat._models.find((chat: any) => {
+  return WapModule.Chat._models.find((chat: any) => {
     return chat.title() === chatTitle;
   })
 }
 
 export function getOpenedChat(): any {
-  return ChatModule.Chat.getActive();
+  return WapModule.Chat.getActive();
 }
 
 export function muteChatLocally(chat: any) {
@@ -57,25 +57,25 @@ export function unarchiveChatLocally(chat: any) {
 }
 
 export function openChat(chatId: string): any {
-  const chat = ChatModule.Chat.get(chatId);
+  const chat = WapModule.Chat.get(chatId);
   CmdModule.openChatAt(chat);
   return chat;
 }
 
 export async function synchronizeWWChats() {
-  await ChatModule.Chat.sync();
+  await WapModule.Chat.sync();
 }
 
 export function getChatsGlobalSoundsState(): boolean {
-  return Boolean(ChatModule.Mute.getGlobalSounds());
+  return Boolean(WapModule.Mute.getGlobalSounds());
 }
 
 export function setChatsGlobalSoundsState(state: boolean) {
-  ChatModule.Mute.setGlobalSounds(state);
+  WapModule.Mute.setGlobalSounds(state);
 }
 
 export function markChatAsRead(chatId: string): any {
-  const chat = ChatModule.Chat.get(chatId);
+  const chat = WapModule.Chat.get(chatId);
   const styleEl = document.createElement('style');
   document.head.appendChild(styleEl);
   const styleSheet = styleEl.sheet;
@@ -88,7 +88,7 @@ export function markChatAsRead(chatId: string): any {
 }
 
 export function markChatUnread(chatId: string): any {
-  const chat = ChatModule.Chat.get(chatId);
+  const chat = WapModule.Chat.get(chatId);
   CmdModule.markChatUnread(chat, 1);
 }
 
@@ -98,7 +98,7 @@ export async function getProfilePicUrl(chatId: string): Promise<string | undefin
 }
 
 export function getUnreadChats(): any[] {
-  return ChatModule.Chat._models.filter((c: any) => c.hasUnread);
+  return WapModule.Chat._models.filter((c: any) => c.hasUnread);
 }
 
 function setRetryTime(time: number) {

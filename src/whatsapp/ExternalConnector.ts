@@ -19,7 +19,7 @@ import {
   markChatUnread,
   runAutoReconnecting
 } from "./WWAController";
-import {ChatModule, ConnModule, provideModules, SocketModule, WapModule} from "./WWAProvider";
+import {WapModule, ConnModule, safeProvideModules, SocketModule} from "./WWAProvider";
 import {Chat} from "./model/Chat";
 import {ChatFabric} from "./ChatFabric";
 import {
@@ -139,7 +139,7 @@ callerFunctions.set(WWAProviderCall.getPinnedChats, (): Chat[] => {
   return getPinnedChats().map(ChatFabric.fromWWAChat);
 });
 
-provideModules();
+safeProvideModules();
 
 
 
@@ -150,7 +150,7 @@ extBridgePort.onMessage.addListener((request: WWAProviderRequest) => {
 });
 
 // Move to EventBus
-ChatModule.Msg.on('add', async (msg:any) => {
+WapModule.Msg.on('add', async (msg:any) => {
   const user = ConnModule.wid;
   if (!msg.isNewMsg) return;
   if (msg.id.fromMe) return;
@@ -158,7 +158,7 @@ ChatModule.Msg.on('add', async (msg:any) => {
 })
 
 // Move to EventBus
-ChatModule.Msg.on('add', async (msg:any) => {
+WapModule.Msg.on('add', async (msg:any) => {
   const user = ConnModule.wid;
   extBridgePort.postMessage({action: "LOG", payload: {type: "INFO", message: "New message", payload: {msg, user}}});
 })
@@ -206,7 +206,7 @@ function publishEvent(event: InternalEvent, args: any[]) {
 }
 
 // type can be: 'unavailable' | 'available' | 'composing' | 'recording' | 'paused'
-ChatModule.Presence.on('change', (event: any) => {
+WapModule.Presence.on('change', (event: any) => {
   if (event.id) {
     const chat = getChatByWID(event.id);
     if (event.isGroup && event.chatstates._models) {
@@ -247,14 +247,14 @@ ChatModule.Presence.on('change', (event: any) => {
   }
 });
 
-ChatModule.Chat.on('change:pin', (chat: any) => {
+WapModule.Chat.on('change:pin', (chat: any) => {
   publishEvent(InternalEvent.CHAT_CHANGED_PIN, [ChatFabric.fromWWAChat(chat)]);
 });
 
-ChatModule.Chat.on('change:unreadCount', (chat: any) => {
+WapModule.Chat.on('change:unreadCount', (chat: any) => {
   publishEvent(InternalEvent.CHAT_CHANGED_UNREAD_COUNT, [ChatFabric.fromWWAChat(chat)]);
 });
 
-ChatModule.Msg.on('add', (message: any) => {
+WapModule.Msg.on('add', (message: any) => {
   publishEvent(InternalEvent.CHAT_NEW_MESSAGE, [message]);
 });
