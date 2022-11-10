@@ -3,8 +3,9 @@ class WebSocketWrapper {
     _sockets: Array<WebSocket> = []
     constructor(ref = WebSocket) {
         const _self = this;
-        const wrapped = function() {
+        const wrapped = () => {
             if (_self.isBlocked()) {
+                return true;
             } else {
                 const sock = new ref(...arguments)
                 _self._sockets.push(sock)
