@@ -59,7 +59,7 @@ export async function getHiddenChatById(chatId: string): Promise<Chat | undefine
   return chats.find(c => c.id === chatId);
 }
 
-async function setHiddenChats(chats: Chat[]): Promise<void> {
+export async function setHiddenChats(chats: Chat[]): Promise<void> {
   await set_extn_storage_item({
     [StateItemNames.HIDDEN_CONTACTS]: chats
   });
@@ -69,6 +69,7 @@ export async function addHiddenChats(
   ...chats: Chat[]
 ): Promise<void> {
   const storageChats = await getHiddenChats();
+  
   for (const chat of chats) {
     const chatId = chat.id;
     const chatIndex = storageChats.findIndex(c => c.id === chatId);
@@ -124,7 +125,7 @@ export async function addMiniPreviewChats(
   }
 
   const storageChats = await getMiniPreviewChats();
-  
+
   for (const chat of chats) {
     const chatId = chat.id;
     const chatIndex = storageChats.findIndex(c => c.id === chatId);

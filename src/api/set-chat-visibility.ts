@@ -30,9 +30,11 @@ export function setChatVisibility(
 subscribeForeverHiddenChatChanges(async (hiddenChats, oldHiddenChats) => {
   const smartMuteStatus = await getSmartMuteStatus();
   const hiddenChatIds = hiddenChats.map(c => c.id);
+  let chatsInBatchMode = JSON.parse(localStorage.getItem ("chatsInBatchMode"));
   hiddenChats.forEach(hiddenChat => setChatVisibility(hiddenChat, false, smartMuteStatus));
+
   oldHiddenChats.forEach(hiddenChat => {
     if (!hiddenChatIds.includes(hiddenChat.id))
-      setChatVisibility(hiddenChat, true, smartMuteStatus);
+      return setChatVisibility(hiddenChat, true, smartMuteStatus);
   });
 })

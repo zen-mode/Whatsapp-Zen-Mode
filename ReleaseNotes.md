@@ -1,11 +1,6 @@
-
-# Release Notes 1.5.3.0
-###  Public beta version [Ada Yonath][(https://en.wikipedia.org/wiki/Ada_Yonath)]
-1.Batch mode feature added ( via chat menu)
-2.Bug fixes ( tool bar disappearance +WA updates)
 # Release Notes 1.5.2.0
-###  Public beta version [Ada Yonath][(https://en.wikipedia.org/wiki/Ada_Yonath)]
-1.Batch mode feature added ( via chat menu)
+###  Public beta version [Ada Yonath](https://en.wikipedia.org/wiki/Ada_Yonath)
+1.Batch mode feature added ( via chat menu) 
 2.Bug fixes ( tool bar disappearance)
 
 # Release Notes 1.5.1.0

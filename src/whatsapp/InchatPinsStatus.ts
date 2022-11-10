@@ -293,8 +293,7 @@ WWEvents.on(InternalEvent.CHAT_CHANGED_PIN, async (chat: Chat) => {
 });
 
 WWEvents.on(InternalEvent.CHAT_CHANGED_UNREAD_COUNT, async (chat: Chat) => {
-  //console.log("CHAT_CHANGED_UNREAD_COUNT", chat);
-  console.log('[InternalEvent.CHAT_CHANGED_UNREAD_COUNT] New Status for ', chat.name, chat.title)
+  console.log('[InternalEvent.CHAT_CHANGED_UNREAD_COUNT] New Status for ', chat.hasUnread, chat.title)
   const isMiniPreview = await isMiniPreviewChat(chat);
   if (isMiniPreview) {
     !hasChat(chat) ? addChat(chat) : updateChat(chat, chat);

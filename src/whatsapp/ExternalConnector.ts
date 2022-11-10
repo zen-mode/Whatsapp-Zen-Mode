@@ -214,7 +214,7 @@ WapModule.Presence.on('change', (event: any) => {
       // console.log("event.chatstates", JSON.parse(JSON.stringify(event.chatstates)));
       // console.log("event.chatstates._models", JSON.parse(JSON.stringify(event.chatstates._models)));
       // console.log("-------------------------------------------------------------")
-      event.chatstates._models.forEach(({id, type}) => {
+      event.chatstates._models.forEach(({id, type}: any) => {
         if (type) {
           var user = null;
           if (chat.isUser) {
