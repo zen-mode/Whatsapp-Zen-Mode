@@ -141,8 +141,6 @@ callerFunctions.set(WWAProviderCall.getPinnedChats, (): Chat[] => {
 
 safeProvideModules();
 
-
-
 const extBridgePort = browser.runtime.connect('%%EXTENSION_GLOBAL_ID%%', { name: BridgePortType.WWA_EXTERNAL_CONNECTOR });
 
 extBridgePort.onMessage.addListener((request: WWAProviderRequest) => {
