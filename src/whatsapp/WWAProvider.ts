@@ -13,19 +13,11 @@ export let SocketModule: any = null;
 
 function provideModules(): void {
   const moduleRaid = moduleRaidV5();
-<<<<<<< HEAD
   const WapModule = moduleRaid.findModule('queryLinkPreview')[0].default;
   const ChatModule = moduleRaid.findModule('Chat')[2].default;
   const CmdModule = moduleRaid.findModule('Cmd')[0].Cmd;
   const ConnModule = moduleRaid.findModule('Conn')[0].Conn;
   const SocketModule = moduleRaid.findModule('Socket')[0].Socket;
-=======
-  WapModule = moduleRaid.findModule('queryLinkPreview')[0].default;
-  ChatModule = moduleRaid.findModule('Chat')[2].default;
-  CmdModule = moduleRaid.findModule('Cmd')[0].Cmd;
-  ConnModule = moduleRaid.findModule('Conn')[0].Conn;
-  SocketModule = moduleRaid.findModule('Socket')[0].Socket;
->>>>>>> 92677be6f57dde6a62beb907b76c68473929f10d
   
   const m = 'module not found';
   if (!WapModule) {
