@@ -1,5 +1,6 @@
 // @ts-ignore
 import {getWWVersion} from "./WWAController";
+import { devprint } from "../../utility-belt/helpers/debug/devprint";
 
 const moduleRaidV5 = require('@pedroslopez/moduleraid');
 
@@ -12,11 +13,28 @@ export let SocketModule: any = null;
 
 function provideModules(): void {
   const moduleRaid = moduleRaidV5();
-
-  WapModule = moduleRaid.findModule((m: any) => m.default && m.default.Chat)[0]?.default;
-  CmdModule = moduleRaid.findModule('Cmd')[0]?.Cmd;
-  ConnModule = moduleRaid.findModule('Conn')[0]?.Conn;
-  SocketModule = moduleRaid.findModule('Socket')[0]?.Socket;
+  const WapModule = moduleRaid.findModule('queryLinkPreview')[0].default;
+  const ChatModule = moduleRaid.findModule('Chat')[2].default;
+  const CmdModule = moduleRaid.findModule('Cmd')[0].Cmd;
+  const ConnModule = moduleRaid.findModule('Conn')[0].Conn;
+  const SocketModule = moduleRaid.findModule('Socket')[0].Socket;
+  
+  const m = 'module not found';
+  if (!WapModule) {
+    devprint('WapModule', m);
+  }
+  if (!ChatModule) {
+    devprint('ChatModule', m);
+  }
+  if (!CmdModule) {
+    devprint('CmdModule', m);
+  }
+  if (!ConnModule) {
+    devprint('ConnModule', m);
+  }
+  if (!SocketModule) {
+    devprint('SocketModule', m);
+  }
 }
 
 export function safeProvideModules() {
