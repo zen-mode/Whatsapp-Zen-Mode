@@ -37,6 +37,10 @@ import {
 } from "../../../whatsapp/ExtensionConnector";
 import {CHAT_LIST_SELECTOR} from "../../../whatsapp/dom/DOMConstants";
 import {getChats} from "../../../whatsapp/WWAController";
+<<<<<<< HEAD
+=======
+import { DOMElement, ElementType } from "react";
+>>>>>>> feature/batchmode
 // 1. Sets an interval timer to attach Zen mode UI in case of:
 keep_Zen_mode_UI_attached();
 
@@ -48,6 +52,10 @@ function keep_Zen_mode_UI_attached(): void {
 var addActiveHiddenChatTimeout: any;
 var addHiddenChatTimeout: any;
 let handleActiveChatInBatchModeCounter = 0
+<<<<<<< HEAD
+=======
+localStorage.setItem("chatInBatchModeChanged", "true");
+>>>>>>> feature/batchmode
 
 async function attach_Zen_mode_UI(): Promise<void> {
   // 1.1. It is not already attached.
@@ -184,32 +192,58 @@ async function attach_Zen_mode_UI(): Promise<void> {
 }
 */
 
-localStorage.setItem("chatInBatchModeChanged", "true");
 
 function handleActiveChatInBatchMode(itemName: string, chat: any, chatInBatchMode: any){
   window.setTimeout(() => {
     if(itemName === chat.title){
-      console.log("hiding chat2... ", chat);
+      console.log("hiding active chat... ", chat);
       addHiddenChats(chatInBatchMode);
     }
     handleActiveChatInBatchModeCounter = 0;
   }, 10000);
 }
 
+let chatInBatchModeChanged = localStorage.getItem("chatInBatchModeChanged") === "true" ? true : false;
+let chatInBatchModeName: string;
+let chatInBatchModeWW: any;
+
+
+WWEvents.on(InternalEvent.CHAT_CHANGED_UNREAD_COUNT, async (chat: any) => {
+  if (chatInBatchModeChanged) {
+    window.setTimeout(() => {
+      if (chatInBatchModeName === chat.title) {
+        if (chat.hasUnread) {
+          removeHiddenChats(chatInBatchModeWW);
+          return;
+        }
+      }
+      localStorage.setItem("chatInBatchModeChanged", "false");
+    }, 10000);
+    return;
+  }else{
+    if (chatInBatchModeName === chat.title) {
+      if (chat.hasUnread) {
+        window.clearTimeout(addHiddenChatTimeout);
+        removeHiddenChats(chatInBatchModeWW);
+        return;
+      }
+      return;
+    }
+  }
+});
+
 async function setListenerOpenChatInBatchModeHtmlChats() {
   let dialogItems = document.querySelectorAll("div.lhggkp7q.ln8gz9je.rx9719la");
+  let dialogItemChatsInBatchMode:any[] = [];
   let chatsInBatchMode = JSON.parse(localStorage.getItem("chatsInBatchMode"));
-  let dialogItemChatsInBatchMode = [];
-
-  let chatInBatchModeChanged =
-    localStorage.getItem("chatInBatchModeChanged") === "true" ? true : false;
+  chatInBatchModeChanged = localStorage.getItem("chatInBatchModeChanged") === "true" ? true : false;
 
   dialogItems.forEach((item, index_html) => {
-    chatsInBatchMode && chatsInBatchMode.forEach((chatInBatchMode, index) => {
-      const itemName = item.querySelector(".zoWT4").querySelector("span").textContent;
-      const hasUnread =
-        item.querySelector(".l7jjieqr.aumms1qt.ei5e7seu") === null ? false : true;
-      let chatInBatchModeName: string;
+    chatsInBatchMode && chatsInBatchMode.forEach((chatInBatchMode: any, index: number) => {
+      chatInBatchModeWW = chatInBatchMode;
+      const itemName = item.querySelector(".zoWT4").querySelector("span").textContent
+      const hasUnread = item.querySelector(".l7jjieqr.aumms1qt.ei5e7seu") === null ? false : true;
+
       if (chatInBatchMode.name != null) {
         chatInBatchModeName = chatInBatchMode.name;
       }
@@ -217,30 +251,8 @@ async function setListenerOpenChatInBatchModeHtmlChats() {
         chatInBatchModeName = chatInBatchMode.title;
       }
 
-      WWEvents.on(InternalEvent.CHAT_CHANGED_UNREAD_COUNT, async (chat: any) => {
-        if (chatInBatchModeChanged) {
-          window.setTimeout(() => {
-            if (chatInBatchModeName === chat.title) {
-              if (chat.hasUnread) {
-                removeHiddenChats(chatInBatchMode);
-                return;
-              }
-            }
-            localStorage.setItem("chatInBatchModeChanged", "false");
-          }, 10000);
-          return;
-        }
-        if (chatInBatchModeChanged === false) {
-          if (chatInBatchModeName === chat.title) {
-            if (chat.hasUnread) {
-              window.clearTimeout(addHiddenChatTimeout);
-              removeHiddenChats(chatInBatchMode);
-              return;
-            }
-            return;
-          }
-        }
-      });
+      //WWEvents
+      //...
 
       if (itemName === chatInBatchModeName) {
         getOpenedChat((chat: any) => {
@@ -261,10 +273,10 @@ async function setListenerOpenChatInBatchModeHtmlChats() {
                 handleActiveChatInBatchMode(itemName, chat, chatInBatchMode)
                 handleActiveChatInBatchModeCounter = 1
               }else{
-                return console.assert('run timeout only once')
+                return console.log("run timeout only once")
               }
             } else {
-              console.assert("removing chat... ", chat);
+              console.log("removing chat... ", chat);
               return removeHiddenChats(chatInBatchMode);
             }
           } else {
@@ -272,7 +284,7 @@ async function setListenerOpenChatInBatchModeHtmlChats() {
               handleActiveChatInBatchModeCounter = 0;
               return addHiddenChats(chatInBatchMode);
             } else {
-              console.assert("removing chat2... ", chat);
+              console.log("removing active chat... ", chat);
               return removeHiddenChats(chatInBatchMode);
             }
           }
@@ -283,17 +295,15 @@ async function setListenerOpenChatInBatchModeHtmlChats() {
 
   //when chat is opened in batch mode
   dialogItemChatsInBatchMode.forEach((item) => {
-    item.addEventListener("click", function (event) {
+    item.addEventListener("click", function () {
       console.log("Open Chat With Batch Mode");
       let activeChatInBatchMode = item
         .querySelector("div[aria-selected]")
         .getAttribute("aria-selected");
-      const hasUnread =
-        item.querySelector(".l7jjieqr.aumms1qt.ei5e7seu") === null ? false : true;
-      let itemName = item.querySelector(".zoWT4").querySelector("span").textContent;
+      const hasUnread = item.querySelector(".l7jjieqr.aumms1qt.ei5e7seu") === null ? false : true;
+      let itemName = item.querySelector(".zoWT4").querySelector("span").textContent
       let object = chatsInBatchMode.find(
-        (chatsInBatchMode) =>
-          chatsInBatchMode.title === itemName || chatsInBatchMode.name === itemName,
+        (chatsInBatchMode) => chatsInBatchMode.title === itemName || chatsInBatchMode.name === itemName
       );
       object.timeToAddInBatchMode = new Date();
       let newChatsInBatchMode = chatsInBatchMode.filter((item) => item.id !== object.id);
