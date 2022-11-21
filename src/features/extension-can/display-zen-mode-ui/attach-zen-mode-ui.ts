@@ -10,7 +10,7 @@
 // 2.1. Constructs the UI.
 // 2.2. Sets ZM UI in accordance with current ZM state (activated\disactivated).
 import {WWEvents} from "../../../whatsapp/extension/EventBus";
-import {getOpenedChat} from "../../../whatsapp/ExtensionConnector";
+import { getOpenedChat } from "../../../whatsapp/ExtensionConnector";
 import {InternalEvent} from "../../../whatsapp/types";
 import {hide_contact} from "../../user-can/hide-contacts/hide-contact";
 import {DOM} from "../../../../utility-belt/helpers/dom/DOM-shortcuts";
@@ -22,7 +22,7 @@ import {
   lastHoveredChat,
   setLastHoveredChat,
 } from "./construct-zen-mode-ui/attach_hide_contact_item";
-import browser from "webextension-polyfill";
+// import browser from "webextension-polyfill";
 import {subscribeForeverZenMorningChatChanges} from "../../../whatsapp/Storage";
 import {
   addHiddenChats,
@@ -31,16 +31,12 @@ import {
   setHiddenChats,
   getHiddenChats,
 } from "../../../whatsapp/Storage";
-import {
-  archiveChatLocally,
-  unArchiveChatLocally,
-} from "../../../whatsapp/ExtensionConnector";
+// import {
+//   archiveChatLocally,
+//   unArchiveChatLocally,
+// } from "../../../whatsapp/extension/ExtensionConnector";
 import {CHAT_LIST_SELECTOR} from "../../../whatsapp/dom/DOMConstants";
-import {getChats} from "../../../whatsapp/WWAController";
-<<<<<<< HEAD
-=======
-import { DOMElement, ElementType } from "react";
->>>>>>> feature/batchmode
+// import {getChats} from "../../../whatsapp/whatsapp/WWAController";
 // 1. Sets an interval timer to attach Zen mode UI in case of:
 keep_Zen_mode_UI_attached();
 
@@ -52,10 +48,11 @@ function keep_Zen_mode_UI_attached(): void {
 var addActiveHiddenChatTimeout: any;
 var addHiddenChatTimeout: any;
 let handleActiveChatInBatchModeCounter = 0
-<<<<<<< HEAD
-=======
 localStorage.setItem("chatInBatchModeChanged", "true");
->>>>>>> feature/batchmode
+
+//Timeouts time:
+const timeWhenChatisActive = 60000;
+const timeWhenChatGotMessage = 43200000;
 
 async function attach_Zen_mode_UI(): Promise<void> {
   // 1.1. It is not already attached.
@@ -123,6 +120,8 @@ async function attach_Zen_mode_UI(): Promise<void> {
     await setListenerOpenChatInBatchModeHtmlChats();
     window.clearTimeout(addActiveHiddenChatTimeout)
     window.clearTimeout(addHiddenChatTimeout)
+
+    //Change time below on you demand
   }, 900);
   devprint("STATUS: UI attached.");
 }
@@ -192,7 +191,6 @@ async function attach_Zen_mode_UI(): Promise<void> {
 }
 */
 
-
 function handleActiveChatInBatchMode(itemName: string, chat: any, chatInBatchMode: any){
   window.setTimeout(() => {
     if(itemName === chat.title){
@@ -200,7 +198,8 @@ function handleActiveChatInBatchMode(itemName: string, chat: any, chatInBatchMod
       addHiddenChats(chatInBatchMode);
     }
     handleActiveChatInBatchModeCounter = 0;
-  }, 10000);
+    //Change time below on you demand
+  }, timeWhenChatisActive);
 }
 
 let chatInBatchModeChanged = localStorage.getItem("chatInBatchModeChanged") === "true" ? true : false;
@@ -218,7 +217,7 @@ WWEvents.on(InternalEvent.CHAT_CHANGED_UNREAD_COUNT, async (chat: any) => {
         }
       }
       localStorage.setItem("chatInBatchModeChanged", "false");
-    }, 10000);
+    }, timeWhenChatGotMessage);
     return;
   }else{
     if (chatInBatchModeName === chat.title) {
@@ -266,6 +265,7 @@ async function setListenerOpenChatInBatchModeHtmlChats() {
             }
             return true;
           }
+
           if (chat.title === chatInBatchModeName) {
             if (!hasUnread) {
               //call handleActiveChatInBatchMode function
@@ -273,10 +273,10 @@ async function setListenerOpenChatInBatchModeHtmlChats() {
                 handleActiveChatInBatchMode(itemName, chat, chatInBatchMode)
                 handleActiveChatInBatchModeCounter = 1
               }else{
-                return console.log("run timeout only once")
+                return console.assert('run timeout only once')
               }
             } else {
-              console.log("removing chat... ", chat);
+              console.assert("removing chat... ", chat);
               return removeHiddenChats(chatInBatchMode);
             }
           } else {
@@ -284,7 +284,7 @@ async function setListenerOpenChatInBatchModeHtmlChats() {
               handleActiveChatInBatchModeCounter = 0;
               return addHiddenChats(chatInBatchMode);
             } else {
-              console.log("removing active chat... ", chat);
+              console.assert("removing active chat... ", chat);
               return removeHiddenChats(chatInBatchMode);
             }
           }
