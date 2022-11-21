@@ -1,3 +1,6 @@
+# Release Notes 1.5.3.2
+###  Public beta version [Ada Yonath][(https://en.wikipedia.org/wiki/Ada_Yonath)]
+Bugs fixing ( on going menu disappearance)
 
 # Release Notes 1.5.3.1
 ###  Public beta version [Ada Yonath][(https://en.wikipedia.org/wiki/Ada_Yonath)]
