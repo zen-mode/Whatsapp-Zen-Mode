@@ -1,5 +1,6 @@
 # Whatsapp-Zen-Mode
-Zen Mode is a whatsapp chrome extension aims to improve your productivity and peace of mind in your daily work with Whatsapp Web. 
+Zen Mode is a whatsapp chrome extension aims to improve your productivity and peace of mind in your daily work with Whatsapp Web.
+See [ZenMode.com](https://www.zenmode.com/) & on [the chrome store](https://chrome.google.com/webstore/detail/zen-mode-for-whatsapp-bet/dbpmpbfpicojogpodnicpjomaojiiocp).
 
 # How does it work?
 Upon installation of the extension a small Zen Icon will appear near the conversation search bar
